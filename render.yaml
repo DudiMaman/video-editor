@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: video-editor
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: APP_PASSWORD
+        sync: false
+      - key: CLAUDE_MODEL
+        value: claude-sonnet-5
+      - key: FFMPEG_WORKERS
+        value: "1"

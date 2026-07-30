@@ -1,9 +1,12 @@
+import base64
 import logging
+import secrets
 import shutil
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 from fastapi.staticfiles import StaticFiles
 
 from . import config, db
@@ -29,6 +32,29 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+if config.APP_PASSWORD:
+    # Optional password gate for public deployments (any username, HTTP Basic).
+    # /api/health stays open for platform health checks.
+    @app.middleware("http")
+    async def basic_auth(request: Request, call_next):
+        if request.url.path != "/api/health":
+            header = request.headers.get("authorization", "")
+            ok = False
+            if header.startswith("Basic "):
+                try:
+                    decoded = base64.b64decode(header[6:]).decode()
+                    _, _, password = decoded.partition(":")
+                    ok = secrets.compare_digest(password, config.APP_PASSWORD)
+                except (ValueError, UnicodeDecodeError):
+                    ok = False
+            if not ok:
+                return Response(
+                    status_code=401,
+                    headers={"WWW-Authenticate": 'Basic realm="video-editor"'},
+                )
+        return await call_next(request)
+
 
 app.include_router(assets.router, prefix="/api")
 app.include_router(batches.router, prefix="/api")

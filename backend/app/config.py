@@ -14,6 +14,7 @@ FRAMES_DIR = DATA_DIR / "frames"
 DB_PATH = DATA_DIR / "app.db"
 
 CLAUDE_MODEL = os.environ.get("CLAUDE_MODEL") or "claude-sonnet-5"
+APP_PASSWORD = os.environ.get("APP_PASSWORD") or ""
 FFMPEG_WORKERS = int(os.environ.get("FFMPEG_WORKERS") or "2")
 CAPTION_MOCK = os.environ.get("CAPTION_MOCK") == "1"
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY") or ""
