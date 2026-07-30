@@ -34,6 +34,7 @@ export const STR = {
     errMissingSource: 'יש לבחור קובץ או להזין לינק בכל השורות',
     errMissingCut: 'יש להזין שניית חיתוך גדולה מ-0 בכל השורות',
     sentOk: 'הבאצ׳ נשלח! העיבוד התחיל.',
+    sentOkGithub: 'הבאצ׳ נשלח! העיבוד רץ ב-GitHub Actions — התוצאות יופיעו בטאב התוצאות בעוד כמה דקות.',
   },
   results: {
     empty: 'אין עדיין תוצאות. שלח באצ׳ מהטאב "עיבוד חדש".',
@@ -44,6 +45,7 @@ export const STR = {
     recaption: 'צור כיתוב מחדש',
     captionMissing: 'אין כיתוב (ניתן לנסות שוב)',
     refresh: 'רענן',
+    pendingBatch: 'באצ׳ בעיבוד',
   },
   assets: {
     title: 'ניהול אפליקציות',
@@ -65,5 +67,24 @@ export const STR = {
   },
   errors: {
     generic: 'שגיאה: ',
+  },
+  github: {
+    settingsTitle: 'חיבור ל-GitHub',
+    tokenExplain:
+      'צפייה בתוצאות פתוחה לכולם, אבל שליחת סרטונים וניהול אפליקציות דורשים ' +
+      'טוקן אישי של GitHub (נשמר רק בדפדפן שלך). יוצרים אותו פעם אחת:',
+    createToken: 'יצירת טוקן חדש',
+    tokenStep1: '(Fine-grained token) — תחת "Repository access" בחר "Only select repositories" ואת הריפו הזה.',
+    tokenStep2: 'תחת "Permissions → Repository permissions" תן הרשאת Read and write ל-Contents ול-Actions.',
+    tokenStep3: 'צור את הטוקן, העתק אותו והדבק כאן.',
+    tokenSet: 'טוקן שמור ✓ — אפשר לשלוח סרטונים ולנהל אפליקציות',
+    tokenMissing: 'אין טוקן שמור — אפשר רק לצפות בתוצאות',
+    saveToken: 'שמור',
+    clearToken: 'נתק',
+    close: 'סגור',
+    needToken: 'נדרש טוקן GitHub — לחץ על ⚙ למעלה והדבק טוקן',
+    runFailed: 'הריצה נכשלה — פתח את הלוג ב-GitHub לפרטים',
+    viewLog: 'צפה בלוג הריצה ↗',
+    captionFailed: 'יצירת הכיתוב נכשלה',
   },
 }

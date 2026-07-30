@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { STR } from '../strings.js'
-import { postForm, del } from '../api.js'
+import { backend } from '../backend/index.js'
 
 export default function OutroManager({ asset, onChanged }) {
   const [error, setError] = useState('')
@@ -13,9 +13,7 @@ export default function OutroManager({ asset, onChanged }) {
     setUploading(true)
     setError('')
     try {
-      const fd = new FormData()
-      fd.append('file', file)
-      await postForm(`/api/assets/${asset.id}/outros`, fd)
+      await backend.uploadOutro(asset.id, file)
       onChanged()
     } catch (err) {
       setError(err.message)
@@ -25,10 +23,10 @@ export default function OutroManager({ asset, onChanged }) {
     }
   }
 
-  const remove = async (outroId) => {
+  const remove = async (outro) => {
     if (!confirm(STR.assets.confirmDeleteOutro)) return
     try {
-      await del(`/api/outros/${outroId}`)
+      await backend.deleteOutro(outro)
       onChanged()
     } catch (e) {
       setError(e.message)
@@ -42,10 +40,10 @@ export default function OutroManager({ asset, onChanged }) {
       <div className="outro-list">
         {asset.outros.map((o) => (
           <div key={o.id} className="outro-item">
-            <video controls preload="metadata" src={`/api/outros/${o.id}/file`} />
+            <video controls preload="metadata" src={backend.outroUrl(o)} />
             <div className="outro-meta">
               <span dir="ltr">{o.original_name}</span>
-              <button className="danger small" onClick={() => remove(o.id)}>
+              <button className="danger small" onClick={() => remove(o)}>
                 {STR.assets.deleteOutro}
               </button>
             </div>

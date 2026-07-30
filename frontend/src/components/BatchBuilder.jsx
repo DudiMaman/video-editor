@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { STR } from '../strings.js'
-import { get, postForm } from '../api.js'
+import { backend } from '../backend/index.js'
 import RequestRow from './RequestRow.jsx'
 
 let nextKey = 1
@@ -22,7 +22,7 @@ export default function BatchBuilder({ active, onSent }) {
   const [ok, setOk] = useState('')
 
   useEffect(() => {
-    if (active) get('/api/assets').then(setAssets).catch((e) => setError(e.message))
+    if (active) backend.listAssets().then(setAssets).catch((e) => setError(e.message))
   }, [active])
 
   const updateRow = (key, patch) => {
@@ -50,23 +50,9 @@ export default function BatchBuilder({ active, onSent }) {
     setError('')
     setSending(true)
     try {
-      const fd = new FormData()
-      const payload = rows.map((r, i) => ({
-        asset_id: Number(r.assetId),
-        outro_id: Number(r.outroId),
-        cut_seconds: parseFloat(r.cutSeconds),
-        source_type: r.sourceType,
-        ...(r.sourceType === 'url'
-          ? { source_url: r.url.trim() }
-          : { file_key: `file_${i}` }),
-      }))
-      rows.forEach((r, i) => {
-        if (r.sourceType === 'upload') fd.append(`file_${i}`, r.file)
-      })
-      fd.append('requests', JSON.stringify(payload))
-      await postForm('/api/batches', fd)
+      await backend.submitBatch(rows)
       setRows([emptyRow()])
-      setOk(STR.batch.sentOk)
+      setOk(backend.mode === 'github' ? STR.batch.sentOkGithub : STR.batch.sentOk)
       onSent()
     } catch (e) {
       setError(e.message)

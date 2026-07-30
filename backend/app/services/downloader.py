@@ -16,6 +16,7 @@ def download(url: str, dest_dir: Path) -> Path:
         "format": "bv*+ba/b",
         "merge_output_format": "mp4",
         "quiet": True,
+        "noprogress": True,
         "no_warnings": True,
         "noplaylist": True,
     }

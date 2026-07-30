@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { STR } from '../strings.js'
-import { get } from '../api.js'
+import { backend } from '../backend/index.js'
 import ResultCard from './ResultCard.jsx'
 
 const ACTIVE_STATUSES = ['queued', 'downloading', 'processing', 'captioning']
@@ -13,7 +13,7 @@ export default function ResultsTab({ active }) {
 
   const refresh = useCallback(async () => {
     try {
-      const data = await get('/api/batches')
+      const data = await backend.listBatches()
       setBatches(data)
       setError('')
       return data
@@ -28,7 +28,7 @@ export default function ResultsTab({ active }) {
       clearInterval(timer.current)
       return
     }
-    get('/api/assets').then(setAssets).catch(() => {})
+    backend.listAssets().then(setAssets).catch(() => {})
     refresh()
     timer.current = setInterval(async () => {
       const data = await refresh()
@@ -36,11 +36,14 @@ export default function ResultsTab({ active }) {
         b.requests.some((r) => ACTIVE_STATUSES.includes(r.status))
       )
       if (!anyActive) clearInterval(timer.current)
-    }, 2500)
+    }, backend.pollInterval())
     return () => clearInterval(timer.current)
   }, [active, refresh])
 
-  const assetName = (id) => assets.find((a) => a.id === id)?.name || `#${id}`
+  const assetName = (id) =>
+    id == null
+      ? STR.results.pendingBatch
+      : assets.find((a) => String(a.id) === String(id))?.name || `#${id}`
 
   if (batches.length === 0) {
     return (
@@ -65,7 +68,12 @@ export default function ResultsTab({ active }) {
           </h2>
           <div className="cards">
             {b.requests.map((r) => (
-              <ResultCard key={r.id} request={r} assetName={assetName(r.asset_id)} onChanged={refresh} />
+              <ResultCard
+                key={r.id}
+                request={r}
+                assetName={assetName(r.asset_id)}
+                onChanged={refresh}
+              />
             ))}
           </div>
         </section>

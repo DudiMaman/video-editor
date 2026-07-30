@@ -1,0 +1,47 @@
+name: process-videos
+
+on:
+  workflow_dispatch:
+    inputs:
+      requests:
+        description: 'JSON array of processing requests (asset, outro, cut_seconds, source_url/source_path)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+
+      - name: Install Python dependencies
+        run: pip install yt-dlp anthropic python-dotenv
+
+      - name: Process batch
+        env:
+          REQUESTS_JSON: ${{ inputs.requests }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/process_batch.py --out out
+
+      - name: Publish results as a release
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ls out/video_*.mp4 >/dev/null 2>&1; then
+            gh release create "batch-${{ github.run_number }}" out/video_*.mp4 out/summary.json \
+              --title "באצ' ${{ github.run_number }}" \
+              --notes-file out/notes.md
+          else
+            echo "no videos were produced - skipping release"
+          fi

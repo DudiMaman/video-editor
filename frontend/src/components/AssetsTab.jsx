@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { STR } from '../strings.js'
-import { get, post, put, del } from '../api.js'
+import { backend } from '../backend/index.js'
 import OutroManager from './OutroManager.jsx'
 
 const emptyForm = { name: '', description: '', link: '', hashtags: '' }
@@ -22,7 +22,7 @@ function AssetEditor({ asset, onSaved, onDeleted }) {
 
   const save = async () => {
     try {
-      await put(`/api/assets/${asset.id}`, form)
+      await backend.updateAsset(asset.id, form)
       setSaved(true)
       setError('')
       setTimeout(() => setSaved(false), 1500)
@@ -35,7 +35,7 @@ function AssetEditor({ asset, onSaved, onDeleted }) {
   const remove = async () => {
     if (!confirm(STR.assets.confirmDelete)) return
     try {
-      await del(`/api/assets/${asset.id}`)
+      await backend.deleteAsset(asset.id)
       onDeleted()
     } catch (e) {
       setError(e.message)
@@ -80,7 +80,7 @@ export default function AssetsTab({ active }) {
   const [error, setError] = useState('')
 
   const refresh = () =>
-    get('/api/assets').then(setAssets).catch((e) => setError(e.message))
+    backend.listAssets().then(setAssets).catch((e) => setError(e.message))
 
   useEffect(() => {
     if (active) refresh()
@@ -89,7 +89,7 @@ export default function AssetsTab({ active }) {
   const create = async () => {
     if (!form.name.trim()) return
     try {
-      await post('/api/assets', form)
+      await backend.createAsset(form)
       setForm(emptyForm)
       setError('')
       refresh()

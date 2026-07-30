@@ -1,13 +1,18 @@
 import { useState } from 'react'
 import { STR } from './strings.js'
+import { backend } from './backend/index.js'
 import BatchBuilder from './components/BatchBuilder.jsx'
 import ResultsTab from './components/ResultsTab.jsx'
 import AssetsTab from './components/AssetsTab.jsx'
+import TokenPanel from './components/TokenPanel.jsx'
 
 const TABS = ['batch', 'results', 'assets']
 
 export default function App() {
   const [tab, setTab] = useState('batch')
+  const [showSettings, setShowSettings] = useState(
+    backend.mode === 'github' && !backend.hasToken()
+  )
 
   return (
     <div className="app">
@@ -23,9 +28,19 @@ export default function App() {
               {STR.tabs[t]}
             </button>
           ))}
+          {backend.mode === 'github' && (
+            <button
+              className={'tab' + (showSettings ? ' active' : '')}
+              onClick={() => setShowSettings((v) => !v)}
+              title={STR.github.settingsTitle}
+            >
+              ⚙
+            </button>
+          )}
         </nav>
       </header>
       <main>
+        {showSettings && <TokenPanel onClose={() => setShowSettings(false)} />}
         <div hidden={tab !== 'batch'}>
           <BatchBuilder active={tab === 'batch'} onSent={() => setTab('results')} />
         </div>

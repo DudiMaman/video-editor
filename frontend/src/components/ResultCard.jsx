@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { STR } from '../strings.js'
-import { post } from '../api.js'
+import { backend } from '../backend/index.js'
 
 export default function ResultCard({ request, assetName, onChanged }) {
   const [copied, setCopied] = useState(false)
@@ -14,7 +14,7 @@ export default function ResultCard({ request, assetName, onChanged }) {
 
   const recaption = async () => {
     try {
-      await post(`/api/requests/${r.id}/recaption`)
+      await backend.recaption(r)
       onChanged()
     } catch (e) {
       alert(e.message)
@@ -25,7 +25,9 @@ export default function ResultCard({ request, assetName, onChanged }) {
     <div className={`card result-card status-${r.status}`}>
       <div className="result-head">
         <strong>{assetName}</strong>
-        <span className="muted" dir="ltr">✂ {r.cut_seconds}s</span>
+        {r.cut_seconds != null && (
+          <span className="muted" dir="ltr">✂ {r.cut_seconds}s</span>
+        )}
         <span className={`badge badge-${r.status}`}>{STR.status[r.status]}</span>
       </div>
 
@@ -33,13 +35,21 @@ export default function ResultCard({ request, assetName, onChanged }) {
         <p className="muted source-url" dir="ltr">{r.source_url}</p>
       )}
 
-      {r.error && <p className={r.status === 'failed' ? 'error' : 'warning'}>{r.error}</p>}
+      {r.error && (
+        <p className={r.status === 'failed' ? 'error' : 'warning'}>{r.error}</p>
+      )}
+
+      {r._runUrl && (
+        <a href={r._runUrl} target="_blank" rel="noreferrer" className="muted">
+          {STR.github.viewLog}
+        </a>
+      )}
 
       {r.status === 'done' && r.has_output && (
         <>
-          <video controls preload="metadata" src={`/api/requests/${r.id}/video`} />
+          <video controls preload="metadata" src={backend.videoUrl(r)} />
           <div className="result-actions">
-            <a className="button secondary" href={`/api/requests/${r.id}/video?download=1`}>
+            <a className="button secondary" href={backend.downloadUrl(r)}>
               {STR.results.download}
             </a>
             {r.caption ? (
@@ -47,9 +57,11 @@ export default function ResultCard({ request, assetName, onChanged }) {
                 {copied ? STR.results.copied : STR.results.copyCaption}
               </button>
             ) : (
-              <button className="secondary" onClick={recaption}>
-                {STR.results.recaption}
-              </button>
+              backend.supportsRecaption && (
+                <button className="secondary" onClick={recaption}>
+                  {STR.results.recaption}
+                </button>
+              )
             )}
           </div>
           {r.caption ? (

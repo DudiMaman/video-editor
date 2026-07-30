@@ -1,11 +1,11 @@
 import { STR } from '../strings.js'
 
 export default function RequestRow({ row, assets, onChange, onRemove }) {
-  const asset = assets.find((a) => a.id === Number(row.assetId))
+  const asset = assets.find((a) => String(a.id) === String(row.assetId))
   const outros = asset ? asset.outros : []
 
   const pickAsset = (assetId) => {
-    const a = assets.find((x) => x.id === Number(assetId))
+    const a = assets.find((x) => String(x.id) === String(assetId))
     const onlyOutro = a && a.outros.length === 1 ? String(a.outros[0].id) : ''
     onChange({ assetId, outroId: onlyOutro })
   }

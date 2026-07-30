@@ -309,3 +309,28 @@ button.small {
 .new-asset h3 {
   margin-block-start: 0;
 }
+
+.token-panel h3 {
+  margin-block-start: 0;
+}
+
+.token-steps {
+  padding-inline-start: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.token-steps li {
+  margin-block-end: 0.3rem;
+}
+
+.token-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.token-row input {
+  flex: 1;
+  min-width: 220px;
+}

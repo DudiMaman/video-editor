@@ -4,9 +4,9 @@ Falls back to a deterministic mock caption when no API key is configured so
 the whole pipeline works offline.
 """
 import base64
-import sqlite3
 import time
 from pathlib import Path
+from typing import Mapping
 
 from .. import config
 
@@ -45,7 +45,7 @@ def _get_client():
     return _client
 
 
-def _mock_caption(asset: sqlite3.Row) -> str:
+def _mock_caption(asset: Mapping) -> str:
     parts = [
         f"🔥 You have to see what {asset['name']} can do!",
         "Tap the link and try it today 👇",
@@ -58,7 +58,7 @@ def _mock_caption(asset: sqlite3.Row) -> str:
     return "\n".join(parts)
 
 
-def generate_caption(frame_paths: list[Path], asset: sqlite3.Row) -> str:
+def generate_caption(frame_paths: list[Path], asset: Mapping) -> str:
     if config.CAPTION_MOCK or not config.ANTHROPIC_API_KEY:
         return _mock_caption(asset)
 
