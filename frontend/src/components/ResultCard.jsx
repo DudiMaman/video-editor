@@ -5,7 +5,18 @@ import ShareBar from './ShareBar.jsx'
 
 export default function ResultCard({ request, assetName, onChanged }) {
   const [copied, setCopied] = useState(false)
+  const [downloading, setDownloading] = useState(false)
   const r = request
+
+  // Controlled single-shot download: a plain <a href> can fire the download
+  // twice on some browser/redirect combinations, so navigate programmatically
+  // and debounce repeat clicks.
+  const download = () => {
+    if (downloading) return
+    setDownloading(true)
+    window.location.assign(backend.downloadUrl(r))
+    setTimeout(() => setDownloading(false), 2500)
+  }
 
   const copy = async () => {
     await navigator.clipboard.writeText(r.caption)
@@ -50,9 +61,9 @@ export default function ResultCard({ request, assetName, onChanged }) {
         <>
           <video controls preload="metadata" src={backend.videoUrl(r)} />
           <div className="result-actions">
-            <a className="button secondary" href={backend.downloadUrl(r)}>
+            <button className="secondary" onClick={download} disabled={downloading}>
               {STR.results.download}
-            </a>
+            </button>
             {r.caption ? (
               <button className="secondary" onClick={copy}>
                 {copied ? STR.results.copied : STR.results.copyCaption}
