@@ -7,6 +7,9 @@ on:
         description: 'JSON array of processing requests (asset, outro, cut_seconds, source_url/source_path)'
         required: true
         type: string
+  push:
+    branches: [main]
+    paths: ['queue.json']
 
 permissions:
   contents: write
@@ -31,7 +34,16 @@ jobs:
         env:
           REQUESTS_JSON: ${{ inputs.requests }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: python scripts/process_batch.py --out out
+        run: |
+          if [ -z "$REQUESTS_JSON" ] && [ -f queue.json ]; then
+            REQUESTS_JSON="$(cat queue.json)"
+            export REQUESTS_JSON
+          fi
+          if [ -z "$REQUESTS_JSON" ] || [ "$(echo "$REQUESTS_JSON" | tr -d ' \n')" = "[]" ]; then
+            echo "queue is empty - nothing to process"
+            exit 0
+          fi
+          python scripts/process_batch.py --out out
 
       - name: Publish results as a release
         if: always()
