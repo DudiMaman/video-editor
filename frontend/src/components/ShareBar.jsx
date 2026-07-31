@@ -51,14 +51,10 @@ export default function ShareBar({ request }) {
       } catch { /* clipboard may be blocked; caption is still visible below */ }
     }
     // Open the platform tab first — window.open needs the click's user
-    // activation, while the same-origin download link works without it.
+    // activation; the attachment-disposition URL then downloads without
+    // navigating away.
     window.open(p.url, '_blank', 'noopener')
-    const a = document.createElement('a')
-    a.href = backend.downloadUrl(r)
-    a.download = 'video.mp4'
-    document.body.appendChild(a)
-    a.click()
-    a.remove()
+    window.location.assign(backend.downloadUrl(r))
     flash(r.caption ? STR.share.openedWithCaption : STR.share.opened)
   }
 
