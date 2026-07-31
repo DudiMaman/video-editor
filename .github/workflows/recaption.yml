@@ -1,0 +1,32 @@
+name: recaption
+
+on:
+  push:
+    branches: [main]
+    paths: ['recaption.json']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  recaption:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+
+      - name: Install Python dependencies
+        run: pip install anthropic python-dotenv yt-dlp
+
+      - name: Update release captions
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/recaption.py

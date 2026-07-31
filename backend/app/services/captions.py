@@ -54,8 +54,11 @@ def _mock_caption(asset: Mapping) -> str:
         parts.append(asset["link"])
     if asset["hashtags"]:
         parts.append(asset["hashtags"])
-    parts.append("[MOCK]")
     return "\n".join(parts)
+
+
+def is_mock_mode() -> bool:
+    return config.CAPTION_MOCK or not config.ANTHROPIC_API_KEY
 
 
 def generate_caption(frame_paths: list[Path], asset: Mapping) -> str:
