@@ -45,5 +45,11 @@ export function create() {
     videoUrl: (r) => `/api/requests/${r.id}/video`,
     downloadUrl: (r) => `/api/requests/${r.id}/video?download=1`,
     recaption: (r) => post(`/api/requests/${r.id}/recaption`),
+
+    fetchVideoBlob: async (r) => {
+      const res = await fetch(`/api/requests/${r.id}/video`)
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      return res.blob()
+    },
   }
 }

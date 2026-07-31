@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { STR } from '../strings.js'
 import { backend } from '../backend/index.js'
+import ShareBar from './ShareBar.jsx'
 
 export default function ResultCard({ request, assetName, onChanged }) {
   const [copied, setCopied] = useState(false)
@@ -69,6 +70,7 @@ export default function ResultCard({ request, assetName, onChanged }) {
           ) : (
             <p className="muted">{STR.results.captionMissing}</p>
           )}
+          <ShareBar request={r} />
         </>
       )}
     </div>

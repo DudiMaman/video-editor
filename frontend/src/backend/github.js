@@ -121,10 +121,11 @@ export function create(params) {
 
   function toRequest(entry, rel) {
     const byName = Object.fromEntries(
-      (rel.assets || []).map((a) => [a.name, a.browser_download_url])
+      (rel.assets || []).map((a) => [a.name, a])
     )
     const req = entry.request || {}
-    const videoUrl = entry.video ? byName[entry.video] : null
+    const asset = entry.video ? byName[entry.video] : null
+    const videoUrl = asset ? asset.browser_download_url : null
     return {
       id: `${rel.tag_name}-${entry.index}`,
       asset_id: req.asset ?? null,
@@ -137,6 +138,7 @@ export function create(params) {
       caption: entry.caption,
       has_output: !!videoUrl,
       _videoUrl: videoUrl,
+      _assetApiUrl: asset ? asset.url : null,
     }
   }
 
@@ -284,5 +286,23 @@ export function create(params) {
     videoUrl: (r) => r._videoUrl,
     downloadUrl: (r) => r._videoUrl,
     recaption: () => Promise.reject(new Error('not supported')),
+
+    // Fetch the finished video as a Blob for the Web Share API. The plain
+    // download URL usually lacks CORS headers, so fall back to the GitHub API
+    // asset endpoint with an octet-stream Accept header.
+    fetchVideoBlob: async (r) => {
+      try {
+        const res = await fetch(r._videoUrl)
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        return await res.blob()
+      } catch {
+        if (!r._assetApiUrl) throw new Error('no asset url')
+        const headers = { Accept: 'application/octet-stream' }
+        if (token()) headers.Authorization = `Bearer ${token()}`
+        const res = await fetch(r._assetApiUrl, { headers })
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        return await res.blob()
+      }
+    },
   }
 }

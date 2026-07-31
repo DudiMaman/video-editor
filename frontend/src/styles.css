@@ -334,3 +334,20 @@ button.small {
   flex: 1;
   min-width: 220px;
 }
+
+.share-bar {
+  margin-block-start: 0.6rem;
+  border-block-start: 1px solid #eee;
+  padding-block-start: 0.6rem;
+}
+
+.share-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.share-hint {
+  margin-block-start: 0.4rem;
+}
