@@ -29,9 +29,11 @@
 
 ### הפעלה ראשונית (פעם אחת)
 
-1. **מפתח API**: בריפו — Settings → Secrets and variables → Actions →
-   New repository secret → שם: `ANTHROPIC_API_KEY`, ערך: המפתח שלך.
-   (בלעדיו יופקו כיתובי דמה.)
+1. **מפתח API לכיתובים חכמים**: באתר עצמו — פתחו את ההגדרות (⚙) והדביקו
+   מפתח Anthropic API (מ-console.anthropic.com) במקטע "כיתובים חכמים".
+   המפתח נשמר רק בדפדפן; טאב התוצאות ייצור אוטומטית כיתוב ייחודי לכל
+   סרטון לפי הפריימים שלו. (חלופה מתקדמת: secret בריפו בשם
+   `ANTHROPIC_API_KEY` — ואז הכיתובים נוצרים כבר בזמן העיבוד ב-Actions.)
 2. **הפעלת האתר**: Settings → Pages → תחת "Build and deployment" לבחור
    Source: **Deploy from a branch**, ואז Branch: **gh-pages** ותיקייה
    `/ (root)` → Save. תוך דקה-שתיים האתר יעלה לכתובת למעלה.

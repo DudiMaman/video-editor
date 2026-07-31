@@ -192,6 +192,7 @@ export function create(params) {
     const req = entry.request || {}
     const asset = entry.video ? byName[entry.video] : null
     const videoUrl = asset ? asset.browser_download_url : null
+    const hasIntro = !!req.intro
     return {
       id: `${rel.tag_name}-${entry.index}`,
       asset_id: req.asset ?? null,
@@ -205,7 +206,34 @@ export function create(params) {
       has_output: !!videoUrl,
       _videoUrl: videoUrl,
       _assetApiUrl: asset ? asset.url : null,
+      _videoName: entry.video || null,
+      _hasIntro: hasIntro,
     }
+  }
+
+  // Mirrors scripts/process_batch.py build_notes (without the mock warning).
+  function buildNotes(entries, assetsById) {
+    const lines = ['## תוצרים\n']
+    for (const e of entries) {
+      const req = e.request || {}
+      const name = assetsById[String(req.asset)]?.name || req.asset
+      const source = req.source_url || req.source_path || ''
+      if (e.status === 'done') {
+        lines.push(`### ✅ ${name} — חיתוך בשניה ${req.cut_seconds}`)
+        lines.push(`מקור: \`${source}\` · קובץ: **${e.video}**\n`)
+        if (e.caption) lines.push('```\n' + e.caption + '\n```\n')
+        else if (e.caption_error) lines.push(`⚠️ יצירת הכיתוב נכשלה: ${e.caption_error}\n`)
+      } else {
+        lines.push(`### ❌ ${name} — חיתוך בשניה ${req.cut_seconds}`)
+        lines.push(`מקור: \`${source}\``)
+        lines.push(`שגיאה: ${e.error}\n`)
+      }
+    }
+    lines.push('<!-- machine-readable -->')
+    lines.push('```json')
+    lines.push(JSON.stringify(entries, null, 1))
+    lines.push('```')
+    return lines.join('\n')
   }
 
   const fmtDate = (iso) => (iso ? iso.replace('T', ' ').replace(/Z|\.\d+.*$/, '') : '')
@@ -292,10 +320,12 @@ export function create(params) {
       const batches = []
       for (const rel of (releases || []).filter((r) => r.tag_name.startsWith('batch-'))) {
         let requests = []
+        let entries = []
         const m = (rel.body || '').match(/```json\s*([\s\S]*?)```/)
         if (m) {
           try {
-            requests = JSON.parse(m[1]).map((e) => toRequest(e, rel))
+            entries = JSON.parse(m[1])
+            requests = entries.map((e) => toRequest(e, rel))
           } catch { /* release without machine data */ }
         }
         batches.push({
@@ -303,6 +333,8 @@ export function create(params) {
           created_at: fmtDate(rel.published_at),
           requests,
           _mockCaptions: /\[MOCK\]|מצב דמה/.test(rel.body || ''),
+          _releaseId: rel.id,
+          _entries: entries,
         })
       }
       const seen = new Set(batches.map((b) => String(b.id)))
@@ -334,6 +366,24 @@ export function create(params) {
     videoUrl: (r) => r._videoUrl,
     downloadUrl: (r) => r._videoUrl,
     recaption: () => Promise.reject(new Error('not supported')),
+
+    // Write new captions into an existing batch release (body + json block).
+    applyCaptions: async (batch, captionsByVideo) => {
+      requireToken()
+      const entries = batch._entries || []
+      for (const e of entries) {
+        if (e.video && captionsByVideo[e.video]) {
+          e.caption = captionsByVideo[e.video]
+          e.caption_error = null
+        }
+      }
+      const { assets } = await readAssetsFile()
+      const byId = Object.fromEntries(assets.map((a) => [String(a.id), a]))
+      await gh(`/releases/${batch._releaseId}`, {
+        method: 'PATCH',
+        body: { body: buildNotes(entries, byId) },
+      })
+    },
 
     // Fetch the finished video as a Blob for the Web Share API. The plain
     // download URL usually lacks CORS headers, so fall back to the GitHub API

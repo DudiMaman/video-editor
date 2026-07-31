@@ -1,10 +1,17 @@
 import { useState } from 'react'
 import { STR } from '../strings.js'
 import { backend } from '../backend/index.js'
+import {
+  getAnthropicKey,
+  setAnthropicKey,
+  clearAnthropicKey,
+} from '../captionsClient.js'
 
 export default function TokenPanel({ onClose }) {
   const [value, setValue] = useState('')
   const [hasToken, setHasToken] = useState(backend.hasToken())
+  const [keyValue, setKeyValue] = useState('')
+  const [hasKey, setHasKey] = useState(!!getAnthropicKey())
 
   const save = () => {
     if (!value.trim()) return
@@ -16,6 +23,18 @@ export default function TokenPanel({ onClose }) {
   const clear = () => {
     backend.clearToken()
     setHasToken(false)
+  }
+
+  const saveKey = () => {
+    if (!keyValue.trim()) return
+    setAnthropicKey(keyValue)
+    setKeyValue('')
+    setHasKey(true)
+  }
+
+  const clearKey = () => {
+    clearAnthropicKey()
+    setHasKey(false)
   }
 
   return (
@@ -54,6 +73,30 @@ export default function TokenPanel({ onClose }) {
         <button className="secondary" onClick={onClose}>
           {STR.github.close}
         </button>
+      </div>
+
+      <hr className="panel-divider" />
+      <h3>{STR.captions.settingsTitle}</h3>
+      <p className="hint">{STR.captions.keyExplain}</p>
+      <p className={hasKey ? 'ok' : 'warning'}>
+        {hasKey ? STR.captions.keySet : STR.captions.keyMissing}
+      </p>
+      <div className="token-row">
+        <input
+          type="password"
+          dir="ltr"
+          placeholder="sk-ant-..."
+          value={keyValue}
+          onChange={(e) => setKeyValue(e.target.value)}
+        />
+        <button className="primary" onClick={saveKey} disabled={!keyValue.trim()}>
+          {STR.github.saveToken}
+        </button>
+        {hasKey && (
+          <button className="danger" onClick={clearKey}>
+            {STR.github.clearToken}
+          </button>
+        )}
       </div>
     </div>
   )
