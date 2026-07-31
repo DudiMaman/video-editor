@@ -1,10 +1,12 @@
 [
  {
   "id": "sample",
-  "name": "אפליקציית דוגמה",
-  "description": "Sample app for testing the pipeline. A colorful, playful demo application.",
-  "link": "https://example.com/app",
-  "hashtags": "#demo #app",
-  "outros": ["outros/sample/sample-outro.mp4"]
+  "name": "Planty",
+  "description": "Identify any plant in seconds. Get personalized care plans, watering reminders, and save unlimited plants to My Garden. Start your free trial today.\nSimply scan any plant, flower, or tree with your camera for instant plant ID. Our advanced plant identifier recognizes over 10,000+ species with just one photo. Perfect for gardeners, nature lovers, and plant parents!",
+  "link": "https://planty-app.com/",
+  "hashtags": "#PlantIdentification #PlantIdentifier #PlantID #PlantCare #PlantTips #PlantTikTok #Houseplants #PlantLovers #GardeningTips #PlantyApp #WhatPlantIsThis #PlantIdentification #PlantID #PlantIdentifier #IdentifyPlants #PlantApp #NatureTok #PlantTikTok #PlantyApp",
+  "outros": [
+   "outros/sample/sample-outro.mp4"
+  ]
  }
 ]
