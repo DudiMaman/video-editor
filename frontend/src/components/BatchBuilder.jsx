@@ -74,6 +74,7 @@ export default function BatchBuilder({ active, onSent }) {
           row={row}
           assets={assets}
           onChange={(patch) => updateRow(row.key, patch)}
+          onAssetsChanged={() => backend.listAssets().then(setAssets)}
           onRemove={
             rows.length > 1
               ? () => setRows((rows) => rows.filter((r) => r.key !== row.key))

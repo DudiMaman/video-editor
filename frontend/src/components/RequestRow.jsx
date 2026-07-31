@@ -1,7 +1,10 @@
+import { useState } from 'react'
 import { STR } from '../strings.js'
 import { backend } from '../backend/index.js'
+import ClipPicker from './ClipPicker.jsx'
 
-export default function RequestRow({ row, assets, onChange, onRemove }) {
+export default function RequestRow({ row, assets, onChange, onRemove, onAssetsChanged }) {
+  const [openPicker, setOpenPicker] = useState(null) // 'outro' | 'intro' | null
   const asset = assets.find((a) => String(a.id) === String(row.assetId))
   const outros = asset ? asset.outros : []
   const intros = (asset && asset.intros) || []
@@ -11,7 +14,20 @@ export default function RequestRow({ row, assets, onChange, onRemove }) {
     const onlyOutro = a && a.outros.length === 1 ? String(a.outros[0].id) : ''
     const onlyIntro =
       a && (a.intros || []).length === 1 ? String(a.intros[0].id) : ''
+    setOpenPicker(null)
     onChange({ assetId, outroId: onlyOutro, introId: onlyIntro })
+  }
+
+  const clipName = (clips, id) =>
+    clips.find((c) => String(c.id) === String(id))?.original_name
+
+  const togglePicker = (kind) =>
+    setOpenPicker((cur) => (cur === kind ? null : kind))
+
+  const uploadFromPicker = async (kind, file) => {
+    if (kind === 'intro') await backend.uploadIntro(asset.id, file)
+    else await backend.uploadOutro(asset.id, file)
+    await onAssetsChanged()
   }
 
   return (
@@ -27,34 +43,28 @@ export default function RequestRow({ row, assets, onChange, onRemove }) {
           </select>
         </label>
 
-        <label>
-          {STR.batch.outro}
-          <select
-            value={row.outroId}
-            onChange={(e) => onChange({ outroId: e.target.value })}
+        <div className="picker-field">
+          <span className="picker-label">{STR.batch.outro}</span>
+          <button
+            className={'picker-trigger' + (openPicker === 'outro' ? ' active' : '')}
+            onClick={() => togglePicker('outro')}
             disabled={!asset}
           >
-            <option value="">{STR.batch.selectOutro}</option>
-            {outros.map((o) => (
-              <option key={o.id} value={o.id}>{o.original_name}</option>
-            ))}
-          </select>
-        </label>
+            {clipName(outros, row.outroId) || STR.batch.selectOutro} ▾
+          </button>
+        </div>
 
         {backend.supportsIntros && (
-          <label>
-            {STR.batch.intro}
-            <select
-              value={row.introId || ''}
-              onChange={(e) => onChange({ introId: e.target.value })}
+          <div className="picker-field">
+            <span className="picker-label">{STR.batch.intro}</span>
+            <button
+              className={'picker-trigger' + (openPicker === 'intro' ? ' active' : '')}
+              onClick={() => togglePicker('intro')}
               disabled={!asset}
             >
-              <option value="">{STR.batch.noIntro}</option>
-              {intros.map((o) => (
-                <option key={o.id} value={o.id}>{o.original_name}</option>
-              ))}
-            </select>
-          </label>
+              {clipName(intros, row.introId) || STR.batch.noIntro} ▾
+            </button>
+          </div>
         )}
 
         <div className="source-field">
@@ -101,6 +111,36 @@ export default function RequestRow({ row, assets, onChange, onRemove }) {
           />
         </label>
       </div>
+
+      {openPicker === 'outro' && asset && (
+        <ClipPicker
+          title={STR.batch.pickOutroTitle}
+          clips={outros}
+          value={row.outroId}
+          urlFor={(c) => backend.outroUrl(c)}
+          onPick={(id) => {
+            onChange({ outroId: id })
+            setOpenPicker(null)
+          }}
+          onUpload={(file) => uploadFromPicker('outro', file)}
+        />
+      )}
+      {openPicker === 'intro' && asset && (
+        <ClipPicker
+          title={STR.batch.pickIntroTitle}
+          clips={intros}
+          value={row.introId || ''}
+          allowNone
+          noneLabel={STR.batch.noIntro}
+          urlFor={(c) => backend.introUrl(c)}
+          onPick={(id) => {
+            onChange({ introId: id })
+            setOpenPicker(null)
+          }}
+          onUpload={(file) => uploadFromPicker('intro', file)}
+        />
+      )}
+
       {asset && outros.length === 0 && (
         <p className="warning">{STR.batch.noOutros}</p>
       )}
