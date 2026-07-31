@@ -77,8 +77,17 @@ def process_one(idx: int, req: dict, assets_by_id: dict, out_dir: Path, tmp_root
     return {"video": final.name, "caption": caption, "caption_error": caption_error}
 
 
-def build_notes(results: list[dict], assets_by_id: dict) -> str:
-    lines = ["## תוצרים\n"]
+def build_notes(results: list[dict], assets_by_id: dict, mock_warning: bool | None = None) -> str:
+    if mock_warning is None:
+        mock_warning = captions.is_mock_mode()
+    lines = []
+    if mock_warning and any(r.get("caption") for r in results):
+        lines.append(
+            "> ⚠️ הכיתובים נוצרו במצב דמה כי הסוד `ANTHROPIC_API_KEY` לא מוגדר "
+            "בריפו. הוסיפו אותו (Settings → Secrets → Actions) כדי לקבל כיתוב "
+            "ייחודי לפי תוכן הסרטון.\n"
+        )
+    lines.append("## תוצרים\n")
     for r in results:
         asset = assets_by_id.get(str(r["request"].get("asset")), {})
         name = asset.get("name", r["request"].get("asset"))
