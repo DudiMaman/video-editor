@@ -68,6 +68,15 @@ export const STR = {
   errors: {
     generic: 'שגיאה: ',
   },
+  share: {
+    share: '📤 שתף',
+    uploadTo: 'העלאה ל:',
+    openedWithCaption:
+      'הכיתוב הועתק והסרטון בהורדה — גרור את הקובץ לחלון ההעלאה שנפתח והדבק את הכיתוב',
+    opened: 'הסרטון בהורדה — גרור את הקובץ לחלון ההעלאה שנפתח',
+    unsupported:
+      'שיתוף ישיר לא נתמך בדפדפן הזה — השתמש בכפתורי הפלטפורמות (במובייל זה עובד הכי טוב)',
+  },
   github: {
     settingsTitle: 'חיבור ל-GitHub',
     tokenExplain:
