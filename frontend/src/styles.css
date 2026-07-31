@@ -454,3 +454,9 @@ button.small {
   font-weight: 600;
   color: #b06000;
 }
+
+.panel-divider {
+  border: none;
+  border-block-start: 1px solid #eee;
+  margin: 1rem 0;
+}
