@@ -54,11 +54,29 @@ export default function ResultsTab({ active }) {
     )
   }
 
+  const newestWithCaptions = batches.find((b) =>
+    b.requests.some((r) => r.caption)
+  )
+  const showMockAlert = backend.mode === 'github' && newestWithCaptions?._mockCaptions
+
   return (
     <div className="results">
       <button className="secondary refresh" onClick={refresh}>
         {STR.results.refresh}
       </button>
+      {showMockAlert && (
+        <div className="mock-alert">
+          <strong>{STR.results.mockAlertTitle}</strong>
+          <p>{STR.results.mockAlertBody}</p>
+          <a
+            href={`https://github.com/${backend.repo}/settings/secrets/actions`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {STR.results.mockAlertAction}
+          </a>
+        </div>
+      )}
       {error && <p className="error">{STR.errors.generic}{error}</p>}
       {batches.map((b) => (
         <section key={b.id} className="batch-section">

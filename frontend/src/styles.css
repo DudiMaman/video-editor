@@ -436,3 +436,21 @@ button.small {
   color: #666;
   font-weight: 600;
 }
+
+.mock-alert {
+  background: #fef7e0;
+  border: 1px solid #f9ab00;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  margin-block-end: 1rem;
+}
+
+.mock-alert p {
+  margin: 0.4rem 0;
+  font-size: 0.9rem;
+}
+
+.mock-alert a {
+  font-weight: 600;
+  color: #b06000;
+}

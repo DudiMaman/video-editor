@@ -142,6 +142,10 @@ def main() -> int:
     assets = json.loads(Path(args.assets_file).read_text(encoding="utf-8"))
     assets_by_id = {str(a["id"]): a for a in assets}
 
+    if captions.is_mock_mode():
+        print("WARNING: captions run in PLACEHOLDER mode - the ANTHROPIC_API_KEY "
+              "repository secret is not set", file=sys.stderr)
+
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
     results = []
