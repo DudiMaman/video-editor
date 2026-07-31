@@ -30,8 +30,10 @@
 1. **מפתח API**: בריפו — Settings → Secrets and variables → Actions →
    New repository secret → שם: `ANTHROPIC_API_KEY`, ערך: המפתח שלך.
    (בלעדיו יופקו כיתובי דמה.)
-2. **הפעלת האתר**: Settings → Pages → תחת Source לבחור **GitHub Actions**.
-   אחרי הדחיפה הראשונה ל-main האתר יעלה לכתובת למעלה.
+2. **הפעלת האתר**: Settings → Pages → תחת "Build and deployment" לבחור
+   Source: **Deploy from a branch**, ואז Branch: **gh-pages** ותיקייה
+   `/ (root)` → Save. תוך דקה-שתיים האתר יעלה לכתובת למעלה.
+   (ה-branch‏ gh-pages כבר קיים — ה-workflow מעדכן אותו בכל שינוי.)
 3. **טוקן אישי** (נדרש רק לשליחת סרטונים וניהול אפליקציות מהממשק —
    צפייה בתוצאות פתוחה בלי כלום): בכניסה הראשונה לאתר ייפתח מסך
    "חיבור ל-GitHub" עם הוראות — יוצרים
