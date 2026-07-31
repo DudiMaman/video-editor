@@ -1,13 +1,17 @@
 import { STR } from '../strings.js'
+import { backend } from '../backend/index.js'
 
 export default function RequestRow({ row, assets, onChange, onRemove }) {
   const asset = assets.find((a) => String(a.id) === String(row.assetId))
   const outros = asset ? asset.outros : []
+  const intros = (asset && asset.intros) || []
 
   const pickAsset = (assetId) => {
     const a = assets.find((x) => String(x.id) === String(assetId))
     const onlyOutro = a && a.outros.length === 1 ? String(a.outros[0].id) : ''
-    onChange({ assetId, outroId: onlyOutro })
+    const onlyIntro =
+      a && (a.intros || []).length === 1 ? String(a.intros[0].id) : ''
+    onChange({ assetId, outroId: onlyOutro, introId: onlyIntro })
   }
 
   return (
@@ -36,6 +40,22 @@ export default function RequestRow({ row, assets, onChange, onRemove }) {
             ))}
           </select>
         </label>
+
+        {backend.supportsIntros && (
+          <label>
+            {STR.batch.intro}
+            <select
+              value={row.introId || ''}
+              onChange={(e) => onChange({ introId: e.target.value })}
+              disabled={!asset}
+            >
+              <option value="">{STR.batch.noIntro}</option>
+              {intros.map((o) => (
+                <option key={o.id} value={o.id}>{o.original_name}</option>
+              ))}
+            </select>
+          </label>
+        )}
 
         <div className="source-field">
           <div className="source-toggle">

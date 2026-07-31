@@ -2,10 +2,15 @@ import { useRef, useState } from 'react'
 import { STR } from '../strings.js'
 import { backend } from '../backend/index.js'
 
-export default function OutroManager({ asset, onChanged }) {
+// Manages one clip library (outros or intros) for an asset.
+export default function OutroManager({ asset, onChanged, kind = 'outro' }) {
   const [error, setError] = useState('')
   const [uploading, setUploading] = useState(false)
   const fileInput = useRef(null)
+
+  const isIntro = kind === 'intro'
+  const clips = (isIntro ? asset.intros : asset.outros) || []
+  const S = isIntro ? STR.intros : STR.assets
 
   const upload = async (e) => {
     const file = e.target.files[0]
@@ -13,7 +18,8 @@ export default function OutroManager({ asset, onChanged }) {
     setUploading(true)
     setError('')
     try {
-      await backend.uploadOutro(asset.id, file)
+      if (isIntro) await backend.uploadIntro(asset.id, file)
+      else await backend.uploadOutro(asset.id, file)
       onChanged()
     } catch (err) {
       setError(err.message)
@@ -23,35 +29,39 @@ export default function OutroManager({ asset, onChanged }) {
     }
   }
 
-  const remove = async (outro) => {
-    if (!confirm(STR.assets.confirmDeleteOutro)) return
+  const remove = async (clip) => {
+    if (!confirm(S.confirmDeleteClip)) return
     try {
-      await backend.deleteOutro(outro)
+      if (isIntro) await backend.deleteIntro(clip)
+      else await backend.deleteOutro(clip)
       onChanged()
     } catch (e) {
       setError(e.message)
     }
   }
 
+  const clipUrl = (clip) =>
+    isIntro ? backend.introUrl(clip) : backend.outroUrl(clip)
+
   return (
     <div className="outro-manager">
-      <h4>{STR.assets.outros}</h4>
-      {asset.outros.length === 0 && <p className="muted">{STR.assets.noOutros}</p>}
+      <h4>{S.clipsTitle}</h4>
+      {clips.length === 0 && <p className="muted">{S.noClips}</p>}
       <div className="outro-list">
-        {asset.outros.map((o) => (
+        {clips.map((o) => (
           <div key={o.id} className="outro-item">
-            <video controls preload="metadata" src={backend.outroUrl(o)} />
+            <video controls preload="metadata" src={clipUrl(o)} />
             <div className="outro-meta">
               <span dir="ltr">{o.original_name}</span>
               <button className="danger small" onClick={() => remove(o)}>
-                {STR.assets.deleteOutro}
+                {S.deleteClip}
               </button>
             </div>
           </div>
         ))}
       </div>
       <label className="upload-label">
-        {uploading ? '...' : STR.assets.uploadOutro}
+        {uploading ? '...' : S.uploadClip}
         <input
           ref={fileInput}
           type="file"

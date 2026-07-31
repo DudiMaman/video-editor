@@ -5,6 +5,7 @@ export function create() {
   return {
     mode: 'local',
     supportsRecaption: true,
+    supportsIntros: false,
     pollInterval: () => 2500,
     hasToken: () => true,
     setToken: () => {},

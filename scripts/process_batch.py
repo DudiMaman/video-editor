@@ -10,6 +10,7 @@ A failed request never stops its siblings.
 Request shape:
   {"asset": "<asset id from assets.json>",
    "outro": "outros/<asset>/<file>",         # must be listed for that asset
+   "intro": "intros/<asset>/<file>",         # optional, prepended before the clip
    "cut_seconds": 7.5,
    "source_url": "https://..."}              # or "source_path": "inbox/..."
 """
@@ -38,6 +39,14 @@ def process_one(idx: int, req: dict, assets_by_id: dict, out_dir: Path, tmp_root
     outro_path = REPO_ROOT / outro_rel
     if not outro_path.exists():
         raise ValueError(f"outro file missing from repo: {outro_rel}")
+    intro_rel = req.get("intro") or ""
+    intro_path = None
+    if intro_rel:
+        if intro_rel not in asset.get("intros", []):
+            raise ValueError(f"intro {intro_rel!r} is not registered for asset {asset['id']!r}")
+        intro_path = REPO_ROOT / intro_rel
+        if not intro_path.exists():
+            raise ValueError(f"intro file missing from repo: {intro_rel}")
     cut = float(req.get("cut_seconds") or 0)
     if cut <= 0:
         raise ValueError("cut_seconds must be > 0")
@@ -63,8 +72,14 @@ def process_one(idx: int, req: dict, assets_by_id: dict, out_dir: Path, tmp_root
     outro_spec = ff.probe(outro_path)
     outro_norm = work / "outro_norm.mp4"
     ff.encode_canonical(outro_path, outro_norm, spec, outro_spec["has_audio"])
+    parts = [trimmed, outro_norm]
+    if intro_path is not None:
+        intro_spec = ff.probe(intro_path)
+        intro_norm = work / "intro_norm.mp4"
+        ff.encode_canonical(intro_path, intro_norm, spec, intro_spec["has_audio"])
+        parts.insert(0, intro_norm)
     final_tmp = work / "final.mp4"
-    ff.concat([trimmed, outro_norm], final_tmp)
+    ff.concat(parts, final_tmp)
     final = out_dir / f"video_{idx:02d}.mp4"
     shutil.move(final_tmp, final)
 
