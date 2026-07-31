@@ -302,6 +302,7 @@ export function create(params) {
           id: Number(rel.tag_name.replace('batch-', '')),
           created_at: fmtDate(rel.published_at),
           requests,
+          _mockCaptions: /\[MOCK\]|מצב דמה/.test(rel.body || ''),
         })
       }
       const seen = new Set(batches.map((b) => String(b.id)))

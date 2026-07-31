@@ -52,6 +52,13 @@ export const STR = {
     captionMissing: 'אין כיתוב (ניתן לנסות שוב)',
     refresh: 'רענן',
     pendingBatch: 'באצ׳ בעיבוד',
+    mockAlertTitle: '⚠️ הכיתובים נוצרים במצב דמה — כולם זהים',
+    mockAlertBody:
+      'הסוד ANTHROPIC_API_KEY לא מוגדר בריפו, ולכן המערכת לא יכולה לנתח את ' +
+      'הסרטונים וליצור כיתוב ייחודי לכל אחד. ההגדרה לוקחת חצי דקה: פתחו את ' +
+      'הקישור, לחצו "New repository secret", שם: ANTHROPIC_API_KEY, ערך: מפתח ' +
+      'ה-API שלכם מ-console.anthropic.com.',
+    mockAlertAction: 'פתח את הגדרת ה-Secrets בריפו ↗',
   },
   assets: {
     title: 'ניהול אפליקציות',
