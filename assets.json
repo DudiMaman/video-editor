@@ -1,1 +1,10 @@
-[]
+[
+ {
+  "id": "sample",
+  "name": "אפליקציית דוגמה",
+  "description": "Sample app for testing the pipeline. A colorful, playful demo application.",
+  "link": "https://example.com/app",
+  "hashtags": "#demo #app",
+  "outros": ["outros/sample/sample-outro.mp4"]
+ }
+]
