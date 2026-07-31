@@ -119,13 +119,16 @@ export function create(params) {
     }
   }
 
+  const toClip = (p) => ({ id: p, original_name: p.split('/').pop() })
+
   const toUiAsset = (a) => ({
     id: a.id,
     name: a.name,
     description: a.description || '',
     link: a.link || '',
     hashtags: a.hashtags || '',
-    outros: (a.outros || []).map((p) => ({ id: p, original_name: p.split('/').pop() })),
+    outros: (a.outros || []).map(toClip),
+    intros: (a.intros || []).map(toClip),
   })
 
   async function putFile(path, file, message) {
@@ -134,6 +137,52 @@ export function create(params) {
       method: 'PUT',
       body: { message, content: bytesToB64(bytes), branch: 'main' },
     })
+  }
+
+  // kind is 'outros' or 'intros' — both the repo directory and the registry
+  // key in assets.json.
+  async function uploadClip(kind, assetId, file) {
+    requireToken()
+    const path = `${kind}/${assetId}/${Date.now()}-${safeFileName(file.name)}`
+    await putFile(path, file, `Add ${kind} clip for ${assetId}`)
+    await mutateAssets((assets) => {
+      const a = assets.find((x) => String(x.id) === String(assetId))
+      if (!a) throw new Error('asset not found')
+      a[kind] = [...(a[kind] || []), path]
+    }, `Register ${kind} clip for ${assetId}`)
+  }
+
+  async function deleteClip(kind, clip) {
+    requireToken()
+    const path = clip.id
+    const parts = path.split('/')
+    const name = parts.pop()
+    const dir = parts.join('/')
+    // Find the file's sha via the directory listing — robust for large
+    // files, and lets us self-heal when the file is already gone.
+    let entry = null
+    try {
+      const listing = await gh(`/contents/${encodePath(dir)}?ref=main`)
+      entry = (Array.isArray(listing) ? listing : []).find((e) => e.name === name)
+    } catch (e) {
+      if (e.status !== 404) throw e
+    }
+    if (entry) {
+      await gh(`/contents/${encodePath(path)}`, {
+        method: 'DELETE',
+        body: { message: `Delete ${kind} clip ${path}`, sha: entry.sha, branch: 'main' },
+      })
+    }
+    // Unregister even when the file was already missing (ghost entry).
+    await mutateAssets((assets) => {
+      let changed = false
+      for (const a of assets) {
+        const before = (a[kind] || []).length
+        a[kind] = (a[kind] || []).filter((p) => p !== path)
+        if (a[kind].length !== before) changed = true
+      }
+      return changed ? undefined : false
+    }, `Unregister ${kind} clip ${path}`)
   }
 
   function toRequest(entry, rel) {
@@ -165,6 +214,7 @@ export function create(params) {
     mode: 'github',
     repo,
     supportsRecaption: false,
+    supportsIntros: true,
     pollInterval: () => (token() ? 15000 : 60000),
     hasToken: () => !!token(),
     setToken: (t) => localStorage.setItem(TOKEN_KEY, t.trim()),
@@ -202,51 +252,12 @@ export function create(params) {
       }, `Delete asset: ${id}`)
     },
 
-    uploadOutro: async (assetId, file) => {
-      requireToken()
-      const path = `outros/${assetId}/${Date.now()}-${safeFileName(file.name)}`
-      await putFile(path, file, `Add outro for ${assetId}`)
-      await mutateAssets((assets) => {
-        const a = assets.find((x) => String(x.id) === String(assetId))
-        if (!a) throw new Error('asset not found')
-        a.outros = [...(a.outros || []), path]
-      }, `Register outro for ${assetId}`)
-    },
-
-    deleteOutro: async (outro) => {
-      requireToken()
-      const path = outro.id
-      const parts = path.split('/')
-      const name = parts.pop()
-      const dir = parts.join('/')
-      // Find the file's sha via the directory listing — robust for large
-      // files, and lets us self-heal when the file is already gone.
-      let entry = null
-      try {
-        const listing = await gh(`/contents/${encodePath(dir)}?ref=main`)
-        entry = (Array.isArray(listing) ? listing : []).find((e) => e.name === name)
-      } catch (e) {
-        if (e.status !== 404) throw e
-      }
-      if (entry) {
-        await gh(`/contents/${encodePath(path)}`, {
-          method: 'DELETE',
-          body: { message: `Delete outro ${path}`, sha: entry.sha, branch: 'main' },
-        })
-      }
-      // Unregister even when the file was already missing (ghost entry).
-      await mutateAssets((assets) => {
-        let changed = false
-        for (const a of assets) {
-          const before = (a.outros || []).length
-          a.outros = (a.outros || []).filter((p) => p !== path)
-          if (a.outros.length !== before) changed = true
-        }
-        return changed ? undefined : false
-      }, `Unregister outro ${path}`)
-    },
-
-    outroUrl: (outro) => `https://raw.githubusercontent.com/${repo}/main/${outro.id}`,
+    uploadOutro: (assetId, file) => uploadClip('outros', assetId, file),
+    uploadIntro: (assetId, file) => uploadClip('intros', assetId, file),
+    deleteOutro: (outro) => deleteClip('outros', outro),
+    deleteIntro: (intro) => deleteClip('intros', intro),
+    outroUrl: (clip) => `https://raw.githubusercontent.com/${repo}/main/${clip.id}`,
+    introUrl: (clip) => `https://raw.githubusercontent.com/${repo}/main/${clip.id}`,
 
     submitBatch: async (rows) => {
       requireToken()
@@ -257,6 +268,7 @@ export function create(params) {
           outro: r.outroId,
           cut_seconds: parseFloat(r.cutSeconds),
         }
+        if (r.introId) item.intro = r.introId
         if (r.sourceType === 'url') {
           item.source_url = r.url.trim()
         } else {

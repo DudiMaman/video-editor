@@ -69,7 +69,10 @@ function AssetEditor({ asset, onSaved, onDeleted }) {
         <button className="danger" onClick={remove}>{STR.assets.delete}</button>
       </div>
       {error && <p className="error">{STR.errors.generic}{error}</p>}
-      <OutroManager asset={asset} onChanged={onSaved} />
+      <OutroManager asset={asset} onChanged={onSaved} kind="outro" />
+      {backend.supportsIntros && (
+        <OutroManager asset={asset} onChanged={onSaved} kind="intro" />
+      )}
     </div>
   )
 }

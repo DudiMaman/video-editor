@@ -8,6 +8,7 @@ const emptyRow = () => ({
   key: nextKey++,
   assetId: '',
   outroId: '',
+  introId: '',
   sourceType: 'upload',
   file: null,
   url: '',
