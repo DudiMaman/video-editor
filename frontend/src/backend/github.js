@@ -102,6 +102,23 @@ export function create(params) {
     await gh('/contents/assets.json', { method: 'PUT', body })
   }
 
+  // Registry writes can race each other (two quick uploads/deletes both
+  // read the same assets.json sha; the second PUT then 409s). Re-read and
+  // re-apply the mutation on conflict. A mutator returning false means
+  // "nothing to change" and skips the write.
+  async function mutateAssets(mutator, message) {
+    for (let attempt = 0; ; attempt++) {
+      const { assets, sha } = await readAssetsFile()
+      if (mutator(assets) === false) return
+      try {
+        await writeAssetsFile(assets, sha, message)
+        return
+      } catch (e) {
+        if (e.status !== 409 || attempt >= 2) throw e
+      }
+    }
+  }
+
   const toUiAsset = (a) => ({
     id: a.id,
     name: a.name,
@@ -158,57 +175,75 @@ export function create(params) {
 
     createAsset: async (fields) => {
       requireToken()
-      const { assets, sha } = await readAssetsFile()
-      let id = slugify(fields.name)
-      while (assets.some((a) => String(a.id) === id)) id = `${id}-2`
-      assets.push({ id, ...fields, outros: [] })
-      await writeAssetsFile(assets, sha, `Add asset: ${fields.name}`)
+      let id
+      await mutateAssets((assets) => {
+        id = slugify(fields.name)
+        while (assets.some((a) => String(a.id) === id)) id = `${id}-2`
+        assets.push({ id, ...fields, outros: [] })
+      }, `Add asset: ${fields.name}`)
       return { id }
     },
 
     updateAsset: async (id, fields) => {
       requireToken()
-      const { assets, sha } = await readAssetsFile()
-      const a = assets.find((x) => String(x.id) === String(id))
-      if (!a) throw new Error('asset not found')
-      Object.assign(a, fields)
-      await writeAssetsFile(assets, sha, `Update asset: ${fields.name}`)
+      await mutateAssets((assets) => {
+        const a = assets.find((x) => String(x.id) === String(id))
+        if (!a) throw new Error('asset not found')
+        Object.assign(a, fields)
+      }, `Update asset: ${fields.name}`)
     },
 
     deleteAsset: async (id) => {
       requireToken()
-      const { assets, sha } = await readAssetsFile()
-      await writeAssetsFile(
-        assets.filter((a) => String(a.id) !== String(id)),
-        sha,
-        `Delete asset: ${id}`
-      )
+      await mutateAssets((assets) => {
+        const idx = assets.findIndex((a) => String(a.id) === String(id))
+        if (idx === -1) return false
+        assets.splice(idx, 1)
+      }, `Delete asset: ${id}`)
     },
 
     uploadOutro: async (assetId, file) => {
       requireToken()
       const path = `outros/${assetId}/${Date.now()}-${safeFileName(file.name)}`
       await putFile(path, file, `Add outro for ${assetId}`)
-      const { assets, sha } = await readAssetsFile()
-      const a = assets.find((x) => String(x.id) === String(assetId))
-      if (!a) throw new Error('asset not found')
-      a.outros = [...(a.outros || []), path]
-      await writeAssetsFile(assets, sha, `Register outro for ${assetId}`)
+      await mutateAssets((assets) => {
+        const a = assets.find((x) => String(x.id) === String(assetId))
+        if (!a) throw new Error('asset not found')
+        a.outros = [...(a.outros || []), path]
+      }, `Register outro for ${assetId}`)
     },
 
     deleteOutro: async (outro) => {
       requireToken()
       const path = outro.id
-      const info = await gh(`/contents/${encodePath(path)}?ref=main`)
-      await gh(`/contents/${encodePath(path)}`, {
-        method: 'DELETE',
-        body: { message: `Delete outro ${path}`, sha: info.sha, branch: 'main' },
-      })
-      const { assets, sha } = await readAssetsFile()
-      for (const a of assets) {
-        a.outros = (a.outros || []).filter((p) => p !== path)
+      const parts = path.split('/')
+      const name = parts.pop()
+      const dir = parts.join('/')
+      // Find the file's sha via the directory listing — robust for large
+      // files, and lets us self-heal when the file is already gone.
+      let entry = null
+      try {
+        const listing = await gh(`/contents/${encodePath(dir)}?ref=main`)
+        entry = (Array.isArray(listing) ? listing : []).find((e) => e.name === name)
+      } catch (e) {
+        if (e.status !== 404) throw e
       }
-      await writeAssetsFile(assets, sha, `Unregister outro ${path}`)
+      if (entry) {
+        await gh(`/contents/${encodePath(path)}`, {
+          method: 'DELETE',
+          body: { message: `Delete outro ${path}`, sha: entry.sha, branch: 'main' },
+        })
+      }
+      // Unregister even when the file was already missing (ghost entry).
+      await mutateAssets((assets) => {
+        let changed = false
+        for (const a of assets) {
+          const before = (a.outros || []).length
+          a.outros = (a.outros || []).filter((p) => p !== path)
+          if (a.outros.length !== before) changed = true
+        }
+        return changed ? undefined : false
+      }, `Unregister outro ${path}`)
     },
 
     outroUrl: (outro) => `https://raw.githubusercontent.com/${repo}/main/${outro.id}`,
