@@ -29,7 +29,10 @@ SYSTEM_PROMPT = (
     "(5) end with the provided hashtags (you may add up to 2 highly relevant ones); "
     "(6) use at most 2-3 fitting emojis; "
     "(7) apply short-form best practices - curiosity gap, urgency or social "
-    "proof where natural, line breaks for scannability. "
+    "proof where natural, line breaks for scannability; "
+    "(8) structure the caption as three blocks separated by BLANK lines: the "
+    "caption text with the CTA, then the link alone on its own line, then the "
+    "hashtags - so the link stands out. "
     "Return ONLY the caption text - no preamble, no quotes, no explanations."
 )
 
@@ -47,14 +50,14 @@ def _get_client():
 
 def _mock_caption(asset: Mapping) -> str:
     parts = [
-        f"🔥 You have to see what {asset['name']} can do!",
-        "Tap the link and try it today 👇",
+        f"🔥 You have to see what {asset['name']} can do!\n"
+        "Tap the link and try it today 👇"
     ]
     if asset["link"]:
         parts.append(asset["link"])
     if asset["hashtags"]:
         parts.append(asset["hashtags"])
-    return "\n".join(parts)
+    return "\n\n".join(parts)
 
 
 def is_mock_mode() -> bool:
