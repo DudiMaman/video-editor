@@ -1,22 +1,36 @@
 import { useEffect, useState } from 'react'
 import { STR } from '../strings.js'
 import { backend } from '../backend/index.js'
+import { assetIdOf } from './ReviewTab.jsx'
 
 const S = STR.scout
 
 export default function LogTab({ active }) {
   const [entries, setEntries] = useState(null)
+  const [assets, setAssets] = useState([])
+  const [inboxById, setInboxById] = useState({})
   const [filter, setFilter] = useState('')
+  const [appFilter, setAppFilter] = useState('')
   const [error, setError] = useState('')
 
   useEffect(() => {
-    if (active)
-      backend.scout.readLedger().then(setEntries).catch((e) => setError(e.message))
+    if (!active) return
+    backend.scout.readLedger().then(setEntries).catch((e) => setError(e.message))
+    backend.listAssets().then(setAssets).catch(() => {})
+    backend.scout
+      .readInbox()
+      .then((pages) =>
+        setInboxById(Object.fromEntries(pages.map((p) => [p.id, p])))
+      )
+      .catch(() => {})
   }, [active])
 
   if (error) return <p className="error">{STR.errors.generic}{error}</p>
   if (entries === null) return <p className="empty">…</p>
   if (entries.length === 0) return <p className="empty">{S.logEmpty}</p>
+
+  const appName = (id) =>
+    assets.find((a) => String(a.id) === String(id))?.name || id || S.unknownAsset
 
   // Last-run summary: status counts for the most recent scan date.
   const lastDate = entries.reduce(
@@ -27,7 +41,10 @@ export default function LogTab({ active }) {
   const counts = {}
   for (const e of lastRun) counts[e.status] = (counts[e.status] || 0) + 1
 
-  const shown = filter ? entries.filter((e) => e.status === filter) : entries
+  const idsInLog = [...new Set(entries.map((e) => assetIdOf(e, inboxById)))]
+  const shown = entries
+    .filter((e) => !filter || e.status === filter)
+    .filter((e) => !appFilter || String(assetIdOf(e, inboxById)) === appFilter)
 
   return (
     <div>
@@ -39,6 +56,27 @@ export default function LogTab({ active }) {
             .join(' · ')}
         </p>
       </div>
+
+      {idsInLog.length > 1 && (
+        <div className="log-filter">
+          <button
+            className={'tab' + (appFilter === '' ? ' active' : '')}
+            onClick={() => setAppFilter('')}
+          >
+            {S.allApps} ({entries.length})
+          </button>
+          {idsInLog.map((id) => (
+            <button
+              key={id || 'none'}
+              className={'tab' + (appFilter === String(id) ? ' active' : '')}
+              onClick={() => setAppFilter(String(id))}
+            >
+              {appName(id)} (
+              {entries.filter((e) => String(assetIdOf(e, inboxById)) === String(id)).length})
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="log-filter">
         <button
@@ -63,6 +101,7 @@ export default function LogTab({ active }) {
       {shown.map((e) => (
         <div key={e.video_id} className="card log-entry">
           <div className="result-head">
+            <strong>{appName(assetIdOf(e, inboxById))}</strong>
             <span className="muted">{e.found_at}</span>
             <span
               className={

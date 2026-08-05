@@ -4,7 +4,7 @@ import { backend } from '../backend/index.js'
 
 const S = STR.scout
 
-const emptyForm = () => ({ url: '', rights_basis: '', rights_note: '', notes: '' })
+const emptyForm = () => ({ url: '', asset: '', rights_basis: '', rights_note: '', notes: '' })
 
 const nextPageId = (pages) => {
   const max = pages.reduce((m, p) => {
@@ -16,21 +16,26 @@ const nextPageId = (pages) => {
 
 export default function InboxTab({ active }) {
   const [pages, setPages] = useState(null)
+  const [assets, setAssets] = useState([])
+  const [appFilter, setAppFilter] = useState('')
   const [form, setForm] = useState(emptyForm())
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [ok, setOk] = useState('')
 
-  const load = () =>
-    backend.scout.readInbox().then(setPages).catch((e) => setError(e.message))
-
   useEffect(() => {
-    if (active) load()
+    if (!active) return
+    backend.scout.readInbox().then(setPages).catch((e) => setError(e.message))
+    backend.listAssets().then(setAssets).catch(() => {})
   }, [active])
+
+  const assetName = (id) =>
+    assets.find((a) => String(a.id) === String(id))?.name || id || S.unknownAsset
 
   const add = async () => {
     setOk('')
     if (!form.url.trim()) return setError(S.errMissingUrl)
+    if (!form.asset) return setError(S.errMissingAssetPage)
     if (!form.rights_basis) return setError(S.errMissingRights)
     setError('')
     setBusy(true)
@@ -39,6 +44,7 @@ export default function InboxTab({ active }) {
         list.push({
           id: nextPageId(list),
           url: form.url.trim(),
+          asset: form.asset,
           added_at: new Date().toISOString().slice(0, 10),
           rights_basis: form.rights_basis,
           rights_note: form.rights_note.trim(),
@@ -72,11 +78,16 @@ export default function InboxTab({ active }) {
 
   if (pages === null) return <p className="empty">…</p>
 
+  const shown = appFilter
+    ? pages.filter((p) => String(p.asset) === appFilter)
+    : pages
+
   return (
     <div>
       <div className="card">
         <h3>{S.inboxTitle}</h3>
         <p className="hint">{S.inboxExplain}</p>
+        {assets.length === 0 && <p className="warning">{S.noAssetsYet}</p>}
         <div className="fields">
           <label>
             {S.pageUrl}
@@ -87,6 +98,18 @@ export default function InboxTab({ active }) {
               value={form.url}
               onChange={(e) => setForm({ ...form, url: e.target.value })}
             />
+          </label>
+          <label>
+            {S.pageAsset}
+            <select
+              value={form.asset}
+              onChange={(e) => setForm({ ...form, asset: e.target.value })}
+            >
+              <option value="">—</option>
+              {assets.map((a) => (
+                <option key={a.id} value={a.id}>{a.name}</option>
+              ))}
+            </select>
           </label>
           <label>
             {S.rightsBasis}
@@ -124,19 +147,42 @@ export default function InboxTab({ active }) {
         {ok && <p className="ok">{ok}</p>}
       </div>
 
+      {assets.length > 1 && pages.length > 0 && (
+        <div className="log-filter">
+          <button
+            className={'tab' + (appFilter === '' ? ' active' : '')}
+            onClick={() => setAppFilter('')}
+          >
+            {S.allApps} ({pages.length})
+          </button>
+          {assets
+            .filter((a) => pages.some((p) => String(p.asset) === String(a.id)))
+            .map((a) => (
+              <button
+                key={a.id}
+                className={'tab' + (appFilter === String(a.id) ? ' active' : '')}
+                onClick={() => setAppFilter(String(a.id))}
+              >
+                {a.name} ({pages.filter((p) => String(p.asset) === String(a.id)).length})
+              </button>
+            ))}
+        </div>
+      )}
+
       {pages.length === 0 ? (
         <p className="empty">{S.inboxEmpty}</p>
       ) : (
-        pages.map((p) => (
+        shown.map((p) => (
           <div key={p.id} className={'card inbox-page' + (p.active ? '' : ' inactive')}>
             <div className="result-head">
-              <strong dir="ltr" className="inbox-url">
-                <a href={p.url} target="_blank" rel="noreferrer">{p.url}</a>
-              </strong>
+              <strong>{assetName(p.asset)}</strong>
               <span className={'badge ' + (p.active ? 'badge-done' : 'badge-failed')}>
                 {p.active ? S.active : S.inactive}
               </span>
             </div>
+            <p className="muted source-url inbox-url" dir="ltr">
+              <a href={p.url} target="_blank" rel="noreferrer">{p.url}</a>
+            </p>
             <p className="muted">
               {S.rightsOptions[p.rights_basis] || p.rights_basis}
               {p.rights_note ? ` — ${p.rights_note}` : ''}
