@@ -1,0 +1,7 @@
+{
+ "daily_cap": 5,
+ "timezone": "Asia/Jerusalem",
+ "run_hour": "06:00",
+ "release_tag_prefix": "scout-",
+ "release_retention_days": 30
+}

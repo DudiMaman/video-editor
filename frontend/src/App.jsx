@@ -5,8 +5,14 @@ import BatchBuilder from './components/BatchBuilder.jsx'
 import ResultsTab from './components/ResultsTab.jsx'
 import AssetsTab from './components/AssetsTab.jsx'
 import TokenPanel from './components/TokenPanel.jsx'
+import InboxTab from './components/InboxTab.jsx'
+import BriefTab from './components/BriefTab.jsx'
+import ReviewTab from './components/ReviewTab.jsx'
+import LogTab from './components/LogTab.jsx'
 
-const TABS = ['batch', 'results', 'assets']
+const TABS = backend.supportsScout
+  ? ['batch', 'results', 'assets', 'inbox', 'brief', 'review', 'log']
+  : ['batch', 'results', 'assets']
 
 export default function App() {
   const [tab, setTab] = useState('batch')
@@ -50,6 +56,22 @@ export default function App() {
         <div hidden={tab !== 'assets'}>
           <AssetsTab active={tab === 'assets'} />
         </div>
+        {backend.supportsScout && (
+          <>
+            <div hidden={tab !== 'inbox'}>
+              <InboxTab active={tab === 'inbox'} />
+            </div>
+            <div hidden={tab !== 'brief'}>
+              <BriefTab active={tab === 'brief'} />
+            </div>
+            <div hidden={tab !== 'review'}>
+              <ReviewTab active={tab === 'review'} />
+            </div>
+            <div hidden={tab !== 'log'}>
+              <LogTab active={tab === 'log'} />
+            </div>
+          </>
+        )}
       </main>
     </div>
   )
