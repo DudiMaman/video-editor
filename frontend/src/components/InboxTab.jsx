@@ -4,7 +4,7 @@ import { backend } from '../backend/index.js'
 
 const S = STR.scout
 
-const emptyForm = () => ({ url: '', asset: '', rights_basis: '', rights_note: '', notes: '' })
+const emptyForm = () => ({ urls: '', asset: '' })
 
 const nextPageId = (pages) => {
   const max = pages.reduce((m, p) => {
@@ -34,27 +34,29 @@ export default function InboxTab({ active }) {
 
   const add = async () => {
     setOk('')
-    if (!form.url.trim()) return setError(S.errMissingUrl)
+    const urls = form.urls
+      .split('\n')
+      .map((u) => u.trim())
+      .filter((u) => /^https?:\/\//i.test(u))
+    if (urls.length === 0) return setError(S.errNoValidUrls)
     if (!form.asset) return setError(S.errMissingAssetPage)
-    if (!form.rights_basis) return setError(S.errMissingRights)
     setError('')
     setBusy(true)
     try {
       const updated = await backend.scout.mutateInbox((list) => {
-        list.push({
-          id: nextPageId(list),
-          url: form.url.trim(),
-          asset: form.asset,
-          added_at: new Date().toISOString().slice(0, 10),
-          rights_basis: form.rights_basis,
-          rights_note: form.rights_note.trim(),
-          active: true,
-          notes: form.notes.trim(),
-        })
-      }, `Scout inbox: add ${form.url.trim()}`)
+        for (const url of urls) {
+          list.push({
+            id: nextPageId(list),
+            url,
+            asset: form.asset,
+            added_at: new Date().toISOString().slice(0, 10),
+            active: true,
+          })
+        }
+      }, `Scout inbox: add ${urls.length} page(s)`)
       setPages(updated)
       setForm(emptyForm())
-      setOk(S.added + ' ✓')
+      setOk(S.addedCount(urls.length))
     } catch (e) {
       setError(e.message)
     } finally {
@@ -103,15 +105,15 @@ export default function InboxTab({ active }) {
         <h3>{S.inboxTitle}</h3>
         <p className="hint">{S.inboxExplain}</p>
         {assets.length === 0 && <p className="warning">{S.noAssetsYet}</p>}
-        <div className="fields">
-          <label>
-            {S.pageUrl}
-            <input
-              type="url"
+        <div className="fields inbox-form">
+          <label className="inbox-urls-field">
+            {S.pageUrls}
+            <textarea
               dir="ltr"
-              placeholder="https://..."
-              value={form.url}
-              onChange={(e) => setForm({ ...form, url: e.target.value })}
+              rows={4}
+              placeholder={S.pageUrlsPlaceholder}
+              value={form.urls}
+              onChange={(e) => setForm({ ...form, urls: e.target.value })}
             />
           </label>
           <label>
@@ -125,32 +127,6 @@ export default function InboxTab({ active }) {
                 <option key={a.id} value={a.id}>{a.name}</option>
               ))}
             </select>
-          </label>
-          <label>
-            {S.rightsBasis}
-            <select
-              value={form.rights_basis}
-              onChange={(e) => setForm({ ...form, rights_basis: e.target.value })}
-            >
-              <option value="">—</option>
-              {Object.entries(S.rightsOptions).map(([k, v]) => (
-                <option key={k} value={k}>{v}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            {S.rightsNote}
-            <input
-              value={form.rights_note}
-              onChange={(e) => setForm({ ...form, rights_note: e.target.value })}
-            />
-          </label>
-          <label>
-            {S.pageNotes}
-            <input
-              value={form.notes}
-              onChange={(e) => setForm({ ...form, notes: e.target.value })}
-            />
           </label>
         </div>
         <div className="batch-actions">
