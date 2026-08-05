@@ -11,7 +11,8 @@ Request shape:
   {"asset": "<asset id from assets.json>",
    "outro": "outros/<asset>/<file>",         # must be listed for that asset
    "intro": "intros/<asset>/<file>",         # optional, prepended before the clip
-   "cut_seconds": 7.5,
+   "start_seconds": 5,                       # optional, keep from this second
+   "cut_seconds": 20,                        # keep up to this second of the source
    "source_url": "https://..."}              # or "source_path": "inbox/..."
 """
 import argparse
@@ -50,6 +51,11 @@ def process_one(idx: int, req: dict, assets_by_id: dict, out_dir: Path, tmp_root
     cut = float(req.get("cut_seconds") or 0)
     if cut <= 0:
         raise ValueError("cut_seconds must be > 0")
+    start = float(req.get("start_seconds") or 0)
+    if start < 0:
+        raise ValueError("start_seconds must be >= 0")
+    if start >= cut:
+        raise ValueError("start_seconds must be smaller than cut_seconds")
 
     work = Path(tempfile.mkdtemp(dir=tmp_root))
     if req.get("source_url"):
@@ -64,11 +70,18 @@ def process_one(idx: int, req: dict, assets_by_id: dict, out_dir: Path, tmp_root
         raise ValueError("request needs source_url or source_path")
 
     spec = ff.probe(source)
-    if spec["duration"] and cut >= spec["duration"]:
-        cut = spec["duration"]
+    if spec["duration"]:
+        if start >= spec["duration"]:
+            raise ValueError(
+                f"start_seconds ({start:g}) is beyond the video length "
+                f"({spec['duration']:.1f}s)")
+        if cut >= spec["duration"]:
+            cut = spec["duration"]
+    clip_len = cut - start
 
     trimmed = work / "trimmed.mp4"
-    ff.encode_canonical(source, trimmed, spec, spec["has_audio"], cut_seconds=cut)
+    ff.encode_canonical(source, trimmed, spec, spec["has_audio"],
+                        cut_seconds=clip_len, start_seconds=start)
     outro_spec = ff.probe(outro_path)
     outro_norm = work / "outro_norm.mp4"
     ff.encode_canonical(outro_path, outro_norm, spec, outro_spec["has_audio"])
@@ -85,7 +98,7 @@ def process_one(idx: int, req: dict, assets_by_id: dict, out_dir: Path, tmp_root
 
     caption, caption_error = None, None
     try:
-        frames = ff.extract_frames(trimmed, work / "frames", cut)
+        frames = ff.extract_frames(trimmed, work / "frames", clip_len)
         caption = captions.generate_caption(frames, asset)
     except Exception as e:  # caption failure must not lose the video
         caption_error = str(e)
@@ -107,9 +120,11 @@ def build_notes(results: list[dict], assets_by_id: dict, mock_warning: bool | No
         asset = assets_by_id.get(str(r["request"].get("asset")), {})
         name = asset.get("name", r["request"].get("asset"))
         source = r["request"].get("source_url") or r["request"].get("source_path") or ""
-        cut = r["request"].get("cut_seconds")
+        start = r["request"].get("start_seconds") or 0
+        end = r["request"].get("cut_seconds")
+        cut = f"קטע {start:g}–{end:g} שניות" if start else f"חיתוך בשניה {end}"
         if r["status"] == "done":
-            lines.append(f"### ✅ {name} — חיתוך בשניה {cut}")
+            lines.append(f"### ✅ {name} — {cut}")
             lines.append(f"מקור: `{source}` · קובץ: **{r['video']}**\n")
             if r.get("caption"):
                 lines.append("```\n" + r["caption"] + "\n```\n")

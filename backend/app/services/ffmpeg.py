@@ -90,14 +90,20 @@ def encode_canonical(
     spec: dict,
     has_audio: bool,
     cut_seconds: float | None = None,
+    start_seconds: float = 0.0,
 ) -> None:
-    """Re-encode `source` to the canonical format; optionally trim to `cut_seconds`.
+    """Re-encode `source` to the canonical format; optionally trim.
 
-    Used both for the frame-accurate trim of the main clip and for outro
-    normalization (cut_seconds=None). Silent sources get a silent audio bed so
-    concat audio stays consistent.
+    `start_seconds` skips into the source (input seek + re-encode keeps it
+    frame-accurate) and `cut_seconds` caps the output length from that point.
+    Used both for the trim of the main clip and for intro/outro normalization
+    (cut_seconds=None). Silent sources get a silent audio bed so concat audio
+    stays consistent.
     """
-    cmd = ["ffmpeg", "-y", "-i", str(source)]
+    cmd = ["ffmpeg", "-y"]
+    if start_seconds > 0:
+        cmd += ["-ss", f"{start_seconds:.3f}"]
+    cmd += ["-i", str(source)]
     if has_audio:
         maps = ["-map", "0:v:0", "-map", "0:a:0"]
     else:

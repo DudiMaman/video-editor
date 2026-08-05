@@ -100,6 +100,19 @@ export default function RequestRow({ row, assets, onChange, onRemove, onAssetsCh
         </div>
 
         <label>
+          {STR.batch.startSeconds}
+          <input
+            type="number"
+            dir="ltr"
+            min="0"
+            step="0.1"
+            placeholder="0"
+            value={row.startSeconds}
+            onChange={(e) => onChange({ startSeconds: e.target.value })}
+          />
+        </label>
+
+        <label>
           {STR.batch.cutSeconds}
           <input
             type="number"

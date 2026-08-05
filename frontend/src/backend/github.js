@@ -204,6 +204,7 @@ export function create(params) {
         (entry.caption_error ? `${STR.github.captionFailed}: ${entry.caption_error}` : null),
       caption: entry.caption,
       has_output: !!videoUrl,
+      start_seconds: req.start_seconds || 0,
       _videoUrl: videoUrl,
       _assetApiUrl: asset ? asset.url : null,
       _videoName: entry.video || null,
@@ -218,13 +219,16 @@ export function create(params) {
       const req = e.request || {}
       const name = assetsById[String(req.asset)]?.name || req.asset
       const source = req.source_url || req.source_path || ''
+      const cut = req.start_seconds
+        ? `קטע ${req.start_seconds}–${req.cut_seconds} שניות`
+        : `חיתוך בשניה ${req.cut_seconds}`
       if (e.status === 'done') {
-        lines.push(`### ✅ ${name} — חיתוך בשניה ${req.cut_seconds}`)
+        lines.push(`### ✅ ${name} — ${cut}`)
         lines.push(`מקור: \`${source}\` · קובץ: **${e.video}**\n`)
         if (e.caption) lines.push('```\n' + e.caption + '\n```\n')
         else if (e.caption_error) lines.push(`⚠️ יצירת הכיתוב נכשלה: ${e.caption_error}\n`)
       } else {
-        lines.push(`### ❌ ${name} — חיתוך בשניה ${req.cut_seconds}`)
+        lines.push(`### ❌ ${name} — ${cut}`)
         lines.push(`מקור: \`${source}\``)
         lines.push(`שגיאה: ${e.error}\n`)
       }
@@ -236,7 +240,16 @@ export function create(params) {
     return lines.join('\n')
   }
 
-  const fmtDate = (iso) => (iso ? iso.replace('T', ' ').replace(/Z|\.\d+.*$/, '') : '')
+  // Render timestamps in the viewer's local timezone (Israel for our user).
+  const fmtDate = (iso) => {
+    if (!iso) return ''
+    const d = new Date(iso)
+    if (isNaN(d)) return iso
+    return d.toLocaleString('he-IL', {
+      day: '2-digit', month: '2-digit', year: 'numeric',
+      hour: '2-digit', minute: '2-digit',
+    })
+  }
 
   return {
     mode: 'github',
@@ -297,6 +310,8 @@ export function create(params) {
           cut_seconds: parseFloat(r.cutSeconds),
         }
         if (r.introId) item.intro = r.introId
+        const start = parseFloat(r.startSeconds)
+        if (start > 0) item.start_seconds = start
         if (r.sourceType === 'url') {
           item.source_url = r.url.trim()
         } else {
