@@ -564,3 +564,20 @@ button.small {
   font-size: 0.9rem;
   resize: vertical;
 }
+
+.suggestions-card {
+  border-color: #1a73e8;
+  background: #f6f9ff;
+}
+
+.suggestion-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.suggestion-reason {
+  font-size: 0.8rem;
+}

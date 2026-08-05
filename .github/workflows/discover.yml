@@ -1,0 +1,43 @@
+name: discover-pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['data/inbox.json']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: discover
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    # Adding a page (including accepting a suggestion) triggers discovery;
+    # accepting alone shouldn't re-run the whole search.
+    if: "!contains(github.event.head_commit.message, 'accept suggestion')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install anthropic
+      - name: Discover similar pages
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/discover_pages.py
+      - name: Commit new suggestions
+        run: |
+          if git diff --quiet data/suggestions.json; then
+            echo "no new suggestions"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/suggestions.json
+          git commit -m "Scout discovery: new page suggestions"
+          git pull --rebase origin main
+          git push origin main

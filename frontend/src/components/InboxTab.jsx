@@ -17,15 +17,18 @@ const nextPageId = (pages) => {
 export default function InboxTab({ active }) {
   const [pages, setPages] = useState(null)
   const [assets, setAssets] = useState([])
+  const [suggestions, setSuggestions] = useState([])
   const [appFilter, setAppFilter] = useState('')
   const [form, setForm] = useState(emptyForm())
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [ok, setOk] = useState('')
+  const [discoverMsg, setDiscoverMsg] = useState('')
 
   useEffect(() => {
     if (!active) return
     backend.scout.readInbox().then(setPages).catch((e) => setError(e.message))
+    backend.scout.readSuggestions().then(setSuggestions).catch(() => {})
     backend.listAssets().then(setAssets).catch(() => {})
   }, [active])
 
@@ -73,6 +76,56 @@ export default function InboxTab({ active }) {
         p.active = !p.active
       }, `Scout inbox: ${page.active ? 'deactivate' : 'activate'} ${page.id}`)
       setPages(updated)
+    } catch (e) {
+      setError(e.message)
+    }
+  }
+
+  const runDiscovery = async () => {
+    setError('')
+    try {
+      await backend.scout.runDiscovery()
+      setDiscoverMsg(S.discoverRunning)
+    } catch (e) {
+      setError(e.message)
+    }
+  }
+
+  const acceptSuggestion = async (s) => {
+    setError('')
+    try {
+      const updatedPages = await backend.scout.mutateInbox((list) => {
+        if (list.some((p) => p.url === s.url)) return false
+        list.push({
+          id: nextPageId(list),
+          url: s.url,
+          asset: s.asset,
+          added_at: new Date().toISOString().slice(0, 10),
+          active: true,
+        })
+      }, `Scout inbox: accept suggestion ${s.url}`)
+      const updatedSugs = await backend.scout.mutateSuggestions((list) => {
+        const x = list.find((y) => y.url === s.url)
+        if (!x) return false
+        x.status = 'accepted'
+      }, `Scout suggestions: accept ${s.url}`)
+      setPages(updatedPages)
+      setSuggestions(updatedSugs)
+      setOk(S.suggestionAccepted)
+    } catch (e) {
+      setError(e.message)
+    }
+  }
+
+  const dismissSuggestion = async (s) => {
+    setError('')
+    try {
+      const updated = await backend.scout.mutateSuggestions((list) => {
+        const x = list.find((y) => y.url === s.url)
+        if (!x) return false
+        x.status = 'dismissed'
+      }, `Scout suggestions: dismiss ${s.url}`)
+      setSuggestions(updated)
     } catch (e) {
       setError(e.message)
     }
@@ -133,10 +186,42 @@ export default function InboxTab({ active }) {
           <button className="primary" onClick={add} disabled={busy}>
             {S.addPage}
           </button>
+          <button className="secondary" onClick={runDiscovery} disabled={pages?.length === 0}>
+            {S.discoverBtn}
+          </button>
         </div>
+        <p className="hint">{S.discoverAuto}</p>
+        {discoverMsg && <p className="ok">{discoverMsg}</p>}
         {error && <p className="error">{STR.errors.generic}{error}</p>}
         {ok && <p className="ok">{ok}</p>}
       </div>
+
+      {suggestions.filter((s) => s.status === 'suggested').length > 0 && (
+        <div className="card suggestions-card">
+          <h3>{S.suggestionsTitle}</h3>
+          <p className="hint">{S.suggestionsHint}</p>
+          {suggestions
+            .filter((s) => s.status === 'suggested')
+            .map((s) => (
+              <div key={s.url} className="inbox-row suggestion-row">
+                <div className="suggestion-main">
+                  <a className="inbox-row-url" dir="ltr" href={s.url} target="_blank" rel="noreferrer">
+                    {s.url}
+                  </a>
+                  <span className="muted suggestion-reason">
+                    {assetName(s.asset)}{s.reason ? ` · ${s.reason}` : ''}
+                  </span>
+                </div>
+                <button className="primary small" onClick={() => acceptSuggestion(s)}>
+                  {S.acceptSuggestion}
+                </button>
+                <button className="secondary small" onClick={() => dismissSuggestion(s)}>
+                  {S.dismissSuggestion}
+                </button>
+              </div>
+            ))}
+        </div>
+      )}
 
       {pages.length > 0 && (
         <div className="log-filter">

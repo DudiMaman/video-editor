@@ -319,6 +319,17 @@ export function create(params) {
         return list
       },
       mutateLedger: (mutator, message) => mutateDataJson('data/ledger.json', mutator, message),
+      readSuggestions: async () =>
+        JSON.parse((await readRepoFile('data/suggestions.json', '[]')).text || '[]'),
+      mutateSuggestions: (mutator, message) =>
+        mutateDataJson('data/suggestions.json', mutator, message),
+      runDiscovery: async () => {
+        requireToken()
+        await gh('/actions/workflows/discover.yml/dispatches', {
+          method: 'POST',
+          body: { ref: 'main' },
+        })
+      },
       readBrief: () => readRepoFile('data/brief.md', ''),
       writeBrief: async (text, sha) => {
         requireToken()
