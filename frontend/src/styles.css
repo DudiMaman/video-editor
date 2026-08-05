@@ -555,3 +555,12 @@ button.small {
   border: none;
   cursor: pointer;
 }
+
+.inbox-urls-field {
+  grid-column: 1 / -1;
+}
+
+.inbox-urls-field textarea {
+  font-size: 0.9rem;
+  resize: vertical;
+}
