@@ -1,1 +1,12 @@
-[]
+[
+ {
+  "id": "pg_001",
+  "url": "https://www.tiktok.com/@plantum_app",
+  "asset": "sample",
+  "added_at": "2026-08-05",
+  "rights_basis": "creator_permission",
+  "rights_note": "הבעלים",
+  "active": true,
+  "notes": ""
+ }
+]
