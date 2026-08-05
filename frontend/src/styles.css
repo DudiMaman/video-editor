@@ -460,3 +460,43 @@ button.small {
   border-block-start: 1px solid #eee;
   margin: 1rem 0;
 }
+
+/* ---- Video Scout tabs ---- */
+
+.inbox-page.inactive {
+  opacity: 0.55;
+}
+
+.inbox-url {
+  overflow-wrap: anywhere;
+  font-size: 0.9rem;
+}
+
+.brief-editor {
+  width: 100%;
+  font-family: 'SF Mono', Consolas, monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.review-actions {
+  margin-block-start: 0.6rem;
+  gap: 0.5rem;
+}
+
+.log-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-block-end: 0.8rem;
+}
+
+.log-filter .tab {
+  font-size: 0.85rem;
+  padding: 0.35rem 0.7rem;
+}
+
+.log-entry p {
+  margin: 0.25rem 0;
+  overflow-wrap: anywhere;
+}

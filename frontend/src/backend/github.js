@@ -185,6 +185,50 @@ export function create(params) {
     }, `Unregister ${kind} clip ${path}`)
   }
 
+  // ---- Video Scout data files (data/*.json, data/brief.md) ----
+
+  async function readRepoFile(path, fallback) {
+    try {
+      const res = await gh(`/contents/${encodePath(path)}?ref=main`)
+      return { text: b64ToUtf8(res.content), sha: res.sha }
+    } catch (e) {
+      if (e.status === 404) return { text: fallback, sha: null }
+      throw e
+    }
+  }
+
+  async function writeRepoFile(path, text, sha, message) {
+    const body = { message, content: utf8ToB64(text), branch: 'main' }
+    if (sha) body.sha = sha
+    await gh(`/contents/${encodePath(path)}`, { method: 'PUT', body })
+  }
+
+  // CAS loop like mutateAssets: re-read and re-apply on a 409 conflict.
+  async function mutateDataJson(path, mutator, message) {
+    requireToken()
+    for (let attempt = 0; ; attempt++) {
+      const { text, sha } = await readRepoFile(path, '[]')
+      const data = JSON.parse(text || '[]')
+      if (mutator(data) === false) return data
+      try {
+        await writeRepoFile(path, JSON.stringify(data, null, 1) + '\n', sha, message)
+        return data
+      } catch (e) {
+        if (e.status !== 409 || attempt >= 2) throw e
+      }
+    }
+  }
+
+  const releaseByTagCache = {}
+  async function releaseAssetUrls(tag, fileName) {
+    if (!releaseByTagCache[tag]) {
+      releaseByTagCache[tag] = gh(`/releases/tags/${encodeURIComponent(tag)}`).catch(() => null)
+    }
+    const rel = await releaseByTagCache[tag]
+    const asset = (rel?.assets || []).find((a) => a.name === fileName)
+    return asset ? { videoUrl: asset.browser_download_url, assetApiUrl: asset.url } : null
+  }
+
   function toRequest(entry, rel) {
     const byName = Object.fromEntries(
       (rel.assets || []).map((a) => [a.name, a])
@@ -258,6 +302,26 @@ export function create(params) {
     repo,
     supportsRecaption: false,
     supportsIntros: true,
+    supportsScout: true,
+
+    scout: {
+      readInbox: async () => JSON.parse((await readRepoFile('data/inbox.json', '[]')).text || '[]'),
+      mutateInbox: (mutator, message) => mutateDataJson('data/inbox.json', mutator, message),
+      readLedger: async () => JSON.parse((await readRepoFile('data/ledger.json', '[]')).text || '[]'),
+      mutateLedger: (mutator, message) => mutateDataJson('data/ledger.json', mutator, message),
+      readBrief: () => readRepoFile('data/brief.md', ''),
+      writeBrief: async (text, sha) => {
+        requireToken()
+        await writeRepoFile('data/brief.md', text, sha, 'Update scout brief')
+      },
+      // output_asset is "<release tag>/<file name>"
+      resolveOutput: (outputAsset) => {
+        const [tag, ...rest] = String(outputAsset || '').split('/')
+        const file = rest.join('/')
+        if (!tag || !file) return Promise.resolve(null)
+        return releaseAssetUrls(tag, file)
+      },
+    },
     pollInterval: () => (token() ? 15000 : 60000),
     hasToken: () => !!token(),
     setToken: (t) => localStorage.setItem(TOKEN_KEY, t.trim()),

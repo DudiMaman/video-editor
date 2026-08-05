@@ -1,4 +1,10 @@
-data/
+data/*
+# Video Scout state files live in the repo (data/ is otherwise the local
+# server's runtime directory)
+!data/inbox.json
+!data/brief.md
+!data/ledger.json
+!data/config.json
 node_modules/
 dist/
 .env
