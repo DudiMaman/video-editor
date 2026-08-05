@@ -38,7 +38,9 @@ export default function ResultCard({ request, assetName, onChanged }) {
       <div className="result-head">
         <strong>{assetName}</strong>
         {r.cut_seconds != null && (
-          <span className="muted" dir="ltr">✂ {r.cut_seconds}s</span>
+          <span className="muted" dir="ltr">
+            ✂ {r.start_seconds ? `${r.start_seconds}–${r.cut_seconds}s` : `${r.cut_seconds}s`}
+          </span>
         )}
         <span className={`badge badge-${r.status}`}>{STR.status[r.status]}</span>
       </div>
