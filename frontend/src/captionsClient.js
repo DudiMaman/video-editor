@@ -22,8 +22,11 @@ const SYSTEM_PROMPT =
   'call-to-action to download/try the app; (4) include the app link exactly ' +
   'as given; (5) end with the provided hashtags; (6) use at most 2-3 fitting ' +
   'emojis; (7) apply short-form best practices - curiosity gap, urgency or ' +
-  'social proof where natural, line breaks for scannability. Return ONLY ' +
-  'the caption text - no preamble, no quotes, no explanations.'
+  'social proof where natural, line breaks for scannability; (8) structure ' +
+  'the caption as three blocks separated by BLANK lines: the caption text ' +
+  'with the CTA, then the link alone on its own line, then the hashtags - ' +
+  'so the link stands out. Return ONLY the caption text - no preamble, no ' +
+  'quotes, no explanations.'
 
 async function extractFrames(blob, sampleWindow, introOffset) {
   const url = URL.createObjectURL(blob)
