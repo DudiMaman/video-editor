@@ -307,7 +307,17 @@ export function create(params) {
     scout: {
       readInbox: async () => JSON.parse((await readRepoFile('data/inbox.json', '[]')).text || '[]'),
       mutateInbox: (mutator, message) => mutateDataJson('data/inbox.json', mutator, message),
-      readLedger: async () => JSON.parse((await readRepoFile('data/ledger.json', '[]')).text || '[]'),
+      readLedger: async () => {
+        const list = JSON.parse((await readRepoFile('data/ledger.json', '[]')).text || '[]')
+        // Agents sometimes write "\n" as two literal characters; captions
+        // must carry real newlines for display, copy, and publishing.
+        for (const e of list) {
+          if (e.caption && e.caption.includes('\\n')) {
+            e.caption = e.caption.replace(/\\n/g, '\n')
+          }
+        }
+        return list
+      },
       mutateLedger: (mutator, message) => mutateDataJson('data/ledger.json', mutator, message),
       readBrief: () => readRepoFile('data/brief.md', ''),
       writeBrief: async (text, sha) => {
