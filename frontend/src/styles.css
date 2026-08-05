@@ -515,3 +515,38 @@ button.small {
 .inbox-group .card {
   margin-block-end: 0.6rem;
 }
+
+.inbox-table {
+  padding: 0.3rem 0.9rem;
+}
+
+.inbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0;
+  border-block-end: 1px solid #f0f1f3;
+}
+
+.inbox-row:last-child {
+  border-block-end: none;
+}
+
+.inbox-row.inactive .inbox-row-url {
+  opacity: 0.5;
+}
+
+.inbox-row-url {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.badge-btn {
+  border: none;
+  cursor: pointer;
+}
