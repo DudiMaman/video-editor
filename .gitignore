@@ -5,6 +5,7 @@ data/*
 !data/brief.md
 !data/ledger.json
 !data/config.json
+!data/suggestions.json
 node_modules/
 dist/
 .env
