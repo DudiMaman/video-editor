@@ -500,3 +500,18 @@ button.small {
   margin: 0.25rem 0;
   overflow-wrap: anywhere;
 }
+
+.inbox-group {
+  margin-block-end: 1.2rem;
+}
+
+.inbox-group-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  border-block-end: 2px solid #1a73e8;
+  padding-block-end: 0.3rem;
+}
+
+.inbox-group .card {
+  margin-block-end: 0.6rem;
+}
