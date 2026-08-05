@@ -29,7 +29,7 @@ export function create() {
       const payload = rows.map((r, i) => ({
         asset_id: Number(r.assetId),
         outro_id: Number(r.outroId),
-        cut_seconds: parseFloat(r.cutSeconds),
+        cut_seconds: parseFloat(r.cutSeconds) > 0 ? parseFloat(r.cutSeconds) : null,
         source_type: r.sourceType,
         ...(r.sourceType === 'url'
           ? { source_url: r.url.trim() }

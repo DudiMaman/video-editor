@@ -219,9 +219,11 @@ export function create(params) {
       const req = e.request || {}
       const name = assetsById[String(req.asset)]?.name || req.asset
       const source = req.source_url || req.source_path || ''
-      const cut = req.start_seconds
-        ? `קטע ${req.start_seconds}–${req.cut_seconds} שניות`
-        : `חיתוך בשניה ${req.cut_seconds}`
+      const cut = req.cut_seconds == null
+        ? (req.start_seconds ? `מ-${req.start_seconds} שניות עד הסוף` : 'ללא חיתוך')
+        : req.start_seconds
+          ? `קטע ${req.start_seconds}–${req.cut_seconds} שניות`
+          : `חיתוך בשניה ${req.cut_seconds}`
       if (e.status === 'done') {
         lines.push(`### ✅ ${name} — ${cut}`)
         lines.push(`מקור: \`${source}\` · קובץ: **${e.video}**\n`)
@@ -307,8 +309,9 @@ export function create(params) {
         const item = {
           asset: r.assetId,
           outro: r.outroId,
-          cut_seconds: parseFloat(r.cutSeconds),
         }
+        const cut = parseFloat(r.cutSeconds)
+        if (cut > 0) item.cut_seconds = cut
         if (r.introId) item.intro = r.introId
         const start = parseFloat(r.startSeconds)
         if (start > 0) item.start_seconds = start

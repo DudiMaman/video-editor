@@ -13,7 +13,7 @@ class AssetIn(BaseModel):
 class BatchRequestIn(BaseModel):
     asset_id: int
     outro_id: int
-    cut_seconds: float = Field(gt=0)
+    cut_seconds: Optional[float] = Field(default=None, gt=0)
     source_type: Literal["upload", "url"]
     source_url: Optional[str] = None
     file_key: Optional[str] = None

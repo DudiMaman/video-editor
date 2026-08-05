@@ -58,7 +58,10 @@ def recaption(request_id: int) -> None:
         frames = sorted(frames_dir.glob("frame_*.jpg"))
         if not frames:
             info = ff.probe(final_path)
-            duration = min(row["cut_seconds"], info["duration"] or row["cut_seconds"])
+            cut = row["cut_seconds"]
+            duration = info["duration"] or cut or 10
+            if cut:
+                duration = min(cut, duration)
             frames = ff.extract_frames(final_path, frames_dir, duration)
         asset = db.get_db().execute(
             "SELECT * FROM assets WHERE id = ?", (row["asset_id"],)
@@ -112,11 +115,13 @@ def _build_video(row, source: Path) -> tuple[Path, Path, float]:
 
     spec = ff.probe(source)
     cut = row["cut_seconds"]
-    if spec["duration"] and cut >= spec["duration"]:
-        cut = spec["duration"]
+    if cut is None or (spec["duration"] and cut >= spec["duration"]):
+        cut = spec["duration"] or None
 
     trimmed = work_dir / "trimmed.mp4"
     ff.encode_canonical(source, trimmed, spec, spec["has_audio"], cut_seconds=cut)
+    if cut is None:
+        cut = ff.probe(trimmed)["duration"] or 10
 
     outro_spec = ff.probe(outro_src)
     outro_norm = work_dir / "outro_norm.mp4"

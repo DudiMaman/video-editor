@@ -12,7 +12,8 @@ Request shape:
    "outro": "outros/<asset>/<file>",         # must be listed for that asset
    "intro": "intros/<asset>/<file>",         # optional, prepended before the clip
    "start_seconds": 5,                       # optional, keep from this second
-   "cut_seconds": 20,                        # keep up to this second of the source
+   "cut_seconds": 20,                        # optional, keep up to this second
+                                             # (omitted -> keep until the end)
    "source_url": "https://..."}              # or "source_path": "inbox/..."
 """
 import argparse
@@ -48,13 +49,14 @@ def process_one(idx: int, req: dict, assets_by_id: dict, out_dir: Path, tmp_root
         intro_path = REPO_ROOT / intro_rel
         if not intro_path.exists():
             raise ValueError(f"intro file missing from repo: {intro_rel}")
-    cut = float(req.get("cut_seconds") or 0)
-    if cut <= 0:
-        raise ValueError("cut_seconds must be > 0")
+    cut_raw = req.get("cut_seconds")
+    cut = float(cut_raw) if cut_raw not in (None, "") else None
+    if cut is not None and cut <= 0:
+        raise ValueError("cut_seconds must be > 0 when provided")
     start = float(req.get("start_seconds") or 0)
     if start < 0:
         raise ValueError("start_seconds must be >= 0")
-    if start >= cut:
+    if cut is not None and start >= cut:
         raise ValueError("start_seconds must be smaller than cut_seconds")
 
     work = Path(tempfile.mkdtemp(dir=tmp_root))
@@ -75,9 +77,9 @@ def process_one(idx: int, req: dict, assets_by_id: dict, out_dir: Path, tmp_root
             raise ValueError(
                 f"start_seconds ({start:g}) is beyond the video length "
                 f"({spec['duration']:.1f}s)")
-        if cut >= spec["duration"]:
+        if cut is None or cut >= spec["duration"]:
             cut = spec["duration"]
-    clip_len = cut - start
+    clip_len = cut - start if cut is not None else None
 
     trimmed = work / "trimmed.mp4"
     ff.encode_canonical(source, trimmed, spec, spec["has_audio"],
@@ -98,6 +100,8 @@ def process_one(idx: int, req: dict, assets_by_id: dict, out_dir: Path, tmp_root
 
     caption, caption_error = None, None
     try:
+        if clip_len is None:
+            clip_len = ff.probe(trimmed)["duration"] or 10
         frames = ff.extract_frames(trimmed, work / "frames", clip_len)
         caption = captions.generate_caption(frames, asset)
     except Exception as e:  # caption failure must not lose the video
@@ -122,7 +126,12 @@ def build_notes(results: list[dict], assets_by_id: dict, mock_warning: bool | No
         source = r["request"].get("source_url") or r["request"].get("source_path") or ""
         start = r["request"].get("start_seconds") or 0
         end = r["request"].get("cut_seconds")
-        cut = f"קטע {start:g}–{end:g} שניות" if start else f"חיתוך בשניה {end}"
+        if end is None:
+            cut = f"מ-{start:g} שניות עד הסוף" if start else "ללא חיתוך"
+        elif start:
+            cut = f"קטע {start:g}–{end:g} שניות"
+        else:
+            cut = f"חיתוך בשניה {end:g}"
         if r["status"] == "done":
             lines.append(f"### ✅ {name} — {cut}")
             lines.append(f"מקור: `{source}` · קובץ: **{r['video']}**\n")
@@ -131,7 +140,7 @@ def build_notes(results: list[dict], assets_by_id: dict, mock_warning: bool | No
             elif r.get("caption_error"):
                 lines.append(f"⚠️ יצירת הכיתוב נכשלה: {r['caption_error']}\n")
         else:
-            lines.append(f"### ❌ {name} — חיתוך בשניה {cut}")
+            lines.append(f"### ❌ {name} — {cut}")
             lines.append(f"מקור: `{source}`")
             lines.append(f"שגיאה: {r['error']}\n")
     lines.append("<!-- machine-readable -->")
