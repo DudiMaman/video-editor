@@ -9,7 +9,7 @@ const emptyRow = () => ({
   assetId: '',
   outroId: '',
   introId: '',
-  sourceType: 'upload',
+  sourceType: 'url',
   file: null,
   url: '',
   startSeconds: '',

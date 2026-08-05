@@ -70,16 +70,16 @@ export default function RequestRow({ row, assets, onChange, onRemove, onAssetsCh
         <div className="source-field">
           <div className="source-toggle">
             <button
-              className={row.sourceType === 'upload' ? 'active' : ''}
-              onClick={() => onChange({ sourceType: 'upload' })}
-            >
-              {STR.batch.sourceUpload}
-            </button>
-            <button
               className={row.sourceType === 'url' ? 'active' : ''}
               onClick={() => onChange({ sourceType: 'url' })}
             >
               {STR.batch.sourceUrl}
+            </button>
+            <button
+              className={row.sourceType === 'upload' ? 'active' : ''}
+              onClick={() => onChange({ sourceType: 'upload' })}
+            >
+              {STR.batch.sourceUpload}
             </button>
           </div>
           {row.sourceType === 'upload' ? (
