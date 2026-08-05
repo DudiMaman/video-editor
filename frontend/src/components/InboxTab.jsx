@@ -76,6 +76,21 @@ export default function InboxTab({ active }) {
     }
   }
 
+  const removePage = async (page) => {
+    if (!confirm(S.confirmRemovePage)) return
+    setError('')
+    try {
+      const updated = await backend.scout.mutateInbox((list) => {
+        const idx = list.findIndex((x) => x.id === page.id)
+        if (idx === -1) return false
+        list.splice(idx, 1)
+      }, `Scout inbox: remove ${page.id}`)
+      setPages(updated)
+    } catch (e) {
+      setError(e.message)
+    }
+  }
+
   if (pages === null) return <p className="empty">…</p>
 
   const shown = appFilter
@@ -177,27 +192,32 @@ export default function InboxTab({ active }) {
             <h3 className="inbox-group-title">
               {g.name} <span className="muted">({g.list.length})</span>
             </h3>
-            {g.list.map((p) => (
-              <div key={p.id} className={'card inbox-page' + (p.active ? '' : ' inactive')}>
-                <div className="result-head">
-                  <span className="source-url inbox-url" dir="ltr">
-                    <a href={p.url} target="_blank" rel="noreferrer">{p.url}</a>
-                  </span>
-                  <span className={'badge ' + (p.active ? 'badge-done' : 'badge-failed')}>
+            <div className="card inbox-table">
+              {g.list.map((p) => (
+                <div key={p.id} className={'inbox-row' + (p.active ? '' : ' inactive')}>
+                  <a
+                    className="inbox-row-url"
+                    dir="ltr"
+                    href={p.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    title={[p.notes, p.rights_note].filter(Boolean).join(' · ')}
+                  >
+                    {p.url}
+                  </a>
+                  <button
+                    className={'badge badge-btn ' + (p.active ? 'badge-done' : 'badge-failed')}
+                    onClick={() => toggleActive(p)}
+                    title={S.toggleHint}
+                  >
                     {p.active ? S.active : S.inactive}
-                  </span>
+                  </button>
+                  <button className="secondary small" onClick={() => removePage(p)}>
+                    {S.removePage}
+                  </button>
                 </div>
-                <p className="muted">
-                  {S.rightsOptions[p.rights_basis] || p.rights_basis}
-                  {p.rights_note ? ` — ${p.rights_note}` : ''}
-                  {' · '}{S.added} {p.added_at}
-                </p>
-                {p.notes && <p className="hint">{p.notes}</p>}
-                <button className="secondary small" onClick={() => toggleActive(p)}>
-                  {p.active ? S.deactivate : S.activate}
-                </button>
-              </div>
-            ))}
+              ))}
+            </div>
           </section>
         ))
       )}
