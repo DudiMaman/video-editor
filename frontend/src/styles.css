@@ -216,6 +216,11 @@ button.small {
 
 .result-card video {
   width: 100%;
+  max-width: 320px;
+  max-height: 70vh;
+  display: block;
+  margin-inline: auto;
+  object-fit: contain;
   border-radius: 8px;
   margin-block-start: 0.5rem;
   background: #000;
