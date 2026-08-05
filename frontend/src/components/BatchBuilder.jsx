@@ -9,7 +9,7 @@ const emptyRow = () => ({
   assetId: '',
   outroId: '',
   introId: '',
-  sourceType: 'upload',
+  sourceType: 'url',
   file: null,
   url: '',
   startSeconds: '',
@@ -37,9 +37,11 @@ export default function BatchBuilder({ active, onSent }) {
       if (!r.outroId) return STR.batch.errMissingOutro
       if (r.sourceType === 'upload' ? !r.file : !r.url.trim())
         return STR.batch.errMissingSource
-      if (!(parseFloat(r.cutSeconds) > 0)) return STR.batch.errMissingCut
+      const hasCut = String(r.cutSeconds).trim() !== ''
+      const cut = parseFloat(r.cutSeconds)
+      if (hasCut && !(cut > 0)) return STR.batch.errBadCut
       const start = parseFloat(r.startSeconds)
-      if (start && start >= parseFloat(r.cutSeconds)) return STR.batch.errBadRange
+      if (hasCut && start && start >= cut) return STR.batch.errBadRange
     }
     return ''
   }

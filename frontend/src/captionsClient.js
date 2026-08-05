@@ -125,7 +125,9 @@ export async function generateCaptionsForBatch(backend, batch, assets, onProgres
     }
     const blob = await backend.fetchVideoBlob(r)
     const introOffset = r._hasIntro ? 2.5 : 0
-    const clipLen = Math.max(1, (r.cut_seconds || 0) - (r.start_seconds || 0))
+    const clipLen = r.cut_seconds != null
+      ? Math.max(1, r.cut_seconds - (r.start_seconds || 0))
+      : null // no end trim — sample across the whole video
     const frames = await extractFrames(blob, clipLen, introOffset)
     newCaptions[r._videoName] = await callClaude(frames, asset)
     done += 1

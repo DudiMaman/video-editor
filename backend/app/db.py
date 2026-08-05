@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS requests (
   source_type  TEXT NOT NULL CHECK (source_type IN ('upload','url')),
   source_url   TEXT,
   source_path  TEXT,
-  cut_seconds  REAL NOT NULL CHECK (cut_seconds > 0),
+  cut_seconds  REAL CHECK (cut_seconds IS NULL OR cut_seconds > 0),
   status       TEXT NOT NULL DEFAULT 'queued'
                CHECK (status IN ('queued','downloading','processing','captioning','done','failed')),
   error        TEXT,
