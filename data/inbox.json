@@ -8,5 +8,15 @@
   "rights_note": "הבעלים",
   "active": true,
   "notes": ""
+ },
+ {
+  "id": "pg_002",
+  "url": "https://www.tiktok.com/@plant.identifierbg",
+  "asset": "sample",
+  "added_at": "2026-08-05",
+  "rights_basis": "creator_permission",
+  "rights_note": "היוצר",
+  "active": true,
+  "notes": ""
  }
 ]
