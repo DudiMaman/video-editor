@@ -10,6 +10,13 @@ function ReviewCard({ entry, appName, onUpdated }) {
   const [caption, setCaption] = useState(entry.caption || '')
   const [busy, setBusy] = useState(false)
   const [note, setNote] = useState('')
+  const [copied, setCopied] = useState(false)
+
+  const copy = async () => {
+    await navigator.clipboard.writeText(caption)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 1500)
+  }
 
   useEffect(() => {
     backend.scout.resolveOutput(entry.output_asset).then(setUrls).catch(() => setUrls(null))
@@ -89,6 +96,9 @@ function ReviewCard({ entry, appName, onUpdated }) {
         onChange={(e) => setCaption(e.target.value)}
       />
       <div className="result-actions">
+        <button className="secondary small" onClick={copy} disabled={!caption}>
+          {copied ? STR.results.copied : STR.results.copyCaption}
+        </button>
         <button
           className="secondary small"
           onClick={saveCaption}
