@@ -74,5 +74,12 @@
   "asset": "sample",
   "added_at": "2026-08-06",
   "active": true
+ },
+ {
+  "id": "pg_012",
+  "url": "https://www.tiktok.com/@plantid.diagnose",
+  "asset": "sample",
+  "added_at": "2026-08-06",
+  "active": true
  }
 ]
