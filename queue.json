@@ -2,55 +2,7 @@
  {
   "asset": "sample",
   "outro": "outros/sample/1785484933469-planty-endcard-1080x1920.MP4",
-  "cut_seconds": 21.5,
-  "source_url": "https://www.tiktok.com/@planta_app/video/7655040424981089558"
- },
- {
-  "asset": "sample",
-  "outro": "outros/sample/1785484933469-planty-endcard-1080x1920.MP4",
-  "cut_seconds": 47.5,
-  "source_url": "https://www.tiktok.com/@planta_app/video/7650988932066331926"
- },
- {
-  "asset": "sample",
-  "outro": "outros/sample/1785484933469-planty-endcard-1080x1920.MP4",
-  "cut_seconds": 28.5,
-  "source_url": "https://www.tiktok.com/@planta_app/video/7633395834993839382"
- },
- {
-  "asset": "sample",
-  "outro": "outros/sample/1785484933469-planty-endcard-1080x1920.MP4",
-  "cut_seconds": 19,
-  "source_url": "https://www.tiktok.com/@planta_app/video/7633395118694747414"
- },
- {
-  "asset": "sample",
-  "outro": "outros/sample/1785484933469-planty-endcard-1080x1920.MP4",
   "cut_seconds": 37.5,
-  "source_url": "https://www.tiktok.com/@planta_app/video/7649843485314518295"
- },
- {
-  "asset": "sample",
-  "outro": "outros/sample/1785484933469-planty-endcard-1080x1920.MP4",
-  "cut_seconds": 36.5,
-  "source_url": "https://www.tiktok.com/@leafcheck.plant.iden/video/7628476853677837588"
- },
- {
-  "asset": "sample",
-  "outro": "outros/sample/1785484933469-planty-endcard-1080x1920.MP4",
-  "cut_seconds": 40,
-  "source_url": "https://www.tiktok.com/@leafcheck.plant.iden/video/7628476925450734855"
- },
- {
-  "asset": "sample",
-  "outro": "outros/sample/1785484933469-planty-endcard-1080x1920.MP4",
-  "cut_seconds": 36.5,
-  "source_url": "https://www.tiktok.com/@leafcheck.plant.iden/video/7628476854797683988"
- },
- {
-  "asset": "sample",
-  "outro": "outros/sample/1785484933469-planty-endcard-1080x1920.MP4",
-  "cut_seconds": 46,
-  "source_url": "https://www.tiktok.com/@leafcheck.plant.iden/video/7595128289719520524"
+  "source_path": "inbox/rebrand-7649843485314518295.mp4"
  }
 ]
