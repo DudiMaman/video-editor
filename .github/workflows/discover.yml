@@ -2,6 +2,10 @@ name: discover-pages
 
 on:
   workflow_dispatch:
+  schedule:
+    # Daily at 03:00 UTC (06:00 Israel in summer, 05:00 in winter) so fresh
+    # suggestions are waiting each morning.
+    - cron: '0 3 * * *'
   push:
     branches: [main]
     paths: ['data/inbox.json']
