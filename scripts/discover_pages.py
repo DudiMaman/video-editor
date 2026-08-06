@@ -53,8 +53,12 @@ Rules:
 
 
 def norm_url(u: str) -> str:
-    u = (u or "").strip().rstrip("/").lower()
-    return re.sub(r"^https?://(www\.)?", "", u)
+    """Canonical form so the same page never slips through twice
+    (https/http, www./m., trailing slash, query strings)."""
+    u = (u or "").strip().lower()
+    u = re.sub(r"[?#].*$", "", u).rstrip("/")
+    u = re.sub(r"^https?://", "", u)
+    return re.sub(r"^(www\.|m\.)", "", u)
 
 
 def load_json(path: Path, fallback):

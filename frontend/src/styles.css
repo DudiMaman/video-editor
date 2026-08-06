@@ -581,3 +581,42 @@ button.small {
 .suggestion-reason {
   font-size: 0.8rem;
 }
+
+.discover-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.discover-info h3 {
+  margin: 0 0 0.25rem;
+}
+
+.discover-info .hint {
+  margin: 0;
+}
+
+.discover-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding-block-start: 0.5rem;
+  border-block-start: 1px solid #f0f1f3;
+}
+
+.discover-daily {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.discover-daily-desc {
+  font-size: 0.8rem;
+}
+
+.discover-msg {
+  margin: 0;
+}

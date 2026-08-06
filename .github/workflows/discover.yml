@@ -25,15 +25,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # The UI play/stop toggle writes discovery_daily to data/config.json.
+      # It pauses automatic runs (schedule + inbox change); manual dispatch
+      # always runs.
+      - name: Check automatic discovery is enabled
+        if: github.event_name != 'workflow_dispatch'
+        run: |
+          enabled=$(jq -r 'if .discovery_daily == false then "no" else "yes" end' data/config.json)
+          if [ "$enabled" = "no" ]; then
+            echo "automatic discovery is paused (discovery_daily=false)"
+            echo "SKIP=1" >> "$GITHUB_ENV"
+          fi
       - uses: actions/setup-python@v5
+        if: env.SKIP != '1'
         with:
           python-version: '3.12'
-      - run: pip install anthropic
+      - if: env.SKIP != '1'
+        run: pip install anthropic
       - name: Discover similar pages
+        if: env.SKIP != '1'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scripts/discover_pages.py
       - name: Commit new suggestions
+        if: env.SKIP != '1'
         run: |
           if git diff --quiet data/suggestions.json; then
             echo "no new suggestions"

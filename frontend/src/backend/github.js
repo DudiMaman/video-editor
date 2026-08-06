@@ -204,11 +204,11 @@ export function create(params) {
   }
 
   // CAS loop like mutateAssets: re-read and re-apply on a 409 conflict.
-  async function mutateDataJson(path, mutator, message) {
+  async function mutateDataJson(path, mutator, message, fallback = '[]') {
     requireToken()
     for (let attempt = 0; ; attempt++) {
-      const { text, sha } = await readRepoFile(path, '[]')
-      const data = JSON.parse(text || '[]')
+      const { text, sha } = await readRepoFile(path, fallback)
+      const data = JSON.parse(text || fallback)
       if (mutator(data) === false) return data
       try {
         await writeRepoFile(path, JSON.stringify(data, null, 1) + '\n', sha, message)
@@ -330,6 +330,18 @@ export function create(params) {
           body: { ref: 'main' },
         })
       },
+      readConfig: async () =>
+        JSON.parse((await readRepoFile('data/config.json', '{}')).text || '{}'),
+      setDiscoveryDaily: (enabled) =>
+        mutateDataJson(
+          'data/config.json',
+          (cfg) => {
+            if (cfg.discovery_daily === enabled) return false
+            cfg.discovery_daily = enabled
+          },
+          `Scout config: daily discovery ${enabled ? 'on' : 'off'}`,
+          '{}'
+        ),
       readBrief: () => readRepoFile('data/brief.md', ''),
       writeBrief: async (text, sha) => {
         requireToken()
