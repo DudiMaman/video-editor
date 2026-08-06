@@ -10,6 +10,7 @@ export const STR = {
     approved: 'סרטונים שאושרו',
     published: 'סרטונים שעלו לרשת',
     log: 'יומן',
+    more: 'עוד',
   },
   status: {
     queued: 'ממתין',
