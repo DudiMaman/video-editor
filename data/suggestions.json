@@ -118,5 +118,29 @@
   "asset": "sample",
   "found_at": "2026-08-06",
   "status": "accepted"
+ },
+ {
+  "url": "https://www.tiktok.com/@blossom_app",
+  "name": "Blossom - Plant Identifier",
+  "reason": "עמוד רשמי של אפליקציית Blossom לזיהוי צמחים וטיפול בהם, בדיוק בנישה של Planty.",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@plantid.diagnose",
+  "name": "Herby: AI Plant Identifier",
+  "reason": "עמוד TikTok רשמי של אפליקציית Herby לזיהוי וטיפול בצמחים באמצעות AI, תואם לנושא של Planty.",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@leafylens.app",
+  "name": "LeafyLens",
+  "reason": "עמוד רשמי של אפליקציית LeafyLens לזיהוי צמחים וקבלת מדריכי טיפול, רלוונטי ישירות לתחום של Planty.",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
  }
 ]
