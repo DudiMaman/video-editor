@@ -1,1 +1,66 @@
-[]
+[
+ {
+  "url": "https://www.tiktok.com/@natureid_app",
+  "name": "NatureID app",
+  "reason": "עמוד אפליקציה לזיהוי צמחים עם תזכורות טיפול, מתאים בדיוק לנושא של Planty.",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@picturethisplant",
+  "name": "PictureThis App",
+  "reason": "עמוד רשמי של אפליקציית זיהוי צמחים מובילה עם טיפים לטיפול וסרטוני זיהוי מיידי בדומה לזרעים.",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@planta_app",
+  "name": "Planta App",
+  "reason": "אפליקציית טיפול וזיהוי צמחים עם תוכן קבוע על תזכורות השקיה וטיפול בצמחי בית.",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@plantinapp",
+  "name": "PlantIn App",
+  "reason": "עמוד אפליקציה לזיהוי צמחים ואבחון מחלות עם המון תוכן קצר על הצלת צמחים.",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.instagram.com/houseplantidentifier/",
+  "name": "House Plant Identifier",
+  "reason": "עמוד אינסטגרם המתמקד בזיהוי צמחי בית, תואם ישירות לנושא הבריף.",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@leafcheck.plant.iden",
+  "name": "LeafCheck: Plant Identifier",
+  "reason": "עמוד אפליקציית זיהוי צמחים עם קהל עוקבים פעיל ותוכן קצר של סקאן וזיהוי מיידי.",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@emlivingherbestlife",
+  "name": "Em Living Her Best Life",
+  "reason": "יוצרת תוכן פעילה על טיפול בצמחי בית עם טיפים על השקיה וגיזום המתאימים לנושא Planty.",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/discover/anyplant-ai-plant-identifier",
+  "name": "AnyPlant AI",
+  "reason": "אפליקציית זיהוי צמחים מבוססת AI עם תוכן קצר המדגים סקאן וזיהוי צמחים בדומה לזרעים.",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
+ }
+]
