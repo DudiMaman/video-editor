@@ -11,7 +11,7 @@ import ReviewTab from './components/ReviewTab.jsx'
 import LogTab from './components/LogTab.jsx'
 
 const TABS = backend.supportsScout
-  ? ['batch', 'results', 'assets', 'inbox', 'brief', 'review', 'log']
+  ? ['batch', 'results', 'assets', 'inbox', 'brief', 'review', 'approved', 'published', 'log']
   : ['batch', 'results', 'assets']
 
 export default function App() {
@@ -65,7 +65,13 @@ export default function App() {
               <BriefTab active={tab === 'brief'} />
             </div>
             <div hidden={tab !== 'review'}>
-              <ReviewTab active={tab === 'review'} />
+              <ReviewTab active={tab === 'review'} stage="pending" />
+            </div>
+            <div hidden={tab !== 'approved'}>
+              <ReviewTab active={tab === 'approved'} stage="approved" />
+            </div>
+            <div hidden={tab !== 'published'}>
+              <ReviewTab active={tab === 'published'} stage="published" />
             </div>
             <div hidden={tab !== 'log'}>
               <LogTab active={tab === 'log'} />

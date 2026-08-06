@@ -5,22 +5,29 @@ import ShareBar from './ShareBar.jsx'
 
 const S = STR.scout
 
-function ReviewCard({ entry, appName, onUpdated }) {
+// stage: 'pending' | 'approved' | 'published'
+const STAGE = {
+  pending: { statuses: ['pending_review'], explain: () => S.reviewExplain, empty: () => S.reviewEmpty },
+  approved: { statuses: ['approved'], explain: () => S.approvedExplain, empty: () => S.approvedEmpty },
+  published: { statuses: ['published'], explain: () => S.publishedExplain, empty: () => S.publishedEmpty },
+}
+
+function ReviewCard({ entry, stage, appName, onUpdated }) {
   const [urls, setUrls] = useState(undefined) // undefined=loading, null=missing
   const [caption, setCaption] = useState(entry.caption || '')
   const [busy, setBusy] = useState(false)
   const [note, setNote] = useState('')
   const [copied, setCopied] = useState(false)
 
+  useEffect(() => {
+    backend.scout.resolveOutput(entry.output_asset).then(setUrls).catch(() => setUrls(null))
+  }, [entry.output_asset])
+
   const copy = async () => {
     await navigator.clipboard.writeText(caption)
     setCopied(true)
     setTimeout(() => setCopied(false), 1500)
   }
-
-  useEffect(() => {
-    backend.scout.resolveOutput(entry.output_asset).then(setUrls).catch(() => setUrls(null))
-  }, [entry.output_asset])
 
   const setStatus = async (patch, message) => {
     setBusy(true)
@@ -48,15 +55,17 @@ function ReviewCard({ entry, appName, onUpdated }) {
     )
   }
 
-  const markPublished = () =>
+  const markUploaded = () => {
+    if (!confirm(S.confirmUploaded)) return
     setStatus(
       {
         status: 'published',
-        published_to: [...new Set([...(entry.published_to || []), 'tiktok'])],
+        published_to: [...new Set([...(entry.published_to || []), 'social'])],
         published_at: new Date().toISOString(),
       },
-      `Scout: mark published ${entry.video_id}`
+      `Scout: uploaded ${entry.video_id}`
     )
+  }
 
   const saveCaption = async () => {
     await setStatus({ caption }, `Scout: edit caption ${entry.video_id}`)
@@ -70,13 +79,15 @@ function ReviewCard({ entry, appName, onUpdated }) {
     : null
 
   return (
-    <div className={`card result-card status-${entry.status === 'approved' ? 'done' : 'queued'}`}>
+    <div className={`card result-card status-${stage === 'pending' ? 'queued' : 'done'}`}>
       <div className="result-head">
         <strong>{appName}</strong>
         <span className="muted" dir="ltr">{entry.output_asset}</span>
-        <span className={`badge badge-${entry.status === 'approved' ? 'done' : 'queued'}`}>
-          {S.statuses[entry.status] || entry.status}
-        </span>
+        {stage === 'published' && entry.published_at && (
+          <span className="badge badge-done">
+            {S.publishedAtLabel} {entry.published_at.slice(0, 10)}
+          </span>
+        )}
       </div>
       {entry.source_url && (
         <p className="muted source-url" dir="ltr">
@@ -93,24 +104,27 @@ function ReviewCard({ entry, appName, onUpdated }) {
         dir="ltr"
         rows={6}
         value={caption}
+        readOnly={stage === 'published'}
         onChange={(e) => setCaption(e.target.value)}
       />
       <div className="result-actions">
         <button className="secondary small" onClick={copy} disabled={!caption}>
           {copied ? STR.results.copied : STR.results.copyCaption}
         </button>
-        <button
-          className="secondary small"
-          onClick={saveCaption}
-          disabled={busy || caption === (entry.caption || '')}
-        >
-          {S.saveCaption}
-        </button>
+        {stage !== 'published' && (
+          <button
+            className="secondary small"
+            onClick={saveCaption}
+            disabled={busy || caption === (entry.caption || '')}
+          >
+            {S.saveCaption}
+          </button>
+        )}
         {note && <span className="ok">{note}</span>}
       </div>
-      {shareRequest && <ShareBar request={shareRequest} />}
+      {stage !== 'published' && shareRequest && <ShareBar request={shareRequest} />}
       <div className="result-actions review-actions">
-        {entry.status === 'pending_review' && (
+        {stage === 'pending' && (
           <>
             <button className="primary" onClick={approve} disabled={busy}>
               {S.approve}
@@ -120,9 +134,9 @@ function ReviewCard({ entry, appName, onUpdated }) {
             </button>
           </>
         )}
-        {entry.status === 'approved' && (
-          <button className="primary" onClick={markPublished} disabled={busy}>
-            {S.markPublishedBtn}
+        {stage === 'approved' && (
+          <button className="primary" onClick={markUploaded} disabled={busy}>
+            {S.markUploadedBtn}
           </button>
         )}
       </div>
@@ -136,7 +150,8 @@ export function assetIdOf(entry, inboxById) {
   return entry.asset || inboxById[entry.source_page]?.asset || ''
 }
 
-export default function ReviewTab({ active }) {
+export default function ReviewTab({ active, stage = 'pending' }) {
+  const cfg = STAGE[stage]
   const [entries, setEntries] = useState(null)
   const [assets, setAssets] = useState([])
   const [inboxById, setInboxById] = useState({})
@@ -146,9 +161,7 @@ export default function ReviewTab({ active }) {
   const load = () =>
     backend.scout
       .readLedger()
-      .then((l) =>
-        setEntries(l.filter((e) => ['pending_review', 'approved'].includes(e.status)))
-      )
+      .then((l) => setEntries(l.filter((e) => cfg.statuses.includes(e.status))))
       .catch((e) => setError(e.message))
 
   useEffect(() => {
@@ -169,15 +182,15 @@ export default function ReviewTab({ active }) {
   const appName = (id) =>
     assets.find((a) => String(a.id) === String(id))?.name || id || S.unknownAsset
 
-  const idsInQueue = [...new Set(entries.map((e) => assetIdOf(e, inboxById)))]
+  const idsHere = [...new Set(entries.map((e) => assetIdOf(e, inboxById)))]
   const shown = appFilter
     ? entries.filter((e) => String(assetIdOf(e, inboxById)) === appFilter)
     : entries
 
   return (
     <div>
-      <p className="hint">{S.reviewExplain}</p>
-      {idsInQueue.length > 1 && (
+      <p className="hint">{cfg.explain()}</p>
+      {idsHere.length > 1 && (
         <div className="log-filter">
           <button
             className={'tab' + (appFilter === '' ? ' active' : '')}
@@ -185,7 +198,7 @@ export default function ReviewTab({ active }) {
           >
             {S.allApps} ({entries.length})
           </button>
-          {idsInQueue.map((id) => (
+          {idsHere.map((id) => (
             <button
               key={id || 'none'}
               className={'tab' + (appFilter === String(id) ? ' active' : '')}
@@ -198,12 +211,13 @@ export default function ReviewTab({ active }) {
         </div>
       )}
       {entries.length === 0 ? (
-        <p className="empty">{S.reviewEmpty}</p>
+        <p className="empty">{cfg.empty()}</p>
       ) : (
         shown.map((e) => (
           <ReviewCard
             key={e.video_id}
             entry={e}
+            stage={stage}
             appName={appName(assetIdOf(e, inboxById))}
             onUpdated={load}
           />
