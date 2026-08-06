@@ -620,3 +620,55 @@ button.small {
 .discover-msg {
   margin: 0;
 }
+
+/* ---- One-line top bar with a "more" menu ---- */
+
+.tabs {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.tabs .tab {
+  white-space: nowrap;
+  font-size: 0.9rem;
+  padding: 0.45rem 0.7rem;
+}
+
+.more-wrap {
+  position: relative;
+}
+
+.more-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  inset-inline-start: 0;
+  z-index: 30;
+  background: #fff;
+  border: 1px solid #e3e5e8;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 8.5rem;
+}
+
+.more-item {
+  border: none;
+  background: transparent;
+  text-align: start;
+  padding: 0.5rem 0.8rem;
+  border-radius: 7px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.more-item:hover {
+  background: #f0f4ff;
+}
+
+.more-item.active {
+  background: #1a73e8;
+  color: #fff;
+}
