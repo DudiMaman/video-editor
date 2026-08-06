@@ -2,13 +2,7 @@
  {
   "asset": "sample",
   "outro": "outros/sample/1785484933469-planty-endcard-1080x1920.MP4",
-  "cut_seconds": 37.5,
-  "source_path": "inbox/rebrand-7649843485314518295.mp4"
- },
- {
-  "asset": "sample",
-  "outro": "outros/sample/1785484933469-planty-endcard-1080x1920.MP4",
-  "cut_seconds": 38.6,
-  "source_url": "https://www.tiktok.com/@planta_app/video/7650988932066331926"
+  "cut_seconds": 38.4,
+  "source_path": "inbox/fix-7650988932066331926.mp4"
  }
 ]
