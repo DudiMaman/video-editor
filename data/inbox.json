@@ -53,5 +53,12 @@
   "asset": "sample",
   "added_at": "2026-08-06",
   "active": true
+ },
+ {
+  "id": "pg_008",
+  "url": "https://www.tiktok.com/discover/anyplant-ai-plant-identifier",
+  "asset": "sample",
+  "added_at": "2026-08-06",
+  "active": true
  }
 ]
