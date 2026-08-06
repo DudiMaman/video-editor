@@ -28,7 +28,7 @@ PROMPT = """\
 You are a short-form-video content scout for the mobile app "{app_name}".
 App description: {app_desc}
 
-The user already follows these creator pages as sources (the "seeds"):
+The user already follows these pages as sources (the "seeds"):
 {seeds}
 
 Editorial brief describing what content qualifies:
@@ -36,18 +36,29 @@ Editorial brief describing what content qualifies:
 {brief}
 ---
 
-Task: find up to {max_new} NEW public creator pages (TikTok accounts,
-Instagram accounts, YouTube channels) that regularly post content similar
-to the seeds and matching the brief. Study what the seed pages are about,
-then search the web for more like them.
+Task: find up to {max_new} NEW official social pages OF MOBILE APPS that
+operate in the same specific domain as the seeds (TikTok accounts,
+Instagram accounts, YouTube channels). Study what the seed pages are
+about, then search the web for the official pages of other apps in that
+exact niche - that is where the most relevant videos are.
 
-Rules:
+STRICT page-type rules - only suggest a page when it is clearly the
+OFFICIAL account of an app or app-company:
+- Signals: the handle or bio names an app, the bio links to an app-store
+  page or the app's website, the content demos the app itself.
+- Do NOT suggest hobbyists, enthusiasts, or niche influencers - however
+  on-topic their content is.
+- Do NOT suggest pages of private individuals or personal creator brands.
+- Do NOT suggest magazines, communities, aggregators, or hashtag/discover
+  pages.
+
+Other rules:
 - Suggest account/channel PAGES, not individual videos.
 - Never suggest any of these already-known URLs:
 {known}
-- Prefer active pages with a clear focus matching the brief's topic.
+- Prefer active pages that post regularly.
 - Respond with ONLY a JSON array, no other text:
-  [{{"url": "https://...", "name": "page name", "reason": "one short sentence in Hebrew on why it fits"}}]
+  [{{"url": "https://...", "name": "app / page name", "reason": "one short sentence in Hebrew naming the app and why it fits"}}]
 - If you cannot find good candidates, return [].
 """
 
