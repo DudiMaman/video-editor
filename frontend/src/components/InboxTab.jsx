@@ -136,7 +136,7 @@ export default function InboxTab({ active }) {
     setError('')
     try {
       const updatedPages = await backend.scout.mutateInbox((list) => {
-        if (list.some((p) => p.url === s.url)) return false
+        if (list.some((p) => normUrl(p.url) === normUrl(s.url))) return false
         list.push({
           id: nextPageId(list),
           url: s.url,
@@ -145,12 +145,13 @@ export default function InboxTab({ active }) {
           active: true,
         })
       }, `Scout inbox: accept suggestion ${s.url}`)
+      // Show the accepted page immediately even if the bookkeeping below fails
+      setPages(updatedPages)
       const updatedSugs = await backend.scout.mutateSuggestions((list) => {
-        const x = list.find((y) => y.url === s.url)
+        const x = list.find((y) => normUrl(y.url) === normUrl(s.url))
         if (!x) return false
         x.status = 'accepted'
       }, `Scout suggestions: accept ${s.url}`)
-      setPages(updatedPages)
       setSuggestions(updatedSugs)
       setOk(S.suggestionAccepted)
     } catch (e) {
