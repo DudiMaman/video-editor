@@ -60,6 +60,10 @@ export function create(params) {
       method,
       headers,
       body: body ? JSON.stringify(body) : undefined,
+      // GitHub serves API responses with max-age=60; a cached read after a
+      // write returns a stale sha and every CAS retry then hits the same
+      // cache and 409s. Reads must always be fresh.
+      cache: 'no-store',
     })
     if (!res.ok) {
       let msg = `HTTP ${res.status}`
