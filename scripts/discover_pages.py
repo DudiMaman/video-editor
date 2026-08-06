@@ -53,6 +53,9 @@ OFFICIAL account of an app or app-company:
   pages.
 
 Other rules:
+- STRONGLY prefer TikTok account pages: the downstream pipeline scans
+  TikTok reliably, while Instagram pages currently cannot be scanned.
+  Suggest an Instagram/YouTube page only when it is an exceptional fit.
 - Suggest account/channel PAGES, not individual videos.
 - Never suggest any of these already-known URLs:
 {known}
