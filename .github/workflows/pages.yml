@@ -3,6 +3,10 @@ name: deploy-ui
 on:
   push:
     branches: [main]
+    # Data-file pushes (ledger updates, queue, suggestions) don't change the
+    # UI; deploying on each one burns the ~10/hour Pages build quota and
+    # stalls real UI deploys.
+    paths: ['frontend/**', '.github/workflows/pages.yml']
   workflow_dispatch:
 
 permissions:
