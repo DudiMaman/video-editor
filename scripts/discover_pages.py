@@ -20,6 +20,9 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 MODEL = os.environ.get("CLAUDE_MODEL") or "claude-sonnet-5"
 MAX_PER_APP = int(os.environ.get("DISCOVER_MAX_PER_APP") or 8)
 MAX_SEARCHES = int(os.environ.get("DISCOVER_MAX_SEARCHES") or 10)
+# The daily schedule keeps producing finds; don't pile up more than this
+# many unhandled suggestions per app.
+MAX_PENDING_PER_APP = int(os.environ.get("DISCOVER_MAX_PENDING") or 10)
 
 PROMPT = """\
 You are a short-form-video content scout for the mobile app "{app_name}".
@@ -130,6 +133,12 @@ def main() -> int:
         seeds = [p for p in inbox
                  if str(p.get("asset")) == str(app["id"]) and p.get("active")]
         if not seeds:
+            continue
+        pending = sum(1 for s in suggestions
+                      if str(s.get("asset")) == str(app["id"])
+                      and s.get("status") == "suggested")
+        if pending >= MAX_PENDING_PER_APP:
+            print(f"skipping {app['id']}: {pending} suggestions already await review")
             continue
         print(f"discovering for {app['id']} ({len(seeds)} seed pages)...")
         try:
