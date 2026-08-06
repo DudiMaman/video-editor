@@ -6,6 +6,16 @@ const S = STR.scout
 
 const emptyForm = () => ({ urls: '', asset: '' })
 
+// Same canonical form as scripts/discover_pages.py norm_url.
+const normUrl = (u) =>
+  String(u || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[?#].*$/, '')
+    .replace(/\/+$/, '')
+    .replace(/^https?:\/\//, '')
+    .replace(/^(www\.|m\.)/, '')
+
 const nextPageId = (pages) => {
   const max = pages.reduce((m, p) => {
     const n = parseInt(String(p.id || '').replace('pg_', ''), 10)
@@ -24,13 +34,28 @@ export default function InboxTab({ active }) {
   const [error, setError] = useState('')
   const [ok, setOk] = useState('')
   const [discoverMsg, setDiscoverMsg] = useState('')
+  const [dailyOn, setDailyOn] = useState(true)
 
   useEffect(() => {
     if (!active) return
     backend.scout.readInbox().then(setPages).catch((e) => setError(e.message))
     backend.scout.readSuggestions().then(setSuggestions).catch(() => {})
+    backend.scout
+      .readConfig()
+      .then((c) => setDailyOn(c.discovery_daily !== false))
+      .catch(() => {})
     backend.listAssets().then(setAssets).catch(() => {})
   }, [active])
+
+  const toggleDaily = async () => {
+    setError('')
+    try {
+      await backend.scout.setDiscoveryDaily(!dailyOn)
+      setDailyOn(!dailyOn)
+    } catch (e) {
+      setError(e.message)
+    }
+  }
 
   const assetName = (id) =>
     assets.find((a) => String(a.id) === String(id))?.name || id || S.unknownAsset
@@ -45,9 +70,19 @@ export default function InboxTab({ active }) {
     if (!form.asset) return setError(S.errMissingAssetPage)
     setError('')
     setBusy(true)
+    let added = 0
+    let skipped = 0
     try {
       const updated = await backend.scout.mutateInbox((list) => {
+        added = 0
+        skipped = 0
+        const known = new Set(list.map((p) => normUrl(p.url)))
         for (const url of urls) {
+          if (known.has(normUrl(url))) {
+            skipped++
+            continue
+          }
+          known.add(normUrl(url))
           list.push({
             id: nextPageId(list),
             url,
@@ -55,11 +90,17 @@ export default function InboxTab({ active }) {
             added_at: new Date().toISOString().slice(0, 10),
             active: true,
           })
+          added++
         }
-      }, `Scout inbox: add ${urls.length} page(s)`)
+        if (!added) return false
+      }, `Scout inbox: add page(s)`)
       setPages(updated)
       setForm(emptyForm())
-      setOk(S.addedCount(urls.length))
+      setOk(
+        [added ? S.addedCount(added) : '', skipped ? S.skippedDup(skipped) : '']
+          .filter(Boolean)
+          .join(' · ')
+      )
     } catch (e) {
       setError(e.message)
     } finally {
@@ -186,14 +227,36 @@ export default function InboxTab({ active }) {
           <button className="primary" onClick={add} disabled={busy}>
             {S.addPage}
           </button>
-          <button className="secondary" onClick={runDiscovery} disabled={pages?.length === 0}>
-            {S.discoverBtn}
-          </button>
         </div>
-        <p className="hint">{S.discoverAuto}</p>
-        {discoverMsg && <p className="ok">{discoverMsg}</p>}
         {error && <p className="error">{STR.errors.generic}{error}</p>}
         {ok && <p className="ok">{ok}</p>}
+      </div>
+
+      <div className="card discover-card">
+        <div className="discover-info">
+          <h3>{S.discoverTitle}</h3>
+          <p className="hint">{S.discoverDesc}</p>
+        </div>
+        <div className="discover-controls">
+          <div className={'discover-daily' + (dailyOn ? '' : ' off')}>
+            <span className={'badge ' + (dailyOn ? 'badge-done' : 'badge-failed')}>
+              {dailyOn ? S.dailyOn : S.dailyOff}
+            </span>
+            <span className="muted discover-daily-desc">
+              {dailyOn ? S.dailyOnDesc : S.dailyOffDesc}
+            </span>
+            <button
+              className={(dailyOn ? 'secondary' : 'primary') + ' small'}
+              onClick={toggleDaily}
+            >
+              {dailyOn ? S.pauseDaily : S.resumeDaily}
+            </button>
+          </div>
+          <button className="primary" onClick={runDiscovery} disabled={pages?.length === 0}>
+            🔍 {S.discoverBtn}
+          </button>
+        </div>
+        {discoverMsg && <p className="ok discover-msg">{discoverMsg}</p>}
       </div>
 
       {suggestions.filter((s) => s.status === 'suggested').length > 0 && (
