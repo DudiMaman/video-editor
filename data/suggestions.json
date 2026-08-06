@@ -62,5 +62,61 @@
   "asset": "sample",
   "found_at": "2026-08-06",
   "status": "accepted"
+ },
+ {
+  "url": "https://www.instagram.com/plantsnap/",
+  "name": "PlantSnap",
+  "reason": "אפליקציית זיהוי צמחים פופולרית עם עמוד רשמי פעיל המציג את האפליקציה וקהילת משתמשים ענפה",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@gregsavesplants",
+  "name": "Greg – Plant Care App",
+  "reason": "העמוד הרשמי של אפליקציית הטיפול בצמחים Greg, מקדם הורדות ומדגים את השימוש באפליקציה",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.instagram.com/leafsnap_ai/",
+  "name": "LeafSnap",
+  "reason": "עמוד רשמי של אפליקציית זיהוי הצמחים LeafSnap המבוססת על בינה מלאכותית, כולל קישור להורדה",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.instagram.com/plantify_app/",
+  "name": "Plantify: Plant Identifier",
+  "reason": "אפליקציית זיהוי וטיפול בצמחים עם עמוד רשמי המציג תכונות זיהוי ותזכורות טיפול",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.instagram.com/flora.incognita_international/",
+  "name": "Flora Incognita",
+  "reason": "עמוד רשמי של אפליקציית זיהוי צמחים מבוססת AI בשיתוף מדעני צמחים",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.instagram.com/plantoraapp/",
+  "name": "Plantora – Plant Identify, Care",
+  "reason": "אפליקציה לזיהוי צמחים ומחלות עם עמוד רשמי פעיל המקדם הורדות",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.instagram.com/plantid_plant_identify/",
+  "name": "PlantID – Plant Identification",
+  "reason": "אפליקציית זיהוי צמחים עם תזכורות טיפול, עמוד רשמי המציג את יתרונות האפליקציה",
+  "asset": "sample",
+  "found_at": "2026-08-06",
+  "status": "suggested"
  }
 ]
