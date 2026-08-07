@@ -142,5 +142,21 @@
   "asset": "sample",
   "found_at": "2026-08-06",
   "status": "dismissed"
+ },
+ {
+  "url": "https://www.tiktok.com/@gardnworld",
+  "name": "Gardn",
+  "reason": "אפליקציית טיפול וניהול גינה/צמחים עם תזכורות טיפול מותאמות מזג אוויר - תואמת לתחום של Planty.",
+  "asset": "sample",
+  "found_at": "2026-08-07",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.instagram.com/flora.incognita/",
+  "name": "Flora Incognita",
+  "reason": "עמוד רשמי של אפליקציית זיהוי הצמחים הפופולרית Flora Incognita עם קישור הורדה בביו, מתאים לנישה של Planty.",
+  "asset": "sample",
+  "found_at": "2026-08-07",
+  "status": "suggested"
  }
 ]
