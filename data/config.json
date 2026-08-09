@@ -4,5 +4,24 @@
  "timezone": "Asia/Jerusalem",
  "run_hour": "06:00",
  "release_tag_prefix": "scout-",
- "release_retention_days": 30
+ "release_retention_days": 30,
+ "brand_blocklist": [
+  "planta",
+  "blossom",
+  "plantin",
+  "plantum",
+  "picturethis",
+  "picture this",
+  "leafsnap",
+  "plantsnap",
+  "natureid",
+  "nature id",
+  "flora incognita",
+  "gardn",
+  "leafylens",
+  "leafcheck",
+  "herby",
+  "gregsavesplants",
+  "download greg"
+ ]
 }
