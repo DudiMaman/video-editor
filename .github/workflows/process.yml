@@ -24,8 +24,8 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install ffmpeg
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+      - name: Install ffmpeg and OCR
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg tesseract-ocr
 
       - name: Install Python dependencies
         run: pip install yt-dlp anthropic python-dotenv
@@ -45,6 +45,20 @@ jobs:
           fi
           python scripts/process_batch.py --out out
 
+      # Deterministic backstop: no video naming a source brand may reach
+      # the review queue, however it slipped past the editing agent.
+      # Tainted videos are dropped from the release and the run goes red.
+      - name: Brand-text QA gate
+        run: |
+          for v in out/video_*.mp4; do
+            [ -e "$v" ] || continue
+            if ! python scripts/check_brands.py "$v"; then
+              echo "::error::brand text found in $v - excluded from the release"
+              rm "$v"
+              echo "QA_FAILED=1" >> "$GITHUB_ENV"
+            fi
+          done
+
       - name: Publish results as a release
         if: always()
         env:
@@ -57,3 +71,9 @@ jobs:
           else
             echo "no videos were produced - skipping release"
           fi
+
+      - name: Fail the run if brand QA rejected a video
+        if: env.QA_FAILED == '1'
+        run: |
+          echo "one or more videos contained source-brand text; see the QA gate log"
+          exit 1
