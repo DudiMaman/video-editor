@@ -19,9 +19,13 @@ concurrency:
 
 jobs:
   discover:
-    # Adding a page (including accepting a suggestion) triggers discovery;
-    # accepting alone shouldn't re-run the whole search.
-    if: "!contains(github.event.head_commit.message, 'accept suggestion')"
+    # Inbox pushes trigger discovery only when pages were ADDED — removals,
+    # toggles, and suggestion-accepts also touch inbox.json but re-searching
+    # on each burned ~150-250k API tokens per push (the Aug 6 usage spike).
+    # Schedule and manual dispatch always pass this guard.
+    if: >-
+      github.event_name != 'push' ||
+      contains(github.event.head_commit.message, 'Scout inbox: add')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
