@@ -158,5 +158,13 @@
   "asset": "sample",
   "found_at": "2026-08-07",
   "status": "dismissed"
+ },
+ {
+  "url": "https://www.tiktok.com/@flora.incognita",
+  "name": "Flora Incognita (TikTok)",
+  "reason": "העמוד הרשמי בטיקטוק — אך כל התוכן בגרמנית, נפסל לפי הבריף (אנגלית בלבד)",
+  "asset": "sample",
+  "found_at": "2026-08-09",
+  "status": "dismissed"
  }
 ]

@@ -36,11 +36,11 @@ Editorial brief describing what content qualifies:
 {brief}
 ---
 
-Task: find up to {max_new} NEW official social pages OF MOBILE APPS that
-operate in the same specific domain as the seeds (TikTok accounts,
-Instagram accounts, YouTube channels). Study what the seed pages are
-about, then search the web for the official pages of other apps in that
-exact niche - that is where the most relevant videos are.
+Task: find up to {max_new} NEW official TIKTOK ACCOUNT PAGES of mobile
+apps that operate in the same specific domain as the seeds. Study what
+the seed pages are about, then search the web for the official TikTok
+pages of other apps in that exact niche - that is where the most
+relevant videos are.
 
 STRICT page-type rules - only suggest a page when it is clearly the
 OFFICIAL account of an app or app-company:
@@ -53,10 +53,13 @@ OFFICIAL account of an app or app-company:
   pages.
 
 Other rules:
-- STRONGLY prefer TikTok account pages: the downstream pipeline scans
-  TikTok reliably, while Instagram pages currently cannot be scanned.
-  Suggest an Instagram/YouTube page only when it is an exceptional fit.
-- Suggest account/channel PAGES, not individual videos.
+- TIKTOK ONLY: suggest exclusively tiktok.com/@... account pages. Never
+  suggest Instagram, YouTube, or any other platform - the downstream
+  pipeline can only scan TikTok. If an app fits perfectly but has no
+  TikTok page, do not suggest it at all.
+- Prefer pages whose recent posts are in ENGLISH - the editorial brief
+  rejects foreign-language content, so a non-English page is useless.
+- Suggest account PAGES, not individual videos.
 - Never suggest any of these already-known URLs:
 {known}
 - Prefer active pages that post regularly.
