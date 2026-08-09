@@ -1,8 +1,31 @@
 [
  {
   "asset": "sample",
+  "outro": "outros/sample/1785484933469-planty-endcard-1080x1920.MP4",
+  "cut_seconds": 17.3,
+  "source_url": "https://www.tiktok.com/@blossom_app/video/7286490280969129221"
+ },
+ {
+  "asset": "sample",
+  "outro": "outros/sample/1785484933469-planty-endcard-1080x1920.MP4",
+  "cut_seconds": 20.2,
+  "source_url": "https://www.tiktok.com/@blossom_app/video/7263112544770968837"
+ },
+ {
+  "asset": "sample",
+  "outro": "outros/sample/1785484933469-planty-endcard-1080x1920.MP4",
+  "source_path": "inbox/fix-7255758349650742533.mp4"
+ },
+ {
+  "asset": "sample",
   "outro": "outros/sample/planty-endcard-female-voice.mp4",
-  "cut_seconds": 38.4,
-  "source_path": "inbox/fix-7650988932066331926.mp4"
+  "cut_seconds": 38.5,
+  "source_url": "https://www.tiktok.com/@planta_app/video/7651882114182434070"
+ },
+ {
+  "asset": "sample",
+  "outro": "outros/sample/planty-endcard-female-voice.mp4",
+  "cut_seconds": 59.8,
+  "source_url": "https://www.tiktok.com/@planta_app/video/7657074970450808086"
  }
 ]
