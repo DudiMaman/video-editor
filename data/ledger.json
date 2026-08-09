@@ -4,12 +4,14 @@
   "source_page": "pg_001",
   "source_url": "https://www.tiktok.com/@plantum_app/video/7660894202083003656",
   "found_at": "2026-08-05",
-  "status": "approved",
+  "status": "published",
   "reject_reason": "",
   "output_asset": "batch-9/video_01.mp4",
   "caption": "This fittonia droops SO dramatically it looks half-dead... one sip of water and she's thriving again. Drama queens need the right care plan too. Scan yours with Planty and never guess again.\n\nhttps://planty-app.com/\n\n#PlantIdentification #PlantIdentifier #PlantID #PlantCare #PlantTips #PlantTikTok #Houseplants #PlantLovers #GardeningTips #PlantyApp #WhatPlantIsThis #IdentifyPlants #PlantApp #NatureTok #FittoniaCare #NervePlant",
-  "published_to": [],
-  "published_at": ""
+  "published_to": [
+   "social"
+  ],
+  "published_at": "2026-08-09T14:13:13.088Z"
  },
  {
   "video_id": "7651500080687631623",
