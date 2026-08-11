@@ -5,7 +5,7 @@
   "asset": "sample",
   "added_at": "2026-08-05",
   "rights_basis": "creator_permission",
-  "rights_note": "הבעלים",
+  "rights_note": "הבעלים — אושר ע\"י דודי; עמוד בבעלותו",
   "active": true,
   "notes": ""
  },
@@ -16,63 +16,80 @@
   "added_at": "2026-08-05",
   "rights_basis": "creator_permission",
   "rights_note": "היוצר",
-  "active": true,
-  "notes": ""
+  "active": false,
+  "notes": "",
+  "deactivated_reason": "ממתין לתיעוד זכויות (הסכם/התכתבות/חומרי מקור מהשותף)"
  },
  {
   "id": "pg_003",
   "url": "https://www.tiktok.com/@picturethisplant",
   "asset": "sample",
   "added_at": "2026-08-06",
-  "active": true
+  "active": false,
+  "notes": "",
+  "deactivated_reason": "ממתין לתיעוד זכויות (הסכם/התכתבות/חומרי מקור מהשותף)"
  },
  {
   "id": "pg_004",
   "url": "https://www.tiktok.com/@planta_app",
   "asset": "sample",
   "added_at": "2026-08-06",
-  "active": true
+  "active": false,
+  "notes": "",
+  "deactivated_reason": "ממתין לתיעוד זכויות (הסכם/התכתבות/חומרי מקור מהשותף)"
  },
  {
   "id": "pg_005",
   "url": "https://www.tiktok.com/@plantinapp",
   "asset": "sample",
   "added_at": "2026-08-06",
-  "active": true
+  "active": false,
+  "notes": "",
+  "deactivated_reason": "ממתין לתיעוד זכויות (הסכם/התכתבות/חומרי מקור מהשותף)"
  },
  {
   "id": "pg_007",
   "url": "https://www.tiktok.com/@leafcheck.plant.iden",
   "asset": "sample",
   "added_at": "2026-08-06",
-  "active": true
+  "active": false,
+  "notes": "",
+  "deactivated_reason": "ממתין לתיעוד זכויות (הסכם/התכתבות/חומרי מקור מהשותף)"
  },
  {
   "id": "pg_010",
   "url": "https://www.tiktok.com/@gregsavesplants",
   "asset": "sample",
   "added_at": "2026-08-06",
-  "active": true
+  "active": false,
+  "notes": "",
+  "deactivated_reason": "ממתין לתיעוד זכויות (הסכם/התכתבות/חומרי מקור מהשותף)"
  },
  {
   "id": "pg_011",
   "url": "https://www.tiktok.com/@blossom_app",
   "asset": "sample",
   "added_at": "2026-08-06",
-  "active": true
+  "active": false,
+  "notes": "",
+  "deactivated_reason": "ממתין לתיעוד זכויות (הסכם/התכתבות/חומרי מקור מהשותף)"
  },
  {
   "id": "pg_012",
   "url": "https://www.tiktok.com/@plantid.diagnose",
   "asset": "sample",
   "added_at": "2026-08-06",
-  "active": true
+  "active": false,
+  "notes": "",
+  "deactivated_reason": "ממתין לתיעוד זכויות (הסכם/התכתבות/חומרי מקור מהשותף)"
  },
  {
   "id": "pg_013",
   "url": "https://www.tiktok.com/@gardnworld",
   "asset": "sample",
   "added_at": "2026-08-09",
-  "active": true
+  "active": false,
+  "notes": "",
+  "deactivated_reason": "ממתין לתיעוד זכויות (הסכם/התכתבות/חומרי מקור מהשותף)"
  }
 ]
