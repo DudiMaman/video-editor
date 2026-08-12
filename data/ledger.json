@@ -919,5 +919,18 @@
   "caption": "",
   "published_to": [],
   "published_at": ""
+ },
+ {
+  "video_id": "original-0001",
+  "asset": "sample",
+  "source_page": "stock",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Aerogarden_Time_Lapse_Video_-_4_weeks_-_Tomatoes_and_Basil.webm",
+  "found_at": "2026-08-12",
+  "status": "pending_review",
+  "reject_reason": "",
+  "output_asset": "batch-18/video_01.mp4",
+  "caption": "Four weeks of growth squeezed into 30 seconds 🌱⏱️ Watch tiny seed pods explode into a jungle of tomatoes and basil — and steal the 3 rules that make it happen: light is food, steady water wins, and growth always compounds.\n\nGet Planty for a personalized care plan that keeps your plants on schedule.\n\nhttps://planty-app.com/\n\n🎥 Timelapse: WoodworkCity via Wikimedia Commons (CC BY 3.0)\n\n#PlantTips #PlantCare #GrowingPlants #Timelapse #IndoorGarden #Houseplants #PlantTok #BasilTips #GrowYourOwn #PlantyApp #PlantApp #PlantLovers",
+  "published_to": [],
+  "published_at": ""
  }
 ]
