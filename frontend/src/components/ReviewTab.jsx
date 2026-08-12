@@ -19,9 +19,13 @@ function ReviewCard({ entry, stage, appName, onUpdated }) {
   const [note, setNote] = useState('')
   const [copied, setCopied] = useState(false)
 
+  // Curation-only entries carry no processed output — just the source link.
+  const linkOnly = !entry.output_asset
+
   useEffect(() => {
+    if (linkOnly) return
     backend.scout.resolveOutput(entry.output_asset).then(setUrls).catch(() => setUrls(null))
-  }, [entry.output_asset])
+  }, [entry.output_asset, linkOnly])
 
   const copy = async () => {
     await navigator.clipboard.writeText(caption)
@@ -97,9 +101,22 @@ function ReviewCard({ entry, stage, appName, onUpdated }) {
           {entry.source_url}
         </p>
       )}
-      {urls === undefined && <p className="muted">…</p>}
-      {urls === null && <p className="warning">{S.videoUnavailable}</p>}
-      {urls && <video controls preload="metadata" src={urls.videoUrl} />}
+      {linkOnly ? (
+        <a
+          className="primary tiktok-open"
+          href={entry.source_url}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {S.openOnTikTok}
+        </a>
+      ) : (
+        <>
+          {urls === undefined && <p className="muted">…</p>}
+          {urls === null && <p className="warning">{S.videoUnavailable}</p>}
+          {urls && <video controls preload="metadata" src={urls.videoUrl} />}
+        </>
+      )}
       <textarea
         dir="ltr"
         rows={6}
