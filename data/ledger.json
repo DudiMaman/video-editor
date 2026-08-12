@@ -841,5 +841,83 @@
   "caption": "",
   "published_to": [],
   "published_at": ""
+ },
+ {
+  "video_id": "7665341308143308040",
+  "asset": "sample",
+  "source_page": "pg_001",
+  "source_url": "https://www.tiktok.com/@plantum_app/video/7665341308143308040",
+  "found_at": "2026-08-12",
+  "status": "rejected",
+  "reject_reason": "duration 12s — קצר מ-14s",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7665340984674340103",
+  "asset": "sample",
+  "source_page": "pg_001",
+  "source_url": "https://www.tiktok.com/@plantum_app/video/7665340984674340103",
+  "found_at": "2026-08-12",
+  "status": "rejected",
+  "reject_reason": "duration 77s — ארוך מ-75s",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7665340819452398866",
+  "asset": "sample",
+  "source_page": "pg_001",
+  "source_url": "https://www.tiktok.com/@plantum_app/video/7665340819452398866",
+  "found_at": "2026-08-12",
+  "status": "rejected",
+  "reject_reason": "duration 256s — ארוך מ-75s",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7665340386486881543",
+  "asset": "sample",
+  "source_page": "pg_001",
+  "source_url": "https://www.tiktok.com/@plantum_app/video/7665340386486881543",
+  "found_at": "2026-08-12",
+  "status": "rejected",
+  "reject_reason": "duration 245s — ארוך מ-75s",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7663218830109314322",
+  "asset": "sample",
+  "source_page": "pg_001",
+  "source_url": "https://www.tiktok.com/@plantum_app/video/7663218830109314322",
+  "found_at": "2026-08-12",
+  "status": "rejected",
+  "reject_reason": "duration 249s — ארוך מ-75s",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7661714218005122312",
+  "asset": "sample",
+  "source_page": "pg_001",
+  "source_url": "https://www.tiktok.com/@plantum_app/video/7661714218005122312",
+  "found_at": "2026-08-12",
+  "status": "rejected",
+  "reject_reason": "duration 7s — קצר מ-14s",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
  }
 ]
