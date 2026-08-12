@@ -175,6 +175,7 @@ export const STR = {
     saveCaption: 'שמור קאפשן',
     captionSaved: 'הקאפשן נשמר ✓',
     videoUnavailable: 'קובץ הווידאו לא נמצא ב-Release',
+    openOnTikTok: '▶ פתח את הסרטון בטיקטוק',
     sourceLink: 'למקור ↗',
     logTitle: 'יומן העיבוד',
     logEmpty: 'היומן ריק — עדיין לא נסרקו סרטונים.',
