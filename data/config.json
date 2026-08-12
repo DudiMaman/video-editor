@@ -1,5 +1,5 @@
 {
- "discovery_daily": false,
+ "discovery_daily": true,
  "daily_cap": 10,
  "timezone": "Asia/Jerusalem",
  "run_hour": "06:00",
