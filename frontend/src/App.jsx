@@ -10,23 +10,20 @@ import BriefTab from './components/BriefTab.jsx'
 import ReviewTab from './components/ReviewTab.jsx'
 import LogTab from './components/LogTab.jsx'
 
-// The daily workflow lives in the primary tabs; everything else sits
-// behind the "more" menu to keep the bar on one line.
-const PRIMARY = backend.supportsScout
-  ? ['inbox', 'review', 'approved', 'published', 'assets']
+// All tabs are shown directly in the bar (the bar wraps into extra rows
+// on narrow screens; each tab label stays on one line).
+const TABS = backend.supportsScout
+  ? ['inbox', 'review', 'approved', 'published', 'assets', 'batch', 'results', 'brief', 'log']
   : ['batch', 'results', 'assets']
-const MORE = backend.supportsScout ? ['batch', 'results', 'brief', 'log'] : []
 
 export default function App() {
-  const [tab, setTab] = useState(PRIMARY[0])
-  const [moreOpen, setMoreOpen] = useState(false)
+  const [tab, setTab] = useState(TABS[0])
   const [showSettings, setShowSettings] = useState(
     backend.mode === 'github' && !backend.hasToken()
   )
 
   const pick = (t) => {
     setTab(t)
-    setMoreOpen(false)
   }
 
   return (
@@ -34,7 +31,7 @@ export default function App() {
       <header className="app-header">
         <h1>{STR.appTitle}</h1>
         <nav className="tabs">
-          {PRIMARY.map((t) => (
+          {TABS.map((t) => (
             <button
               key={t}
               className={'tab' + (tab === t ? ' active' : '')}
@@ -43,29 +40,6 @@ export default function App() {
               {STR.tabs[t]}
             </button>
           ))}
-          {MORE.length > 0 && (
-            <div className="more-wrap">
-              <button
-                className={'tab' + (MORE.includes(tab) ? ' active' : '')}
-                onClick={() => setMoreOpen((v) => !v)}
-              >
-                {MORE.includes(tab) ? STR.tabs[tab] : STR.tabs.more} ▾
-              </button>
-              {moreOpen && (
-                <div className="more-menu">
-                  {MORE.map((t) => (
-                    <button
-                      key={t}
-                      className={'more-item' + (tab === t ? ' active' : '')}
-                      onClick={() => pick(t)}
-                    >
-                      {STR.tabs[t]}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
           {backend.mode === 'github' && (
             <button
               className={'tab' + (showSettings ? ' active' : '')}

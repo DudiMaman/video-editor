@@ -621,11 +621,11 @@ button.small {
   margin: 0;
 }
 
-/* ---- One-line top bar with a "more" menu ---- */
+/* ---- Full tab bar: wraps into extra rows on narrow screens ---- */
 
 .tabs {
-  flex-wrap: nowrap;
-  overflow-x: auto;
+  flex-wrap: wrap;
+  row-gap: 0.2rem;
 }
 
 .tabs .tab {
