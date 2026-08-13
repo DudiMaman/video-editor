@@ -5,6 +5,50 @@ import ClipPicker from './ClipPicker.jsx'
 
 export default function RequestRow({ row, assets, onChange, onRemove, onAssetsChanged }) {
   const [openPicker, setOpenPicker] = useState(null) // 'outro' | 'intro' | null
+  const [subBusy, setSubBusy] = useState(false)
+  const [subNote, setSubNote] = useState('')
+
+  const flashNote = (msg, ms = 4000) => {
+    setSubNote(msg)
+    setTimeout(() => setSubNote(''), ms)
+  }
+
+  const transcribe = async () => {
+    setSubBusy(true)
+    try {
+      const key = await backend.submitTranscribe(row)
+      onChange({ transcriptKey: key })
+      flashNote(STR.batch.transcribeSent, 8000)
+    } catch (e) {
+      alert(e.message)
+    } finally {
+      setSubBusy(false)
+    }
+  }
+
+  const loadTranscript = async () => {
+    setSubBusy(true)
+    try {
+      const source =
+        row.transcriptKey ||
+        (row.sourceType === 'url' ? row.url.trim() : row.file?.name)
+      const t = await backend.readTranscript(source)
+      if (!t || !t.cues?.length) {
+        flashNote(STR.batch.transcriptMissing)
+      } else {
+        onChange({
+          subtitlesText: t.cues
+            .map((c) => `${c.start} - ${c.end} | ${c.text}`)
+            .join('\n'),
+        })
+        flashNote(STR.batch.transcriptLoaded)
+      }
+    } catch (e) {
+      alert(e.message)
+    } finally {
+      setSubBusy(false)
+    }
+  }
   const asset = assets.find((a) => String(a.id) === String(row.assetId))
   const outros = asset ? asset.outros : []
   const intros = (asset && asset.intros) || []
@@ -157,6 +201,38 @@ export default function RequestRow({ row, assets, onChange, onRemove, onAssetsCh
       {asset && outros.length === 0 && (
         <p className="warning">{STR.batch.noOutros}</p>
       )}
+
+      {backend.submitTranscribe && (
+        <div className="subtitles-field">
+          <span className="picker-label">{STR.batch.subtitlesLabel}</span>
+          <div className="result-actions">
+            <button
+              className="secondary small"
+              disabled={subBusy || (row.sourceType === 'upload' ? !row.file : !row.url.trim())}
+              onClick={transcribe}
+            >
+              {STR.batch.transcribeBtn}
+            </button>
+            <button
+              className="secondary small"
+              disabled={subBusy || (row.sourceType === 'upload' ? !row.file : !row.url.trim())}
+              onClick={loadTranscript}
+            >
+              {STR.batch.loadTranscriptBtn}
+            </button>
+            {subNote && <span className="ok">{subNote}</span>}
+          </div>
+          <textarea
+            dir="ltr"
+            rows={6}
+            placeholder={STR.batch.subtitlesPlaceholder}
+            value={row.subtitlesText || ''}
+            onChange={(e) => onChange({ subtitlesText: e.target.value })}
+          />
+          <p className="hint">{STR.batch.subtitlesHint}</p>
+        </div>
+      )}
+
       <p className="hint">{STR.batch.cutHint}</p>
       {onRemove && (
         <button className="remove" onClick={onRemove}>

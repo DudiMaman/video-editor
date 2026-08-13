@@ -28,7 +28,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg tesseract-ocr
 
       - name: Install Python dependencies
-        run: pip install yt-dlp anthropic python-dotenv
+        run: pip install yt-dlp anthropic python-dotenv faster-whisper
 
       - name: Process batch
         env:
@@ -70,6 +70,19 @@ jobs:
               --notes-file out/notes.md
           else
             echo "no videos were produced - skipping release"
+          fi
+
+      # Transcribe-only requests write editable cue files the UI reads back.
+      - name: Commit transcripts
+        if: always()
+        run: |
+          if [ -n "$(git status --porcelain data/transcripts 2>/dev/null)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/transcripts
+            git commit -m "Transcripts from batch run"
+            git pull --rebase origin main
+            git push origin main
           fi
 
       - name: Fail the run if brand QA rejected a video
