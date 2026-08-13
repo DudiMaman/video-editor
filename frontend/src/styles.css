@@ -672,3 +672,28 @@ button.small {
   background: #1a73e8;
   color: #fff;
 }
+
+/* ---- Curation flow: embedded TikTok player + editing stage ---- */
+
+.tiktok-embed-frame {
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 9 / 16;
+  border: none;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+  background: #000;
+}
+
+.editing-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.manual-toggle {
+  align-self: flex-start;
+  margin-bottom: 0.8rem;
+}

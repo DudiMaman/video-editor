@@ -49,7 +49,12 @@ function ReviewCard({ entry, stage, appName, onUpdated }) {
     }
   }
 
-  const approve = () => setStatus({ status: 'approved' }, `Scout: approve ${entry.video_id}`)
+  // Curated (link-only) videos go through the editing stage in the batch
+  // tab before landing in "approved"; processed videos skip straight there.
+  const approve = () =>
+    linkOnly
+      ? setStatus({ status: 'editing' }, `Scout: to editing ${entry.video_id}`)
+      : setStatus({ status: 'approved' }, `Scout: approve ${entry.video_id}`)
 
   const reject = () => {
     const reason = prompt(S.rejectReason) ?? ''
@@ -102,14 +107,13 @@ function ReviewCard({ entry, stage, appName, onUpdated }) {
         </p>
       )}
       {linkOnly ? (
-        <a
-          className="primary tiktok-open"
-          href={entry.source_url}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {S.openOnTikTok}
-        </a>
+        <iframe
+          className="tiktok-embed-frame"
+          src={`https://www.tiktok.com/embed/v2/${entry.video_id}`}
+          title={entry.video_id}
+          allow="encrypted-media; fullscreen"
+          allowFullScreen
+        />
       ) : (
         <>
           {urls === undefined && <p className="muted">…</p>}
