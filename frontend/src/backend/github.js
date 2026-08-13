@@ -472,6 +472,31 @@ export function create(params) {
 
     parseCues,
 
+    // Process one curated video through the pipeline (trim + subtitles +
+    // outro + caption). The pipeline wires the finished file back to its
+    // ledger entry (status -> approved, output_asset set).
+    submitEdit: async (opts) => {
+      requireToken()
+      const item = {
+        asset: opts.assetId,
+        outro: opts.outroId,
+        source_url: opts.sourceUrl,
+        ledger_video_id: opts.ledgerVideoId,
+      }
+      const cut = parseFloat(opts.cutSeconds)
+      if (cut > 0) item.cut_seconds = cut
+      const start = parseFloat(opts.startSeconds)
+      if (start > 0) item.start_seconds = start
+      if (opts.introId) item.intro = opts.introId
+      const cues = parseCues(opts.subtitlesText || '')
+      if (cues.length) item.subtitles = cues
+      if (opts.caption && opts.caption.trim()) item.caption = opts.caption.trim()
+      await gh('/actions/workflows/process.yml/dispatches', {
+        method: 'POST',
+        body: { ref: 'main', inputs: { requests: JSON.stringify([item]) } },
+      })
+    },
+
     // Speech-to-text a source video; cues land in data/transcripts/<key>.json
     // a few minutes later (committed by the Actions run).
     submitTranscribe: async (row) => {

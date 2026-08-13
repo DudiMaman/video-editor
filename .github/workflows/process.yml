@@ -34,6 +34,7 @@ jobs:
         env:
           REQUESTS_JSON: ${{ inputs.requests }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          BATCH_TAG: batch-${{ github.run_number }}
         run: |
           if [ -z "$REQUESTS_JSON" ] && [ -f queue.json ]; then
             REQUESTS_JSON="$(cat queue.json)"
@@ -72,15 +73,16 @@ jobs:
             echo "no videos were produced - skipping release"
           fi
 
-      # Transcribe-only requests write editable cue files the UI reads back.
-      - name: Commit transcripts
+      # Transcribe-only cue files and ledger wiring (processed curated
+      # videos flip to approved with their output_asset) get committed back.
+      - name: Commit transcripts and ledger updates
         if: always()
         run: |
-          if [ -n "$(git status --porcelain data/transcripts 2>/dev/null)" ]; then
+          if [ -n "$(git status --porcelain data/transcripts data/ledger.json 2>/dev/null)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/transcripts
-            git commit -m "Transcripts from batch run"
+            git add data/transcripts data/ledger.json
+            git commit -m "Batch run: transcripts + processed-video ledger wiring"
             git pull --rebase origin main
             git push origin main
           fi

@@ -167,18 +167,56 @@ def process_one(idx: int, req: dict, assets_by_id: dict, out_dir: Path, tmp_root
         parts.insert(0, intro_norm)
     final_tmp = work / "final.mp4"
     ff.concat(parts, final_tmp)
+
+    # Brand gate before anything is published or wired to the ledger: a
+    # video still naming a source brand must not reach the approved tab.
+    brand = subprocess.run(
+        [sys.executable, str(REPO_ROOT / "scripts" / "check_brands.py"), str(final_tmp)],
+        capture_output=True, text=True)
+    if brand.returncode != 0:
+        raise ValueError("brand check failed: " + brand.stdout.strip().replace("\n", " | "))
+
     final = out_dir / f"video_{idx:02d}.mp4"
     shutil.move(final_tmp, final)
 
-    caption, caption_error = None, None
-    try:
-        if clip_len is None:
-            clip_len = ff.probe(trimmed)["duration"] or 10
-        frames = ff.extract_frames(trimmed, work / "frames", clip_len)
-        caption = captions.generate_caption(frames, asset)
-    except Exception as e:  # caption failure must not lose the video
-        caption_error = str(e)
+    # A user-edited caption from the editor wins over auto-generation.
+    caption, caption_error = req.get("caption") or None, None
+    if not caption:
+        try:
+            if clip_len is None:
+                clip_len = ff.probe(trimmed)["duration"] or 10
+            frames = ff.extract_frames(trimmed, work / "frames", clip_len)
+            caption = captions.generate_caption(frames, asset)
+        except Exception as e:  # caption failure must not lose the video
+            caption_error = str(e)
     return {"video": final.name, "caption": caption, "caption_error": caption_error}
+
+
+def patch_ledger(results: list[dict], batch_tag: str) -> None:
+    """Wire produced videos back to their curated ledger entries so the
+    approved tab shows the processed file instead of the raw source."""
+    path = REPO_ROOT / "data" / "ledger.json"
+    if not path.exists():
+        return
+    ledger = json.loads(path.read_text(encoding="utf-8"))
+    by_id = {e.get("video_id"): e for e in ledger}
+    changed = False
+    for r in results:
+        vid = r["request"].get("ledger_video_id")
+        if not vid or r["status"] != "done":
+            continue
+        entry = by_id.get(vid)
+        if not entry:
+            continue
+        entry["output_asset"] = f"{batch_tag}/{r['video']}"
+        entry["status"] = "approved"
+        if r.get("caption"):
+            entry["caption"] = r["caption"]
+        changed = True
+    if changed:
+        path.write_text(json.dumps(ledger, ensure_ascii=False, indent=1) + "\n",
+                        encoding="utf-8")
+        print(f"ledger: wired {sum(1 for r in results if r['request'].get('ledger_video_id') and r['status']=='done')} entries to {batch_tag}")
 
 
 def build_notes(results: list[dict], assets_by_id: dict, mock_warning: bool | None = None) -> str:
@@ -270,6 +308,10 @@ def main() -> int:
                 entry["error"] = str(e)[:2000]
                 print(f"[{idx}/{len(requests)}] FAILED: {e}", file=sys.stderr)
             results.append(entry)
+
+    batch_tag = os.environ.get("BATCH_TAG")
+    if batch_tag:
+        patch_ledger(results, batch_tag)
 
     (out_dir / "summary.json").write_text(
         json.dumps(results, ensure_ascii=False, indent=1), encoding="utf-8")
