@@ -13,7 +13,7 @@ import LogTab from './components/LogTab.jsx'
 // All tabs are shown directly in the bar (the bar wraps into extra rows
 // on narrow screens; each tab label stays on one line).
 const TABS = backend.supportsScout
-  ? ['inbox', 'review', 'approved', 'published', 'assets', 'batch', 'results', 'brief', 'log']
+  ? ['inbox', 'review', 'batch', 'approved', 'published', 'assets', 'results', 'brief', 'log']
   : ['batch', 'results', 'assets']
 
 export default function App() {
