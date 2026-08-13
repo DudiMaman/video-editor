@@ -697,3 +697,17 @@ button.small {
   align-self: flex-start;
   margin-bottom: 0.8rem;
 }
+
+.subtitles-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  border-top: 1px solid #eceef1;
+  padding-top: 0.6rem;
+}
+
+.subtitles-field textarea {
+  font-family: monospace;
+  font-size: 0.85rem;
+}

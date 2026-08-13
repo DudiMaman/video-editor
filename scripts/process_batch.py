@@ -17,9 +17,12 @@ Request shape:
    "source_url": "https://..."}              # or "source_path": "inbox/..."
 """
 import argparse
+import hashlib
 import json
 import os
+import re
 import shutil
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -29,6 +32,80 @@ sys.path.insert(0, str(REPO_ROOT / "backend"))
 
 from app.services import captions, downloader  # noqa: E402
 from app.services import ffmpeg as ff  # noqa: E402
+
+
+def transcript_key(req: dict) -> str:
+    """Stable key shared with the frontend for transcript lookups."""
+    src = req.get("source_url") or req.get("source_path") or ""
+    m = re.search(r"/video/(\d+)", src)
+    if m:
+        return m.group(1)
+    if req.get("source_path"):
+        return Path(req["source_path"]).stem
+    return hashlib.sha1(src.encode()).hexdigest()[:16]
+
+
+def resolve_source(req: dict, work: Path) -> Path:
+    if req.get("source_url"):
+        return downloader.download(req["source_url"], work / "src")
+    if req.get("source_path"):
+        source = (REPO_ROOT / req["source_path"]).resolve()
+        if not source.is_relative_to(REPO_ROOT):
+            raise ValueError("source_path escapes the repository")
+        if not source.exists():
+            raise ValueError(f"source file missing from repo: {req['source_path']}")
+        return source
+    raise ValueError("request needs source_url or source_path")
+
+
+def transcribe_one(req: dict, tmp_root: Path) -> dict:
+    """Speech-to-text the source and store editable cues in the repo."""
+    from faster_whisper import WhisperModel
+
+    work = Path(tempfile.mkdtemp(dir=tmp_root))
+    source = resolve_source(req, work)
+    model = WhisperModel("base", device="cpu", compute_type="int8")
+    segments, info = model.transcribe(str(source), vad_filter=True)
+    cues = [{"start": round(s.start, 2), "end": round(s.end, 2),
+             "text": s.text.strip()} for s in segments if s.text.strip()]
+    key = transcript_key(req)
+    out = REPO_ROOT / "data" / "transcripts" / f"{key}.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(
+        {"source": req.get("source_url") or req.get("source_path"),
+         "language": info.language, "cues": cues},
+        ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    print(f"transcript: {len(cues)} cues -> data/transcripts/{key}.json")
+    return {"video": None, "caption": None, "caption_error": None,
+            "transcript": key, "cue_count": len(cues)}
+
+
+def burn_subtitles(source: Path, cues: list, work: Path) -> Path:
+    """Burn edited cues onto the source (timestamps in source time)."""
+    def ts(t: float) -> str:
+        h, rem = divmod(float(t), 3600)
+        m, s = divmod(rem, 60)
+        return f"{int(h):02d}:{int(m):02d}:{s:06.3f}".replace(".", ",")
+
+    srt = work / "subs.srt"
+    lines = []
+    for i, c in enumerate(cues, start=1):
+        lines += [str(i), f"{ts(c['start'])} --> {ts(c['end'])}",
+                  str(c["text"]).strip(), ""]
+    srt.write_text("\n".join(lines), encoding="utf-8")
+    styled = (
+        f"subtitles={srt}:force_style="
+        "'FontName=Liberation Sans,Bold=1,FontSize=13,"
+        "PrimaryColour=&HFFFFFF&,OutlineColour=&H50000000&,"
+        "BorderStyle=1,Outline=2,Shadow=1,MarginV=42'"
+    )
+    out = work / "subtitled.mp4"
+    subprocess.run(
+        ["ffmpeg", "-y", "-v", "error", "-i", str(source), "-vf", styled,
+         "-c:v", "libx264", "-crf", "20", "-preset", "medium",
+         "-c:a", "copy", str(out)],
+        check=True)
+    return out
 
 
 def process_one(idx: int, req: dict, assets_by_id: dict, out_dir: Path, tmp_root: Path) -> dict:
@@ -60,16 +137,11 @@ def process_one(idx: int, req: dict, assets_by_id: dict, out_dir: Path, tmp_root
         raise ValueError("start_seconds must be smaller than cut_seconds")
 
     work = Path(tempfile.mkdtemp(dir=tmp_root))
-    if req.get("source_url"):
-        source = downloader.download(req["source_url"], work / "src")
-    elif req.get("source_path"):
-        source = (REPO_ROOT / req["source_path"]).resolve()
-        if not source.is_relative_to(REPO_ROOT):
-            raise ValueError("source_path escapes the repository")
-        if not source.exists():
-            raise ValueError(f"source file missing from repo: {req['source_path']}")
-    else:
-        raise ValueError("request needs source_url or source_path")
+    source = resolve_source(req, work)
+
+    cues = req.get("subtitles") or []
+    if cues:
+        source = burn_subtitles(source, cues, work)
 
     spec = ff.probe(source)
     if spec["duration"]:
@@ -121,6 +193,15 @@ def build_notes(results: list[dict], assets_by_id: dict, mock_warning: bool | No
         )
     lines.append("## תוצרים\n")
     for r in results:
+        if r["request"].get("transcribe_only"):
+            src = r["request"].get("source_url") or r["request"].get("source_path") or ""
+            if r["status"] == "done":
+                lines.append(f"### 🎙 תמלול — `{src}`")
+                lines.append(f"{r.get('cue_count', 0)} שורות כתוביות נשמרו לעריכה\n")
+            else:
+                lines.append(f"### ❌ תמלול נכשל — `{src}`")
+                lines.append(f"שגיאה: {r['error']}\n")
+            continue
         asset = assets_by_id.get(str(r["request"].get("asset")), {})
         name = asset.get("name", r["request"].get("asset"))
         source = r["request"].get("source_url") or r["request"].get("source_path") or ""
@@ -178,8 +259,12 @@ def main() -> int:
             entry = {"index": idx, "request": req, "status": "done",
                      "video": None, "caption": None, "caption_error": None, "error": None}
             try:
-                entry.update(process_one(idx, req, assets_by_id, out_dir, Path(tmp_root)))
-                print(f"[{idx}/{len(requests)}] done -> {entry['video']}")
+                if req.get("transcribe_only"):
+                    entry.update(transcribe_one(req, Path(tmp_root)))
+                    print(f"[{idx}/{len(requests)}] transcribed")
+                else:
+                    entry.update(process_one(idx, req, assets_by_id, out_dir, Path(tmp_root)))
+                    print(f"[{idx}/{len(requests)}] done -> {entry['video']}")
             except Exception as e:
                 entry["status"] = "failed"
                 entry["error"] = str(e)[:2000]

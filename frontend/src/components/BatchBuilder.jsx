@@ -20,7 +20,7 @@ const emptyRow = () => ({
 
 // A curated video the user approved: embedded player + live caption box.
 // "Finish editing" moves it on to the approved tab.
-function EditingCard({ entry, onUpdated }) {
+function EditingCard({ entry, onUpdated, onSendToEditor }) {
   const [caption, setCaption] = useState(entry.caption || '')
   const [busy, setBusy] = useState(false)
   const [note, setNote] = useState('')
@@ -125,6 +125,13 @@ function EditingCard({ entry, onUpdated }) {
         <button className="primary" onClick={finish} disabled={busy}>
           {S.finishEditing}
         </button>
+        <button
+          className="secondary"
+          onClick={() => onSendToEditor(entry.source_url)}
+          disabled={busy}
+        >
+          {S.sendToEditor}
+        </button>
         <button className="danger" onClick={reject} disabled={busy}>
           {S.reject}
         </button>
@@ -140,7 +147,6 @@ export default function BatchBuilder({ active, onSent }) {
   const [error, setError] = useState('')
   const [ok, setOk] = useState('')
   const [editing, setEditing] = useState(null)
-  const [showManual, setShowManual] = useState(!backend.supportsScout)
 
   const loadEditing = () =>
     backend.scout
@@ -209,44 +215,43 @@ export default function BatchBuilder({ active, onSent }) {
           )}
           {editing &&
             editing.map((e) => (
-              <EditingCard key={e.video_id} entry={e} onUpdated={loadEditing} />
+              <EditingCard
+                key={e.video_id}
+                entry={e}
+                onUpdated={loadEditing}
+                onSendToEditor={(url) =>
+                  setRows((rows) => {
+                    const blank = rows.length === 1 && !rows[0].url && !rows[0].file
+                    const row = { ...emptyRow(), sourceType: 'url', url }
+                    return blank ? [row] : [...rows, row]
+                  })
+                }
+              />
             ))}
         </section>
       )}
-      {backend.supportsScout && (
-        <button
-          className="secondary manual-toggle"
-          onClick={() => setShowManual((v) => !v)}
-        >
-          {showManual ? S.manualToggleHide : S.manualToggle}
+      {rows.map((row) => (
+        <RequestRow
+          key={row.key}
+          row={row}
+          assets={assets}
+          onChange={(patch) => updateRow(row.key, patch)}
+          onAssetsChanged={() => backend.listAssets().then(setAssets)}
+          onRemove={
+            rows.length > 1
+              ? () => setRows((rows) => rows.filter((r) => r.key !== row.key))
+              : null
+          }
+        />
+      ))}
+      <div className="batch-actions">
+        <button className="secondary" onClick={() => setRows((r) => [...r, emptyRow()])}>
+          {STR.batch.addRow}
         </button>
-      )}
-      {showManual && (
-        <>
-          {rows.map((row) => (
-            <RequestRow
-              key={row.key}
-              row={row}
-              assets={assets}
-              onChange={(patch) => updateRow(row.key, patch)}
-              onAssetsChanged={() => backend.listAssets().then(setAssets)}
-              onRemove={
-                rows.length > 1
-                  ? () => setRows((rows) => rows.filter((r) => r.key !== row.key))
-                  : null
-              }
-            />
-          ))}
-          <div className="batch-actions">
-            <button className="secondary" onClick={() => setRows((r) => [...r, emptyRow()])}>
-              {STR.batch.addRow}
-            </button>
-            <button className="primary" onClick={send} disabled={sending}>
-              {sending ? STR.batch.sending : STR.batch.send}
-            </button>
-          </div>
-        </>
-      )}
+        <button className="primary" onClick={send} disabled={sending}>
+          {sending ? STR.batch.sending : STR.batch.send}
+        </button>
+      </div>
       {error && <p className="error">{STR.errors.generic}{error}</p>}
       {ok && <p className="ok">{ok}</p>}
     </div>

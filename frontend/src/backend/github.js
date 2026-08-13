@@ -42,6 +42,43 @@ function safeFileName(name) {
   return /\.\w+$/.test(cleaned) ? cleaned : cleaned + '.mp4'
 }
 
+// "12.4 - 15.8 | text" or "0:12.4 --> 0:15.8 | text", one cue per line.
+function parseTime(t) {
+  const parts = String(t).trim().split(':').map(Number)
+  if (parts.some(Number.isNaN)) return NaN
+  return parts.reduce((acc, p) => acc * 60 + p, 0)
+}
+
+function parseCues(text) {
+  const cues = []
+  for (const line of String(text || '').split('\n')) {
+    if (!line.trim()) continue
+    const m = line.match(/^\s*([\d:.]+)\s*-{1,2}>?\s*([\d:.]+)\s*\|\s*(.+)$/)
+    if (!m) continue
+    const start = parseTime(m[1])
+    const end = parseTime(m[2])
+    if (Number.isNaN(start) || Number.isNaN(end) || end <= start) continue
+    cues.push({ start, end, text: m[3].trim() })
+  }
+  return cues
+}
+
+// Mirrors transcript_key() in scripts/process_batch.py.
+async function transcriptKeyFor(source) {
+  const src = String(source || '')
+  const m = src.match(/\/video\/(\d+)/)
+  if (m) return m[1]
+  if (!/^https?:/.test(src)) {
+    const base = src.split('/').pop() || src
+    return base.replace(/\.\w+$/, '')
+  }
+  const buf = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(src))
+  return [...new Uint8Array(buf)]
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('')
+    .slice(0, 16)
+}
+
 const encodePath = (p) => p.split('/').map(encodeURIComponent).join('/')
 
 export function create(params) {
@@ -416,6 +453,8 @@ export function create(params) {
         if (r.introId) item.intro = r.introId
         const start = parseFloat(r.startSeconds)
         if (start > 0) item.start_seconds = start
+        const cues = parseCues(r.subtitlesText || '')
+        if (cues.length) item.subtitles = cues
         if (r.sourceType === 'url') {
           item.source_url = r.url.trim()
         } else {
@@ -429,6 +468,39 @@ export function create(params) {
         method: 'POST',
         body: { ref: 'main', inputs: { requests: JSON.stringify(requests) } },
       })
+    },
+
+    parseCues,
+
+    // Speech-to-text a source video; cues land in data/transcripts/<key>.json
+    // a few minutes later (committed by the Actions run).
+    submitTranscribe: async (row) => {
+      requireToken()
+      const item = { transcribe_only: true }
+      if (row.sourceType === 'url') {
+        item.source_url = row.url.trim()
+      } else {
+        const path = `inbox/${Date.now()}-${safeFileName(row.file.name)}`
+        await putFile(path, row.file, 'Upload source video for transcription')
+        item.source_path = path
+      }
+      await gh('/actions/workflows/process.yml/dispatches', {
+        method: 'POST',
+        body: { ref: 'main', inputs: { requests: JSON.stringify([item]) } },
+      })
+      return transcriptKeyFor(item.source_url || item.source_path)
+    },
+
+    transcriptKeyFor,
+
+    readTranscript: async (source) => {
+      const key = await transcriptKeyFor(source)
+      const res = await fetch(
+        `https://raw.githubusercontent.com/${repo}/main/data/transcripts/${key}.json?cb=${Date.now()}`,
+        { cache: 'no-store' }
+      )
+      if (!res.ok) return null
+      return res.json()
     },
 
     listBatches: async () => {
