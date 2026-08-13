@@ -711,3 +711,29 @@ button.small {
   font-family: monospace;
   font-size: 0.85rem;
 }
+
+/* ---- Self-contained editing card ---- */
+.editor-card .editor-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  background: #f7f8fa;
+  border-radius: 10px;
+  margin-bottom: 0.7rem;
+}
+
+.editor-card .trim-fields {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.editor-card .trim-fields label {
+  flex: 1;
+  min-width: 8rem;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+  gap: 0.2rem;
+}
