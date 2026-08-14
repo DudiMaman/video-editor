@@ -65,8 +65,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if ls out/video_*.mp4 >/dev/null 2>&1; then
-            gh release create "batch-${{ github.run_number }}" out/video_*.mp4 out/summary.json \
+          shopt -s nullglob
+          assets=(out/video_*.mp4 out/preview_*.mp4)
+          if [ ${#assets[@]} -gt 0 ]; then
+            gh release create "batch-${{ github.run_number }}" "${assets[@]}" out/summary.json \
               --title "באצ' ${{ github.run_number }}" \
               --notes-file out/notes.md
           else

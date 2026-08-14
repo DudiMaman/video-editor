@@ -3,6 +3,7 @@ import { STR } from '../strings.js'
 import { backend } from '../backend/index.js'
 import RequestRow from './RequestRow.jsx'
 import ClipPicker from './ClipPicker.jsx'
+import CleanPlayer from './CleanPlayer.jsx'
 
 const S = STR.scout
 const B = STR.batch
@@ -285,13 +286,7 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
 
       {/* --- the video being edited --- */}
       <label className="muted">{S.sourcePreview}</label>
-      <iframe
-        className="tiktok-embed-frame"
-        src={`https://www.tiktok.com/embed/v2/${entry.video_id}`}
-        title={entry.video_id}
-        allow="encrypted-media; fullscreen"
-        allowFullScreen
-      />
+      <CleanPlayer entry={entry} />
 
       <div className="result-actions review-actions">
         <button className="primary" onClick={process} disabled={busy || srcDisabled}>

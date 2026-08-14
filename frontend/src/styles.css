@@ -737,3 +737,18 @@ button.small {
   font-size: 0.85rem;
   gap: 0.2rem;
 }
+
+.clean-player {
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 9 / 16;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+  background: #000;
+}
+
+.clean-player-prep {
+  text-align: center;
+  padding: 1rem;
+}

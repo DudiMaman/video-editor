@@ -497,6 +497,21 @@ export function create(params) {
       })
     },
 
+    // Fetch a clean, watermark-free copy of a curated video for playback.
+    // The pipeline records preview_asset on the ledger entry when done.
+    submitPreview: async (entry) => {
+      requireToken()
+      const item = {
+        preview_only: true,
+        source_url: entry.source_url,
+        ledger_video_id: entry.video_id,
+      }
+      await gh('/actions/workflows/process.yml/dispatches', {
+        method: 'POST',
+        body: { ref: 'main', inputs: { requests: JSON.stringify([item]) } },
+      })
+    },
+
     // Speech-to-text a source video; cues land in data/transcripts/<key>.json
     // a few minutes later (committed by the Actions run).
     submitTranscribe: async (row) => {
