@@ -10,15 +10,12 @@ const S = STR.scout
 export default function CleanPlayer({ entry }) {
   const [asset, setAsset] = useState(entry.preview_asset || null)
   const [url, setUrl] = useState(undefined) // undefined=loading, null=none
-  const [preparing, setPreparing] = useState(false)
-  const [note, setNote] = useState('')
   const poll = useRef(null)
+  const dispatched = useRef(false)
 
+  // Resolve an existing preview to a playable URL.
   useEffect(() => {
-    if (!asset) {
-      setUrl(null)
-      return
-    }
+    if (!asset) return
     let alive = true
     backend.scout
       .resolveOutput(asset)
@@ -29,45 +26,32 @@ export default function CleanPlayer({ entry }) {
     }
   }, [asset])
 
-  useEffect(() => () => clearInterval(poll.current), [])
-
-  const prepare = async () => {
-    setPreparing(true)
-    setNote(S.previewPreparing)
-    try {
-      await backend.submitPreview(entry)
-      poll.current = setInterval(async () => {
-        try {
-          const list = await backend.scout.readLedger()
-          const e = list.find((x) => x.video_id === entry.video_id)
-          if (e?.preview_asset) {
-            clearInterval(poll.current)
-            setPreparing(false)
-            setNote('')
-            setAsset(e.preview_asset)
-          }
-        } catch {
-          /* keep polling */
+  // No preview yet: prepare one automatically (no button) and poll for it.
+  useEffect(() => {
+    if (asset || dispatched.current) return
+    dispatched.current = true
+    backend.submitPreview(entry).catch(() => {})
+    poll.current = setInterval(async () => {
+      try {
+        const list = await backend.scout.readLedger()
+        const e = list.find((x) => x.video_id === entry.video_id)
+        if (e?.preview_asset) {
+          clearInterval(poll.current)
+          setAsset(e.preview_asset)
         }
-      }, 20000)
-    } catch (e) {
-      setPreparing(false)
-      setNote(e.message)
-    }
-  }
+      } catch {
+        /* keep polling */
+      }
+    }, 20000)
+    return () => clearInterval(poll.current)
+  }, [asset, entry])
 
   if (url) {
     return <video className="clean-player" controls preload="metadata" src={url} />
   }
-  if (url === undefined) {
-    return <p className="muted">…</p>
-  }
   return (
     <div className="clean-player-prep">
-      <button className="secondary" onClick={prepare} disabled={preparing}>
-        {preparing ? S.previewPreparingBtn : S.preparePreview}
-      </button>
-      {note && <p className="muted">{note}</p>}
+      <p className="muted">{S.previewPreparing}</p>
     </div>
   )
 }

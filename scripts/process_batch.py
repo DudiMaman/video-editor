@@ -58,12 +58,10 @@ def resolve_source(req: dict, work: Path) -> Path:
     raise ValueError("request needs source_url or source_path")
 
 
-def transcribe_one(req: dict, tmp_root: Path) -> dict:
-    """Speech-to-text the source and store editable cues in the repo."""
+def write_transcript(source: Path, req: dict) -> int:
+    """Speech-to-text `source`, store editable cues under data/transcripts."""
     from faster_whisper import WhisperModel
 
-    work = Path(tempfile.mkdtemp(dir=tmp_root))
-    source = resolve_source(req, work)
     model = WhisperModel("base", device="cpu", compute_type="int8")
     segments, info = model.transcribe(str(source), vad_filter=True)
     cues = [{"start": round(s.start, 2), "end": round(s.end, 2),
@@ -76,8 +74,15 @@ def transcribe_one(req: dict, tmp_root: Path) -> dict:
          "language": info.language, "cues": cues},
         ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(f"transcript: {len(cues)} cues -> data/transcripts/{key}.json")
+    return len(cues)
+
+
+def transcribe_one(req: dict, tmp_root: Path) -> dict:
+    work = Path(tempfile.mkdtemp(dir=tmp_root))
+    source = resolve_source(req, work)
+    n = write_transcript(source, req)
     return {"video": None, "caption": None, "caption_error": None,
-            "transcript": key, "cue_count": len(cues)}
+            "transcript": transcript_key(req), "cue_count": n}
 
 
 def burn_subtitles(source: Path, cues: list, work: Path) -> Path:
@@ -239,8 +244,15 @@ def preview_one(idx: int, req: dict, out_dir: Path, tmp_root: Path) -> dict:
     if not dest.exists() or dest.stat().st_size == 0:
         shutil.copy(source, dest)
     print(f"preview: {dest.name}")
+    # Transcribe in the same job so subtitles are ready the moment the user
+    # opens the editor - one download serves both.
+    cues = 0
+    try:
+        cues = write_transcript(source, req)
+    except Exception as e:
+        print(f"preview transcript failed: {e}", file=sys.stderr)
     return {"video": None, "caption": None, "caption_error": None,
-            "preview": dest.name, "preview_key": key}
+            "preview": dest.name, "preview_key": key, "cue_count": cues}
 
 
 def build_notes(results: list[dict], assets_by_id: dict, mock_warning: bool | None = None) -> str:
