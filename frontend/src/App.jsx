@@ -9,12 +9,13 @@ import InboxTab from './components/InboxTab.jsx'
 import BriefTab from './components/BriefTab.jsx'
 import ReviewTab from './components/ReviewTab.jsx'
 import LogTab from './components/LogTab.jsx'
+import AiModelsTab from './components/AiModelsTab.jsx'
 
 // All tabs are shown directly in the bar (the bar wraps into extra rows
 // on narrow screens; each tab label stays on one line).
 const TABS = backend.supportsScout
-  ? ['inbox', 'review', 'batch', 'approved', 'published', 'assets', 'results', 'brief', 'log']
-  : ['batch', 'results', 'assets']
+  ? ['inbox', 'review', 'batch', 'approved', 'published', 'assets', 'results', 'brief', 'log', 'aimodels']
+  : ['batch', 'results', 'assets', 'aimodels']
 
 export default function App() {
   const [tab, setTab] = useState(TABS[0])
@@ -61,6 +62,9 @@ export default function App() {
         </div>
         <div hidden={tab !== 'assets'}>
           <AssetsTab active={tab === 'assets'} />
+        </div>
+        <div hidden={tab !== 'aimodels'}>
+          <AiModelsTab active={tab === 'aimodels'} />
         </div>
         {backend.supportsScout && (
           <>

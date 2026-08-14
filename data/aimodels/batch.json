@@ -1,0 +1,249 @@
+{
+  "week": "2026-W34",
+  "note": "מנת פתיחה — 3 פוסטים ראשונים לכל דמות",
+  "posts": [
+    {
+      "id": "yuna-w34-1",
+      "char": "yuna",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_122656_e028e3a9-3d8b-42a1-9e90-d5ae6458fcd9.png",
+      "caption": "fit check before the city swallows me whole 🖤 #tokyo #ootd",
+      "date": "2026-08-16",
+      "time": "19:00",
+      "status": "pending"
+    },
+    {
+      "id": "yuna-w34-2",
+      "char": "yuna",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_122656_15222f4f-639d-40a8-b0a1-c23b8f3f16ce.png",
+      "caption": "rating this ramen a strong 10/10, no notes 🍜 #tokyoeats",
+      "date": "2026-08-18",
+      "time": "19:00",
+      "status": "pending"
+    },
+    {
+      "id": "yuna-w34-3",
+      "char": "yuna",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_122656_eebdee5e-0200-4525-a1ac-22cfe3e24f65.png",
+      "caption": "golden hour has my whole heart up here 🌆 #tokyo #goldenhour",
+      "date": "2026-08-20",
+      "time": "19:00",
+      "status": "pending"
+    },
+    {
+      "id": "mina-w34-1",
+      "char": "mina",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_122656_e7e630b3-fae6-495b-a7bf-cfe742405005.png",
+      "caption": "elevator mirror said post it, so 🤍 #seoul #dailylook",
+      "date": "2026-08-16",
+      "time": "19:00",
+      "status": "pending"
+    },
+    {
+      "id": "mina-w34-2",
+      "char": "mina",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_122752_522f34c1-598c-41df-ab85-c7c257ee48e3.png",
+      "caption": "kbbq night — I don't share the last piece 🥩 #seoulfood",
+      "date": "2026-08-18",
+      "time": "19:00",
+      "status": "pending"
+    },
+    {
+      "id": "mina-w34-3",
+      "char": "mina",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_122752_a3b7e449-6b4b-4b6b-84ce-4392074fca54.png",
+      "caption": "han river picnics fix everything, proven science 🧺 #seoul",
+      "date": "2026-08-20",
+      "time": "19:00",
+      "status": "pending"
+    },
+    {
+      "id": "sofia-w34-1",
+      "char": "sofia",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_122752_c9f66c5d-6dec-4664-8c1f-f48e6f3a965c.png",
+      "caption": "madrid nights hit different 🖤 where are we going next? #madrid",
+      "date": "2026-08-16",
+      "time": "20:00",
+      "status": "pending"
+    },
+    {
+      "id": "sofia-w34-2",
+      "char": "sofia",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_122752_96625d1d-dff7-41c1-94e2-484903bb9d9a.png",
+      "caption": "tapas count: lost track. regrets: zero 🍷 #tapas #madridfood",
+      "date": "2026-08-18",
+      "time": "20:00",
+      "status": "pending"
+    },
+    {
+      "id": "sofia-w34-3",
+      "char": "sofia",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_122917_753ccef9-bc64-45b1-bdb6-64aac89eb86a.png",
+      "caption": "balcony, wine, golden hour. la vida es esto ✨ #madrid",
+      "date": "2026-08-20",
+      "time": "20:00",
+      "status": "pending"
+    },
+    {
+      "id": "lucia-w34-1",
+      "char": "lucia",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_122917_5a0d800b-ce6a-481b-bd5f-623a7b6230ba.png",
+      "caption": "lost in the white streets again, send help (don't) 🌞 #andalucia",
+      "date": "2026-08-16",
+      "time": "20:00",
+      "status": "pending"
+    },
+    {
+      "id": "lucia-w34-2",
+      "char": "lucia",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_122917_113629fc-a0e2-45ba-bb66-833a199832ed.png",
+      "caption": "paella by the sea should be a personality trait 🥘 #spain",
+      "date": "2026-08-18",
+      "time": "20:00",
+      "status": "pending"
+    },
+    {
+      "id": "lucia-w34-3",
+      "char": "lucia",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_122917_26ecfe3f-b893-466a-86e8-b2fec82106d3.png",
+      "caption": "the sea always wins 🌊 #sunset #beachlife",
+      "date": "2026-08-20",
+      "time": "20:00",
+      "status": "pending"
+    },
+    {
+      "id": "giulia-w34-1",
+      "char": "giulia",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_123025_3ffe7be6-1920-43ff-b50c-c364601befd8.png",
+      "caption": "duomo & heels — classic milano morning ☕ #milan #streetstyle",
+      "date": "2026-08-16",
+      "time": "19:30",
+      "status": "pending"
+    },
+    {
+      "id": "giulia-w34-2",
+      "char": "giulia",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_123025_0a56ad9d-9542-438b-8c9e-b1a9c51e7831.png",
+      "caption": "un caffè, per favore. every single morning ☕ #milano",
+      "date": "2026-08-18",
+      "time": "19:30",
+      "status": "pending"
+    },
+    {
+      "id": "giulia-w34-3",
+      "char": "giulia",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_123025_0467994c-f13d-4bc9-bdc6-b89c038eb978.png",
+      "caption": "vespa dreams in the side streets 🛵 #italy #dolcevita",
+      "date": "2026-08-20",
+      "time": "19:30",
+      "status": "pending"
+    },
+    {
+      "id": "elsa-w34-1",
+      "char": "elsa",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_123025_e680f724-ba7f-4f6e-9fe5-25a0842cccd9.png",
+      "caption": "gamla stan & my favourite bomber, name a better duo 🧥 #stockholm",
+      "date": "2026-08-16",
+      "time": "18:30",
+      "status": "pending"
+    },
+    {
+      "id": "elsa-w34-2",
+      "char": "elsa",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_123130_af4499cb-1c1c-4483-9701-63dfdc5178b4.png",
+      "caption": "fika is not a break, it's a lifestyle 🥐 #fika #sweden",
+      "date": "2026-08-18",
+      "time": "18:30",
+      "status": "pending"
+    },
+    {
+      "id": "elsa-w34-3",
+      "char": "elsa",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_123130_d55b4a96-4e1f-45b3-8c25-fc8c9e4af217.png",
+      "caption": "post-sauna lake therapy 🌊 #nordicsummer",
+      "date": "2026-08-20",
+      "time": "18:30",
+      "status": "pending"
+    },
+    {
+      "id": "ruby-w34-1",
+      "char": "ruby",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_123130_d3d357c1-efae-48d6-8c49-fa55a9edd0c7.png",
+      "caption": "boots stay ON 🤠 #austin #texasgirl",
+      "date": "2026-08-16",
+      "time": "18:00",
+      "status": "pending"
+    },
+    {
+      "id": "ruby-w34-2",
+      "char": "ruby",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_123130_83d462d9-9f27-487f-9bcf-d58d4cfa2187.png",
+      "caption": "milkshake for dinner because I'm an adult 🍓 #dinervibes",
+      "date": "2026-08-18",
+      "time": "18:00",
+      "status": "pending"
+    },
+    {
+      "id": "ruby-w34-3",
+      "char": "ruby",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_123303_b9eafc0d-3e84-4ef0-b5ef-bc162bbcaaab.png",
+      "caption": "tailgate sunsets > everything 🌾 #texassunset",
+      "date": "2026-08-20",
+      "time": "18:00",
+      "status": "pending"
+    },
+    {
+      "id": "isabela-w34-1",
+      "char": "isabela",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_123303_1d652957-9dd4-4b50-8ee5-5f5190ffa679.png",
+      "caption": "ipanema walks in my favourite orange 🍊 #rio #ipanema",
+      "date": "2026-08-16",
+      "time": "18:30",
+      "status": "pending"
+    },
+    {
+      "id": "isabela-w34-2",
+      "char": "isabela",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_123303_f11c69ba-ce56-4f50-8690-530bb23e2937.png",
+      "caption": "açaí is a love language 🥣 #riodejaneiro",
+      "date": "2026-08-18",
+      "time": "18:30",
+      "status": "pending"
+    },
+    {
+      "id": "isabela-w34-3",
+      "char": "isabela",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_123303_350d8584-82bb-4fce-91f6-1543d686c1dc.png",
+      "caption": "salt water hair, don't care 🌊 #beachdays",
+      "date": "2026-08-20",
+      "time": "18:30",
+      "status": "pending"
+    },
+    {
+      "id": "petra-w34-1",
+      "char": "petra",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_123451_3359a0b8-ecd5-498d-ad06-3bc0386b4238.png",
+      "caption": "charles bridge before the crowds — worth the 6am alarm 🌫 #prague",
+      "date": "2026-08-16",
+      "time": "19:00",
+      "status": "pending"
+    },
+    {
+      "id": "petra-w34-2",
+      "char": "petra",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_123452_335acb25-9223-4c80-ba2a-ef4344727c58.png",
+      "caption": "trdelník: touristy? yes. delicious? also yes 🍩 #praguefood",
+      "date": "2026-08-18",
+      "time": "19:00",
+      "status": "pending"
+    },
+    {
+      "id": "petra-w34-3",
+      "char": "petra",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_123451_cb2edaf6-30d9-4c68-897e-c3d80961551b.png",
+      "caption": "vintage trams & daydreams 🚋 #praguelife",
+      "date": "2026-08-20",
+      "time": "19:00",
+      "status": "pending"
+    }
+  ]
+}

@@ -345,6 +345,25 @@ export function create(params) {
     supportsIntros: true,
     supportsScout: true,
 
+    aimodels: {
+      readRoster: async () =>
+        JSON.parse((await readRepoFile('data/aimodels/roster.json', '[]')).text || '[]'),
+      readBatch: async () =>
+        JSON.parse(
+          (await readRepoFile('data/aimodels/batch.json', '{"week":"","posts":[]}')).text ||
+            '{"week":"","posts":[]}'
+        ),
+      writeBatch: async (batch) => {
+        requireToken()
+        const { sha } = await readRepoFile('data/aimodels/batch.json', '')
+        await writeRepoFile(
+          'data/aimodels/batch.json',
+          JSON.stringify(batch, null, 2),
+          sha,
+          `AI models: batch ${batch.week || ''} decisions`
+        )
+      },
+    },
     scout: {
       readInbox: async () => JSON.parse((await readRepoFile('data/inbox.json', '[]')).text || '[]'),
       mutateInbox: (mutator, message) => mutateDataJson('data/inbox.json', mutator, message),

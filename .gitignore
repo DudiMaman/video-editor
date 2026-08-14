@@ -6,6 +6,8 @@ data/*
 !data/ledger.json
 !data/config.json
 !data/suggestions.json
+!data/aimodels/
+!data/aimodels/**
 !data/transcripts/
 !data/transcripts/**
 node_modules/
