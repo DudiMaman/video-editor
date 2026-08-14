@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { STR } from '../strings.js'
 import { backend } from '../backend/index.js'
 import ShareBar from './ShareBar.jsx'
+import CleanPlayer from './CleanPlayer.jsx'
 
 const S = STR.scout
 
@@ -107,13 +108,7 @@ function ReviewCard({ entry, stage, appName, onUpdated }) {
         </p>
       )}
       {linkOnly ? (
-        <iframe
-          className="tiktok-embed-frame"
-          src={`https://www.tiktok.com/embed/v2/${entry.video_id}`}
-          title={entry.video_id}
-          allow="encrypted-media; fullscreen"
-          allowFullScreen
-        />
+        <CleanPlayer entry={entry} />
       ) : (
         <>
           {urls === undefined && <p className="muted">…</p>}

@@ -208,15 +208,39 @@ def patch_ledger(results: list[dict], batch_tag: str) -> None:
         entry = by_id.get(vid)
         if not entry:
             continue
-        entry["output_asset"] = f"{batch_tag}/{r['video']}"
-        entry["status"] = "approved"
-        if r.get("caption"):
-            entry["caption"] = r["caption"]
+        if r.get("preview"):
+            # Preview jobs only attach a clean playable copy; they don't
+            # change the review status.
+            entry["preview_asset"] = f"{batch_tag}/{r['preview']}"
+        else:
+            entry["output_asset"] = f"{batch_tag}/{r['video']}"
+            entry["status"] = "approved"
+            if r.get("caption"):
+                entry["caption"] = r["caption"]
         changed = True
     if changed:
         path.write_text(json.dumps(ledger, ensure_ascii=False, indent=1) + "\n",
                         encoding="utf-8")
         print(f"ledger: wired {sum(1 for r in results if r['request'].get('ledger_video_id') and r['status']=='done')} entries to {batch_tag}")
+
+
+def preview_one(idx: int, req: dict, out_dir: Path, tmp_root: Path) -> dict:
+    """Fetch a clean copy of the source (no TikTok embed chrome / watermark)
+    so the review UI can play it in a real media player."""
+    work = Path(tempfile.mkdtemp(dir=tmp_root))
+    source = resolve_source(req, work)
+    key = transcript_key(req)
+    dest = out_dir / f"preview_{key}.mp4"
+    # Re-mux to a faststart mp4 so it streams in <video> without a full download.
+    subprocess.run(
+        ["ffmpeg", "-y", "-v", "error", "-i", str(source),
+         "-c", "copy", "-movflags", "+faststart", str(dest)],
+        check=False)
+    if not dest.exists() or dest.stat().st_size == 0:
+        shutil.copy(source, dest)
+    print(f"preview: {dest.name}")
+    return {"video": None, "caption": None, "caption_error": None,
+            "preview": dest.name, "preview_key": key}
 
 
 def build_notes(results: list[dict], assets_by_id: dict, mock_warning: bool | None = None) -> str:
@@ -300,6 +324,9 @@ def main() -> int:
                 if req.get("transcribe_only"):
                     entry.update(transcribe_one(req, Path(tmp_root)))
                     print(f"[{idx}/{len(requests)}] transcribed")
+                elif req.get("preview_only"):
+                    entry.update(preview_one(idx, req, out_dir, Path(tmp_root)))
+                    print(f"[{idx}/{len(requests)}] preview ready")
                 else:
                     entry.update(process_one(idx, req, assets_by_id, out_dir, Path(tmp_root)))
                     print(f"[{idx}/{len(requests)}] done -> {entry['video']}")
