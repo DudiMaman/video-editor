@@ -58,29 +58,124 @@ def resolve_source(req: dict, work: Path) -> Path:
     raise ValueError("request needs source_url or source_path")
 
 
-def write_transcript(source: Path, req: dict) -> int:
-    """Speech-to-text `source`, store editable cues under data/transcripts."""
-    from faster_whisper import WhisperModel
+def _clean_line(l: str) -> str:
+    l = re.sub(r"\s+", " ", l).strip()
+    if len(l) < 4:
+        return ""
+    alpha = sum(c.isalpha() or c.isspace() for c in l)
+    if alpha < 0.72 * len(l):
+        return ""
+    words = [w for w in l.split()
+             if len(w) >= 2 and sum(c.isalpha() for c in w) >= 0.6 * len(w)]
+    out = " ".join(words)
+    return out if len(out) >= 4 else ""
 
+
+def _line_key(l: str) -> str:
+    return re.sub(r"[^a-z]", "", l.lower())
+
+
+def _similar(a: str, b: str) -> bool:
+    a, b = a.lower(), b.lower()
+    if a == b:
+        return True
+    sa, sb = set(a.split()), set(b.split())
+    return len(sa & sb) >= 0.5 * max(len(sa), len(sb), 1)
+
+
+def ocr_captions(source: Path, tmp_root: Path, fps: float = 2.0) -> list:
+    """Read the burned-in on-screen captions over time via OCR.
+
+    White text is isolated (bright-pixel threshold, inverted) so decorative
+    background art doesn't drown the captions, static overlays that appear in
+    most frames (reply stickers, handles) are dropped, and consecutive frames
+    with the same wording collapse into one time-ranged cue.
+    """
+    from collections import Counter
+    from concurrent.futures import ThreadPoolExecutor
+
+    env = dict(os.environ, OMP_THREAD_LIMIT="1")
+    work = Path(tempfile.mkdtemp(dir=tmp_root))
+    subprocess.run(
+        ["ffmpeg", "-y", "-v", "error", "-i", str(source), "-vf",
+         f"fps={fps},format=gray,lut=y='if(gt(val,210),0,255)',scale=iw*1.3:-1",
+         f"{work}/f%05d.png"],
+        check=True)
+    frames = sorted(work.glob("f*.png"))
+
+    def ocr(f):
+        r = subprocess.run(["tesseract", str(f), "stdout", "--psm", "6"],
+                           capture_output=True, text=True, env=env)
+        return [x for x in (_clean_line(l) for l in r.stdout.split("\n")) if x]
+
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        per = list(pool.map(ocr, frames))
+
+    n = max(1, len(per))
+    freq = Counter()
+    for lines in per:
+        for k in {_line_key(l) for l in lines}:
+            freq[k] += 1
+    static = {k for k, c in freq.items() if c > 0.45 * n and len(k) > 3}
+
+    cues = []
+    for i, lines in enumerate(per):
+        txt = re.sub(r"\s+", " ",
+                     " ".join(l for l in lines if _line_key(l) not in static)).strip()
+        if len(txt) < 4:
+            continue
+        t = i / fps
+        if cues and _similar(cues[-1]["text"], txt):
+            cues[-1]["end"] = round(t + 1 / fps, 2)
+            if len(txt) > len(cues[-1]["text"]):
+                cues[-1]["text"] = txt
+        else:
+            cues.append({"start": round(t, 2), "end": round(t + 1 / fps, 2),
+                         "text": txt})
+    return [c for c in cues if c["end"] - c["start"] >= 0.5]
+
+
+def whisper_cues(source: Path) -> list:
+    """Speech-to-text fallback for narration videos with no on-screen text."""
+    from faster_whisper import WhisperModel
     model = WhisperModel("base", device="cpu", compute_type="int8")
-    segments, info = model.transcribe(str(source), vad_filter=True)
-    cues = [{"start": round(s.start, 2), "end": round(s.end, 2),
+    segments, _ = model.transcribe(str(source), vad_filter=True)
+    return [{"start": round(s.start, 2), "end": round(s.end, 2),
              "text": s.text.strip()} for s in segments if s.text.strip()]
+
+
+def write_transcript(source: Path, req: dict, tmp_root: Path = None) -> int:
+    """Extract the video's captions (on-screen text first, speech as a
+    fallback) and store editable cues under data/transcripts."""
+    tmp_root = tmp_root or Path(tempfile.mkdtemp())
+    source_kind = "ocr"
+    try:
+        cues = ocr_captions(source, tmp_root)
+    except Exception as e:
+        print(f"ocr captions failed: {e}", file=sys.stderr)
+        cues = []
+    if len(cues) < 3:
+        try:
+            speech = whisper_cues(source)
+            if len(speech) > len(cues):
+                cues, source_kind = speech, "speech"
+        except Exception as e:
+            print(f"whisper fallback failed: {e}", file=sys.stderr)
     key = transcript_key(req)
     out = REPO_ROOT / "data" / "transcripts" / f"{key}.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(
         {"source": req.get("source_url") or req.get("source_path"),
-         "language": info.language, "cues": cues},
+         "kind": source_kind, "cues": cues},
         ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    print(f"transcript: {len(cues)} cues -> data/transcripts/{key}.json")
+    print(f"transcript ({source_kind}): {len(cues)} cues -> data/transcripts/{key}.json")
     return len(cues)
 
 
 def transcribe_one(req: dict, tmp_root: Path) -> dict:
     work = Path(tempfile.mkdtemp(dir=tmp_root))
     source = resolve_source(req, work)
-    n = write_transcript(source, req)
+    n = write_transcript(source, req, tmp_root)
     return {"video": None, "caption": None, "caption_error": None,
             "transcript": transcript_key(req), "cue_count": n}
 
@@ -248,7 +343,7 @@ def preview_one(idx: int, req: dict, out_dir: Path, tmp_root: Path) -> dict:
     # opens the editor - one download serves both.
     cues = 0
     try:
-        cues = write_transcript(source, req)
+        cues = write_transcript(source, req, tmp_root)
     except Exception as e:
         print(f"preview transcript failed: {e}", file=sys.stderr)
     return {"video": None, "caption": None, "caption_error": None,
