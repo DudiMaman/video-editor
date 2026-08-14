@@ -3,74 +3,19 @@
  "kind": "ocr",
  "cues": [
   {
-   "start": 0.0,
-   "end": 0.5,
-   "text": "ch OW ran we ROG er fo an Aa"
-  },
-  {
    "start": 0.5,
-   "end": 1.0,
-   "text": "pear AA Se Avoid these Houseplants aoe mo yon, re ee"
-  },
-  {
-   "start": 1.0,
-   "end": 1.5,
-   "text": "peek oe ay Vie pnt Bh Avoid these Houseplants ji ve caer It nn of my"
-  },
-  {
-   "start": 1.5,
-   "end": 2.0,
-   "text": "Sa Xe EB Ma oe yee te roel foe dat is uA Avoid these Houseplants iid as, aw yO"
-  },
-  {
-   "start": 2.0,
    "end": 2.5,
-   "text": "NI Sh. we WO. Avoid these Houseplants BR aebeginner vr bd"
-  },
-  {
-   "start": 3.0,
-   "end": 3.5,
-   "text": "re ON"
-  },
-  {
-   "start": 3.5,
-   "end": 4.0,
-   "text": "Py tN on on Croton"
-  },
-  {
-   "start": 4.0,
-   "end": 4.5,
-   "text": "Croton"
-  },
-  {
-   "start": 4.5,
-   "end": 5.0,
-   "text": "Py iy Ay Croton"
-  },
-  {
-   "start": 5.0,
-   "end": 5.5,
-   "text": "(ee on"
+   "text": "Avoid these Houseplants"
   },
   {
    "start": 6.0,
    "end": 8.0,
-   "text": "AN we ft ae Spider mites adore this plant"
+   "text": "| Spider mites adore this plant"
   },
   {
    "start": 8.0,
    "end": 10.0,
-   "text": "fous oe, ne Too dramatic when it comes to overwatering"
-  },
-  {
-   "start": 10.0,
-   "end": 10.5,
-   "text": "poGN on ta Ho Lye"
-  },
-  {
-   "start": 10.5,
-   "end": 11.0,
-   "text": "of kA"
+   "text": "Too dramatic when it comes to overwatering"
   },
   {
    "start": 13.5,
@@ -80,7 +25,7 @@
   {
    "start": 15.5,
    "end": 17.5,
-   "text": "and sudden temperature fluctuations"
+   "text": "and sudden temperature"
   },
   {
    "start": 17.5,
@@ -90,202 +35,37 @@
   {
    "start": 24.5,
    "end": 26.5,
-   "text": "They may look little bit too dead"
+   "text": "They may look a little bit too dead"
   },
   {
    "start": 26.5,
    "end": 28.5,
-   "text": "when they’re bit thirsty"
+   "text": "when they’re a bit thirsty"
   },
   {
    "start": 28.5,
    "end": 33.0,
-   "text": "Require humid conditions. similar to rainforest"
-  },
-  {
-   "start": 34.5,
-   "end": 35.0,
-   "text": "ae ads ee Se. ae og Ls oe nO tse “Ass ogy, th os matty bot: Neyo Fag RE aes on ME pe ah) oa: ee Wine we SRAM gy"
-  },
-  {
-   "start": 35.0,
-   "end": 35.5,
-   "text": "mS ae Pe MAE oe REE pg ME eee: are, oe ok thy. vd ae an way: he Sea nee ia geht: sa wae rq it aan An be oe Poe he oe es iat ie aay OF"
-  },
-  {
-   "start": 35.5,
-   "end": 36.0,
-   "text": "ma Bo od cab Poe gt ea if wee ys ae gs. oe te as rah ne ne cm Begonias \"ames moc aie ES ee was BM, PR: at oe SMay ae aPete ie Re apa am val we"
-  },
-  {
-   "start": 36.0,
-   "end": 36.5,
-   "text": "PL OS, maw RI ws BG gg re Sa SRR lew Wat ee ia Sita Si Oa nh SETS FF Fores’ gr ah BS re? oe ee Cs oe Roeae Ser OM see Me het ye Pee Begonias im Ry. ds oe Pe ae Mos eR ee gg RE ss Ne. ay pay. noe ar ide ee. ye fS we gt apa"
-  },
-  {
-   "start": 36.5,
-   "end": 37.0,
-   "text": "ee mF fe at RN gee Le ee arta ee Eo aN tt oo Se: abet sy ys os rn eee wa! ee net es: ee jo tse Begonias oe Rs oa fy bee Ne My” fe ee PY: nae ts An cee OT ae Poe HAN wee, oY ie OM, Pty, ale ar La Re. Nee cn od ve Let eh vat"
-  },
-  {
-   "start": 37.0,
-   "end": 37.5,
-   "text": "eight NORD CC Se BORED ee MENT SOME eg no ORS aes SL. oy st oe ae merre Begonias Sire Me Fg wl My ee Geet og OE? ae Poe Lf pbs nai ah mane Sia SR ae, ee My SM ty"
-  },
-  {
-   "start": 37.5,
-   "end": 38.0,
-   "text": "eiteca,, FAME Peet gy ‘eaurat Dy ae “SS way ed, ia ite. re rm fy ae Sys. an oe eet «hei Ree Begonias aie ce ee er ieee ph ae Re eA ye Be Mey eae"
-  },
-  {
-   "start": 38.0,
-   "end": 38.5,
-   "text": "Lg rd he SONS Ong eae eo mx be “ae os it og alate’ ea begonias Sis yy ee Je vs pk oer) we EM oo yee Ria Sey wait ar Pca"
-  },
-  {
-   "start": 38.5,
-   "end": 39.0,
-   "text": "cea, nan SS MZ (fee et iF ahs cs mh ae me ‘ea ca oa ww ye Ny ne ge. be ae UN oS aR, NL ve os oO inn os it ay fare ph wns RE BE gg ih Reon oi in Saeed SECS"
-  },
-  {
-   "start": 39.0,
-   "end": 39.5,
-   "text": "hee oe Soy ye, BS ape ee pn Re, al an Roe ‘eas WANE nee een ia Sat Mee wy. ar WEN dramatic fale. te Pt ge (Gt ho ae By es of aie at! le Be NE oa araeh ot ay rer ae"
-  },
-  {
-   "start": 39.5,
-   "end": 40.0,
-   "text": "uy Ser Wg aaa eae ee cae wy ne on aa aR Sy ie wr ee ae \"abet, LR ee be nae rf “ye okY ade el igWay dramatig Sj an hl pt Gi ae ae oe so eet ee Ft cat By FN. Det “OE Say) oS By he Sena Ps nod ars ‘ee ay aoe ae"
-  },
-  {
-   "start": 40.0,
-   "end": 40.5,
-   "text": "SEES We KC. Sek ay al SaaS ee gy see ke an wn Mey so rrr ee Ri, hy al ee ‘maurot apryeh ne home’ cs ee ST ge Ss ey at as ty arg ok Moy’crama oe ee? ie nad ae we Re Rs ee ee wk beg"
-  },
-  {
-   "start": 40.5,
-   "end": 41.0,
-   "text": "Pa. ee tery Yon, ae ee ‘ay Ste ee gf aor ee us ates Pe mba as: ae er mc em nf es on ae aN cK, Es ie bc awe The oa ae fo wll ey sequirg high humiditys.. aaa ae ee! ae fe pot earn es Bee ve tay ey Be Reig Sea"
-  },
-  {
-   "start": 41.0,
-   "end": 41.5,
-   "text": "as ae FO Re, cele EF Sy. FF er Re na vy aT Reygiequire high huiniclitY, Sam ee te en Saree eK or ee ME ee: ig ial” ae we Ry act ary oe My: an he ive"
+   "text": "Require humid conditions similar to a rainforest:"
   },
   {
    "start": 41.5,
    "end": 42.0,
-   "text": "ort. Pe me TAR BS cho ve Sa RF Be or ae os Sa Oy Oe COT we ‘sp ie po MN ond he se ate OF Tic ns ae Fane te FE Re AN gg “anbhey require high humidity, any ANTE oe es OU MTA Ea ee Os et ee ae eas: is iad oe Ro ae ee ee eae se yt ee Nae ate:"
-  },
-  {
-   "start": 42.0,
-   "end": 42.5,
-   "text": "ts at ee een ve, Nyt Saat es eg Ke OPTS ages FS Wi oo casos Es “iy RN ye ot TReypisquire high huinidlitly, Samy, ee ea ee Sho ay TE he. ee Qe ae ae eo eet Re we ta eg des ad ye vt seh agen Ae"
-  },
-  {
-   "start": 42.5,
-   "end": 43.0,
-   "text": "ate RES Sc vey ae yt Se was, on ee oe ae ae LES Be ny sy. htop, Ai ON hay ca yar it’ s@ilifficult to maintal YN AR ES ae aoe wae stnesers ovegtnegginter tess SY ag fe ae ae yee eo geet oa we walt Eth en ate. mes By ot"
-  },
-  {
-   "start": 43.0,
-   "end": 43.5,
-   "text": "MMe ae FS SF ON NORE ws eee Se! ge! My go al at hs ral Sig Sa FZ AUS eliffictilt,to maintain “sy NTR ghey “Indobts ovet the Minter Sy: fae OS ge gk: Ry gt’ att PRY wy “ee er dine Narr"
-  },
-  {
-   "start": 43.5,
-   "end": 44.0,
-   "text": "Sn, ane ate Cats et OW ty ONS, oe at Wed, ro via Aes Sa is Bye ae it S.difficult to frelatain _ingogisiover the winters‘: ig, arn sy Beem ON ee rn Sts ce Pu Py Re te: ny peor"
-  },
-  {
-   "start": 44.0,
-   "end": 44.5,
-   "text": "ant vw. os Apap Bs al ee Lo “at gages OM oe fy. ofp, de OL pie vee \"Cadet. LR ee\" ot et Ee MSE Tm ge? Sg we ee gubcult to maintain amen TSLOVET: inter’ cogmroves the wintet wee UN yo ae Fog mai oo Ld se) iy ss ioe ae tats? Ay Alt af ot. hy Ks. aa et Pens; RS Ee re nS"
-  },
-  {
-   "start": 44.5,
-   "end": 45.0,
-   "text": "ae Ly Pal Sy oan nn, ye AN eee, ag Lem iy she be Ee ot ata OS oe ae oe ane ona by. ta ee ane is yh yilhy ate RRS oF yo ory, aa ey, oa Rr Pas; ee re"
-  },
-  {
-   "start": 45.0,
-   "end": 45.5,
-   "text": "eee oe ee, “Ser es) er oe, Pe nee Park ope ane aye LR YS ae pate ae Cm Be eet ah ieee ran ay re head ee Ps rah ie ts Ma of Cae en re ee ie eo oN Be Ad"
-  },
-  {
-   "start": 46.5,
-   "end": 47.0,
-   "text": "ely."
-  },
-  {
-   "start": 47.0,
-   "end": 47.5,
-   "text": "cI (fo"
-  },
-  {
-   "start": 47.5,
-   "end": 49.0,
-   "text": "Alocasia “uae"
-  },
-  {
-   "start": 49.0,
-   "end": 49.5,
-   "text": "Se cain"
-  },
-  {
-   "start": 49.5,
-   "end": 50.0,
-   "text": "They cari stot Ca tas"
-  },
-  {
-   "start": 50.0,
-   "end": 50.5,
-   "text": "AM [Sa They caft stand,éold Envirghment\\"
-  },
-  {
-   "start": 50.5,
-   "end": 51.0,
-   "text": "They ca rtesta acdco Id envionment"
-  },
-  {
-   "start": 51.0,
-   "end": 51.5,
-   "text": "They cab ese co _efvijonmertt Kk Lf"
+   "text": "high hum"
   },
   {
    "start": 52.0,
-   "end": 52.5,
-   "text": "Require plenty of humidity in thé air"
-  },
-  {
-   "start": 52.5,
-   "end": 53.0,
-   "text": "“tat Tah in"
-  },
-  {
-   "start": 53.0,
    "end": 53.5,
-   "text": "Require plent in tt air"
+   "text": "Require plenty of in the air"
   },
   {
    "start": 53.5,
-   "end": 55.0,
-   "text": "Ne ny but doptlike moist soil"
-  },
-  {
-   "start": 55.0,
    "end": 55.5,
-   "text": "butdon'flike soil"
+   "text": "like moist soil"
   },
   {
    "start": 57.5,
-   "end": 58.5,
-   "text": "Check out the Blossom APP for more plant tips!"
-  },
-  {
-   "start": 58.5,
    "end": 63.0,
-   "text": "on Sane Check out the Blossom APP gy for more plant tips! Piso apps Wimkain =DBownload on the SETITON App Store Google Play"
+   "text": "Check out the Blossom APP for more plant tips! app. tin Bio Download on the GET ITON @ App Store Google Play"
   }
  ]
 }
