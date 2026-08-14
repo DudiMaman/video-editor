@@ -80,10 +80,11 @@ jobs:
       - name: Commit transcripts and ledger updates
         if: always()
         run: |
-          if [ -n "$(git status --porcelain data/transcripts data/ledger.json 2>/dev/null)" ]; then
+          [ -d data/transcripts ] && git add data/transcripts || true
+          git add data/ledger.json 2>/dev/null || true
+          if ! git diff --cached --quiet; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/transcripts data/ledger.json
             git commit -m "Batch run: transcripts + processed-video ledger wiring"
             git pull --rebase origin main
             git push origin main
