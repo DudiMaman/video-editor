@@ -41,7 +41,6 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
   const [cutSeconds, setCutSeconds] = useState('')
   const [caption, setCaption] = useState(entry.caption || '')
   const [subtitlesText, setSubtitlesText] = useState('')
-  const [transcriptKey, setTranscriptKey] = useState(null)
   const [openPicker, setOpenPicker] = useState(null) // 'outro' | 'intro' | null
   const [busy, setBusy] = useState(false)
   const [subBusy, setSubBusy] = useState(false)
@@ -53,6 +52,24 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
     setter(msg)
     setTimeout(() => setter(''), ms)
   }
+
+  // Pull the video's subtitles into the box automatically when the card opens.
+  useEffect(() => {
+    let alive = true
+    backend
+      .readTranscript(entry.source_url)
+      .then((t) => {
+        if (alive && t?.cues?.length) {
+          setSubtitlesText(
+            t.cues.map((c) => `${c.start} - ${c.end} | ${c.text}`).join('\n')
+          )
+        }
+      })
+      .catch(() => {})
+    return () => {
+      alive = false
+    }
+  }, [entry.source_url])
 
   const clipName = (clips, id) =>
     clips.find((c) => String(c.id) === String(id))?.original_name
@@ -89,37 +106,47 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
     }
   }
 
-  const transcribe = async () => {
-    setSubBusy(true)
-    try {
-      const key = await backend.submitTranscribe({
-        sourceType: 'url',
-        url: entry.source_url,
-      })
-      setTranscriptKey(key)
-      flash(setSubNote, B.transcribeSent, 8000)
-    } catch (e) {
-      alert(e.message)
-    } finally {
-      setSubBusy(false)
-    }
+  const applyCues = (t) => {
+    setSubtitlesText(
+      t.cues.map((c) => `${c.start} - ${c.end} | ${c.text}`).join('\n')
+    )
   }
 
+  // Re-fetch the subtitles; if none exist yet, generate them and poll.
   const loadTranscript = async () => {
     setSubBusy(true)
     try {
-      const t = await backend.readTranscript(transcriptKey || entry.source_url)
-      if (!t || !t.cues?.length) {
-        flash(setSubNote, B.transcriptMissing)
-      } else {
-        setSubtitlesText(
-          t.cues.map((c) => `${c.start} - ${c.end} | ${c.text}`).join('\n')
-        )
+      let t = await backend.readTranscript(entry.source_url)
+      if (t?.cues?.length) {
+        applyCues(t)
         flash(setSubNote, B.transcriptLoaded)
+        setSubBusy(false)
+        return
       }
+      flash(setSubNote, B.transcribeSent, 60000)
+      await backend.submitTranscribe({ sourceType: 'url', url: entry.source_url })
+      const started = Date.now()
+      const timer = setInterval(async () => {
+        if (Date.now() - started > 6 * 60 * 1000) {
+          clearInterval(timer)
+          setSubBusy(false)
+          flash(setSubNote, B.transcriptMissing)
+          return
+        }
+        try {
+          const r = await backend.readTranscript(entry.source_url)
+          if (r?.cues?.length) {
+            clearInterval(timer)
+            applyCues(r)
+            setSubBusy(false)
+            flash(setSubNote, B.transcriptLoaded)
+          }
+        } catch {
+          /* keep polling */
+        }
+      }, 20000)
     } catch (e) {
       alert(e.message)
-    } finally {
       setSubBusy(false)
     }
   }
@@ -267,11 +294,8 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
         <div className="subtitles-field">
           <span className="picker-label">{B.subtitlesLabel}</span>
           <div className="result-actions">
-            <button className="secondary small" onClick={transcribe} disabled={subBusy}>
-              {B.transcribeBtn}
-            </button>
             <button className="secondary small" onClick={loadTranscript} disabled={subBusy}>
-              {B.loadTranscriptBtn}
+              {subBusy ? B.transcribeWorking : B.loadTranscriptBtn}
             </button>
             {subNote && <span className="ok">{subNote}</span>}
           </div>
