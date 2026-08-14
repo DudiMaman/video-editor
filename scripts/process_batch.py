@@ -94,6 +94,80 @@ def _similar(a: str, b: str) -> bool:
     return len(sa & sb) >= 0.5 * max(len(sa), len(sb), 1)
 
 
+def _distinct_real(txt: str) -> int:
+    return len({re.sub(r"[^a-z]", "", w.lower())
+                for w in txt.split() if _is_word(w)})
+
+
+def _norm(w: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", w.lower())
+
+
+def _dedup_words(txt: str) -> str:
+    """Clean the mess an unstable OCR read of a busy end-card produces: drop
+    stray single-letter / punctuation fragments, then collapse immediate
+    duplicate tokens and repeated 2-5 word phrases (punctuation-insensitive)."""
+    kept = []
+    for w in txt.split():
+        nl = _norm(w)
+        if not nl:                                        # pure punctuation
+            continue
+        if len(nl) == 1 and nl not in ("a", "i"):         # stray letters
+            continue
+        if len(nl) <= 2 and not nl.isdigit() and not _is_word(w):
+            continue
+        kept.append(w)
+    out = []
+    for w in kept:                                        # immediate dupes
+        if out and _norm(out[-1]) == _norm(w):
+            continue
+        out.append(w)
+    changed = True
+    while changed:                                        # repeated phrases
+        changed = False
+        for win in (5, 4, 3, 2):
+            res, i = [], 0
+            while i < len(out):
+                a = [_norm(x) for x in out[i:i + win]]
+                if len(a) == win and a == [_norm(x) for x in out[i + win:i + 2 * win]]:
+                    res.extend(out[i:i + win])
+                    i += 2 * win
+                    while i + win <= len(out) and a == [_norm(x) for x in out[i:i + win]]:
+                        i += win
+                    changed = True
+                else:
+                    res.append(out[i])
+                    i += 1
+            out = res
+    return " ".join(out).strip()
+
+
+def _collapse_bursts(cues: list) -> list:
+    """A busy end-card (stacked review badges, star ratings, CTAs) OCRs
+    slightly differently every frame, yielding a run of short, jumbled,
+    near-duplicate cues. Collapse any run of >=3 short, tightly packed cues
+    into a single cue whose text is the fullest single observation, deduped.
+    Stable subtitle cues (a title held for a second+) are left untouched."""
+    out, i, n = [], 0, len(cues)
+    while i < n:
+        j = i
+        while (j + 1 < n
+               and cues[j]["end"] - cues[j]["start"] <= 1.0
+               and cues[j + 1]["start"] - cues[j]["end"] <= 0.6):
+            j += 1
+        if j - i >= 2:  # a run of >=3 short adjacent cues -> flicker burst
+            members = cues[i:j + 1]
+            rep = max(members, key=lambda c: _distinct_real(c["text"]))
+            out.append({"start": members[0]["start"], "end": members[-1]["end"],
+                        "text": _dedup_words(rep["text"])})
+        else:
+            c = dict(cues[i])
+            c["text"] = _dedup_words(c["text"])
+            out.append(c)
+        i = j + 1
+    return out
+
+
 def ocr_captions(source: Path, tmp_root: Path, fps: float = 2.0) -> list:
     """Read the burned-in on-screen captions over time via OCR.
 
@@ -165,6 +239,7 @@ def ocr_captions(source: Path, tmp_root: Path, fps: float = 2.0) -> list:
         else:
             cues.append({"start": round(t, 2), "end": round(t + 1 / fps, 2),
                          "text": txt})
+    cues = _collapse_bursts(cues)
     return [c for c in cues if c["end"] - c["start"] >= 0.5]
 
 
