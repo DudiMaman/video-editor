@@ -77,18 +77,12 @@ jobs:
 
       # Transcribe-only cue files and ledger wiring (processed curated
       # videos flip to approved with their output_asset) get committed back.
+      # Reset-and-reapply against the freshest main (see commit_results.py):
+      # survives the frontend concurrently flipping the same ledger entry to
+      # 'processing', which used to conflict the rebase and strand the video.
       - name: Commit transcripts and ledger updates
         if: always()
-        run: |
-          [ -d data/transcripts ] && git add data/transcripts || true
-          git add data/ledger.json 2>/dev/null || true
-          if ! git diff --cached --quiet; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "Batch run: transcripts + processed-video ledger wiring"
-            git pull --rebase origin main
-            git push origin main
-          fi
+        run: python scripts/commit_results.py
 
       - name: Fail the run if brand QA rejected a video
         if: env.QA_FAILED == '1'

@@ -400,6 +400,47 @@ def process_one(idx: int, req: dict, assets_by_id: dict, out_dir: Path, tmp_root
     return {"video": final.name, "caption": caption, "caption_error": caption_error}
 
 
+def ledger_patch_entries(results: list[dict], batch_tag: str) -> list[dict]:
+    """The ledger mutations this batch implies, as plain data (keyed by
+    video_id) so they can be re-applied on top of the freshest ledger at
+    commit time. This keeps the final approved+output state authoritative
+    even if the frontend wrote an intermediate 'processing' status while the
+    batch was running - see scripts/commit_results.py."""
+    patch = []
+    for r in results:
+        vid = r["request"].get("ledger_video_id")
+        if not vid or r["status"] != "done":
+            continue
+        if r.get("preview"):
+            # Preview jobs only attach a clean playable copy; they don't
+            # change the review status.
+            patch.append({"video_id": vid,
+                          "preview_asset": f"{batch_tag}/{r['preview']}"})
+        elif r.get("video"):
+            m = {"video_id": vid, "status": "approved",
+                 "output_asset": f"{batch_tag}/{r['video']}"}
+            if r.get("caption"):
+                m["caption"] = r["caption"]
+            patch.append(m)
+    return patch
+
+
+def apply_ledger_patch(ledger: list, patch: list[dict]) -> bool:
+    """Apply video_id-keyed mutations to a ledger in place; returns True if
+    anything changed. Unknown video_ids are skipped."""
+    by_id = {e.get("video_id"): e for e in ledger}
+    changed = False
+    for m in patch:
+        entry = by_id.get(m["video_id"])
+        if not entry:
+            continue
+        for k, v in m.items():
+            if k != "video_id":
+                entry[k] = v
+        changed = True
+    return changed
+
+
 def patch_ledger(results: list[dict], batch_tag: str) -> None:
     """Wire produced videos back to their curated ledger entries so the
     approved tab shows the processed file instead of the raw source."""
@@ -407,29 +448,11 @@ def patch_ledger(results: list[dict], batch_tag: str) -> None:
     if not path.exists():
         return
     ledger = json.loads(path.read_text(encoding="utf-8"))
-    by_id = {e.get("video_id"): e for e in ledger}
-    changed = False
-    for r in results:
-        vid = r["request"].get("ledger_video_id")
-        if not vid or r["status"] != "done":
-            continue
-        entry = by_id.get(vid)
-        if not entry:
-            continue
-        if r.get("preview"):
-            # Preview jobs only attach a clean playable copy; they don't
-            # change the review status.
-            entry["preview_asset"] = f"{batch_tag}/{r['preview']}"
-        else:
-            entry["output_asset"] = f"{batch_tag}/{r['video']}"
-            entry["status"] = "approved"
-            if r.get("caption"):
-                entry["caption"] = r["caption"]
-        changed = True
-    if changed:
+    patch = ledger_patch_entries(results, batch_tag)
+    if apply_ledger_patch(ledger, patch):
         path.write_text(json.dumps(ledger, ensure_ascii=False, indent=1) + "\n",
                         encoding="utf-8")
-        print(f"ledger: wired {sum(1 for r in results if r['request'].get('ledger_video_id') and r['status']=='done')} entries to {batch_tag}")
+        print(f"ledger: wired {len(patch)} entries to {batch_tag}")
 
 
 def preview_one(idx: int, req: dict, out_dir: Path, tmp_root: Path) -> dict:
@@ -554,6 +577,11 @@ def main() -> int:
     batch_tag = os.environ.get("BATCH_TAG")
     if batch_tag:
         patch_ledger(results, batch_tag)
+        # Persist the mutations as data so the commit step can re-apply them
+        # on top of the freshest main (avoids a ledger rebase race).
+        (out_dir / "ledger_patch.json").write_text(
+            json.dumps(ledger_patch_entries(results, batch_tag),
+                       ensure_ascii=False, indent=1), encoding="utf-8")
 
     (out_dir / "summary.json").write_text(
         json.dumps(results, ensure_ascii=False, indent=1), encoding="utf-8")
