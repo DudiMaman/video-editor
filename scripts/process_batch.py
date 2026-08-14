@@ -58,17 +58,28 @@ def resolve_source(req: dict, work: Path) -> Path:
     raise ValueError("request needs source_url or source_path")
 
 
-def _clean_line(l: str) -> str:
-    l = re.sub(r"\s+", " ", l).strip()
-    if len(l) < 4:
-        return ""
-    alpha = sum(c.isalpha() or c.isspace() for c in l)
-    if alpha < 0.72 * len(l):
-        return ""
-    words = [w for w in l.split()
-             if len(w) >= 2 and sum(c.isalpha() for c in w) >= 0.6 * len(w)]
-    out = " ".join(words)
-    return out if len(out) >= 4 else ""
+# Common words used to confirm an OCR line is real caption text rather than
+# noise from decorative textures. A word also passes if it simply looks like
+# a plausible word (has a vowel and a consonant) - the dictionary just
+# guarantees a floor of recognisable content per line.
+_COMMON = set("""the a an and or to of in on for with your you it is are be own make
+plant plants tag tags water soil pot pots leaf leaves cut off stem cuttings place
+put change every day days new home homes fill gap gaps mix propagate divide grow
+roots have grown about two inches can repot little from time mist top right method
+download now keep alive app store google play once more this that here how what
+when into over under out up don worry buddy soon see shoots sprouting them their
+get least just one instead care tips scan identify diagnose free link bio check
+hacks add remove lower spray drops iodine potassium fertilize fertilizer light
+houseplant houseplants indoor outdoor snake pothos monstera basil tomato""".split())
+
+
+def _is_word(w: str) -> bool:
+    w = re.sub(r"[^A-Za-z']", "", w).lower()
+    if len(w) < 2:
+        return False
+    return (w in _COMMON or
+            (len(w) >= 3 and re.search(r"[aeiou]", w)
+             and re.search(r"[bcdfghjklmnpqrstvwxyz]", w)))
 
 
 def _line_key(l: str) -> str:
@@ -86,11 +97,16 @@ def _similar(a: str, b: str) -> bool:
 def ocr_captions(source: Path, tmp_root: Path, fps: float = 2.0) -> list:
     """Read the burned-in on-screen captions over time via OCR.
 
-    White text is isolated (bright-pixel threshold, inverted) so decorative
-    background art doesn't drown the captions, static overlays that appear in
-    most frames (reply stickers, handles) are dropped, and consecutive frames
-    with the same wording collapse into one time-ranged cue.
+    White caption text is isolated (bright-pixel threshold, inverted) so
+    decorative background art doesn't drown it. Each frame is OCR'd in TSV
+    mode and only words tesseract is confident about (conf >= 60) that also
+    read as real words survive - this is what keeps texture/vine noise out.
+    Static overlays present in most frames (reply stickers, @handles) are
+    dropped, and consecutive frames with the same wording collapse into one
+    time-ranged cue.
     """
+    import csv
+    import io
     from collections import Counter
     from concurrent.futures import ThreadPoolExecutor
 
@@ -98,15 +114,32 @@ def ocr_captions(source: Path, tmp_root: Path, fps: float = 2.0) -> list:
     work = Path(tempfile.mkdtemp(dir=tmp_root))
     subprocess.run(
         ["ffmpeg", "-y", "-v", "error", "-i", str(source), "-vf",
-         f"fps={fps},format=gray,lut=y='if(gt(val,210),0,255)',scale=iw*1.3:-1",
+         f"fps={fps},format=gray,lut=y='if(gt(val,205),0,255)',scale=iw*1.4:-1",
          f"{work}/f%05d.png"],
         check=True)
     frames = sorted(work.glob("f*.png"))
 
     def ocr(f):
-        r = subprocess.run(["tesseract", str(f), "stdout", "--psm", "6"],
+        r = subprocess.run(["tesseract", str(f), "stdout", "--psm", "6", "tsv"],
                            capture_output=True, text=True, env=env)
-        return [x for x in (_clean_line(l) for l in r.stdout.split("\n")) if x]
+        by_line = {}
+        for row in csv.DictReader(io.StringIO(r.stdout), delimiter="\t"):
+            try:
+                conf = float(row.get("conf", "-1"))
+            except ValueError:
+                conf = -1
+            txt = (row.get("text") or "").strip()
+            if conf < 60 or not txt:
+                continue
+            key = (row.get("block_num"), row.get("par_num"), row.get("line_num"))
+            by_line.setdefault(key, []).append(txt)
+        out = []
+        for words in by_line.values():
+            real = [w for w in words if _is_word(w)]
+            # a line must be mostly recognisable words, at least two of them
+            if len(real) >= 2 and len(real) >= 0.6 * len(words):
+                out.append(re.sub(r"\s+", " ", " ".join(words)).strip())
+        return out
 
     with ThreadPoolExecutor(max_workers=4) as pool:
         per = list(pool.map(ocr, frames))
