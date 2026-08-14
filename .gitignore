@@ -6,6 +6,8 @@ data/*
 !data/ledger.json
 !data/config.json
 !data/suggestions.json
+!data/transcripts/
+!data/transcripts/**
 node_modules/
 dist/
 .env
