@@ -4,18 +4,8 @@
  "cues": [
   {
    "start": 0.0,
-   "end": 0.5,
-   "text": "Telling is"
-  },
-  {
-   "start": 0.5,
-   "end": 1.0,
-   "text": "w Telling myself this is i the last !"
-  },
-  {
-   "start": 1.0,
    "end": 3.0,
-   "text": "Telling myself thisis the last shelf...."
+   "text": "Telling myself this is the last"
   }
  ]
 }

@@ -4,53 +4,23 @@
  "cues": [
   {
    "start": 0.0,
-   "end": 0.5,
-   "text": "Howcalm are you rig ht now?"
-  },
-  {
-   "start": 0.5,
-   "end": 1.0,
-   "text": "How calm are you | right now?"
-  },
-  {
-   "start": 1.5,
    "end": 2.0,
-   "text": "How calm are"
+   "text": "How calm are you right now?"
   },
   {
    "start": 3.0,
    "end": 5.5,
-   "text": "1 super not calm"
+   "text": "super not calm"
   },
   {
    "start": 5.5,
    "end": 6.0,
-   "text": "‘kinda calm | super notcalm"
-  },
-  {
-   "start": 6.0,
-   "end": 6.5,
-   "text": "kinda calm"
+   "text": "‘kinda calm super notcalm"
   },
   {
    "start": 8.0,
-   "end": 9.0,
-   "text": "ates Q calm kinda calm | super notcalm"
-  },
-  {
-   "start": 9.0,
-   "end": 9.5,
-   "text": "- kinda calm"
-  },
-  {
-   "start": 9.5,
-   "end": 10.0,
-   "text": "Exhale oN , kinda calm 1 super not calm"
-  },
-  {
-   "start": 10.0,
    "end": 12.5,
-   "text": "super calm kinda calm 4 not calm"
+   "text": "Exhale oN kinda calm super not calm"
   },
   {
    "start": 13.0,
@@ -59,43 +29,13 @@
   },
   {
    "start": 15.0,
-   "end": 16.0,
-   "text": "kinda calm 1 super not calm"
-  },
-  {
-   "start": 16.5,
-   "end": 17.0,
-   "text": "2 not calm"
-  },
-  {
-   "start": 17.0,
    "end": 18.5,
-   "text": "you're a plant 5 super calm kinda calm not calm"
+   "text": "you're plant super calm kinda calm not calm"
   },
   {
    "start": 18.5,
-   "end": 19.0,
-   "text": "super calm 2 not calm"
-  },
-  {
-   "start": 19.5,
-   "end": 20.0,
-   "text": "kinda calm NG | super notcalm"
-  },
-  {
-   "start": 20.0,
-   "end": 20.5,
-   "text": "you're a plant ; kinda calm"
-  },
-  {
-   "start": 20.5,
-   "end": 21.0,
-   "text": "kinda calm Ne not calm 1 super not calm"
-  },
-  {
-   "start": 21.0,
    "end": 22.0,
-   "text": "you're a plant 2 not calm"
+   "text": "kinda calm super notcalm"
   }
  ]
 }

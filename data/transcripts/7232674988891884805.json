@@ -4,43 +4,18 @@
  "cues": [
   {
    "start": 0.0,
-   "end": 1.0,
-   "text": "How to prepare soil for sowing seeds"
-  },
-  {
-   "start": 1.0,
-   "end": 1.5,
-   "text": "for sowing seeds"
-  },
-  {
-   "start": 1.5,
    "end": 3.0,
    "text": "How to prepare soil for sowing seeds"
   },
   {
    "start": 3.0,
-   "end": 3.5,
-   "text": "prepare soil"
-  },
-  {
-   "start": 3.5,
-   "end": 4.5,
-   "text": "prepare soil | for sowing seeds"
-  },
-  {
-   "start": 4.5,
-   "end": 5.0,
-   "text": "hors seeds"
-  },
-  {
-   "start": 5.5,
    "end": 9.0,
-   "text": "Quality soil is a must for all stages of plant life."
+   "text": "Quality soil is must for all stages of plant life."
   },
   {
    "start": 9.0,
    "end": 12.5,
-   "text": "| but for seed germination, | it's even more important"
+   "text": "but for seed germination, it's even more important"
   },
   {
    "start": 14.0,
@@ -60,7 +35,7 @@
   {
    "start": 24.0,
    "end": 29.5,
-   "text": "Some people suggest baking soil in the oven for a couple of hours at a high temperature."
+   "text": "Some people suggest baking soil in the oven for couple of hours high temperature."
   },
   {
    "start": 29.5,
@@ -80,17 +55,17 @@
   {
    "start": 44.0,
    "end": 48.5,
-   "text": "unsure of the soil’s quality, do a trial sowing."
+   "text": "unsure of the soil’s quality, trial sowing."
   },
   {
    "start": 52.5,
    "end": 57.0,
-   "text": "if most seeds sprout together, you can safely use this soil further."
+   "text": "most seeds sprout together, you can safely use this soil further."
   },
   {
    "start": 58.5,
    "end": 62.5,
-   "text": "If you just want to get rid of insects, worms, larvae, and nematodes"
+   "text": "you just want to get rid of insects, worms, larvae, and nematodes"
   },
   {
    "start": 62.5,
@@ -100,7 +75,7 @@
   {
    "start": 67.0,
    "end": 73.0,
-   "text": "Check out the | Blossom app for more plant hacks! Link in bio @ App Store Google Play"
+   "text": "Check out the Blossom app for more plant hacks! Link in bio App Store Google Play"
   }
  ]
 }
