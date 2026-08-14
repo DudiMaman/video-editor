@@ -182,5 +182,21 @@
   "asset": "sample",
   "found_at": "2026-08-13",
   "status": "accepted"
+ },
+ {
+  "url": "https://www.tiktok.com/@plantsnap",
+  "name": "PlantSnap",
+  "reason": "אפליקציית זיהוי צמחים מובילה עם דף טיקטוק רשמי שמפרסם תוכן על זיהוי צמחים, טיפים לטיפול והזכרות השקיה - תואם בדיוק לנישה של Planty.",
+  "asset": "sample",
+  "found_at": "2026-08-14",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@bloomify.plantidentifier",
+  "name": "Bloomify - Plant Identifier",
+  "reason": "אפליקציית AI לזיהוי צמחים וגילוי בעיות בריאות בצמח, עם דף טיקטוק רשמי פעיל שמפרסם סרטוני הדגמה של האפליקציה עצמה.",
+  "asset": "sample",
+  "found_at": "2026-08-14",
+  "status": "suggested"
  }
 ]
