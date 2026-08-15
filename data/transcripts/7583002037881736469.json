@@ -1,0 +1,16 @@
+{
+ "source": "https://www.tiktok.com/@plantappai/video/7583002037881736469",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 13.0,
+   "end": 13.5,
+   "text": "More into"
+  },
+  {
+   "start": 28.5,
+   "end": 30.0,
+   "text": "Cider Vinegar gives Aloe Vera the nutritions it needs and enriches the soil"
+  }
+ ]
+}

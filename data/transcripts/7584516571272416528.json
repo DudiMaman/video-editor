@@ -1,0 +1,11 @@
+{
+ "source": "https://www.tiktok.com/@plantappai/video/7584516571272416528",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 28.5,
+   "end": 29.5,
+   "text": "Venus Flytrap"
+  }
+ ]
+}

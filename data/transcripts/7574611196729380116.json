@@ -1,0 +1,26 @@
+{
+ "source": "https://www.tiktok.com/@plantappai/video/7574611196729380116",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 15.0,
+   "end": 15.5,
+   "text": "Aloe Vera"
+  },
+  {
+   "start": 16.5,
+   "end": 18.5,
+   "text": "Cider Vinegar gives Aloe Vera the nutritions it needs and enriches the soil"
+  },
+  {
+   "start": 29.0,
+   "end": 31.0,
+   "text": "Your plant needs care"
+  },
+  {
+   "start": 32.5,
+   "end": 33.0,
+   "text": "Lemon help: or pests"
+  }
+ ]
+}

@@ -1,0 +1,21 @@
+{
+ "source": "https://www.tiktok.com/@plantappai/video/7561893859563769104",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 10.5,
+   "end": 12.5,
+   "text": "Cider Vinegar gives Succulent the nutritions it needs and enriches the soil"
+  },
+  {
+   "start": 23.0,
+   "end": 25.0,
+   "text": "Your plant needs care"
+  },
+  {
+   "start": 27.0,
+   "end": 29.5,
+   "text": "Lemon helps combat fungal infections or pests like aphids or whiteflies"
+  }
+ ]
+}

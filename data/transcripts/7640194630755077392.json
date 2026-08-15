@@ -1,0 +1,26 @@
+{
+ "source": "https://www.tiktok.com/@plantappai/video/7640194630755077392",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 9.5,
+   "end": 10.0,
+   "text": "Aloe Vera"
+  },
+  {
+   "start": 21.5,
+   "end": 22.0,
+   "text": "Ana Sif"
+  },
+  {
+   "start": 23.0,
+   "end": 25.0,
+   "text": "Your plant needs care"
+  },
+  {
+   "start": 27.0,
+   "end": 29.5,
+   "text": "Lemon helps combat fungal infections or pests like aphids or whiteflies"
+  }
+ ]
+}

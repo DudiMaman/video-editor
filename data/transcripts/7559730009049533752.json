@@ -1,0 +1,26 @@
+{
+ "source": "https://www.tiktok.com/@plantappai/video/7559730009049533752",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 8.5,
+   "end": 9.0,
+   "text": "need bigger pot"
+  },
+  {
+   "start": 10.0,
+   "end": 12.0,
+   "text": "more nutrition"
+  },
+  {
+   "start": 13.5,
+   "end": 17.5,
+   "text": "need more sunlight"
+  },
+  {
+   "start": 22.5,
+   "end": 23.5,
+   "text": "Venus Flytrap"
+  }
+ ]
+}
