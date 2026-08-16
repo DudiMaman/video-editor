@@ -6,6 +6,11 @@ on:
     # Daily at 04:00 UTC (07:00 Israel in summer) so the fresh batch is
     # waiting for review when the day starts.
     - cron: '0 4 * * *'
+  push:
+    branches: [main]
+    # A content-plan change (e.g. enabling stories) tops up today's batch;
+    # per-day idempotency in generate_daily.py makes this duplication-safe.
+    paths: ['data/aimodels/plan.json']
 
 permissions:
   contents: write
