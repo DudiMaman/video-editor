@@ -1,5 +1,5 @@
 {
-  "week": "2026-W34",
+  "week": "2026-W33",
   "note": "מנת פתיחה — 3 פוסטים ראשונים לכל דמות",
   "posts": [
     {
@@ -244,6 +244,114 @@
       "date": "2026-08-20",
       "time": "19:00",
       "status": "pending"
+    },
+    {
+      "id": "yuna-2026-08-16-post",
+      "char": "yuna",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/yuna-2026-08-16-post.jpg",
+      "caption": "morning hair chaos before it becomes a \"look\" 💆‍♀️ towel life, mirror pep talks, repeat #morningroutine #tokyolife #messyhair #girlmornings #dailyritual",
+      "date": "2026-08-16",
+      "time": "19:00",
+      "status": "pending",
+      "generatedAt": "2026-08-16T12:51:45Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. doing her hair in the bathroom mirror, towel on shoulders, everyday morning routine Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+    },
+    {
+      "id": "mina-2026-08-16-post",
+      "char": "mina",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/mina-2026-08-16-post.jpg",
+      "caption": "seoul nights hit different when the lights blur just right and my playlist's on shuffle 🌆✨ #seoulnights #eveningwalk #citylights #seoulvibes #quietmoments",
+      "date": "2026-08-16",
+      "time": "19:00",
+      "status": "pending",
+      "generatedAt": "2026-08-16T12:52:34Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. evening walk along a lit street in Seoul, soft bokeh lights behind her Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+    },
+    {
+      "id": "sofia-2026-08-16-post",
+      "char": "sofia",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/sofia-2026-08-16-post.jpg",
+      "caption": "mirror pep talk, ten minutes of hair chaos, zero plans to actually fix it 💁‍♀️ #morningroutine #madridlife #messyhair #dailyme #realtalk",
+      "date": "2026-08-16",
+      "time": "20:00",
+      "status": "pending",
+      "generatedAt": "2026-08-16T12:55:24Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. doing her hair in the bathroom mirror, towel on shoulders, everyday morning routine Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+    },
+    {
+      "id": "lucia-2026-08-16-post",
+      "char": "lucia",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/lucia-2026-08-16-post.jpg",
+      "caption": "golden hour is winning against my tired feet but we made it home 🌇 tote bag full, heart fuller #sevilla #dusk #tiredbuthappy #lifestyle #cityvibes",
+      "date": "2026-08-16",
+      "time": "20:00",
+      "status": "pending",
+      "generatedAt": "2026-08-16T12:56:02Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. walking home at dusk in Seville carrying a tote bag, tired but content Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+    },
+    {
+      "id": "giulia-2026-08-16-post",
+      "char": "giulia",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/giulia-2026-08-16-post.jpg",
+      "caption": "tired feet, full tote bag, milan doing that golden hour thing again 🌆 home never looked so good #milanlife #goldenhour #dusk #slowliving #ootd",
+      "date": "2026-08-16",
+      "time": "19:30",
+      "status": "pending",
+      "generatedAt": "2026-08-16T12:57:42Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. walking home at dusk in Milan carrying a tote bag, tired but content Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+    },
+    {
+      "id": "elsa-2026-08-16-post",
+      "char": "elsa",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/elsa-2026-08-16-post.jpg",
+      "caption": "morning hair chaos before it becomes a \"look\" 💫 five minutes of effort, ten of pretending it's intentional #morningroutine #stockholmlife #messybun #everydaymoments",
+      "date": "2026-08-16",
+      "time": "18:30",
+      "status": "pending",
+      "generatedAt": "2026-08-16T12:58:21Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. doing her hair in the bathroom mirror, towel on shoulders, everyday morning routine Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+    },
+    {
+      "id": "ruby-2026-08-16-post",
+      "char": "ruby",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/ruby-2026-08-16-post.jpg",
+      "caption": "morning light, coffee in hand, pastry in the other — austin really said start your day right ☕🥐 #austinmornings #coffeeandpastries #atxlife #slowmornings",
+      "date": "2026-08-16",
+      "time": "18:00",
+      "status": "pending",
+      "generatedAt": "2026-08-16T12:59:06Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. holding a takeaway coffee and a pastry on a bench in Austin, morning light Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+    },
+    {
+      "id": "isabela-2026-08-16-post",
+      "char": "isabela",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/isabela-2026-08-16-post.jpg",
+      "caption": "feet in the water, sun on my skin, no notifications allowed rn ☀️ #riodejaneiro #poolday #sunkissed #slowmornings",
+      "date": "2026-08-16",
+      "time": "18:30",
+      "status": "pending",
+      "generatedAt": "2026-08-16T12:59:55Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. poolside near Rio in modest tasteful swimwear, sitting on the edge with feet in the water, sun-lit Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+    },
+    {
+      "id": "petra-2026-08-16-post",
+      "char": "petra",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/petra-2026-08-16-post.jpg",
+      "caption": "elbows on the table, brain fully switched off, just here for the carbs and the cozy light ☕🥟 #praguecafe #localeats #cozyvibes #pragueguide #foodiemoments",
+      "date": "2026-08-16",
+      "time": "19:00",
+      "status": "pending",
+      "generatedAt": "2026-08-16T13:03:41Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. sitting at a tiny local cafe in Prague about to eat a popular local dish, warm cozy light, elbows on the table Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
     }
   ]
 }
