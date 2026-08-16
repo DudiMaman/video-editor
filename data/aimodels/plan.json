@@ -1,7 +1,26 @@
 {
   "daily_posts_per_character": 1,
-  "reels": { "enabled": false, "days": ["Wed", "Sat"], "per_character": 1 },
-  "stories": { "enabled": false, "days": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], "per_character": 1 },
+  "reels": {
+    "enabled": false,
+    "days": [
+      "Wed",
+      "Sat"
+    ],
+    "per_character": 1
+  },
+  "stories": {
+    "enabled": false,
+    "days": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun"
+    ],
+    "per_character": 1
+  },
   "post_times_by_char": {
     "yuna": "19:00",
     "mina": "19:00",
@@ -13,6 +32,14 @@
     "isabela": "18:30",
     "petra": "19:00"
   },
-  "themes": ["fashion", "food", "lifestyle", "everyday", "experience", "swim"],
-  "everyday_ratio": 0.4
+  "themes": [
+    "fashion",
+    "food",
+    "lifestyle",
+    "everyday",
+    "experience",
+    "swim"
+  ],
+  "everyday_ratio": 0.4,
+  "note": "daily plan - edit to top-up today (idempotent)"
 }
