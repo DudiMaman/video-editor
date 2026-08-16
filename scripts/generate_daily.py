@@ -49,6 +49,10 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 API_BASE = "https://platform.higgsfield.ai"
 REPO_SLUG = "DudiMaman/video-editor"
 CAPTION_MODEL = os.environ.get("CLAUDE_MODEL") or "claude-sonnet-5"
+# Cloudflare in front of the Higgsfield API rejects urllib's default
+# User-Agent with "error code: 1010" (bot-signature ban) before the request
+# ever reaches the application - any descriptive UA passes.
+USER_AGENT = "video-editor-daily/1.0 (+https://github.com/DudiMaman/video-editor)"
 
 WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
@@ -114,7 +118,8 @@ def api(path: str, payload: dict | None = None) -> dict:
         path if path.startswith("http") else API_BASE + path,
         data=json.dumps(payload).encode() if payload is not None else None,
         headers={"Authorization": f"Key {key}",
-                 "Content-Type": "application/json"},
+                 "Content-Type": "application/json",
+                 "User-Agent": USER_AGENT},
         method="POST" if payload is not None else "GET")
     try:
         with urllib.request.urlopen(req, timeout=60) as r:
@@ -244,7 +249,9 @@ def phase_generate(out_dir: Path) -> int:
                 print(f"[{char['id']}/{typ}] {theme}: generating...")
                 url = generate_image(char["sheet"], prompt)
                 dest = out_dir / f"{item_id}.jpg"
-                urllib.request.urlretrieve(url, dest)
+                dl = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+                with urllib.request.urlopen(dl, timeout=120) as r:
+                    dest.write_bytes(r.read())
                 caption = make_caption(char, scene)
                 new_items.append({
                     "id": item_id,
