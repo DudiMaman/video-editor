@@ -112,6 +112,37 @@ def load_json(path: Path, fallback):
         return fallback
 
 
+def persist_image(source, tag: str, name: str, work_dir: Path) -> str:
+    """The permanence law: every image referenced by batch.json must live at
+    a URL this repo owns that never expires. Takes a local file path or an
+    http(s) URL, uploads the bytes as an asset of release <tag>, and returns
+    the permanent download URL. Both the daily generation and the backfill
+    go through this one function. Requires the gh CLI with GH_TOKEN (as in
+    GitHub Actions runners)."""
+    work_dir.mkdir(parents=True, exist_ok=True)
+    local = work_dir / name
+    src = str(source)
+    if src.startswith("http"):
+        req = urllib.request.Request(src, headers={"User-Agent": USER_AGENT})
+        with urllib.request.urlopen(req, timeout=120) as r:
+            local.write_bytes(r.read())
+    elif Path(src).resolve() != local.resolve():
+        local.write_bytes(Path(src).read_bytes())
+    create = subprocess.run(
+        ["gh", "release", "create", tag, str(local), "--title", tag,
+         "--notes", "AI-models image assets (permanent)"],
+        capture_output=True, text=True)
+    if create.returncode != 0:
+        up = subprocess.run(
+            ["gh", "release", "upload", tag, str(local), "--clobber"],
+            capture_output=True, text=True)
+        if up.returncode != 0:
+            raise RuntimeError(
+                f"release upload failed for {name}: "
+                f"{(up.stderr or create.stderr or '').strip()[:300]}")
+    return f"https://github.com/{REPO_SLUG}/releases/download/{tag}/{name}"
+
+
 def api(path: str, payload: dict | None = None) -> dict:
     key = os.environ.get("HIGGSFIELD_API_KEY", "")
     req = urllib.request.Request(
@@ -277,16 +308,13 @@ def phase_generate(out_dir: Path) -> int:
                                   f"({ref.split('/')[2]}), trying next", file=sys.stderr)
                             continue
                         raise
-                dest = out_dir / f"{item_id}.jpg"
-                dl = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-                with urllib.request.urlopen(dl, timeout=120) as r:
-                    dest.write_bytes(r.read())
+                permanent = persist_image(url, release_tag, f"{item_id}.jpg", out_dir)
                 caption = make_caption(char, scene)
                 new_items.append({
                     "id": item_id,
                     "char": char["id"],
                     "type": typ,
-                    "image": f"https://github.com/{REPO_SLUG}/releases/download/{release_tag}/{item_id}.jpg",
+                    "image": permanent,
                     "caption": caption,
                     "date": today,
                     "time": (plan.get("post_times_by_char") or {}).get(char["id"], "19:00"),
@@ -312,41 +340,58 @@ def git(*args, check=True):
                           capture_output=True, text=True)
 
 
+def commit_batch(mutate, message: str) -> int:
+    """Race-safe batch.json commit shared by the daily run and the
+    backfill: reset to the freshest origin/main, apply `mutate(batch)` on
+    top (return False for nothing-to-do), push with retries. The final
+    state always wins over concurrent 'save decisions' writes from the tab
+    with no possible conflict."""
+    git("config", "user.name", "github-actions[bot]")
+    git("config", "user.email",
+        "41898282+github-actions[bot]@users.noreply.github.com")
+    path = REPO_ROOT / "data" / "aimodels" / "batch.json"
+    for attempt in range(1, 6):
+        git("fetch", "origin", "main")
+        git("reset", "--hard", "origin/main")
+        batch = load_json(path, {"week": "", "posts": []})
+        if not mutate(batch):
+            print("nothing to commit")
+            return 0
+        path.write_text(json.dumps(batch, ensure_ascii=False, indent=2) + "\n",
+                        encoding="utf-8")
+        git("add", "data/aimodels/batch.json")
+        git("commit", "-m", message)
+        push = git("push", "origin", "main", check=False)
+        if push.returncode == 0:
+            print(f"pushed on attempt {attempt}")
+            return 0
+        print(f"push rejected (attempt {attempt}): {(push.stderr or '').strip()[:200]}")
+        time.sleep(2 * attempt)
+    print("ERROR: could not push batch.json after 5 attempts", file=sys.stderr)
+    return 1
+
+
 def phase_commit(out_dir: Path) -> int:
     items_file = out_dir / "new_items.json"
     new_items = json.loads(items_file.read_text()) if items_file.exists() else []
     if not new_items:
         print("no new items to commit")
         return 0
-
-    git("config", "user.name", "github-actions[bot]")
-    git("config", "user.email",
-        "41898282+github-actions[bot]@users.noreply.github.com")
-    path = REPO_ROOT / "data" / "aimodels" / "batch.json"
     week = datetime.date.today().isocalendar()
-    for attempt in range(1, 6):
-        git("fetch", "origin", "main")
-        git("reset", "--hard", "origin/main")
-        batch = load_json(path, {"week": "", "posts": []})
+
+    def mutate(batch):
         existing = {p.get("id") for p in batch.get("posts", [])}
         added = [i for i in new_items if i["id"] not in existing]
         if not added:
-            print("all items already in batch.json")
-            return 0
+            return False
         batch["posts"] = batch.get("posts", []) + added
         batch["week"] = f"{week[0]}-W{week[1]:02d}"
-        path.write_text(json.dumps(batch, ensure_ascii=False, indent=2) + "\n",
-                        encoding="utf-8")
-        git("add", "data/aimodels/batch.json")
-        git("commit", "-m", f"AI models: daily batch {datetime.date.today().isoformat()} ({len(added)} items)")
-        push = git("push", "origin", "main", check=False)
-        if push.returncode == 0:
-            print(f"pushed {len(added)} item(s) on attempt {attempt}")
-            return 0
-        print(f"push rejected (attempt {attempt}): {(push.stderr or '').strip()[:200]}")
-        time.sleep(2 * attempt)
-    print("ERROR: could not push batch.json after 5 attempts", file=sys.stderr)
-    return 1
+        print(f"appending {len(added)} item(s)")
+        return True
+
+    return commit_batch(
+        mutate,
+        f"AI models: daily batch {datetime.date.today().isoformat()} ({len(new_items)} items)")
 
 
 def main() -> int:
