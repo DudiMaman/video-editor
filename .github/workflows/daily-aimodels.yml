@@ -34,24 +34,15 @@ jobs:
 
       # Generates one pending post per character (idempotent per day) into
       # out/aimodels; images are made with Higgsfield soul/reference from
-      # each character's locked sheet. See scripts/generate_daily.py.
+      # each character's locked sheet, and every image goes through the
+      # shared persist_image (permanent release asset - Higgsfield deletes
+      # its own copies after ~7 days). See scripts/generate_daily.py.
       - name: Generate today's batch
         env:
           HIGGSFIELD_API_KEY: ${{ secrets.HIGGSFIELD_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: python scripts/generate_daily.py --out out/aimodels
-
-      # Higgsfield keeps generated files for only ~7 days, so the images are
-      # republished as permanent release assets; batch.json points here.
-      - name: Publish images as release assets
-        if: hashFiles('out/aimodels/*.jpg') != ''
-        env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          tag="aimodels-$(date -u +%F)"
-          gh release create "$tag" out/aimodels/*.jpg \
-            --title "$tag" --notes "Daily AI-models image batch" \
-          || gh release upload "$tag" out/aimodels/*.jpg --clobber
+        run: python scripts/generate_daily.py --out out/aimodels
 
       # Race-safe append to batch.json (reset-and-reapply with retries) so a
       # concurrent "save decisions" from the tab can't strand the commit.

@@ -14,6 +14,15 @@ function csvEscape(v) {
   return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s
 }
 
+// generatedAt is ISO ("2026-08-14" or "2026-08-14T09:12:00Z") - show it
+// the readable way (14.8.2026, plus the time when one is recorded).
+function fmtCreated(v) {
+  const m = String(v).match(/^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}:\d{2}))?/)
+  if (!m) return String(v)
+  const d = `${+m[3]}.${+m[2]}.${m[1]}`
+  return m[4] ? `${d} ${m[4]}` : d
+}
+
 export default function AiModelsTab({ active }) {
   const [view, setView] = useState('batch') // batch | roster
   const [roster, setRoster] = useState(null)
@@ -225,7 +234,7 @@ export default function AiModelsTab({ active }) {
                         <b>{c.name || p.char}</b> · {p.date} · {p.time}
                         {p.generatedAt && (
                           <div style={{ fontSize: 11, opacity: 0.6 }}>
-                            {S.createdAt}: <span dir="ltr">{String(p.generatedAt).replace('T', ' ').slice(0, 16)}</span>
+                            {S.createdAt}: <span dir="ltr">{fmtCreated(p.generatedAt)}</span>
                           </div>
                         )}
                         <div dir="ltr" style={{ textAlign: 'left', opacity: 0.85, minHeight: 34 }}>{p.caption}</div>

@@ -1,0 +1,38 @@
+name: backfill-aimodels
+
+# One-shot backfill of the 108 already-generated AI-models images
+# (data/aimodels/backlog_sources.json) into permanent release assets and
+# batch.json. The source CDN links expire ~2026-08-21, so this runs the
+# moment it lands on main; re-runs are idempotent (dispatch to re-run).
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/backfill-aimodels.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: backfill-aimodels
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install anthropic
+
+      - name: Backfill images into permanent assets + batch.json
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/backfill_aimodels.py --out out/backfill
