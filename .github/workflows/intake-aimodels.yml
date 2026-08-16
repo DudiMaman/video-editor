@@ -1,0 +1,38 @@
+name: intake-aimodels
+
+# The gateway law's catch-all: any content dropped into
+# data/aimodels/intake.json - ad-hoc chat generations, experiments, any
+# future tool - is persisted to a permanent release asset and lands in the
+# דמויות AI tab as a pending item. See scripts/intake_aimodels.py.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['data/aimodels/intake.json']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: intake-aimodels
+  cancel-in-progress: false
+
+jobs:
+  intake:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install anthropic
+
+      - name: Persist intake items into the tab
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/intake_aimodels.py

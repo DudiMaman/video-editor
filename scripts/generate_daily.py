@@ -340,12 +340,14 @@ def git(*args, check=True):
                           capture_output=True, text=True)
 
 
-def commit_batch(mutate, message: str) -> int:
-    """Race-safe batch.json commit shared by the daily run and the
-    backfill: reset to the freshest origin/main, apply `mutate(batch)` on
-    top (return False for nothing-to-do), push with retries. The final
+def commit_batch(mutate, message: str, extra_paths=()) -> int:
+    """Race-safe batch.json commit shared by the daily run, the backfill
+    and the intake: reset to the freshest origin/main, apply `mutate(batch)`
+    on top (return False for nothing-to-do), push with retries. The final
     state always wins over concurrent 'save decisions' writes from the tab
-    with no possible conflict."""
+    with no possible conflict. `extra_paths` are additional repo-relative
+    files the mutator (re)writes that must ride in the same commit (e.g.
+    clearing the intake queue)."""
     git("config", "user.name", "github-actions[bot]")
     git("config", "user.email",
         "41898282+github-actions[bot]@users.noreply.github.com")
@@ -359,7 +361,7 @@ def commit_batch(mutate, message: str) -> int:
             return 0
         path.write_text(json.dumps(batch, ensure_ascii=False, indent=2) + "\n",
                         encoding="utf-8")
-        git("add", "data/aimodels/batch.json")
+        git("add", "data/aimodels/batch.json", *extra_paths)
         git("commit", "-m", message)
         push = git("push", "origin", "main", check=False)
         if push.returncode == 0:
