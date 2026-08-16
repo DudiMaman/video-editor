@@ -267,5 +267,7 @@ export const STR = {
     importInvalid: 'JSON לא תקין — חסר שדה posts',
     githubOnly: 'הטאב הזה זמין במצב GitHub Pages בלבד.',
     imported: 'המנה נטענה. שמור החלטות כדי לקבע אותה בריפו.',
+    filterAll: 'כל הדמויות',
+    types: { post: 'פוסט', reel: 'ריל', story: 'סטורי' },
   },
 }
