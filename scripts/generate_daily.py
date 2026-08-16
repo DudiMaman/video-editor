@@ -116,8 +116,18 @@ def api(path: str, payload: dict | None = None) -> dict:
         headers={"Authorization": f"Key {key}",
                  "Content-Type": "application/json"},
         method="POST" if payload is not None else "GET")
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return json.loads(r.read().decode())
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return json.loads(r.read().decode())
+    except urllib.error.HTTPError as e:
+        # Surface the API's own error message - "Invalid credentials" vs
+        # "insufficient balance" etc. need different fixes by the owner.
+        body = ""
+        try:
+            body = e.read().decode()[:300]
+        except Exception:
+            pass
+        raise RuntimeError(f"HTTP {e.code} from Higgsfield: {body or e.reason}") from None
 
 
 def generate_image(reference_url: str, prompt: str) -> str:
