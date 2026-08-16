@@ -269,5 +269,7 @@ export const STR = {
     imported: 'המנה נטענה. שמור החלטות כדי לקבע אותה בריפו.',
     filterAll: 'כל הדמויות',
     types: { post: 'פוסט', reel: 'ריל', story: 'סטורי' },
+    pendingBadge: 'ממתינים לאישור',
+    createdAt: 'נוצר',
   },
 }
