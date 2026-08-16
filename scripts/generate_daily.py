@@ -191,6 +191,21 @@ def make_caption(char: dict, scene: str) -> str:
         return fallback
 
 
+def reference_candidates(char: dict) -> list[str]:
+    """Identity-reference URLs to try in order. The Higgsfield API insists
+    on a URL served with an image content-type, so the Pages mirror of the
+    aimodels-roster release comes first (image/png, owned by us), then the
+    original CDN copy while it exists, then the raw release asset
+    (octet-stream - rejected today, kept as a last resort in case their
+    validation relaxes)."""
+    urls = [f"https://dudimaman.github.io/video-editor/refs/{char['id']}-sheet.png"]
+    if char.get("sheet_src"):
+        urls.append(char["sheet_src"])
+    if char.get("sheet") and char["sheet"] not in urls:
+        urls.append(char["sheet"])
+    return urls
+
+
 def pick_theme(rng: random.Random, plan: dict) -> str:
     if rng.random() < plan.get("everyday_ratio", 0.4):
         return "everyday"
@@ -247,7 +262,21 @@ def phase_generate(out_dir: Path) -> int:
             item_id = f"{char['id']}-{today}-{typ}"
             try:
                 print(f"[{char['id']}/{typ}] {theme}: generating...")
-                url = generate_image(char["sheet"], prompt)
+                url = None
+                candidates = reference_candidates(char)
+                for ci, ref in enumerate(candidates):
+                    try:
+                        url = generate_image(ref, prompt)
+                        break
+                    except RuntimeError as e:
+                        # A reference the API can't ingest (bad content-type,
+                        # dead link) is not a generation failure - try the
+                        # next copy of the same sheet.
+                        if "invalid_image_url" in str(e) and ci + 1 < len(candidates):
+                            print(f"[{char['id']}/{typ}] reference rejected "
+                                  f"({ref.split('/')[2]}), trying next", file=sys.stderr)
+                            continue
+                        raise
                 dest = out_dir / f"{item_id}.jpg"
                 dl = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
                 with urllib.request.urlopen(dl, timeout=120) as r:

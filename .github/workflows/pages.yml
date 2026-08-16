@@ -32,6 +32,19 @@ jobs:
         working-directory: frontend
         env:
           BASE_PATH: '/${{ github.event.repository.name }}/'
+      # The AI-models character references are mirrored in the
+      # aimodels-roster release, but release assets are served as
+      # application/octet-stream, which the Higgsfield API rejects
+      # (invalid_image_url). Pages serves them as real image/png, so the
+      # generation pipeline can use /refs/<char>-sheet.png as its
+      # identity reference.
+      - name: Include AI-models reference images
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p frontend/dist/refs
+          gh release download aimodels-roster -D frontend/dist/refs --clobber \
+            || echo "no aimodels-roster release yet - skipping refs"
       # Publishing to a gh-pages branch auto-enables GitHub Pages on public
       # repos — no admin API call needed (the workflow token can't create the
       # Pages site via the REST API).
