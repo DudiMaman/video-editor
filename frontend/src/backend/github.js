@@ -353,6 +353,8 @@ export function create(params) {
           (await readRepoFile('data/aimodels/batch.json', '{"week":"","posts":[]}')).text ||
             '{"week":"","posts":[]}'
         ),
+      readPlan: async () =>
+        JSON.parse((await readRepoFile('data/aimodels/plan.json', '{}')).text || '{}'),
       writeBatch: async (batch) => {
         requireToken()
         const { sha } = await readRepoFile('data/aimodels/batch.json', '')
