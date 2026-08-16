@@ -223,6 +223,11 @@ export default function AiModelsTab({ active }) {
                       <img src={p.image} alt="" loading="lazy" style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', display: 'block' }} />
                       <div style={{ padding: '6px 10px', fontSize: 13 }}>
                         <b>{c.name || p.char}</b> · {p.date} · {p.time}
+                        {p.generatedAt && (
+                          <div style={{ fontSize: 11, opacity: 0.6 }}>
+                            {S.createdAt}: <span dir="ltr">{String(p.generatedAt).replace('T', ' ').slice(0, 16)}</span>
+                          </div>
+                        )}
                         <div dir="ltr" style={{ textAlign: 'left', opacity: 0.85, minHeight: 34 }}>{p.caption}</div>
                         <div style={{ display: 'flex', gap: 6, marginTop: 6 }}>
                           <button style={{ flex: 1 }} onClick={() => setStatus(p.id, 'approved')} disabled={p.status === 'approved'}>

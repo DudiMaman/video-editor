@@ -270,5 +270,6 @@ export const STR = {
     filterAll: 'כל הדמויות',
     types: { post: 'פוסט', reel: 'ריל', story: 'סטורי' },
     pendingBadge: 'ממתינים לאישור',
+    createdAt: 'נוצר',
   },
 }
