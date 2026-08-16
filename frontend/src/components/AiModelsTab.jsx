@@ -24,6 +24,7 @@ export default function AiModelsTab({ active }) {
   const [ok, setOk] = useState('')
   const [importOpen, setImportOpen] = useState(false)
   const [importText, setImportText] = useState('')
+  const [charFilter, setCharFilter] = useState('')
 
   useEffect(() => {
     if (!active || roster !== null) return
@@ -50,6 +51,20 @@ export default function AiModelsTab({ active }) {
     for (const p of batch?.posts || []) c[p.status] = (c[p.status] || 0) + 1
     return c
   }, [batch])
+
+  // Daily generation makes posts span many dates - group the gallery by
+  // date (newest first) instead of one huge pile, optionally filtered to
+  // a single character.
+  const groups = useMemo(() => {
+    const posts = (batch?.posts || []).filter((p) => !charFilter || p.char === charFilter)
+    const m = new Map()
+    for (const p of posts) {
+      const d = p.date || ''
+      if (!m.has(d)) m.set(d, [])
+      m.get(d).push(p)
+    }
+    return [...m.entries()].sort((a, b) => (a[0] < b[0] ? 1 : -1))
+  }, [batch, charFilter])
 
   const setStatus = (id, status) => {
     setBatch((b) => ({
@@ -154,6 +169,12 @@ export default function AiModelsTab({ active }) {
             <button disabled={counts.approved === 0} onClick={exportCsv}>
               {S.exportCsv} ({counts.approved})
             </button>
+            <select value={charFilter} onChange={(e) => setCharFilter(e.target.value)}>
+              <option value="">{S.filterAll}</option>
+              {(roster || []).map((c) => (
+                <option key={c.id} value={c.id}>{c.name}</option>
+              ))}
+            </select>
           </div>
           {ok && <p className="ok">{ok}</p>}
           {error && <p className="error">{error}</p>}
@@ -170,30 +191,38 @@ export default function AiModelsTab({ active }) {
               <button onClick={doImport}>{S.importApply}</button>
             </div>
           )}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(240px,1fr))', gap: 12 }}>
-            {batch.posts.map((p) => {
-              const c = byId[p.char] || {}
-              const border =
-                p.status === 'approved' ? '2px solid #22a06b' : p.status === 'rejected' ? '2px solid #d33' : '1px solid var(--border,#ccc)'
-              return (
-                <div key={p.id} style={{ border, borderRadius: 10, overflow: 'hidden', opacity: p.status === 'rejected' ? 0.55 : 1 }}>
-                  <img src={p.image} alt="" loading="lazy" style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', display: 'block' }} />
-                  <div style={{ padding: '6px 10px', fontSize: 13 }}>
-                    <b>{c.name || p.char}</b> · {p.date} · {p.time}
-                    <div dir="ltr" style={{ textAlign: 'left', opacity: 0.85, minHeight: 34 }}>{p.caption}</div>
-                    <div style={{ display: 'flex', gap: 6, marginTop: 6 }}>
-                      <button style={{ flex: 1 }} onClick={() => setStatus(p.id, 'approved')} disabled={p.status === 'approved'}>
-                        ✓ {S.approve}
-                      </button>
-                      <button style={{ flex: 1 }} onClick={() => setStatus(p.id, 'rejected')} disabled={p.status === 'rejected'}>
-                        ✗ {S.reject}
-                      </button>
+          {groups.map(([date, posts]) => (
+            <div key={date}>
+              <h3 style={{ margin: '14px 0 8px' }} dir="ltr">{date}</h3>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(240px,1fr))', gap: 12 }}>
+                {posts.map((p) => {
+                  const c = byId[p.char] || {}
+                  const border =
+                    p.status === 'approved' ? '2px solid #22a06b' : p.status === 'rejected' ? '2px solid #d33' : '1px solid var(--border,#ccc)'
+                  return (
+                    <div key={p.id} style={{ border, borderRadius: 10, overflow: 'hidden', opacity: p.status === 'rejected' ? 0.55 : 1, position: 'relative' }}>
+                      <span style={{ position: 'absolute', top: 6, insetInlineStart: 6, background: 'rgba(0,0,0,.65)', color: '#fff', borderRadius: 6, padding: '1px 8px', fontSize: 12 }}>
+                        {S.types[p.type || 'post'] || p.type}
+                      </span>
+                      <img src={p.image} alt="" loading="lazy" style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', display: 'block' }} />
+                      <div style={{ padding: '6px 10px', fontSize: 13 }}>
+                        <b>{c.name || p.char}</b> · {p.date} · {p.time}
+                        <div dir="ltr" style={{ textAlign: 'left', opacity: 0.85, minHeight: 34 }}>{p.caption}</div>
+                        <div style={{ display: 'flex', gap: 6, marginTop: 6 }}>
+                          <button style={{ flex: 1 }} onClick={() => setStatus(p.id, 'approved')} disabled={p.status === 'approved'}>
+                            ✓ {S.approve}
+                          </button>
+                          <button style={{ flex: 1 }} onClick={() => setStatus(p.id, 'rejected')} disabled={p.status === 'rejected'}>
+                            ✗ {S.reject}
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+                  )
+                })}
+              </div>
+            </div>
+          ))}
         </>
       )}
     </div>

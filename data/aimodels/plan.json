@@ -1,0 +1,18 @@
+{
+  "daily_posts_per_character": 1,
+  "reels": { "enabled": false, "days": ["Wed", "Sat"], "per_character": 1 },
+  "stories": { "enabled": false, "days": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], "per_character": 1 },
+  "post_times_by_char": {
+    "yuna": "19:00",
+    "mina": "19:00",
+    "sofia": "20:00",
+    "lucia": "20:00",
+    "giulia": "19:30",
+    "elsa": "18:30",
+    "ruby": "18:00",
+    "isabela": "18:30",
+    "petra": "19:00"
+  },
+  "themes": ["fashion", "food", "lifestyle", "everyday", "experience", "swim"],
+  "everyday_ratio": 0.4
+}
