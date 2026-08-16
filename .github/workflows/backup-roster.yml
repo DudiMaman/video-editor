@@ -1,0 +1,60 @@
+name: backup-roster-refs
+
+# One-shot safety net for the AI-models project: the character sheets and
+# casting images referenced by data/aimodels/roster.json live on
+# Higgsfield's CDN under the owner's consumer account. This mirrors them
+# byte-for-byte into the permanent release "aimodels-roster" so the daily
+# generation pipeline (which uses the sheet as its identity reference)
+# survives account/subscription changes at Higgsfield.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/backup-roster.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download reference images from the CDN
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request
+          roster = json.load(open('data/aimodels/roster.json'))
+          os.makedirs('refs', exist_ok=True)
+          for c in roster:
+              for kind in ('sheet', 'casting'):
+                  url = c.get(f'{kind}_src') or c[kind]
+                  if 'releases/download' in url:
+                      # already pointing at our own mirror and no original
+                      # source recorded - nothing to fetch
+                      continue
+                  ext = os.path.splitext(url.split('?')[0])[1] or '.png'
+                  req = urllib.request.Request(url, headers={'User-Agent': 'video-editor-backup/1.0'})
+                  with urllib.request.urlopen(req, timeout=120) as r:
+                      data = r.read()
+                  with open(f"refs/{c['id']}-{kind}{ext}", 'wb') as f:
+                      f.write(data)
+                  print(f"{c['id']}-{kind}{ext}: {len(data)//1024} KB")
+          PY
+
+      - name: Upload as permanent release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          shopt -s nullglob
+          files=(refs/*)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "nothing to upload"
+            exit 0
+          fi
+          gh release create "aimodels-roster" "${files[@]}" \
+            --title "aimodels-roster" \
+            --notes "Permanent mirror of the AI-models character reference images" \
+          || gh release upload "aimodels-roster" "${files[@]}" --clobber
