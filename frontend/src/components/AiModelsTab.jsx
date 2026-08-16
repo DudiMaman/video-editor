@@ -52,19 +52,20 @@ export default function AiModelsTab({ active }) {
     return c
   }, [batch])
 
-  // Daily generation makes posts span many dates - group the gallery by
-  // date (newest first) instead of one huge pile, optionally filtered to
-  // a single character.
+  // The gallery is grouped per character (roster order) with a clear
+  // header between characters, so each persona's queue reads as its own
+  // feed; within a character items are sorted by date, newest first.
   const groups = useMemo(() => {
     const posts = (batch?.posts || []).filter((p) => !charFilter || p.char === charFilter)
     const m = new Map()
     for (const p of posts) {
-      const d = p.date || ''
-      if (!m.has(d)) m.set(d, [])
-      m.get(d).push(p)
+      if (!m.has(p.char)) m.set(p.char, [])
+      m.get(p.char).push(p)
     }
-    return [...m.entries()].sort((a, b) => (a[0] < b[0] ? 1 : -1))
-  }, [batch, charFilter])
+    const order = (roster || []).map((c) => c.id).filter((id) => m.has(id))
+    for (const id of m.keys()) if (!order.includes(id)) order.push(id)
+    return order.map((id) => [id, m.get(id).sort((a, b) => ((a.date || '') < (b.date || '') ? 1 : -1))])
+  }, [batch, roster, charFilter])
 
   const setStatus = (id, status) => {
     setBatch((b) => ({
@@ -191,9 +192,24 @@ export default function AiModelsTab({ active }) {
               <button onClick={doImport}>{S.importApply}</button>
             </div>
           )}
-          {groups.map(([date, posts]) => (
-            <div key={date}>
-              <h3 style={{ margin: '14px 0 8px' }} dir="ltr">{date}</h3>
+          {groups.map(([charId, posts]) => {
+            const gc = byId[charId] || {}
+            const pendingN = posts.filter((p) => p.status === 'pending').length
+            return (
+            <div key={charId} style={{ borderTop: '2px solid var(--border,#ccc)', marginTop: 18, paddingTop: 10 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                {gc.casting && (
+                  <img src={gc.casting} alt="" style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover' }} />
+                )}
+                <h3 style={{ margin: 0 }}>{gc.name || charId}</h3>
+                <span style={{ opacity: 0.65 }}>· {gc.city}</span>
+                <span dir="ltr" style={{ opacity: 0.65 }}>{gc.handle}</span>
+                {pendingN > 0 && (
+                  <span style={{ background: '#b8860b22', border: '1px solid #b8860b', borderRadius: 12, padding: '0 10px', fontSize: 12 }}>
+                    {pendingN} {S.pendingBadge}
+                  </span>
+                )}
+              </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(240px,1fr))', gap: 12 }}>
                 {posts.map((p) => {
                   const c = byId[p.char] || {}
@@ -222,7 +238,8 @@ export default function AiModelsTab({ active }) {
                 })}
               </div>
             </div>
-          ))}
+            )
+          })}
         </>
       )}
     </div>
