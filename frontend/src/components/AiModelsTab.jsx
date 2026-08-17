@@ -62,6 +62,13 @@ export default function AiModelsTab({ active }) {
   const [rejecting, setRejecting] = useState(null)
   const [rejectReason, setRejectReason] = useState('')
   const [rejectErr, setRejectErr] = useState('')
+  // "שלח לעיבוד": a good image with a fixable flaw. The plain-language
+  // description is turned into precise engine instructions server-side
+  // and the image comes back edited, previous version kept to compare.
+  const [reworking, setReworking] = useState(null)
+  const [reworkText, setReworkText] = useState('')
+  const [reworkErr, setReworkErr] = useState('')
+  const [comparing, setComparing] = useState({}) // id -> true (show prev image)
 
   useEffect(() => {
     if (!active || roster !== null) return
@@ -89,7 +96,7 @@ export default function AiModelsTab({ active }) {
   }, [roster])
 
   const counts = useMemo(() => {
-    const c = { pending: 0, scheduled: 0, rejected: 0 }
+    const c = { pending: 0, scheduled: 0, rejected: 0, reworking: 0 }
     for (const p of batch?.posts || []) c[statusOf(p)] = (c[statusOf(p)] || 0) + 1
     return c
   }, [batch])
@@ -191,6 +198,51 @@ export default function AiModelsTab({ active }) {
     }
     return m
   }, [sched, schedMonth, batch])
+
+  // While items are out for rework, quietly re-read batch.json so the
+  // returned image appears without a manual refresh (skipped when there
+  // are unsaved local edits).
+  useEffect(() => {
+    if (!active || !batch || dirty) return
+    const waiting = (batch.posts || []).some((p) => p.status === 'reworking')
+    if (!waiting) return
+    const t = setInterval(() => {
+      backend.aimodels.readBatch().then((b) => setBatch(b)).catch(() => {})
+    }, 60000)
+    return () => clearInterval(t)
+  }, [active, batch, dirty])
+
+  const confirmRework = async () => {
+    if (!reworking || !reworkText.trim()) return
+    const next = {
+      ...batch,
+      posts: batch.posts.map((p) =>
+        p.id === reworking.id
+          ? {
+              ...p, status: 'reworking',
+              rework: {
+                reason: reworkText.trim(),
+                requestedAt: new Date().toISOString().slice(0, 10),
+                prev_status: p.status,
+              },
+            }
+          : p),
+    }
+    setBusy(true)
+    setReworkErr('')
+    try {
+      await backend.aimodels.writeBatch(next)
+      setBatch(next)
+      setDirty(false)
+      setOk(S.reworkSentOk)
+      setReworking(null)
+      setReworkText('')
+    } catch (e) {
+      setReworkErr(e.message)
+    } finally {
+      setBusy(false)
+    }
+  }
 
   const confirmReject = async () => {
     if (!rejecting) return
@@ -316,6 +368,7 @@ export default function AiModelsTab({ active }) {
               <option value="">{S.statusAll}</option>
               <option value="pending">{S.statuses.pending} ({counts.pending})</option>
               <option value="scheduled">{S.statuses.scheduled} ({counts.scheduled})</option>
+              <option value="reworking">{S.statuses.reworking} ({counts.reworking || 0})</option>
               <option value="rejected">{S.statuses.rejected} ({counts.rejected})</option>
             </select>
             <select value={charFilter} onChange={(e) => setCharFilter(e.target.value)}>
@@ -370,11 +423,24 @@ export default function AiModelsTab({ active }) {
                         {S.types[p.type || 'post'] || p.type}
                       </span>
                       {st === 'scheduled' && (
-                        <span style={{ position: 'absolute', top: 6, insetInlineEnd: 6, background: '#22a06b', color: '#fff', borderRadius: 6, padding: '1px 8px', fontSize: 12 }}>
+                        <span style={{ position: 'absolute', top: 6, insetInlineEnd: 6, background: '#22a06b', color: '#fff', borderRadius: 6, padding: '1px 8px', fontSize: 12, zIndex: 1 }}>
                           {S.scheduledBadge}
                         </span>
                       )}
-                      <img src={p.thumb || p.image} alt="" loading="lazy" decoding="async" style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', display: 'block' }} />
+                      {st === 'reworking' && (
+                        <span style={{ position: 'absolute', top: 6, insetInlineEnd: 6, background: '#b8860b', color: '#fff', borderRadius: 6, padding: '1px 8px', fontSize: 12, zIndex: 1 }}>
+                          {S.reworkingBadge}
+                        </span>
+                      )}
+                      {st !== 'reworking' && p.rework?.done && (
+                        <span style={{ position: 'absolute', top: st === 'scheduled' ? 28 : 6, insetInlineEnd: 6, background: '#6ea8fe', color: '#fff', borderRadius: 6, padding: '1px 8px', fontSize: 12, zIndex: 1 }}>
+                          {S.reworkedBadge}
+                        </span>
+                      )}
+                      <img
+                        src={comparing[p.id] && p.prev_image ? (p.prev_thumb || p.prev_image) : (p.thumb || p.image)}
+                        alt="" loading="lazy" decoding="async"
+                        style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', display: 'block', opacity: st === 'reworking' ? 0.4 : 1, filter: st === 'reworking' ? 'grayscale(35%)' : 'none' }} />
                       <div style={{ padding: '6px 10px', fontSize: 13 }}>
                         <b>{c.name || p.char}</b> · {p.date} · {p.time}
                         {p.generatedAt && (
@@ -388,11 +454,22 @@ export default function AiModelsTab({ active }) {
                             {S.rejectReasonLabel}: {p.reject_reason}
                           </div>
                         )}
+                        {p.rework?.done && p.prev_image && (
+                          <button
+                            onClick={() => setComparing((c) => ({ ...c, [p.id]: !c[p.id] }))}
+                            style={{ background: 'none', border: 'none', color: '#6ea8fe', cursor: 'pointer', padding: 0, fontSize: 12, marginTop: 2 }}
+                          >
+                            {comparing[p.id] ? S.compareShowNew : S.compareShowPrev}
+                          </button>
+                        )}
                         <div style={{ display: 'flex', gap: 6, marginTop: 6 }}>
-                          <button style={{ flex: 1, fontWeight: 600 }} onClick={() => openSchedule(p)} disabled={busy}>
+                          <button style={{ flex: 1, fontWeight: 600 }} onClick={() => openSchedule(p)} disabled={busy || st === 'reworking'}>
                             ⬆ {S.schedule}
                           </button>
-                          <button style={{ flex: 1 }} onClick={() => { setRejecting(p); setRejectReason(p.reject_reason || ''); setRejectErr('') }} disabled={p.status === 'rejected'}>
+                          <button style={{ flex: 1 }} onClick={() => { setReworking(p); setReworkText(''); setReworkErr('') }} disabled={busy || st === 'reworking'}>
+                            🛠 {S.rework}
+                          </button>
+                          <button style={{ flex: 1 }} onClick={() => { setRejecting(p); setRejectReason(p.reject_reason || ''); setRejectErr('') }} disabled={p.status === 'rejected' || st === 'reworking'}>
                             ✗ {S.reject}
                           </button>
                         </div>
@@ -405,6 +482,45 @@ export default function AiModelsTab({ active }) {
             )
           })}
         </>
+      )}
+
+      {reworking && (
+        <div
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, zIndex: 55 }}
+          onClick={(e) => { if (e.target === e.currentTarget) setReworking(null) }}
+        >
+          <div style={{ background: '#fff', color: '#1c1e24', border: '1px solid #ccc', borderRadius: 14, width: '100%', maxWidth: 420, padding: '16px 18px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+              <img src={reworking.thumb || reworking.image} alt="" decoding="async" style={{ width: 52, height: 65, objectFit: 'cover', borderRadius: 8 }} />
+              <div>
+                <b>{S.reworkTitle}</b>
+                <div style={{ fontSize: 12, opacity: 0.65 }}>{(byId[reworking.char] || {}).name || reworking.char} · {reworking.date}</div>
+              </div>
+              <span style={{ flex: 1 }} />
+              <button onClick={() => setReworking(null)} style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: 'inherit' }}>✕</button>
+            </div>
+            <textarea
+              rows={3}
+              autoFocus
+              style={{ width: '100%', boxSizing: 'border-box', border: '1px solid #ccc', borderRadius: 8, padding: 8, fontFamily: 'inherit', fontSize: 13 }}
+              placeholder={S.reworkWhy}
+              value={reworkText}
+              onChange={(e) => setReworkText(e.target.value)}
+            />
+            <div style={{ fontSize: 11, opacity: 0.6, marginTop: 4 }}>{S.reworkNote}</div>
+            <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
+              <button
+                onClick={confirmRework}
+                disabled={busy || !reworkText.trim()}
+                style={{ flex: 1, background: '#b8860b', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 0', fontWeight: 700, cursor: 'pointer', opacity: reworkText.trim() ? 1 : 0.5 }}
+              >
+                {busy ? S.saving : S.reworkConfirm}
+              </button>
+              <button onClick={() => setReworking(null)} style={{ flex: 1 }}>{S.cancel}</button>
+            </div>
+            {reworkErr && <p className="error" style={{ marginTop: 8 }}>{reworkErr}</p>}
+          </div>
+        </div>
       )}
 
       {rejecting && (

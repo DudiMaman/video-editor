@@ -194,23 +194,12 @@ def api(path: str, payload: dict | None = None) -> dict:
         raise RuntimeError(f"HTTP {e.code} from Higgsfield: {body or e.reason}") from None
 
 
-def generate_image(reference_url: str, prompt: str) -> str:
-    """The one swappable engine function: identity-preserving generation
-    from a reference URL, returns the produced image URL.
-
-    Engine: Higgsfield soul/reference (see module docstring). To swap
-    providers later, only this function changes.
-    """
-    sub = api("/higgsfield-ai/soul/reference", {
-        "prompt": prompt,
-        "image_reference_url": reference_url,
-        "aspect_ratio": "3:4",       # closest supported to the tab's 4:5 crop
-        "resolution": "1080p",
-        "enhance_prompt": False,     # our prompts carry the realism language
-        "batch_size": 1,
-    })
+def submit_and_poll(path: str, payload: dict, timeout: int = 360) -> str:
+    """Submit a Higgsfield generation request and poll until an image URL
+    is ready. Shared by the daily generator and the rework loop."""
+    sub = api(path, payload)
     status_url = sub.get("status_url") or f"{API_BASE}/requests/{sub['request_id']}/status"
-    deadline = time.time() + 360
+    deadline = time.time() + timeout
     while time.time() < deadline:
         st = api(status_url)
         if st.get("status") == "completed":
@@ -221,7 +210,24 @@ def generate_image(reference_url: str, prompt: str) -> str:
         if st.get("status") in ("failed", "nsfw", "canceled"):
             raise RuntimeError(f"generation {st.get('status')}: {st.get('error')}")
         time.sleep(5)
-    raise RuntimeError("generation timed out after 6 minutes")
+    raise RuntimeError(f"generation timed out after {timeout}s")
+
+
+def generate_image(reference_url: str, prompt: str) -> str:
+    """The one swappable engine function: identity-preserving generation
+    from a reference URL, returns the produced image URL.
+
+    Engine: Higgsfield soul/reference (see module docstring). To swap
+    providers later, only this function changes.
+    """
+    return submit_and_poll("/higgsfield-ai/soul/reference", {
+        "prompt": prompt,
+        "image_reference_url": reference_url,
+        "aspect_ratio": "3:4",       # closest supported to the tab's 4:5 crop
+        "resolution": "1080p",
+        "enhance_prompt": False,     # our prompts carry the realism language
+        "batch_size": 1,
+    })
 
 
 LESSONS_PATH = REPO_ROOT / "data" / "aimodels" / "lessons.json"
