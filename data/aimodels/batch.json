@@ -10,7 +10,8 @@
       "date": "2026-08-16",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/yuna-bf-09260747c5.thumb.jpg"
     },
     {
       "id": "yuna-w34-2",
@@ -20,7 +21,8 @@
       "date": "2026-08-18",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/yuna-bf-644dad44a9.thumb.jpg"
     },
     {
       "id": "yuna-w34-3",
@@ -30,7 +32,8 @@
       "date": "2026-08-20",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/yuna-bf-ee81ba5af5.thumb.jpg"
     },
     {
       "id": "mina-w34-1",
@@ -40,7 +43,8 @@
       "date": "2026-08-16",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/mina-bf-8b2e6420d4.thumb.jpg"
     },
     {
       "id": "mina-w34-2",
@@ -50,7 +54,8 @@
       "date": "2026-08-18",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/mina-bf-4f96a85b86.thumb.jpg"
     },
     {
       "id": "mina-w34-3",
@@ -60,7 +65,8 @@
       "date": "2026-08-20",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/mina-bf-9c52261e81.thumb.jpg"
     },
     {
       "id": "sofia-w34-1",
@@ -70,7 +76,8 @@
       "date": "2026-08-16",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/sofia-bf-4c9fd047ac.thumb.jpg"
     },
     {
       "id": "sofia-w34-2",
@@ -80,7 +87,8 @@
       "date": "2026-08-18",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/sofia-bf-249e7915f4.thumb.jpg"
     },
     {
       "id": "sofia-w34-3",
@@ -90,7 +98,8 @@
       "date": "2026-08-20",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/sofia-bf-50f1b94f84.thumb.jpg"
     },
     {
       "id": "lucia-w34-1",
@@ -100,7 +109,8 @@
       "date": "2026-08-16",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/lucia-bf-9422a63188.thumb.jpg"
     },
     {
       "id": "lucia-w34-2",
@@ -110,7 +120,8 @@
       "date": "2026-08-18",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/lucia-bf-a22bad2eee.thumb.jpg"
     },
     {
       "id": "lucia-w34-3",
@@ -120,7 +131,8 @@
       "date": "2026-08-20",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/lucia-bf-ac118b463e.thumb.jpg"
     },
     {
       "id": "giulia-w34-1",
@@ -130,7 +142,8 @@
       "date": "2026-08-16",
       "time": "19:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/giulia-bf-67e31b5ab1.thumb.jpg"
     },
     {
       "id": "giulia-w34-2",
@@ -140,7 +153,8 @@
       "date": "2026-08-18",
       "time": "19:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/giulia-bf-017dbf4e46.thumb.jpg"
     },
     {
       "id": "giulia-w34-3",
@@ -150,7 +164,8 @@
       "date": "2026-08-20",
       "time": "19:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/giulia-bf-ab5d88871f.thumb.jpg"
     },
     {
       "id": "elsa-w34-1",
@@ -160,7 +175,8 @@
       "date": "2026-08-16",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/elsa-bf-2b5e4ff59b.thumb.jpg"
     },
     {
       "id": "elsa-w34-2",
@@ -170,7 +186,8 @@
       "date": "2026-08-18",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/elsa-bf-26beee4deb.thumb.jpg"
     },
     {
       "id": "elsa-w34-3",
@@ -180,7 +197,8 @@
       "date": "2026-08-20",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/elsa-bf-bd5fb34c7f.thumb.jpg"
     },
     {
       "id": "ruby-w34-1",
@@ -190,7 +208,8 @@
       "date": "2026-08-16",
       "time": "18:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-885aec1b8a.thumb.jpg"
     },
     {
       "id": "ruby-w34-2",
@@ -200,7 +219,8 @@
       "date": "2026-08-18",
       "time": "18:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-b7103b02f7.thumb.jpg"
     },
     {
       "id": "ruby-w34-3",
@@ -210,7 +230,8 @@
       "date": "2026-08-20",
       "time": "18:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-ac3e7e2e43.thumb.jpg"
     },
     {
       "id": "isabela-w34-1",
@@ -220,7 +241,8 @@
       "date": "2026-08-16",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/isabela-bf-f324162de5.thumb.jpg"
     },
     {
       "id": "isabela-w34-2",
@@ -230,7 +252,8 @@
       "date": "2026-08-18",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/isabela-bf-529bbe71a1.thumb.jpg"
     },
     {
       "id": "isabela-w34-3",
@@ -240,7 +263,8 @@
       "date": "2026-08-20",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/isabela-bf-c1f6815f51.thumb.jpg"
     },
     {
       "id": "petra-w34-1",
@@ -250,7 +274,8 @@
       "date": "2026-08-16",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/petra-bf-ef21e8213b.thumb.jpg"
     },
     {
       "id": "petra-w34-2",
@@ -260,7 +285,8 @@
       "date": "2026-08-18",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/petra-bf-55b86bfd41.thumb.jpg"
     },
     {
       "id": "petra-w34-3",
@@ -270,7 +296,8 @@
       "date": "2026-08-20",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/petra-bf-bbc5570284.thumb.jpg"
     },
     {
       "id": "yuna-2026-08-16-post",
@@ -282,7 +309,8 @@
       "time": "19:00",
       "status": "pending",
       "generatedAt": "2026-08-16T12:51:45Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. doing her hair in the bathroom mirror, towel on shoulders, everyday morning routine Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. doing her hair in the bathroom mirror, towel on shoulders, everyday morning routine Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/yuna-2026-08-16-post.thumb.jpg"
     },
     {
       "id": "mina-2026-08-16-post",
@@ -294,7 +322,8 @@
       "time": "19:00",
       "status": "pending",
       "generatedAt": "2026-08-16T12:52:34Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. evening walk along a lit street in Seoul, soft bokeh lights behind her Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. evening walk along a lit street in Seoul, soft bokeh lights behind her Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/mina-2026-08-16-post.thumb.jpg"
     },
     {
       "id": "sofia-2026-08-16-post",
@@ -306,7 +335,8 @@
       "time": "20:00",
       "status": "pending",
       "generatedAt": "2026-08-16T12:55:24Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. doing her hair in the bathroom mirror, towel on shoulders, everyday morning routine Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. doing her hair in the bathroom mirror, towel on shoulders, everyday morning routine Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/sofia-2026-08-16-post.thumb.jpg"
     },
     {
       "id": "lucia-2026-08-16-post",
@@ -318,7 +348,8 @@
       "time": "20:00",
       "status": "pending",
       "generatedAt": "2026-08-16T12:56:02Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. walking home at dusk in Seville carrying a tote bag, tired but content Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. walking home at dusk in Seville carrying a tote bag, tired but content Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/lucia-2026-08-16-post.thumb.jpg"
     },
     {
       "id": "giulia-2026-08-16-post",
@@ -330,7 +361,8 @@
       "time": "19:30",
       "status": "pending",
       "generatedAt": "2026-08-16T12:57:42Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. walking home at dusk in Milan carrying a tote bag, tired but content Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. walking home at dusk in Milan carrying a tote bag, tired but content Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/giulia-2026-08-16-post.thumb.jpg"
     },
     {
       "id": "elsa-2026-08-16-post",
@@ -342,7 +374,8 @@
       "time": "18:30",
       "status": "pending",
       "generatedAt": "2026-08-16T12:58:21Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. doing her hair in the bathroom mirror, towel on shoulders, everyday morning routine Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. doing her hair in the bathroom mirror, towel on shoulders, everyday morning routine Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/elsa-2026-08-16-post.thumb.jpg"
     },
     {
       "id": "ruby-2026-08-16-post",
@@ -354,7 +387,8 @@
       "time": "18:00",
       "status": "pending",
       "generatedAt": "2026-08-16T12:59:06Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. holding a takeaway coffee and a pastry on a bench in Austin, morning light Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. holding a takeaway coffee and a pastry on a bench in Austin, morning light Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/ruby-2026-08-16-post.thumb.jpg"
     },
     {
       "id": "isabela-2026-08-16-post",
@@ -366,7 +400,8 @@
       "time": "18:30",
       "status": "pending",
       "generatedAt": "2026-08-16T12:59:55Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. poolside near Rio in modest tasteful swimwear, sitting on the edge with feet in the water, sun-lit Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. poolside near Rio in modest tasteful swimwear, sitting on the edge with feet in the water, sun-lit Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/isabela-2026-08-16-post.thumb.jpg"
     },
     {
       "id": "petra-2026-08-16-post",
@@ -378,7 +413,8 @@
       "time": "19:00",
       "status": "pending",
       "generatedAt": "2026-08-16T13:03:41Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. sitting at a tiny local cafe in Prague about to eat a popular local dish, warm cozy light, elbows on the table Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. sitting at a tiny local cafe in Prague about to eat a popular local dish, warm cozy light, elbows on the table Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/petra-2026-08-16-post.thumb.jpg"
     },
     {
       "id": "yuna-bf-a41b907b27",
@@ -390,7 +426,8 @@
       "date": "2026-08-17",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/yuna-bf-a41b907b27.thumb.jpg"
     },
     {
       "id": "yuna-bf-8c93d3688f",
@@ -402,7 +439,8 @@
       "date": "2026-08-18",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/yuna-bf-8c93d3688f.thumb.jpg"
     },
     {
       "id": "yuna-bf-7b555ad20d",
@@ -414,7 +452,8 @@
       "date": "2026-08-19",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/yuna-bf-7b555ad20d.thumb.jpg"
     },
     {
       "id": "yuna-bf-0d8530f982",
@@ -426,7 +465,8 @@
       "date": "2026-08-20",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/yuna-bf-0d8530f982.thumb.jpg"
     },
     {
       "id": "yuna-bf-201d81bad8",
@@ -438,7 +478,8 @@
       "date": "2026-08-21",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/yuna-bf-201d81bad8.thumb.jpg"
     },
     {
       "id": "yuna-bf-0040cfb8e1",
@@ -450,7 +491,8 @@
       "date": "2026-08-22",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/yuna-bf-0040cfb8e1.thumb.jpg"
     },
     {
       "id": "yuna-bf-ca8f24b9f4",
@@ -462,7 +504,8 @@
       "date": "2026-08-23",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/yuna-bf-ca8f24b9f4.thumb.jpg"
     },
     {
       "id": "yuna-bf-423afde503",
@@ -474,7 +517,8 @@
       "date": "2026-08-24",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/yuna-bf-423afde503.thumb.jpg"
     },
     {
       "id": "yuna-bf-77ce1dd611",
@@ -486,7 +530,8 @@
       "date": "2026-08-25",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/yuna-bf-77ce1dd611.thumb.jpg"
     },
     {
       "id": "mina-bf-d4c11e3033",
@@ -498,7 +543,8 @@
       "date": "2026-08-17",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/mina-bf-d4c11e3033.thumb.jpg"
     },
     {
       "id": "mina-bf-20660721c7",
@@ -510,7 +556,8 @@
       "date": "2026-08-18",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/mina-bf-20660721c7.thumb.jpg"
     },
     {
       "id": "mina-bf-ef27fe7e8a",
@@ -522,7 +569,8 @@
       "date": "2026-08-19",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/mina-bf-ef27fe7e8a.thumb.jpg"
     },
     {
       "id": "mina-bf-ffdebc42ff",
@@ -534,7 +582,8 @@
       "date": "2026-08-20",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/mina-bf-ffdebc42ff.thumb.jpg"
     },
     {
       "id": "mina-bf-bb847c4abe",
@@ -546,7 +595,8 @@
       "date": "2026-08-21",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/mina-bf-bb847c4abe.thumb.jpg"
     },
     {
       "id": "mina-bf-25eff15ef2",
@@ -558,7 +608,8 @@
       "date": "2026-08-22",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/mina-bf-25eff15ef2.thumb.jpg"
     },
     {
       "id": "mina-bf-5a95f76b7b",
@@ -570,7 +621,8 @@
       "date": "2026-08-23",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/mina-bf-5a95f76b7b.thumb.jpg"
     },
     {
       "id": "mina-bf-5cd8319722",
@@ -582,7 +634,8 @@
       "date": "2026-08-24",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/mina-bf-5cd8319722.thumb.jpg"
     },
     {
       "id": "mina-bf-c2b34d780f",
@@ -594,7 +647,8 @@
       "date": "2026-08-25",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/mina-bf-c2b34d780f.thumb.jpg"
     },
     {
       "id": "sofia-bf-837aaaae5b",
@@ -606,7 +660,8 @@
       "date": "2026-08-17",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/sofia-bf-837aaaae5b.thumb.jpg"
     },
     {
       "id": "sofia-bf-ec2db0f5a0",
@@ -618,7 +673,8 @@
       "date": "2026-08-18",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/sofia-bf-ec2db0f5a0.thumb.jpg"
     },
     {
       "id": "sofia-bf-142a91dc3a",
@@ -630,7 +686,8 @@
       "date": "2026-08-19",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/sofia-bf-142a91dc3a.thumb.jpg"
     },
     {
       "id": "sofia-bf-ffef5d2528",
@@ -642,7 +699,8 @@
       "date": "2026-08-20",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/sofia-bf-ffef5d2528.thumb.jpg"
     },
     {
       "id": "sofia-bf-5a744281fe",
@@ -654,7 +712,8 @@
       "date": "2026-08-21",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/sofia-bf-5a744281fe.thumb.jpg"
     },
     {
       "id": "sofia-bf-7571a352f0",
@@ -666,7 +725,8 @@
       "date": "2026-08-22",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/sofia-bf-7571a352f0.thumb.jpg"
     },
     {
       "id": "sofia-bf-7ea681eea9",
@@ -678,7 +738,8 @@
       "date": "2026-08-23",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/sofia-bf-7ea681eea9.thumb.jpg"
     },
     {
       "id": "sofia-bf-ba420b0977",
@@ -690,7 +751,8 @@
       "date": "2026-08-24",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/sofia-bf-ba420b0977.thumb.jpg"
     },
     {
       "id": "sofia-bf-471431db7b",
@@ -702,7 +764,8 @@
       "date": "2026-08-25",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/sofia-bf-471431db7b.thumb.jpg"
     },
     {
       "id": "lucia-bf-c23c72f1c3",
@@ -714,7 +777,8 @@
       "date": "2026-08-17",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/lucia-bf-c23c72f1c3.thumb.jpg"
     },
     {
       "id": "lucia-bf-590e3bd902",
@@ -726,7 +790,8 @@
       "date": "2026-08-18",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/lucia-bf-590e3bd902.thumb.jpg"
     },
     {
       "id": "lucia-bf-2301ead035",
@@ -738,7 +803,8 @@
       "date": "2026-08-19",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/lucia-bf-2301ead035.thumb.jpg"
     },
     {
       "id": "lucia-bf-2922eb1463",
@@ -750,7 +816,8 @@
       "date": "2026-08-20",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/lucia-bf-2922eb1463.thumb.jpg"
     },
     {
       "id": "lucia-bf-39c947b26e",
@@ -762,7 +829,8 @@
       "date": "2026-08-21",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/lucia-bf-39c947b26e.thumb.jpg"
     },
     {
       "id": "lucia-bf-399b9a06bb",
@@ -774,7 +842,8 @@
       "date": "2026-08-22",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/lucia-bf-399b9a06bb.thumb.jpg"
     },
     {
       "id": "lucia-bf-e490ddbdb5",
@@ -786,7 +855,8 @@
       "date": "2026-08-23",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/lucia-bf-e490ddbdb5.thumb.jpg"
     },
     {
       "id": "lucia-bf-5ab5f9e4e5",
@@ -798,7 +868,8 @@
       "date": "2026-08-24",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/lucia-bf-5ab5f9e4e5.thumb.jpg"
     },
     {
       "id": "lucia-bf-e9b6a9f01c",
@@ -810,7 +881,8 @@
       "date": "2026-08-25",
       "time": "20:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/lucia-bf-e9b6a9f01c.thumb.jpg"
     },
     {
       "id": "giulia-bf-19310f24f9",
@@ -822,7 +894,8 @@
       "date": "2026-08-17",
       "time": "19:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/giulia-bf-19310f24f9.thumb.jpg"
     },
     {
       "id": "giulia-bf-f301ed9495",
@@ -834,7 +907,8 @@
       "date": "2026-08-18",
       "time": "19:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/giulia-bf-f301ed9495.thumb.jpg"
     },
     {
       "id": "giulia-bf-778e0545e3",
@@ -846,7 +920,8 @@
       "date": "2026-08-19",
       "time": "19:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/giulia-bf-778e0545e3.thumb.jpg"
     },
     {
       "id": "giulia-bf-6c9acfbe65",
@@ -858,7 +933,8 @@
       "date": "2026-08-20",
       "time": "19:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/giulia-bf-6c9acfbe65.thumb.jpg"
     },
     {
       "id": "giulia-bf-cab5f4fd97",
@@ -870,7 +946,8 @@
       "date": "2026-08-21",
       "time": "19:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/giulia-bf-cab5f4fd97.thumb.jpg"
     },
     {
       "id": "giulia-bf-6724820a81",
@@ -882,7 +959,8 @@
       "date": "2026-08-22",
       "time": "19:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/giulia-bf-6724820a81.thumb.jpg"
     },
     {
       "id": "giulia-bf-c708d58569",
@@ -894,7 +972,8 @@
       "date": "2026-08-23",
       "time": "19:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/giulia-bf-c708d58569.thumb.jpg"
     },
     {
       "id": "giulia-bf-cd30a294c4",
@@ -906,7 +985,8 @@
       "date": "2026-08-24",
       "time": "19:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/giulia-bf-cd30a294c4.thumb.jpg"
     },
     {
       "id": "giulia-bf-1a2cd92e76",
@@ -918,7 +998,8 @@
       "date": "2026-08-25",
       "time": "19:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/giulia-bf-1a2cd92e76.thumb.jpg"
     },
     {
       "id": "elsa-bf-b0cafdabe1",
@@ -930,7 +1011,8 @@
       "date": "2026-08-17",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/elsa-bf-b0cafdabe1.thumb.jpg"
     },
     {
       "id": "elsa-bf-a9156f94ab",
@@ -942,7 +1024,8 @@
       "date": "2026-08-18",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/elsa-bf-a9156f94ab.thumb.jpg"
     },
     {
       "id": "elsa-bf-a39673da12",
@@ -954,7 +1037,8 @@
       "date": "2026-08-19",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/elsa-bf-a39673da12.thumb.jpg"
     },
     {
       "id": "elsa-bf-04482ceb54",
@@ -966,7 +1050,8 @@
       "date": "2026-08-20",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/elsa-bf-04482ceb54.thumb.jpg"
     },
     {
       "id": "elsa-bf-ad0031ef21",
@@ -978,7 +1063,8 @@
       "date": "2026-08-21",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/elsa-bf-ad0031ef21.thumb.jpg"
     },
     {
       "id": "elsa-bf-727970317c",
@@ -990,7 +1076,8 @@
       "date": "2026-08-22",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/elsa-bf-727970317c.thumb.jpg"
     },
     {
       "id": "elsa-bf-4c4da67731",
@@ -1002,7 +1089,8 @@
       "date": "2026-08-23",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/elsa-bf-4c4da67731.thumb.jpg"
     },
     {
       "id": "elsa-bf-2bc5dde3b7",
@@ -1014,7 +1102,8 @@
       "date": "2026-08-24",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/elsa-bf-2bc5dde3b7.thumb.jpg"
     },
     {
       "id": "elsa-bf-719bd42bde",
@@ -1026,7 +1115,8 @@
       "date": "2026-08-25",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/elsa-bf-719bd42bde.thumb.jpg"
     },
     {
       "id": "ruby-bf-bb2c5ba74e",
@@ -1038,7 +1128,8 @@
       "date": "2026-08-17",
       "time": "18:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-bb2c5ba74e.thumb.jpg"
     },
     {
       "id": "ruby-bf-7b9bbef4ad",
@@ -1050,7 +1141,8 @@
       "date": "2026-08-18",
       "time": "18:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-7b9bbef4ad.thumb.jpg"
     },
     {
       "id": "ruby-bf-06011708eb",
@@ -1062,7 +1154,8 @@
       "date": "2026-08-19",
       "time": "18:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-06011708eb.thumb.jpg"
     },
     {
       "id": "ruby-bf-2cc1f8d1d5",
@@ -1074,7 +1167,8 @@
       "date": "2026-08-20",
       "time": "18:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-2cc1f8d1d5.thumb.jpg"
     },
     {
       "id": "ruby-bf-853ef9c452",
@@ -1086,7 +1180,8 @@
       "date": "2026-08-21",
       "time": "18:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-853ef9c452.thumb.jpg"
     },
     {
       "id": "ruby-bf-983bf7ee87",
@@ -1098,7 +1193,8 @@
       "date": "2026-08-22",
       "time": "18:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-983bf7ee87.thumb.jpg"
     },
     {
       "id": "ruby-bf-d808230959",
@@ -1110,7 +1206,8 @@
       "date": "2026-08-23",
       "time": "18:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-d808230959.thumb.jpg"
     },
     {
       "id": "ruby-bf-7da92d11ca",
@@ -1122,7 +1219,8 @@
       "date": "2026-08-24",
       "time": "18:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-7da92d11ca.thumb.jpg"
     },
     {
       "id": "ruby-bf-54f1df136a",
@@ -1134,7 +1232,8 @@
       "date": "2026-08-25",
       "time": "18:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-54f1df136a.thumb.jpg"
     },
     {
       "id": "isabela-bf-46eca5308e",
@@ -1146,7 +1245,8 @@
       "date": "2026-08-17",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/isabela-bf-46eca5308e.thumb.jpg"
     },
     {
       "id": "isabela-bf-573dd3e6ad",
@@ -1158,7 +1258,8 @@
       "date": "2026-08-18",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/isabela-bf-573dd3e6ad.thumb.jpg"
     },
     {
       "id": "isabela-bf-11f7b019f1",
@@ -1170,7 +1271,8 @@
       "date": "2026-08-19",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/isabela-bf-11f7b019f1.thumb.jpg"
     },
     {
       "id": "isabela-bf-8c38564473",
@@ -1182,7 +1284,8 @@
       "date": "2026-08-20",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/isabela-bf-8c38564473.thumb.jpg"
     },
     {
       "id": "isabela-bf-9d506aaf83",
@@ -1194,7 +1297,8 @@
       "date": "2026-08-21",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/isabela-bf-9d506aaf83.thumb.jpg"
     },
     {
       "id": "isabela-bf-011e56d040",
@@ -1206,7 +1310,8 @@
       "date": "2026-08-22",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/isabela-bf-011e56d040.thumb.jpg"
     },
     {
       "id": "isabela-bf-a576bf17d1",
@@ -1218,7 +1323,8 @@
       "date": "2026-08-23",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/isabela-bf-a576bf17d1.thumb.jpg"
     },
     {
       "id": "isabela-bf-d7f8b98be3",
@@ -1230,7 +1336,8 @@
       "date": "2026-08-24",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/isabela-bf-d7f8b98be3.thumb.jpg"
     },
     {
       "id": "isabela-bf-03d2344a1d",
@@ -1242,7 +1349,8 @@
       "date": "2026-08-25",
       "time": "18:30",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/isabela-bf-03d2344a1d.thumb.jpg"
     },
     {
       "id": "petra-bf-2f5d131630",
@@ -1254,7 +1362,8 @@
       "date": "2026-08-17",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/petra-bf-2f5d131630.thumb.jpg"
     },
     {
       "id": "petra-bf-f7aafcbaa9",
@@ -1266,7 +1375,8 @@
       "date": "2026-08-18",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/petra-bf-f7aafcbaa9.thumb.jpg"
     },
     {
       "id": "petra-bf-e19426e922",
@@ -1278,7 +1388,8 @@
       "date": "2026-08-19",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/petra-bf-e19426e922.thumb.jpg"
     },
     {
       "id": "petra-bf-f21d7a7979",
@@ -1290,7 +1401,8 @@
       "date": "2026-08-20",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/petra-bf-f21d7a7979.thumb.jpg"
     },
     {
       "id": "petra-bf-a5aa858fdb",
@@ -1302,7 +1414,8 @@
       "date": "2026-08-21",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/petra-bf-a5aa858fdb.thumb.jpg"
     },
     {
       "id": "petra-bf-622ff3c534",
@@ -1314,7 +1427,8 @@
       "date": "2026-08-22",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/petra-bf-622ff3c534.thumb.jpg"
     },
     {
       "id": "petra-bf-e8e7938cd9",
@@ -1326,7 +1440,8 @@
       "date": "2026-08-23",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/petra-bf-e8e7938cd9.thumb.jpg"
     },
     {
       "id": "petra-bf-23fa8a9903",
@@ -1338,7 +1453,8 @@
       "date": "2026-08-24",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/petra-bf-23fa8a9903.thumb.jpg"
     },
     {
       "id": "petra-bf-73335220ba",
@@ -1350,7 +1466,8 @@
       "date": "2026-08-25",
       "time": "19:00",
       "status": "pending",
-      "generatedAt": "2026-08-14"
+      "generatedAt": "2026-08-14",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/petra-bf-73335220ba.thumb.jpg"
     },
     {
       "id": "yuna-2026-08-17-post",
@@ -1362,7 +1479,8 @@
       "time": "19:00",
       "status": "pending",
       "generatedAt": "2026-08-17T04:39:48Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. at home on the couch in an oversized hoodie holding a mug, lazy morning vibe, blanket half falling off Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. at home on the couch in an oversized hoodie holding a mug, lazy morning vibe, blanket half falling off Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/yuna-2026-08-17-post.thumb.jpg"
     },
     {
       "id": "mina-2026-08-17-post",
@@ -1374,7 +1492,8 @@
       "time": "19:00",
       "status": "pending",
       "generatedAt": "2026-08-17T04:41:17Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. poolside near Seoul in modest tasteful swimwear, sitting on the edge with feet in the water, sun-lit Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. poolside near Seoul in modest tasteful swimwear, sitting on the edge with feet in the water, sun-lit Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/mina-2026-08-17-post.thumb.jpg"
     },
     {
       "id": "sofia-2026-08-17-post",
@@ -1386,7 +1505,8 @@
       "time": "20:00",
       "status": "pending",
       "generatedAt": "2026-08-17T04:42:01Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. poolside near Madrid in modest tasteful swimwear, sitting on the edge with feet in the water, sun-lit Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. poolside near Madrid in modest tasteful swimwear, sitting on the edge with feet in the water, sun-lit Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/sofia-2026-08-17-post.thumb.jpg"
     },
     {
       "id": "lucia-2026-08-17-post",
@@ -1398,7 +1518,8 @@
       "time": "20:00",
       "status": "pending",
       "generatedAt": "2026-08-17T04:42:46Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. trying on a jacket in a small boutique in Seville, caught mid-laugh in the fitting mirror Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. trying on a jacket in a small boutique in Seville, caught mid-laugh in the fitting mirror Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/lucia-2026-08-17-post.thumb.jpg"
     },
     {
       "id": "giulia-2026-08-17-post",
@@ -1410,7 +1531,8 @@
       "time": "19:30",
       "status": "pending",
       "generatedAt": "2026-08-17T04:43:21Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. walking home at dusk in Milan carrying a tote bag, tired but content Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. walking home at dusk in Milan carrying a tote bag, tired but content Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/giulia-2026-08-17-post.thumb.jpg"
     },
     {
       "id": "elsa-2026-08-17-post",
@@ -1422,7 +1544,8 @@
       "time": "18:30",
       "status": "pending",
       "generatedAt": "2026-08-17T04:44:06Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. at home on the couch in an oversized hoodie holding a mug, lazy morning vibe, blanket half falling off Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. at home on the couch in an oversized hoodie holding a mug, lazy morning vibe, blanket half falling off Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/elsa-2026-08-17-post.thumb.jpg"
     },
     {
       "id": "ruby-2026-08-17-post",
@@ -1434,7 +1557,8 @@
       "time": "18:00",
       "status": "pending",
       "generatedAt": "2026-08-17T04:46:57Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. visiting a famous landmark in Austin, candid tourist moment but effortless, slightly windblown Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. visiting a famous landmark in Austin, candid tourist moment but effortless, slightly windblown Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/ruby-2026-08-17-post.thumb.jpg"
     },
     {
       "id": "isabela-2026-08-17-post",
@@ -1446,7 +1570,8 @@
       "time": "18:30",
       "status": "pending",
       "generatedAt": "2026-08-17T04:48:36Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. holding a takeaway coffee and a pastry on a bench in Rio, morning light Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. holding a takeaway coffee and a pastry on a bench in Rio, morning light Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/isabela-2026-08-17-post.thumb.jpg"
     },
     {
       "id": "petra-2026-08-17-post",
@@ -1458,7 +1583,8 @@
       "time": "19:00",
       "status": "pending",
       "generatedAt": "2026-08-17T04:49:31Z",
-      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. walking out of the water at a beach near Prague, modest one-piece swimsuit, squinting at the sun Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. walking out of the water at a beach near Prague, modest one-piece swimsuit, squinting at the sun Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/petra-2026-08-17-post.thumb.jpg"
     }
   ]
 }
