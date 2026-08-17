@@ -204,9 +204,12 @@ def submit_and_poll(path: str, payload: dict, timeout: int = 360) -> str:
         st = api(status_url)
         if st.get("status") == "completed":
             images = st.get("images") or []
-            if not images:
-                raise RuntimeError("completed without images")
-            return images[0].get("url")
+            if images:
+                return images[0].get("url")
+            video = st.get("video") or {}
+            if video.get("url"):
+                return video["url"]
+            raise RuntimeError("completed without media")
         if st.get("status") in ("failed", "nsfw", "canceled"):
             raise RuntimeError(f"generation {st.get('status')}: {st.get('error')}")
         time.sleep(5)
@@ -306,6 +309,42 @@ def avoid_clause(lessons: dict, char_id: str) -> str:
     return (" Strictly avoid: " + "; ".join(rules) + ".") if rules else ""
 
 
+# Motion language per theme for reels - what the camera and the subject do
+# in the 5 seconds. Subtle, handheld, nothing theatrical.
+REEL_MOTIONS = {
+    "fashion": "slow push-in, she turns slightly toward the camera and smiles, hair moving gently, natural handheld micro-shake",
+    "food": "gentle push-in, steam rising, she lifts the food and reacts with delight, soft handheld sway",
+    "lifestyle": "slow lateral drift, breeze in her hair, she glances at the view then back with a soft smile",
+    "everyday": "static handheld with micro-shake, she laughs naturally and adjusts her hair, cozy ambient motion",
+    "experience": "walking motion following her, she looks around and points at something off-screen, candid energy",
+    "swim": "gentle push-in, water sparkling, she brushes wet hair back and smiles at the camera",
+}
+
+
+def generate_reel_video(image_url: str, motion: str, duration: int = 5) -> str:
+    """Animate a generated still into a short vertical reel. Identity comes
+    free - image-to-video animates the exact frame. Primary engine:
+    seedance lite (native 9:16, cheap); fallback: hailuo-02 standard."""
+    prompt = (motion + ". Preserve the person's exact appearance, realistic "
+              "natural motion, no morphing, no warping.")
+    try:
+        return submit_and_poll("/bytedance/seedance/v1/lite/image-to-video", {
+            "prompt": prompt,
+            "image_url": image_url,
+            "duration": duration,
+            "resolution": "720",
+            "aspect_ratio": "9:16",
+        }, timeout=900)
+    except RuntimeError as e:
+        print(f"  seedance failed ({str(e)[:100]}), trying hailuo", file=sys.stderr)
+        return submit_and_poll("/minimax/hailuo-02/standard/image-to-video", {
+            "prompt": prompt,
+            "image_url": image_url,
+            "duration": 6,
+            "resolution": "768P",
+        }, timeout=900)
+
+
 def make_caption(char: dict, scene: str) -> str:
     """English caption in the character's voice via the Claude API; falls
     back to a plain template when the key is missing so a caption problem
@@ -354,12 +393,19 @@ def pick_theme(rng: random.Random, plan: dict) -> str:
     return rng.choice(other) if other else "everyday"
 
 
-def planned_types(plan: dict, weekday: str) -> list[str]:
+def planned_types(plan: dict, weekday: str, char_id: str = None) -> list[str]:
+    """What this character produces today. reels/stories accept an optional
+    "chars" allowlist so video (expensive) can roll out account by account
+    - e.g. only the character whose profile is live."""
     types = ["post"] * int(plan.get("daily_posts_per_character", 1))
     for t in ("reels", "stories"):
         cfg = plan.get(t) or {}
-        if cfg.get("enabled") and weekday in cfg.get("days", []):
-            types += [t.rstrip("s")] * int(cfg.get("per_character", 1))
+        if not cfg.get("enabled") or weekday not in cfg.get("days", []):
+            continue
+        allow = cfg.get("chars")
+        if allow and char_id is not None and char_id not in allow:
+            continue
+        types += [t.rstrip("s")] * int(cfg.get("per_character", 1))
     return types
 
 
@@ -380,7 +426,6 @@ def phase_generate(out_dir: Path) -> int:
 
     today = datetime.date.today().isoformat()
     weekday = WEEKDAYS[datetime.date.today().weekday()]
-    types = planned_types(plan, weekday)
 
     # Idempotency: a (char, type) that already has an item generated today
     # is done - a re-run only fills the gaps (e.g. after a partial failure).
@@ -401,7 +446,7 @@ def phase_generate(out_dir: Path) -> int:
     release_tag = f"aimodels-{today}"
     new_items, failures = [], 0
     for char in roster:
-        for typ in types:
+        for typ in planned_types(plan, weekday, char["id"]):
             if (char["id"], typ) in have:
                 print(f"[{char['id']}/{typ}] already generated today - skip")
                 continue
@@ -428,23 +473,42 @@ def phase_generate(out_dir: Path) -> int:
                                   f"({ref.split('/')[2]}), trying next", file=sys.stderr)
                             continue
                         raise
-                permanent, thumb = persist_image_and_thumb(
-                    url, release_tag, f"{item_id}.jpg", out_dir)
                 caption = make_caption(char, scene)
-                new_items.append({
+                item = {
                     "id": item_id,
                     "char": char["id"],
                     "type": typ,
-                    "image": permanent,
-                    **({"thumb": thumb} if thumb else {}),
+                    "theme": theme,
                     "caption": caption,
                     "date": today,
                     "time": (plan.get("post_times_by_char") or {}).get(char["id"], "19:00"),
                     "status": "pending",
                     "generatedAt": datetime.datetime.utcnow().isoformat(timespec="seconds") + "Z",
                     "prompt": prompt,
-                })
-                print(f"[{char['id']}/{typ}] done -> {item_id}.jpg")
+                }
+                if typ == "reel":
+                    # Animate the fresh still: identity is already locked in
+                    # the frame; i2v just brings it to life. The still is
+                    # kept both as the poster/thumb and for reference.
+                    motion = REEL_MOTIONS.get(theme, REEL_MOTIONS["everyday"])
+                    still_perm, thumb = persist_image_and_thumb(
+                        url, release_tag, f"{item_id}-still.jpg", out_dir)
+                    print(f"[{char['id']}/{typ}] animating ({motion[:50]}...)")
+                    video_url = generate_reel_video(
+                        url, motion,
+                        int((plan.get("reels") or {}).get("duration_s", 5)))
+                    video_perm = persist_image(
+                        video_url, release_tag, f"{item_id}.mp4", out_dir)
+                    item.update({"image": video_perm, "still": still_perm,
+                                 **({"thumb": thumb} if thumb else {}),
+                                 "prompt": f"{prompt} | motion: {motion}"})
+                else:
+                    permanent, thumb = persist_image_and_thumb(
+                        url, release_tag, f"{item_id}.jpg", out_dir)
+                    item.update({"image": permanent,
+                                 **({"thumb": thumb} if thumb else {})})
+                new_items.append(item)
+                print(f"[{char['id']}/{typ}] done -> {item_id}")
             except Exception as e:  # one character failing must not stop the rest
                 failures += 1
                 print(f"[{char['id']}/{typ}] FAILED: {e}", file=sys.stderr)
