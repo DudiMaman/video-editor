@@ -1,5 +1,19 @@
 [
   {
+    "id": "ruby",
+    "name": "Ruby Collins",
+    "city": "Austin",
+    "tz": "America/Chicago",
+    "handle": "@rubycollins.co",
+    "voice": "Gracie (Higgsfield)",
+    "sheet": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/ruby-sheet.png",
+    "casting": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/ruby-casting.png",
+    "sheet_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_121050_0fcd43eb-a776-4330-a63d-8767ffd9ad05.png",
+    "casting_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_055839_af592f47-910f-43dc-b41e-2b28f64be3be.png",
+    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/ruby-casting.thumb.jpg",
+    "bio": "texas girl, messy bun energy 🤠\ngood food · long drives · lake days\nAI-generated ✨ virtual creator"
+  },
+  {
     "id": "yuna",
     "name": "Yuna Sato",
     "city": "Tokyo",
@@ -10,7 +24,8 @@
     "casting": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/yuna-casting.png",
     "sheet_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_121050_7402f418-fbee-4fe1-bab7-96eaaa635f5f.png",
     "casting_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_055839_2a029c21-1df7-4921-9993-6161910cc4c1.png",
-    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/yuna-casting.thumb.jpg"
+    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/yuna-casting.thumb.jpg",
+    "bio": "tokyo through my lens 🍜\nfashion · food · tiny adventures\nAI-generated ✨ virtual creator"
   },
   {
     "id": "mina",
@@ -23,7 +38,8 @@
     "casting": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/mina-casting.png",
     "sheet_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_121050_3a5ff16e-c23c-4c4b-a5c7-9bfde550b7eb.png",
     "casting_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_055839_a775eed1-7237-4a42-8721-0299503560dd.png",
-    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/mina-casting.thumb.jpg"
+    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/mina-casting.thumb.jpg",
+    "bio": "seoul girl, big appetite 🇰🇷\nk-fashion · cafes · daily life\nAI-generated ✨ virtual creator"
   },
   {
     "id": "sofia",
@@ -36,7 +52,8 @@
     "casting": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/sofia-casting.png",
     "sheet_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_121050_5d52294f-65b4-4a6f-a658-3e22c9fcc45b.png",
     "casting_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_055839_7a2dadc8-addf-4aac-a74a-02de03dcdf85.png",
-    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/sofia-casting.thumb.jpg"
+    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/sofia-casting.thumb.jpg",
+    "bio": "madrid nights & tapas days 💃\nfashion · food · no filter on life\nAI-generated ✨ virtual creator"
   },
   {
     "id": "lucia",
@@ -49,7 +66,8 @@
     "casting": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/lucia-casting.png",
     "sheet_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_121949_aa3b4dcd-d761-4cf8-a87e-f57b68a5cf8b.png",
     "casting_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_055839_a0968428-9fea-420f-9c89-0a054a620ccf.png",
-    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/lucia-casting.thumb.jpg"
+    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/lucia-casting.thumb.jpg",
+    "bio": "sun, curls & the south of spain ☀️\nslow living · good food\nAI-generated ✨ virtual creator"
   },
   {
     "id": "giulia",
@@ -62,7 +80,8 @@
     "casting": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/giulia-casting.png",
     "sheet_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_121050_32148316-20fc-466d-af96-c53949ad2bdf.png",
     "casting_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_055839_622c50c3-4e11-45f8-a403-eb65992fd012.png",
-    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/giulia-casting.thumb.jpg"
+    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/giulia-casting.thumb.jpg",
+    "bio": "milano, espresso, opinions ☕\nstyle · aperitivo · la dolce vita\nAI-generated ✨ virtual creator"
   },
   {
     "id": "elsa",
@@ -75,20 +94,8 @@
     "casting": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/elsa-casting.png",
     "sheet_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_121050_92f32815-fb2b-45a8-bd2a-bc0813796258.png",
     "casting_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_055839_429da216-390c-4f18-ac03-06470b69834d.png",
-    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/elsa-casting.thumb.jpg"
-  },
-  {
-    "id": "ruby",
-    "name": "Ruby Collins",
-    "city": "Austin",
-    "tz": "America/Chicago",
-    "handle": "@rubycollins.co",
-    "voice": "Gracie (Higgsfield)",
-    "sheet": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/ruby-sheet.png",
-    "casting": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/ruby-casting.png",
-    "sheet_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_121050_0fcd43eb-a776-4330-a63d-8767ffd9ad05.png",
-    "casting_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_055839_af592f47-910f-43dc-b41e-2b28f64be3be.png",
-    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/ruby-casting.thumb.jpg"
+    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/elsa-casting.thumb.jpg",
+    "bio": "stockholm · lakes · cinnamon buns 🌊\nscandi style & simple things\nAI-generated ✨ virtual creator"
   },
   {
     "id": "isabela",
@@ -101,7 +108,8 @@
     "casting": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/isabela-casting.png",
     "sheet_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_122221_6ad52329-7eda-4d04-a5db-a431c2f53ecf.png",
     "casting_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_060028_93dea8a0-6ef1-4778-b8b6-cf20151ce0d4.png",
-    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/isabela-casting.thumb.jpg"
+    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/isabela-casting.thumb.jpg",
+    "bio": "rio, beach hair, açaí 🌴\nsunshine & street food\nAI-generated ✨ virtual creator"
   },
   {
     "id": "petra",
@@ -114,6 +122,7 @@
     "casting": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/petra-casting.png",
     "sheet_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_122125_5ec3bb57-d908-4924-9f4c-82d1f81b1058.png",
     "casting_src": "https://d8j0ntlcm91z4.cloudfront.net/user_3FXupo28uwbFxUlwHkr2FgNQvIX/hf_20260814_060029_98509740-ec94-4296-b60b-1c734ce37de5.png",
-    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/petra-casting.thumb.jpg"
+    "casting_thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-roster/petra-casting.thumb.jpg",
+    "bio": "prague after dark 🖤\nleather jackets & trdelník\nAI-generated ✨ virtual creator"
   }
 ]

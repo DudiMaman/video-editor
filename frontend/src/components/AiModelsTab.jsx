@@ -417,6 +417,11 @@ export default function AiModelsTab({ active }) {
                 <b>{c.name}</b> · {c.city}
                 <div dir="ltr" style={{ textAlign: 'left', opacity: 0.75 }}>{c.handle}</div>
                 <div style={{ opacity: 0.75 }}>{S.voice}: {c.voice}</div>
+                {c.bio && (
+                  <div dir="ltr" style={{ textAlign: 'left', whiteSpace: 'pre-line', fontSize: 12, opacity: 0.85, margin: '6px 0 4px', borderTop: '1px solid var(--border,#eee)', paddingTop: 6 }}>
+                    {c.bio}
+                  </div>
+                )}
                 <a href={c.sheet} target="_blank" rel="noreferrer">{S.openSheet}</a>
               </div>
             </div>
