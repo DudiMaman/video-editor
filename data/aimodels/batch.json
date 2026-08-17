@@ -477,9 +477,14 @@
       "caption": "tokyo said \"come play\" and honestly? i never say no to that kind of invitation 🌆 #tokyolife #cityadventures #exploretokyo #dailywanders",
       "date": "2026-08-21",
       "time": "19:00",
-      "status": "pending",
+      "status": "reworking",
       "generatedAt": "2026-08-14",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/yuna-bf-201d81bad8.thumb.jpg"
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/yuna-bf-201d81bad8.thumb.jpg",
+      "rework": {
+        "reason": "התמונה אינה חדה מספיק, במיוחד באיזור הפנים אין מספיק חדות ויש טישטוש קל",
+        "requestedAt": "2026-08-17",
+        "prev_status": "pending"
+      }
     },
     {
       "id": "yuna-bf-0040cfb8e1",
