@@ -3,6 +3,7 @@
   "reels": {
     "enabled": true,
     "days": [
+      "Mon",
       "Wed",
       "Sat"
     ],
@@ -45,5 +46,5 @@
     "swim"
   ],
   "everyday_ratio": 0.4,
-  "note": "reels enabled for ruby (Wed+Sat); posts daily for all"
+  "note": "TEMP: Mon added to reel days for live validation - revert to Wed+Sat"
 }
