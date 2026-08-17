@@ -1,0 +1,36 @@
+name: thumbs-aimodels
+
+# One-shot (idempotent) retrofit: build 480px gallery thumbnails for every
+# AI-models item and roster avatar that predates thumbnail generation.
+# New content gets its thumb at creation time. See scripts/thumbs_aimodels.py.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/thumbs-aimodels.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: thumbs-aimodels
+  cancel-in-progress: false
+
+jobs:
+  thumbs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install pillow
+
+      - name: Build and attach thumbnails
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/thumbs_aimodels.py
