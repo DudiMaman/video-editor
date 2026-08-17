@@ -365,10 +365,12 @@
       "caption": "tired feet, full tote bag, milan doing that golden hour thing again 🌆 home never looked so good #milanlife #goldenhour #dusk #slowliving #ootd",
       "date": "2026-08-16",
       "time": "19:30",
-      "status": "pending",
+      "status": "rejected",
       "generatedAt": "2026-08-16T12:57:42Z",
       "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. walking home at dusk in Milan carrying a tote bag, tired but content Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/giulia-2026-08-16-post.thumb.jpg"
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/giulia-2026-08-16-post.thumb.jpg",
+      "reject_reason": "התמונה הזו לא דומה לקו הכללי של הדמות שיצרנו. הפנים שונות לגמרי",
+      "rejectedAt": "2026-08-17"
     },
     {
       "id": "elsa-2026-08-16-post",
