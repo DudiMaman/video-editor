@@ -1,0 +1,39 @@
+name: rework-aimodels
+
+# Fix-instead-of-reject: items marked "reworking" in batch.json (the tab's
+# "שלח לעיבוד" button) are edited by the image engine per the owner's
+# feedback and returned in place, previous image kept for comparison.
+# Triggered by every batch.json push; exits quietly when nothing waits.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['data/aimodels/batch.json']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rework-aimodels
+  cancel-in-progress: false
+
+jobs:
+  rework:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install anthropic pillow
+
+      - name: Rework flagged items
+        env:
+          HIGGSFIELD_API_KEY: ${{ secrets.HIGGSFIELD_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/rework_aimodels.py
