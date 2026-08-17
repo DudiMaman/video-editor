@@ -307,10 +307,12 @@
       "caption": "morning hair chaos before it becomes a \"look\" 💆‍♀️ towel life, mirror pep talks, repeat #morningroutine #tokyolife #messyhair #girlmornings #dailyritual",
       "date": "2026-08-16",
       "time": "19:00",
-      "status": "pending",
+      "status": "rejected",
       "generatedAt": "2026-08-16T12:51:45Z",
       "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. doing her hair in the bathroom mirror, towel on shoulders, everyday morning routine Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/yuna-2026-08-16-post.thumb.jpg"
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-16/yuna-2026-08-16-post.thumb.jpg",
+      "reject_reason": "התמונה הזו לא דומה לקו הכללי של הדמות שיצרנו. הפנים שונות לגמרי",
+      "rejectedAt": "2026-08-17"
     },
     {
       "id": "mina-2026-08-16-post",
