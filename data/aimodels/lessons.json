@@ -1,35 +1,19 @@
 {
-  "signature": "797af1a4ce4550f4ca7fa37805893dbb9d53bea2",
+  "signature": "7ce5e4fd2e815b8e5a3cd59f13d8ccecbd12b35e",
   "updated": "2026-08-17",
-  "rejections_learned_from": 14,
+  "rejections_learned_from": 15,
   "global": [
-    "Avoid facial features deviating from established character identity",
-    "Avoid inconsistent face shape, structure, or likeness across generations"
+    "Do not alter character's established facial features or identity",
+    "Avoid generating faces inconsistent with reference character look",
+    "Do not duplicate or clone the character within one image",
+    "Avoid mismatched backgrounds that ignore the intended scene setting",
+    "Avoid overly synthetic, artificial-looking results lacking realism"
   ],
   "per_char": {
-    "yuna": [
-      "Avoid face drifting from yuna's reference likeness"
-    ],
-    "sofia": [
-      "Avoid face drifting from sofia's reference likeness"
-    ],
-    "lucia": [
-      "Avoid face drifting from lucia's reference likeness"
-    ],
-    "giulia": [
-      "Avoid face drifting from giulia's reference likeness"
-    ],
-    "elsa": [
-      "Avoid face drifting from elsa's reference likeness"
-    ],
     "ruby": [
-      "Avoid face drifting from ruby's reference likeness"
-    ],
-    "isabela": [
-      "Avoid face drifting from isabela's reference likeness"
-    ],
-    "petra": [
-      "Avoid face drifting from petra's reference likeness"
+      "Avoid duplicating character twice in swim-themed scenes",
+      "Do not use plain studio background instead of pool scene",
+      "Avoid unrealistic, obviously fake-looking swim photos"
     ]
   }
 }
