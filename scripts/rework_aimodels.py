@@ -55,7 +55,10 @@ def raw_hosted_copy(url: str, name: str) -> str:
     """Host a byte-exact copy of `url` on the aimodels-assets branch and
     return its raw.githubusercontent URL, which serves a real image
     content-type (release assets are application/octet-stream, which the
-    engine rejects)."""
+    engine rejects). The request body rides in a --input file: a multi-MB
+    image as a base64 argv element dies on the kernel's 128KB
+    per-argument cap ("Argument list too long")."""
+    import tempfile
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(req, timeout=120) as r:
         data = r.read()
@@ -66,17 +69,24 @@ def raw_hosted_copy(url: str, name: str) -> str:
         gh_api(f"repos/{REPO_SLUG}/git/refs", "-f", f"ref=refs/heads/{ASSETS_BRANCH}",
                "-f", f"sha={main_sha}")
     path = f"rework/{name}"
-    args = [f"repos/{REPO_SLUG}/contents/{path}", "-X", "PUT",
-            "-f", f"message=Rework input copy {name}",
-            "-f", f"branch={ASSETS_BRANCH}",
-            "-f", f"content={base64.b64encode(data).decode()}"]
+    payload = {"message": f"Rework input copy {name}",
+               "branch": ASSETS_BRANCH,
+               "content": base64.b64encode(data).decode()}
+    body = Path(tempfile.mkstemp(suffix=".putbody.json")[1])
+
+    def put():
+        body.write_text(json.dumps(payload))
+        gh_api(f"repos/{REPO_SLUG}/contents/{path}", "-X", "PUT",
+               "--input", str(body))
     try:
-        gh_api(*args)
+        put()
     except Exception as e:
         if "sha" not in str(e):
             raise
         cur = gh_api(f"repos/{REPO_SLUG}/contents/{path}?ref={ASSETS_BRANCH}")
-        gh_api(*args, "-f", f"sha={cur['sha']}")
+        payload["sha"] = cur["sha"]
+        put()
+    body.unlink(missing_ok=True)
     return f"https://raw.githubusercontent.com/{REPO_SLUG}/{ASSETS_BRANCH}/{path}"
 
 
