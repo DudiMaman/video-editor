@@ -1620,10 +1620,12 @@
       "caption": "chlorine-free version of me, finally 🌞 squinting into summer like it owes me money #czechbeach #summervibes #praguelife #lakeday #sunkissed",
       "date": "2026-08-17",
       "time": "19:00",
-      "status": "pending",
+      "status": "rejected",
       "generatedAt": "2026-08-17T04:49:31Z",
       "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. walking out of the water at a beach near Prague, modest one-piece swimsuit, squinting at the sun Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/petra-2026-08-17-post.thumb.jpg"
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/petra-2026-08-17-post.thumb.jpg",
+      "reject_reason": "התמונה הזו לא דומה לקו הכללי של הדמות שיצרנו. הפנים שונות לגמרי",
+      "rejectedAt": "2026-08-17"
     }
   ]
 }
