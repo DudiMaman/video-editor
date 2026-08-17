@@ -1482,10 +1482,15 @@
       "caption": "couch, hoodie, coffee, zero plans — this is the whole agenda today ☕🤍 #lazymorning #hoodieweather #homebody #tokyolife #slowliving",
       "date": "2026-08-17",
       "time": "19:00",
-      "status": "pending",
+      "status": "reworking",
       "generatedAt": "2026-08-17T04:39:48Z",
       "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. at home on the couch in an oversized hoodie holding a mug, lazy morning vibe, blanket half falling off Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look.",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/yuna-2026-08-17-post.thumb.jpg"
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/yuna-2026-08-17-post.thumb.jpg",
+      "rework": {
+        "reason": "יש בתמונה הזו שוליים עליונים ותחתונים והיא מפוצלת ל-2 תמונות נפרדות לכן לא יכולה לעלות בתור פוסט. תשתמש רק בתמונת פנים הימנית תערוך אותה מחדש שתתאים להעלאה כפוסט",
+        "requestedAt": "2026-08-17",
+        "prev_status": "pending"
+      }
     },
     {
       "id": "mina-2026-08-17-post",
