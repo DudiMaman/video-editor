@@ -10,7 +10,10 @@
     "chars": [
       "ruby"
     ],
-    "duration_s": 5
+    "duration_s": 5,
+    "extra_dates": [
+      "2026-08-17"
+    ]
   },
   "stories": {
     "enabled": false,
