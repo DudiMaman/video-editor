@@ -69,6 +69,10 @@ export default function AiModelsTab({ active }) {
   const [reworkText, setReworkText] = useState('')
   const [reworkErr, setReworkErr] = useState('')
   const [comparing, setComparing] = useState({}) // id -> true (show prev image)
+  // Mobile publish bridge: after the device share sheet closes (or the
+  // download fallback fired), ask whether the post actually went out.
+  const [sharePrompt, setSharePrompt] = useState(null)
+  const [sharing, setSharing] = useState('')
 
   useEffect(() => {
     if (!active || roster !== null) return
@@ -96,7 +100,7 @@ export default function AiModelsTab({ active }) {
   }, [roster])
 
   const counts = useMemo(() => {
-    const c = { pending: 0, scheduled: 0, rejected: 0, reworking: 0 }
+    const c = { pending: 0, scheduled: 0, rejected: 0, reworking: 0, published: 0 }
     for (const p of batch?.posts || []) c[statusOf(p)] = (c[statusOf(p)] || 0) + 1
     return c
   }, [batch])
@@ -192,7 +196,7 @@ export default function AiModelsTab({ active }) {
     const m = {}
     for (const p of batch?.posts || []) {
       if (p.char !== sched.char || p.id === sched.id) continue
-      if (statusOf(p) !== 'scheduled' || !p.date) continue
+      if (!['scheduled', 'published'].includes(statusOf(p)) || !p.date) continue
       const [y, mm, dd] = String(p.date).split('-').map(Number)
       if (y === schedMonth.y && mm === schedMonth.m0 + 1) m[dd] = p
     }
@@ -211,6 +215,75 @@ export default function AiModelsTab({ active }) {
     }, 60000)
     return () => clearInterval(t)
   }, [active, batch, dirty])
+
+  // "שתף לאינסטגרם": copy the caption, hand the device the image via the
+  // Web Share sheet (Instagram appears as a target on mobile), then ask
+  // whether to mark the post published. Fallback chain when file-sharing
+  // is unavailable (desktop) or the blob fetch is blocked (CORS): download
+  // the image + keep the caption on the clipboard + show instructions.
+  const shareToInstagram = async (p) => {
+    const caption = p.caption || ''
+    setSharing(p.id)
+    let copied = false
+    try { await navigator.clipboard.writeText(caption); copied = true } catch { /* clipboard blocked */ }
+    try {
+      if (navigator.share) {
+        try {
+          let blob
+          try {
+            const r = await fetch(p.image)
+            if (!r.ok) throw new Error('direct fetch failed')
+            blob = await r.blob()
+          } catch {
+            blob = await backend.aimodels.fetchImageBlob(p.image)
+          }
+          const file = new File([blob], p.image.split('/').pop() || 'post.jpg',
+            { type: blob.type && blob.type.startsWith('image') ? blob.type : 'image/jpeg' })
+          if (navigator.canShare?.({ files: [file] })) {
+            await navigator.share({ files: [file], text: caption })
+          } else {
+            await navigator.share({ text: caption })
+            window.open(p.image, '_blank')
+          }
+          setOk(copied ? S.shareCopied : '')
+          setSharePrompt(p)
+          return
+        } catch (e) {
+          if (e && e.name === 'AbortError') return // user closed the sheet
+          // fall through to the download fallback
+        }
+      }
+      window.open(p.image, '_blank')
+      setOk(S.shareFallbackToast)
+      setSharePrompt(p)
+    } finally {
+      setSharing('')
+    }
+  }
+
+  const markPublished = async () => {
+    if (!sharePrompt) return
+    const next = {
+      ...batch,
+      posts: batch.posts.map((p) =>
+        p.id === sharePrompt.id
+          ? { ...p, status: 'published',
+              publishedAt: new Date().toISOString().slice(0, 10) }
+          : p),
+    }
+    setBusy(true)
+    try {
+      await backend.aimodels.writeBatch(next)
+      setBatch(next)
+      setDirty(false)
+      setOk(S.publishedOk)
+    } catch (e) {
+      setError(e.message)
+    } finally {
+      setBusy(false)
+      setSharePrompt(null)
+    }
+  }
 
   const confirmRework = async () => {
     if (!reworking || !reworkText.trim()) return
@@ -369,6 +442,7 @@ export default function AiModelsTab({ active }) {
               <option value="pending">{S.statuses.pending} ({counts.pending})</option>
               <option value="scheduled">{S.statuses.scheduled} ({counts.scheduled})</option>
               <option value="reworking">{S.statuses.reworking} ({counts.reworking || 0})</option>
+              <option value="published">{S.statuses.published} ({counts.published || 0})</option>
               <option value="rejected">{S.statuses.rejected} ({counts.rejected})</option>
             </select>
             <select value={charFilter} onChange={(e) => setCharFilter(e.target.value)}>
@@ -416,7 +490,9 @@ export default function AiModelsTab({ active }) {
                   const c = byId[p.char] || {}
                   const st = statusOf(p)
                   const border =
-                    st === 'scheduled' ? '2px solid #22a06b' : st === 'rejected' ? '2px solid #d33' : '1px solid var(--border,#ccc)'
+                    st === 'scheduled' ? '2px solid #22a06b'
+                      : st === 'published' ? '2px solid #0891b2'
+                      : st === 'rejected' ? '2px solid #d33' : '1px solid var(--border,#ccc)'
                   return (
                     <div key={p.id} style={{ border, borderRadius: 10, overflow: 'hidden', opacity: st === 'rejected' ? 0.55 : 1, position: 'relative' }}>
                       <span style={{ position: 'absolute', top: 6, insetInlineStart: 6, background: 'rgba(0,0,0,.65)', color: '#fff', borderRadius: 6, padding: '1px 8px', fontSize: 12 }}>
@@ -425,6 +501,11 @@ export default function AiModelsTab({ active }) {
                       {st === 'scheduled' && (
                         <span style={{ position: 'absolute', top: 6, insetInlineEnd: 6, background: '#22a06b', color: '#fff', borderRadius: 6, padding: '1px 8px', fontSize: 12, zIndex: 1 }}>
                           {S.scheduledBadge}
+                        </span>
+                      )}
+                      {st === 'published' && (
+                        <span style={{ position: 'absolute', top: 6, insetInlineEnd: 6, background: '#0891b2', color: '#fff', borderRadius: 6, padding: '1px 8px', fontSize: 12, zIndex: 1 }}>
+                          {S.publishedBadge}
                         </span>
                       )}
                       {st === 'reworking' && (
@@ -462,6 +543,20 @@ export default function AiModelsTab({ active }) {
                             {comparing[p.id] ? S.compareShowNew : S.compareShowPrev}
                           </button>
                         )}
+                        {st === 'published' && p.publishedAt && (
+                          <div style={{ fontSize: 11, color: '#0891b2', marginTop: 2 }}>
+                            {S.publishedBadge} {fmtCreated(p.publishedAt)}
+                          </div>
+                        )}
+                        {st !== 'rejected' && st !== 'reworking' && (
+                          <button
+                            onClick={() => shareToInstagram(p)}
+                            disabled={busy || sharing === p.id}
+                            style={{ width: '100%', marginTop: 6, padding: '10px 0', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 14, color: '#fff', cursor: 'pointer', background: 'linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)' }}
+                          >
+                            {sharing === p.id ? S.sharePreparing : `\u{1F4E4} ${S.share}`}
+                          </button>
+                        )}
                         <div style={{ display: 'flex', gap: 6, marginTop: 6 }}>
                           <button style={{ flex: 1, fontWeight: 600 }} onClick={() => openSchedule(p)} disabled={busy || st === 'reworking'}>
                             ⬆ {S.schedule}
@@ -482,6 +577,31 @@ export default function AiModelsTab({ active }) {
             )
           })}
         </>
+      )}
+
+      {sharePrompt && (
+        <div
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, zIndex: 55 }}
+          onClick={(e) => { if (e.target === e.currentTarget) setSharePrompt(null) }}
+        >
+          <div style={{ background: '#fff', color: '#1c1e24', border: '1px solid #ccc', borderRadius: 14, width: '100%', maxWidth: 360, padding: '16px 18px', textAlign: 'center' }}>
+            <img src={sharePrompt.thumb || sharePrompt.image} alt="" decoding="async" style={{ width: 72, height: 90, objectFit: 'cover', borderRadius: 8 }} />
+            <p style={{ fontWeight: 700, margin: '10px 0 2px' }}>{S.markPublishedQ}</p>
+            <p style={{ fontSize: 12, opacity: 0.65, margin: '0 0 12px' }}>
+              {(byId[sharePrompt.char] || {}).name || sharePrompt.char} · {sharePrompt.date}
+            </p>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button
+                onClick={markPublished}
+                disabled={busy}
+                style={{ flex: 1, background: '#0891b2', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 0', fontWeight: 700, cursor: 'pointer' }}
+              >
+                {busy ? S.saving : S.markPublishedYes}
+              </button>
+              <button onClick={() => setSharePrompt(null)} style={{ flex: 1, padding: '10px 0' }}>{S.markPublishedNo}</button>
+            </div>
+          </div>
+        </div>
       )}
 
       {reworking && (

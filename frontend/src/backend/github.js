@@ -355,6 +355,21 @@ export function create(params) {
         ),
       readPlan: async () =>
         JSON.parse((await readRepoFile('data/aimodels/plan.json', '{}')).text || '{}'),
+      // Release-asset downloads (browser_download_url) send no CORS
+      // headers, so a blob fetch for Web Share fails cross-origin. The
+      // GitHub API *is* CORS-enabled and redirects asset downloads to a
+      // CORS-friendly host - fetch the bytes through it instead.
+      fetchImageBlob: async (imageUrl) => {
+        const m = String(imageUrl).match(/releases\/download\/([^/]+)\/(.+)$/)
+        if (!m) throw new Error('not a release asset')
+        const info = await releaseAssetUrls(decodeURIComponent(m[1]), decodeURIComponent(m[2]))
+        if (!info) throw new Error('asset not found')
+        const headers = { Accept: 'application/octet-stream' }
+        if (token()) headers.Authorization = `Bearer ${token()}`
+        const res = await fetch(info.assetApiUrl, { headers })
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        return await res.blob()
+      },
       writeBatch: async (batch) => {
         requireToken()
         const { sha } = await readRepoFile('data/aimodels/batch.json', '')
