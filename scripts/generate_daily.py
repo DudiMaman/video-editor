@@ -89,6 +89,7 @@ SCENES = {
     "swim": [
         "poolside near {city} in modest tasteful swimwear, sitting on the edge with feet in the water, sun-lit",
         "walking out of the water at a beach near {city}, modest one-piece swimsuit, squinting at the sun",
+        "lying on a towel by a pool near {city} propped on her elbows, modest swimwear, sunglasses pushed up, soft sun flare",
     ],
 }
 
@@ -240,11 +241,12 @@ def generate_image(reference_url: str, prompt: str, aspect: str = "3:4") -> str:
     })
 
 
-def generate_with_refs(char: dict, prompt: str, aspect: str = "3:4") -> str:
+def generate_with_refs(char: dict, prompt: str, aspect: str = "3:4",
+                       kind: str = "sheet") -> str:
     """generate_image over the reference-candidate chain: a reference the
     API can't ingest (bad content-type, dead link) is not a generation
-    failure - the next copy of the same sheet is tried."""
-    candidates = reference_candidates(char)
+    failure - the next copy of the same reference is tried."""
+    candidates = reference_candidates(char, kind)
     for ci, ref in enumerate(candidates):
         try:
             return generate_image(ref, prompt, aspect)
@@ -497,13 +499,17 @@ def still_qa(local_still: Path, char: dict, work_dir: Path) -> tuple[bool, str]:
         return True, "qa error - skipped"
 
 
-def build_reel_still(char: dict, batch: dict, prompt: str, item_id: str,
-                     out_dir: Path) -> tuple[Path, dict | None]:
+def build_reel_still(char: dict, batch: dict, theme: str, lessons: dict,
+                     item_id: str, out_dir: Path):
     """Produce the QA-approved 9:16 frame a reel will animate. Returns
-    (local path, source item or None). Order: an already-approved photo of
-    the character first; otherwise a fresh still, retried once with the QA
-    verdict folded into the prompt; a frame that still fails QA raises -
-    better no reel today than an off-identity one."""
+    (local path, source item or None, prompt used or None, scene or None).
+
+    Order: an already-approved photo of the character first; otherwise a
+    fresh still against the single-figure CASTING reference (the two-view
+    sheet gets copied outright often enough that prompt guards alone lost
+    twice in run #11), rotating through the theme's scene variants with
+    each QA verdict folded into the next prompt. A frame that never passes
+    QA raises - better no reel today than an off-identity one."""
     raw = out_dir / f"{item_id}-src"
     still = out_dir / f"{item_id}-still.jpg"
     src = latest_approved_image(batch, char["id"])
@@ -511,27 +517,32 @@ def build_reel_still(char: dict, batch: dict, prompt: str, item_id: str,
         crop_to_9x16(download_to(src["image"], raw), still)
         ok, why = still_qa(still, char, out_dir)
         if ok:
-            return still, src
+            return still, src, None, None
         print(f"  approved source failed QA ({why}) - generating fresh",
               file=sys.stderr)
+    scenes = SCENES.get(theme) or SCENES["everyday"]
+    base = random.Random(f"{item_id}:{char['id']}").randrange(len(scenes))
     extra = ""
     why = ""
-    for attempt in (1, 2):
+    for attempt in range(3):
+        scene = scenes[(base + attempt) % len(scenes)].format(city=char["city"])
+        prompt = (IDENTITY_PREFIX + scene + REALISM_SUFFIX
+                  + avoid_clause(lessons, char["id"]) + extra)
         try:
-            url = generate_with_refs(char, prompt + extra, aspect="9:16")
+            url = generate_with_refs(char, prompt, aspect="9:16", kind="casting")
         except RuntimeError as e:
             if "aspect" not in str(e).lower():
                 raise
             # engine build without 9:16 support - take 3:4 and crop
-            url = generate_with_refs(char, prompt + extra, aspect="3:4")
+            url = generate_with_refs(char, prompt, aspect="3:4", kind="casting")
         crop_to_9x16(download_to(url, raw), still)
         ok, why = still_qa(still, char, out_dir)
         if ok:
-            return still, None
-        print(f"  fresh still failed QA (attempt {attempt}: {why})",
+            return still, None, prompt, scene
+        print(f"  fresh still failed QA (attempt {attempt + 1}: {why})",
               file=sys.stderr)
         extra = f" Strictly avoid: {why}."
-    raise RuntimeError(f"reel still failed QA twice: {why}")
+    raise RuntimeError(f"reel still failed QA 3 times: {why}")
 
 
 def make_caption(char: dict, scene: str) -> str:
@@ -560,13 +571,26 @@ def make_caption(char: dict, scene: str) -> str:
         return fallback
 
 
-def reference_candidates(char: dict) -> list[str]:
+def reference_candidates(char: dict, kind: str = "sheet") -> list[str]:
     """Identity-reference URLs to try in order. The Higgsfield API insists
     on a URL served with an image content-type, so the Pages mirror of the
     aimodels-roster release comes first (image/png, owned by us), then the
     original CDN copy while it exists, then the raw release asset
     (octet-stream - rejected today, kept as a last resort in case their
-    validation relaxes)."""
+    validation relaxes).
+
+    kind="casting" returns the single-figure casting portrait instead of
+    the two-view sheet. Reel stills use it: the engine sometimes copies
+    the sheet's layout outright (two duplicated figures on a white studio
+    backdrop - the 2026-08-17 reel, twice more in the retry run), and a
+    one-person reference has no such layout to copy."""
+    if kind == "casting" and char.get("casting"):
+        urls = [f"https://dudimaman.github.io/video-editor/refs/"
+                f"{char['casting'].rsplit('/', 1)[-1]}"]
+        if char.get("casting_src"):
+            urls.append(char["casting_src"])
+        urls.append(char["casting"])
+        return urls
     urls = [f"https://dudimaman.github.io/video-editor/refs/{char['id']}-sheet.png"]
     if char.get("sheet_src"):
         urls.append(char["sheet_src"])
@@ -682,17 +706,21 @@ def phase_generate(out_dir: Path) -> int:
                     # The frame to animate: an already-approved photo of the
                     # character when one exists (identity + scene the owner
                     # already signed off on), else a fresh QA-gated still.
-                    still_local, src_item = build_reel_still(
-                        char, batch, prompt, item_id, out_dir)
+                    still_local, src_item, reel_prompt, reel_scene = \
+                        build_reel_still(char, batch, theme, lessons,
+                                         item_id, out_dir)
                     if src_item:
                         theme = src_item.get("theme", theme)
                         scene = f"a candid {theme} moment in {char['city']}"
                         item["theme"] = theme
                         item["source_item"] = src_item["id"]
                         prompt = f"animated from approved photo {src_item['id']}"
-                        item["prompt"] = prompt
                         print(f"[{char['id']}/{typ}] animating approved "
                               f"photo {src_item['id']}")
+                    else:
+                        # the prompt/scene the QA-passing attempt really used
+                        prompt, scene = reel_prompt, reel_scene
+                    item["prompt"] = prompt
                     motion = REEL_MOTIONS.get(theme, REEL_MOTIONS["everyday"])
                     still_perm, thumb = persist_image_and_thumb(
                         still_local, release_tag, f"{item_id}-still.jpg", out_dir)
