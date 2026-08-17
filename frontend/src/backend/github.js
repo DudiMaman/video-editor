@@ -124,13 +124,8 @@ export function create(params) {
   }
 
   async function readAssetsFile() {
-    try {
-      const res = await gh('/contents/assets.json?ref=main')
-      return { assets: JSON.parse(b64ToUtf8(res.content)), sha: res.sha }
-    } catch (e) {
-      if (e.status === 404) return { assets: [], sha: null }
-      throw e
-    }
+    const { text, sha } = await readRepoFile('assets.json', '[]')
+    return { assets: JSON.parse(text || '[]'), sha }
   }
 
   async function writeAssetsFile(assets, sha, message) {
@@ -229,6 +224,23 @@ export function create(params) {
   // ---- Video Scout data files (data/*.json, data/brief.md) ----
 
   async function readRepoFile(path, fallback) {
+    // Anonymous api.github.com calls share a 60/hour per-IP quota; one open
+    // tab polling data files exhausts it and every read then fails with
+    // "API rate limit exceeded". Tokenless reads therefore go to the raw
+    // CDN, which is unmetered (the cache-buster defeats its ~5-minute edge
+    // cache). The sha is only needed for writes, and every write path calls
+    // requireToken() first — so a write-time read always has a token and
+    // takes the API branch, which returns the sha and counts against the
+    // authenticated 5000/hour quota instead.
+    if (!token()) {
+      const res = await fetch(
+        `https://raw.githubusercontent.com/${repo}/main/${encodePath(path)}?cb=${Date.now()}`,
+        { cache: 'no-store' }
+      )
+      if (res.status === 404) return { text: fallback, sha: null }
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      return { text: await res.text(), sha: null }
+    }
     try {
       const res = await gh(`/contents/${encodePath(path)}?ref=main`)
       return { text: b64ToUtf8(res.content), sha: res.sha }
@@ -422,7 +434,11 @@ export function create(params) {
       readBrief: () => readRepoFile('data/brief.md', ''),
       writeBrief: async (text, sha) => {
         requireToken()
-        await writeRepoFile('data/brief.md', text, sha, 'Update scout brief')
+        // The brief may have been loaded before the token was set — a raw
+        // CDN read, which carries no sha. Fetch one now (authenticated) so
+        // the PUT updates the existing file instead of failing with 422.
+        const useSha = sha || (await readRepoFile('data/brief.md', '')).sha
+        await writeRepoFile('data/brief.md', text, useSha, 'Update scout brief')
       },
       // output_asset is "<release tag>/<file name>"
       resolveOutput: (outputAsset) => {
@@ -432,7 +448,10 @@ export function create(params) {
         return releaseAssetUrls(tag, file)
       },
     },
-    pollInterval: () => (token() ? 15000 : 60000),
+    // The batches list has no raw-CDN equivalent (releases + workflow runs
+    // are API-only), so tokenless polling must stay well under the 60/hour
+    // anonymous quota: 5 minutes ≈ 24 calls/hour for the two-call poll.
+    pollInterval: () => (token() ? 15000 : 300000),
     hasToken: () => !!token(),
     setToken: (t) => localStorage.setItem(TOKEN_KEY, t.trim()),
     clearToken: () => localStorage.removeItem(TOKEN_KEY),
