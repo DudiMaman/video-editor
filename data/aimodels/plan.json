@@ -1,12 +1,16 @@
 {
   "daily_posts_per_character": 1,
   "reels": {
-    "enabled": false,
+    "enabled": true,
     "days": [
       "Wed",
       "Sat"
     ],
-    "per_character": 1
+    "per_character": 1,
+    "chars": [
+      "ruby"
+    ],
+    "duration_s": 5
   },
   "stories": {
     "enabled": false,
@@ -41,5 +45,5 @@
     "swim"
   ],
   "everyday_ratio": 0.4,
-  "note": "daily plan - funded run, ref fallback 2026-08-16T12:50:29Z"
+  "note": "reels enabled for ruby (Wed+Sat); posts daily for all"
 }

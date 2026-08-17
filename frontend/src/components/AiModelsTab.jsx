@@ -237,8 +237,10 @@ export default function AiModelsTab({ active }) {
           } catch {
             blob = await backend.aimodels.fetchImageBlob(p.image)
           }
-          const file = new File([blob], p.image.split('/').pop() || 'post.jpg',
-            { type: blob.type && blob.type.startsWith('image') ? blob.type : 'image/jpeg' })
+          const name = p.image.split('/').pop() || 'post.jpg'
+          const fallbackType = name.endsWith('.mp4') ? 'video/mp4' : 'image/jpeg'
+          const t = blob.type && /^(image|video)\//.test(blob.type) ? blob.type : fallbackType
+          const file = new File([blob], name, { type: t })
           if (navigator.canShare?.({ files: [file] })) {
             await navigator.share({ files: [file], text: caption })
           } else {
@@ -523,10 +525,18 @@ export default function AiModelsTab({ active }) {
                           {S.reworkedBadge}
                         </span>
                       )}
+                      {p.type === 'reel' && String(p.image).endsWith('.mp4') ? (
+                        <video
+                          controls playsInline preload="none"
+                          poster={p.thumb || p.still}
+                          src={p.image}
+                          style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', display: 'block', background: '#000', opacity: st === 'reworking' ? 0.4 : 1 }} />
+                      ) : (
                       <img
                         src={comparing[p.id] && p.prev_image ? (p.prev_thumb || p.prev_image) : (p.thumb || p.image)}
                         alt="" loading="lazy" decoding="async"
                         style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', display: 'block', opacity: st === 'reworking' ? 0.4 : 1, filter: st === 'reworking' ? 'grayscale(35%)' : 'none' }} />
+                      )}
                       <div style={{ padding: '6px 10px', fontSize: 13 }}>
                         <b>{c.name || p.char}</b> · {p.date} · {p.time}
                         {p.generatedAt && (
@@ -566,7 +576,7 @@ export default function AiModelsTab({ active }) {
                           <button style={{ flex: 1, fontWeight: 600 }} onClick={() => openSchedule(p)} disabled={busy || st === 'reworking'}>
                             ⬆ {S.schedule}
                           </button>
-                          <button style={{ flex: 1 }} onClick={() => { setReworking(p); setReworkText(''); setReworkErr('') }} disabled={busy || st === 'reworking'}>
+                          <button style={{ flex: 1 }} onClick={() => { setReworking(p); setReworkText(''); setReworkErr('') }} disabled={busy || st === 'reworking' || p.type === 'reel'}>
                             🛠 {S.rework}
                           </button>
                           <button style={{ flex: 1 }} onClick={() => { setRejecting(p); setRejectReason(p.reject_reason || ''); setRejectErr('') }} disabled={p.status === 'rejected' || st === 'reworking'}>
