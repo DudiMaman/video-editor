@@ -529,7 +529,13 @@ export default function AiModelsTab({ active }) {
                         <video
                           controls playsInline preload="none"
                           poster={p.thumb || p.still}
-                          src={p.image}
+                          // Play from the site's own mirror: iOS refuses
+                          // release assets (octet-stream attachment). Falls
+                          // back to the release URL if the mirror is absent.
+                          src={`${import.meta.env.BASE_URL}media/${String(p.image).split('/').pop()}`}
+                          onError={(e) => {
+                            if (e.currentTarget.src !== p.image) e.currentTarget.src = p.image
+                          }}
                           style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', display: 'block', background: '#000', opacity: st === 'reworking' ? 0.4 : 1 }} />
                       ) : (
                       <img
