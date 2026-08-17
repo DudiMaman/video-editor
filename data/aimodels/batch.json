@@ -1,5 +1,5 @@
 {
-  "week": "2026-W33",
+  "week": "2026-W34",
   "note": "מנת פתיחה — 3 פוסטים ראשונים לכל דמות",
   "posts": [
     {
@@ -1351,6 +1351,114 @@
       "time": "19:00",
       "status": "pending",
       "generatedAt": "2026-08-14"
+    },
+    {
+      "id": "yuna-2026-08-17-post",
+      "char": "yuna",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/yuna-2026-08-17-post.jpg",
+      "caption": "couch, hoodie, coffee, zero plans — this is the whole agenda today ☕🤍 #lazymorning #hoodieweather #homebody #tokyolife #slowliving",
+      "date": "2026-08-17",
+      "time": "19:00",
+      "status": "pending",
+      "generatedAt": "2026-08-17T04:39:48Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. at home on the couch in an oversized hoodie holding a mug, lazy morning vibe, blanket half falling off Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+    },
+    {
+      "id": "mina-2026-08-17-post",
+      "char": "mina",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/mina-2026-08-17-post.jpg",
+      "caption": "just my feet in the water and zero plans for the rest of the day 🌞 #pooldayvibes #seoulsummer #sunlitmood #slowdaysclub",
+      "date": "2026-08-17",
+      "time": "19:00",
+      "status": "pending",
+      "generatedAt": "2026-08-17T04:41:17Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. poolside near Seoul in modest tasteful swimwear, sitting on the edge with feet in the water, sun-lit Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+    },
+    {
+      "id": "sofia-2026-08-17-post",
+      "char": "sofia",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/sofia-2026-08-17-post.jpg",
+      "caption": "chasing sun and quiet moments, one splash at a time ☀️🌊 #madridsummer #poolsidevibes #sunkissed #slowlivingmadrid #summerdays",
+      "date": "2026-08-17",
+      "time": "20:00",
+      "status": "pending",
+      "generatedAt": "2026-08-17T04:42:01Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. poolside near Madrid in modest tasteful swimwear, sitting on the edge with feet in the water, sun-lit Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+    },
+    {
+      "id": "lucia-2026-08-17-post",
+      "char": "lucia",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/lucia-2026-08-17-post.jpg",
+      "caption": "tried on a jacket, left with a full-blown laughing fit in the mirror 🧥😂 sevilla shops hit different #sevillastyle #boutiquefinds #fittingroomdiaries #casualstyle #sevillalife",
+      "date": "2026-08-17",
+      "time": "20:00",
+      "status": "pending",
+      "generatedAt": "2026-08-17T04:42:46Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. trying on a jacket in a small boutique in Seville, caught mid-laugh in the fitting mirror Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+    },
+    {
+      "id": "giulia-2026-08-17-post",
+      "char": "giulia",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/giulia-2026-08-17-post.jpg",
+      "caption": "tired feet, full tote bag, golden dusk over milan — today was a good kind of exhausted 🌆 #milanlife #dusk #citywalks #tiredbuthappy #ootd",
+      "date": "2026-08-17",
+      "time": "19:30",
+      "status": "pending",
+      "generatedAt": "2026-08-17T04:43:21Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. walking home at dusk in Milan carrying a tote bag, tired but content Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+    },
+    {
+      "id": "elsa-2026-08-17-post",
+      "char": "elsa",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/elsa-2026-08-17-post.jpg",
+      "caption": "did the whole \"getting up early\" thing once. didn't like it ☕ #lazymorning #couchlife #stockholmliving #cozyvibes #slowmornings",
+      "date": "2026-08-17",
+      "time": "18:30",
+      "status": "pending",
+      "generatedAt": "2026-08-17T04:44:06Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. at home on the couch in an oversized hoodie holding a mug, lazy morning vibe, blanket half falling off Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+    },
+    {
+      "id": "ruby-2026-08-17-post",
+      "char": "ruby",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/ruby-2026-08-17-post.jpg",
+      "caption": "tourist in my own city but make it cute 🌪️ #austintx #atxlife #austinlandmarks #texasliving",
+      "date": "2026-08-17",
+      "time": "18:00",
+      "status": "pending",
+      "generatedAt": "2026-08-17T04:46:57Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. visiting a famous landmark in Austin, candid tourist moment but effortless, slightly windblown Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+    },
+    {
+      "id": "isabela-2026-08-17-post",
+      "char": "isabela",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/isabela-2026-08-17-post.jpg",
+      "caption": "morning fuel: coffee in one hand, pastel in the other, rio sunshine doing the rest ☀️ #riodejaneiro #morningvibes #cafezinho #lifestyleblogger #bomdia",
+      "date": "2026-08-17",
+      "time": "18:30",
+      "status": "pending",
+      "generatedAt": "2026-08-17T04:48:36Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. holding a takeaway coffee and a pastry on a bench in Rio, morning light Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
+    },
+    {
+      "id": "petra-2026-08-17-post",
+      "char": "petra",
+      "type": "post",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/petra-2026-08-17-post.jpg",
+      "caption": "chlorine-free version of me, finally 🌞 squinting into summer like it owes me money #czechbeach #summervibes #praguelife #lakeday #sunkissed",
+      "date": "2026-08-17",
+      "time": "19:00",
+      "status": "pending",
+      "generatedAt": "2026-08-17T04:49:31Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. walking out of the water at a beach near Prague, modest one-piece swimsuit, squinting at the sun Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look."
     }
   ]
 }
