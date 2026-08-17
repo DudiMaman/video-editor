@@ -32,7 +32,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from generate_daily import (  # noqa: E402
-    REPO_ROOT, commit_batch, load_json, make_caption, persist_image_and_thumb,
+    REPO_ROOT, REPO_SLUG, commit_batch, load_json, make_caption,
+    persist_image_and_thumb,
 )
 
 # What each backlog theme depicts - feeds the caption prompt. The backlog's
@@ -108,7 +109,14 @@ def main() -> int:
         idx = per_char_index.setdefault(char_id, 0)
 
         already = by_image.get(src)
-        if item_id in existing_ids or (already and "releases/download" in str(already.get("image"))):
+        # An entry is done when its stable id exists, when the item that
+        # held the CDN link was already relinked, or when ANY item already
+        # points at the permanent asset this entry would produce (a relink
+        # replaces the CDN url, so a re-run can't match by source alone).
+        perm_url = f"https://github.com/{REPO_SLUG}/releases/download/{tag}/{item_id}.png"
+        if (item_id in existing_ids
+                or perm_url in by_image
+                or (already and "releases/download" in str(already.get("image")))):
             skipped += 1
             continue
 
