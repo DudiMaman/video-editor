@@ -1,5 +1,16 @@
 {
-  "signature": "",
-  "global": [],
-  "per_char": {}
+  "signature": "797af1a4ce4550f4ca7fa37805893dbb9d53bea2",
+  "updated": "2026-08-17",
+  "rejections_learned_from": 14,
+  "global": [
+    "Do not deviate from the character's established facial identity",
+    "Do not alter core facial structure, features, or proportions",
+    "Do not generate a face inconsistent with reference likeness",
+    "Maintain consistent identity across all themes and outfits"
+  ],
+  "per_char": {
+    "giulia": [
+      "Do not drift from Giulia's approved facial likeness"
+    ]
+  }
 }
