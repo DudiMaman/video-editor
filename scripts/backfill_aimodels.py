@@ -32,7 +32,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from generate_daily import (  # noqa: E402
-    REPO_ROOT, commit_batch, load_json, make_caption, persist_image,
+    REPO_ROOT, commit_batch, load_json, make_caption, persist_image_and_thumb,
 )
 
 # What each backlog theme depicts - feeds the caption prompt. The backlog's
@@ -122,7 +122,7 @@ def main() -> int:
             from_cdn += 1
 
         try:
-            permanent = persist_image(source, tag, f"{item_id}.png", out_dir)
+            permanent, thumb = persist_image_and_thumb(source, tag, f"{item_id}.png", out_dir)
         except Exception as e:
             print(f"[{item_id}] persist FAILED: {e}", file=sys.stderr)
             failures += 1
@@ -145,6 +145,7 @@ def main() -> int:
                 "type": "post",
                 "theme": theme,
                 "image": permanent,
+                **({"thumb": thumb} if thumb else {}),
                 "caption": caption,
                 "date": date,
                 "time": times.get(char_id, "19:00"),

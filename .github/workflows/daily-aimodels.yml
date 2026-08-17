@@ -30,7 +30,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install Python dependencies
-        run: pip install anthropic
+        run: pip install anthropic pillow
 
       # Generates one pending post per character (idempotent per day) into
       # out/aimodels; images are made with Higgsfield soul/reference from

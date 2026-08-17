@@ -235,7 +235,7 @@ export default function AiModelsTab({ active }) {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(210px,1fr))', gap: 12 }}>
           {roster.map((c) => (
             <div key={c.id} style={{ border: '1px solid var(--border,#ccc)', borderRadius: 10, overflow: 'hidden' }}>
-              <img src={c.casting} alt={c.name} style={{ width: '100%', aspectRatio: '3/4', objectFit: 'cover', display: 'block' }} />
+              <img src={c.casting_thumb || c.casting} alt={c.name} loading="lazy" decoding="async" style={{ width: '100%', aspectRatio: '3/4', objectFit: 'cover', display: 'block' }} />
               <div style={{ padding: '6px 10px', fontSize: 13 }}>
                 <b>{c.name}</b> · {c.city}
                 <div dir="ltr" style={{ textAlign: 'left', opacity: 0.75 }}>{c.handle}</div>
@@ -295,7 +295,7 @@ export default function AiModelsTab({ active }) {
             <div key={charId} style={{ borderTop: '2px solid var(--border,#ccc)', marginTop: 18, paddingTop: 10 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
                 {gc.casting && (
-                  <img src={gc.casting} alt="" style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover' }} />
+                  <img src={gc.casting_thumb || gc.casting} alt="" decoding="async" style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover' }} />
                 )}
                 <h3 style={{ margin: 0 }}>{gc.name || charId}</h3>
                 <span style={{ opacity: 0.65 }}>· {gc.city}</span>
@@ -322,7 +322,7 @@ export default function AiModelsTab({ active }) {
                           {S.scheduledBadge}
                         </span>
                       )}
-                      <img src={p.image} alt="" loading="lazy" style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', display: 'block' }} />
+                      <img src={p.thumb || p.image} alt="" loading="lazy" decoding="async" style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', display: 'block' }} />
                       <div style={{ padding: '6px 10px', fontSize: 13 }}>
                         <b>{c.name || p.char}</b> · {p.date} · {p.time}
                         {p.generatedAt && (
@@ -358,7 +358,7 @@ export default function AiModelsTab({ active }) {
           <div style={{ background: '#fff', color: '#1c1e24', border: '1px solid #ccc', borderRadius: 14, width: '100%', maxWidth: 640, maxHeight: '90vh', overflow: 'auto', padding: '16px 18px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
               {schedChar.casting && (
-                <img src={schedChar.casting} alt="" style={{ width: 38, height: 38, borderRadius: '50%', objectFit: 'cover' }} />
+                <img src={schedChar.casting_thumb || schedChar.casting} alt="" decoding="async" style={{ width: 38, height: 38, borderRadius: '50%', objectFit: 'cover' }} />
               )}
               <div>
                 <b>{S.calendarOf} {schedChar.name || sched.char}</b>
@@ -401,7 +401,7 @@ export default function AiModelsTab({ active }) {
                     <span style={{ position: 'absolute', top: 2, insetInlineEnd: 5 }}>{d}</span>
                     {taken && (
                       <>
-                        <img src={taken.image} alt="" loading="lazy"
+                        <img src={taken.thumb || taken.image} alt="" loading="lazy" decoding="async"
                           style={{ position: 'absolute', bottom: 14, insetInline: 3, height: '48%', width: 'calc(100% - 6px)', objectFit: 'cover', borderRadius: 4 }} />
                         <span style={{ position: 'absolute', bottom: 2, insetInline: 3, fontSize: 9, background: '#22a06b', color: '#fff', borderRadius: 4, textAlign: 'center' }}>
                           {S.scheduledBadge}

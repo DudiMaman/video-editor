@@ -143,6 +143,34 @@ def persist_image(source, tag: str, name: str, work_dir: Path) -> str:
     return f"https://github.com/{REPO_SLUG}/releases/download/{tag}/{name}"
 
 
+def make_thumb(src: Path, dest: Path, width: int = 480, quality: int = 80) -> Path:
+    """Small progressive-JPEG derivative for the gallery. The originals
+    are multi-MB PNGs that made the tab crawl and render half-loaded
+    ("pixelated"); cards only need ~480px."""
+    from PIL import Image
+    im = Image.open(src).convert("RGB")
+    if im.width > width:
+        im = im.resize((width, round(im.height * width / im.width)),
+                       Image.LANCZOS)
+    im.save(dest, "JPEG", quality=quality, optimize=True, progressive=True)
+    return dest
+
+
+def persist_image_and_thumb(source, tag: str, name: str, work_dir: Path):
+    """persist_image plus a companion <name>.thumb.jpg asset; returns
+    (image_url, thumb_url). A failed thumbnail never fails the item -
+    the UI falls back to the original."""
+    url = persist_image(source, tag, name, work_dir)
+    tname = f"{name.rsplit('.', 1)[0]}.thumb.jpg"
+    try:
+        make_thumb(work_dir / name, work_dir / tname)
+        turl = persist_image(work_dir / tname, tag, tname, work_dir)
+    except Exception as e:
+        print(f"thumb failed for {name}: {e}", file=sys.stderr)
+        turl = None
+    return url, turl
+
+
 def api(path: str, payload: dict | None = None) -> dict:
     key = os.environ.get("HIGGSFIELD_API_KEY", "")
     req = urllib.request.Request(
@@ -308,13 +336,15 @@ def phase_generate(out_dir: Path) -> int:
                                   f"({ref.split('/')[2]}), trying next", file=sys.stderr)
                             continue
                         raise
-                permanent = persist_image(url, release_tag, f"{item_id}.jpg", out_dir)
+                permanent, thumb = persist_image_and_thumb(
+                    url, release_tag, f"{item_id}.jpg", out_dir)
                 caption = make_caption(char, scene)
                 new_items.append({
                     "id": item_id,
                     "char": char["id"],
                     "type": typ,
                     "image": permanent,
+                    **({"thumb": thumb} if thumb else {}),
                     "caption": caption,
                     "date": today,
                     "time": (plan.get("post_times_by_char") or {}).get(char["id"], "19:00"),
