@@ -53,6 +53,9 @@ export default function AiModelsTab({ active }) {
   const [schedDay, setSchedDay] = useState(null)
   const [schedTime, setSchedTime] = useState('19:00')
   const [schedErr, setSchedErr] = useState('')
+  // Floating preview over a calendar post: follows the mouse on hover;
+  // on touch devices a tap on the post toggles the same preview.
+  const [preview, setPreview] = useState(null) // {x, y, post}
 
   useEffect(() => {
     if (!active || roster !== null) return
@@ -163,6 +166,7 @@ export default function AiModelsTab({ active }) {
     setSched(p)
     setSchedMonth({ y: now.getFullYear(), m0: now.getMonth() })
     setSchedDay(null)
+    setPreview(null)
     setSchedTime(
       (plan.post_times_by_char || {})[p.char] || p.time || '19:00')
     setSchedErr('')
@@ -217,8 +221,24 @@ export default function AiModelsTab({ active }) {
     setSchedMonth(({ y, m0 }) => {
       const dt = new Date(y, m0 + d, 1)
       setSchedDay(null)
+      setPreview(null)
       return { y: dt.getFullYear(), m0: dt.getMonth() }
     })
+
+  // Keep the floating preview on-screen: prefer beside the cursor, flip
+  // to the other side near the right edge, clamp near the bottom.
+  const placePreview = (e, post) => {
+    let x = e.clientX + 16
+    let y = e.clientY + 16
+    if (x + 244 > window.innerWidth) x = Math.max(8, e.clientX - 250)
+    if (y + 340 > window.innerHeight) y = Math.max(8, window.innerHeight - 346)
+    setPreview({ x, y, post })
+  }
+
+  const fmtDate = (iso) => {
+    const m = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})/)
+    return m ? `${+m[3]}.${+m[2]}.${m[1]}` : String(iso || '')
+  }
 
   return (
     <div className="aimodels">
@@ -390,20 +410,26 @@ export default function AiModelsTab({ active }) {
                 return (
                   <div
                     key={d}
-                    onClick={taken ? undefined : () => setSchedDay(d)}
+                    onClick={taken
+                      ? (e) => (preview && preview.post.id === taken.id
+                          ? setPreview(null)
+                          : placePreview(e, taken))
+                      : () => { setPreview(null); setSchedDay(d) }}
+                    onMouseMove={taken ? (e) => placePreview(e, taken) : undefined}
+                    onMouseLeave={taken ? () => setPreview(null) : undefined}
                     style={{
                       aspectRatio: '1', border: picked ? '2px solid #6ea8fe' : '1px solid #ccc',
                       background: picked ? 'rgba(110,168,254,.15)' : taken ? '#f4f4f6' : 'transparent',
                       borderRadius: 8, padding: 3, position: 'relative', fontSize: 11,
-                      cursor: taken ? 'default' : 'pointer', overflow: 'hidden',
+                      cursor: 'pointer', overflow: 'hidden',
                     }}
                   >
-                    <span style={{ position: 'absolute', top: 2, insetInlineEnd: 5 }}>{d}</span>
+                    <span style={{ position: 'absolute', top: 2, insetInlineEnd: 5, zIndex: 1 }}>{d}</span>
                     {taken && (
                       <>
                         <img src={taken.thumb || taken.image} alt="" loading="lazy" decoding="async"
-                          style={{ position: 'absolute', bottom: 14, insetInline: 3, height: '48%', width: 'calc(100% - 6px)', objectFit: 'cover', borderRadius: 4 }} />
-                        <span style={{ position: 'absolute', bottom: 2, insetInline: 3, fontSize: 9, background: '#22a06b', color: '#fff', borderRadius: 4, textAlign: 'center' }}>
+                          style={{ position: 'absolute', bottom: 14, insetInline: 3, height: '60%', width: 'calc(100% - 6px)', objectFit: 'cover', borderRadius: 4 }} />
+                        <span style={{ position: 'absolute', bottom: 2, insetInline: 3, fontSize: 9, background: '#22a06b', color: '#fff', borderRadius: 4, textAlign: 'center', zIndex: 1 }}>
                           {S.scheduledBadge}
                         </span>
                       </>
@@ -435,6 +461,17 @@ export default function AiModelsTab({ active }) {
             {schedErr && <p className="error" style={{ marginTop: 8 }}>{schedErr}</p>}
             <p style={{ fontSize: 12, opacity: 0.6, marginTop: 8 }}>{S.calendarHint}</p>
           </div>
+
+          {preview && (
+            <div style={{ position: 'fixed', left: preview.x, top: preview.y, width: 230, zIndex: 60, pointerEvents: 'none', background: '#fff', color: '#1c1e24', border: '2px solid #6ea8fe', borderRadius: 10, overflow: 'hidden', boxShadow: '0 8px 30px rgba(0,0,0,.45)' }}>
+              <img src={preview.post.thumb || preview.post.image} alt="" decoding="async"
+                style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', display: 'block' }} />
+              <div style={{ padding: '6px 9px', fontSize: 12 }}>
+                <b><span dir="ltr">{fmtDate(preview.post.date)}</span> · {schedChar.name || sched.char} · {preview.post.time}</b>
+                <div dir="ltr" style={{ textAlign: 'left', opacity: 0.75, marginTop: 3 }}>{preview.post.caption}</div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
