@@ -1628,6 +1628,21 @@
       "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/petra-2026-08-17-post.thumb.jpg",
       "reject_reason": "התמונה הזו לא דומה לקו הכללי של הדמות שיצרנו. הפנים שונות לגמרי",
       "rejectedAt": "2026-08-17"
+    },
+    {
+      "id": "ruby-2026-08-17-reel",
+      "char": "ruby",
+      "type": "reel",
+      "theme": "swim",
+      "caption": "just my feet, the sun, and zero plans today ☀️ #atxlife #poolday #austintx #summermood #sunkissed",
+      "date": "2026-08-17",
+      "time": "18:00",
+      "status": "pending",
+      "generatedAt": "2026-08-17T11:59:45Z",
+      "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. poolside near Austin in modest tasteful swimwear, sitting on the edge with feet in the water, sun-lit Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look. Strictly avoid: Avoid facial features deviating from established character identity; Avoid inconsistent face shape, structure, or likeness across generations; Avoid face drifting from ruby's reference likeness. | motion: gentle push-in, water sparkling, she brushes wet hair back and smiles at the camera",
+      "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/ruby-2026-08-17-reel.mp4",
+      "still": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/ruby-2026-08-17-reel-still.jpg",
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/ruby-2026-08-17-reel-still.thumb.jpg"
     }
   ]
 }

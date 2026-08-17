@@ -3,14 +3,33 @@
   "updated": "2026-08-17",
   "rejections_learned_from": 14,
   "global": [
-    "Do not deviate from the character's established facial identity",
-    "Do not alter core facial structure, features, or proportions",
-    "Do not generate a face inconsistent with reference likeness",
-    "Maintain consistent identity across all themes and outfits"
+    "Avoid facial features deviating from established character identity",
+    "Avoid inconsistent face shape, structure, or likeness across generations"
   ],
   "per_char": {
+    "yuna": [
+      "Avoid face drifting from yuna's reference likeness"
+    ],
+    "sofia": [
+      "Avoid face drifting from sofia's reference likeness"
+    ],
+    "lucia": [
+      "Avoid face drifting from lucia's reference likeness"
+    ],
     "giulia": [
-      "Do not drift from Giulia's approved facial likeness"
+      "Avoid face drifting from giulia's reference likeness"
+    ],
+    "elsa": [
+      "Avoid face drifting from elsa's reference likeness"
+    ],
+    "ruby": [
+      "Avoid face drifting from ruby's reference likeness"
+    ],
+    "isabela": [
+      "Avoid face drifting from isabela's reference likeness"
+    ],
+    "petra": [
+      "Avoid face drifting from petra's reference likeness"
     ]
   }
 }
