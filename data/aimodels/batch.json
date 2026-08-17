@@ -1315,9 +1315,14 @@
       "caption": "rio never runs out of little adventures to show me, even on days i think i've seen it all 🌿 #riodejaneiro #exploreRio #cidademaravilhosa #localadventures",
       "date": "2026-08-21",
       "time": "18:30",
-      "status": "pending",
+      "status": "reworking",
       "generatedAt": "2026-08-14",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/isabela-bf-9d506aaf83.thumb.jpg"
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/isabela-bf-9d506aaf83.thumb.jpg",
+      "rework": {
+        "reason": "התמונה נראית מלאכותית ועשוייה מידיי, במיוחד הברק והניקיון באיזור הפנים באיזור לא נקי כמו משרד כדורעף בחוף הים",
+        "requestedAt": "2026-08-17",
+        "prev_status": "pending"
+      }
     },
     {
       "id": "isabela-bf-011e56d040",
