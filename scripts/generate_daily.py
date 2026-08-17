@@ -224,6 +224,82 @@ def generate_image(reference_url: str, prompt: str) -> str:
     raise RuntimeError("generation timed out after 6 minutes")
 
 
+LESSONS_PATH = REPO_ROOT / "data" / "aimodels" / "lessons.json"
+
+
+def collect_rejections(batch: dict) -> list[dict]:
+    """Every rejection with a written reason is a training signal."""
+    out = []
+    for p in batch.get("posts", []):
+        r = (p.get("reject_reason") or "").strip()
+        if p.get("status") == "rejected" and r:
+            out.append({"char": p.get("char"), "theme": p.get("theme"),
+                        "reason": r})
+    return out
+
+
+def distill_lessons(batch: dict) -> dict:
+    """The system's learning loop: the reasons Dudi writes when rejecting
+    images are distilled (via the Claude API) into short DO-NOT guidelines
+    that are injected into every future generation prompt. Cached by a
+    signature of the rejection set, so distillation reruns only when new
+    reasoned rejections appear."""
+    import hashlib
+    rejections = collect_rejections(batch)
+    current = load_json(LESSONS_PATH, {})
+    sig = hashlib.sha1(json.dumps(rejections, sort_keys=True,
+                                  ensure_ascii=False).encode()).hexdigest()
+    if current.get("signature") == sig:
+        return current
+    if not rejections:
+        return {"signature": sig, "global": [], "per_char": {}}
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        print("no ANTHROPIC_API_KEY - keeping previous lessons", file=sys.stderr)
+        return current
+    try:
+        import anthropic
+        client = anthropic.Anthropic()
+        msg = client.messages.create(
+            model=CAPTION_MODEL, max_tokens=800,
+            messages=[{"role": "user", "content":
+                "You maintain generation guidelines for an AI-influencer "
+                "photo pipeline. Below are the owner's rejection reasons for "
+                "generated photos (Hebrew or English), each with the "
+                "character and theme. Distill them into concise English "
+                "DO-NOT guidelines to inject into the image-generation "
+                "prompt. Return ONLY JSON shaped "
+                '{"global": ["..."], "per_char": {"<char>": ["..."]}}. '
+                "A rule goes under per_char only when the reasons are "
+                "clearly about that character; otherwise global. Max 6 "
+                "global rules and 3 per character, each under 12 words, "
+                "phrased as things to avoid.\n\n"
+                + json.dumps(rejections, ensure_ascii=False)}])
+        text = " ".join(b.text for b in msg.content if b.type == "text")
+        data = json.loads(re.search(r"\{.*\}", text, re.S).group(0))
+        lessons = {
+            "signature": sig,
+            "updated": datetime.date.today().isoformat(),
+            "rejections_learned_from": len(rejections),
+            "global": [str(r) for r in (data.get("global") or [])][:6],
+            "per_char": {k: [str(r) for r in v][:3]
+                         for k, v in (data.get("per_char") or {}).items()},
+        }
+        print(f"lessons distilled from {len(rejections)} rejection(s): "
+              f"{len(lessons['global'])} global rules")
+        return lessons
+    except Exception as e:
+        print(f"lesson distillation failed: {e}", file=sys.stderr)
+        return current
+
+
+def avoid_clause(lessons: dict, char_id: str) -> str:
+    """The distilled lessons, as a prompt suffix for this character."""
+    rules = list(lessons.get("global") or []) + \
+        list((lessons.get("per_char") or {}).get(char_id) or [])
+    rules = [r.strip().rstrip(".") for r in rules if r and r.strip()][:8]
+    return (" Strictly avoid: " + "; ".join(rules) + ".") if rules else ""
+
+
 def make_caption(char: dict, scene: str) -> str:
     """English caption in the character's voice via the Claude API; falls
     back to a plain template when the key is missing so a caption problem
@@ -307,6 +383,15 @@ def phase_generate(out_dir: Path) -> int:
             if str(p.get("generatedAt", ""))[:10] == today}
 
     out_dir.mkdir(parents=True, exist_ok=True)
+
+    # The learning loop: distill Dudi's rejection reasons into avoid-rules
+    # and bake them into every prompt. The refreshed lessons ride to the
+    # repo in the commit phase (out_dir survives; the repo tree is reset).
+    lessons = distill_lessons(batch)
+    (out_dir / "lessons.json").write_text(
+        json.dumps(lessons, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8")
+
     release_tag = f"aimodels-{today}"
     new_items, failures = [], 0
     for char in roster:
@@ -317,7 +402,8 @@ def phase_generate(out_dir: Path) -> int:
             rng = random.Random(f"{today}:{char['id']}:{typ}")
             theme = pick_theme(rng, plan)
             scene = rng.choice(SCENES[theme]).format(city=char["city"])
-            prompt = IDENTITY_PREFIX + scene + REALISM_SUFFIX
+            prompt = (IDENTITY_PREFIX + scene + REALISM_SUFFIX
+                      + avoid_clause(lessons, char["id"]))
             item_id = f"{char['id']}-{today}-{typ}"
             try:
                 print(f"[{char['id']}/{typ}] {theme}: generating...")
@@ -352,7 +438,7 @@ def phase_generate(out_dir: Path) -> int:
                     "generatedAt": datetime.datetime.utcnow().isoformat(timespec="seconds") + "Z",
                     "prompt": prompt,
                 })
-                print(f"[{char['id']}/{typ}] done -> {dest.name}")
+                print(f"[{char['id']}/{typ}] done -> {item_id}.jpg")
             except Exception as e:  # one character failing must not stop the rest
                 failures += 1
                 print(f"[{char['id']}/{typ}] FAILED: {e}", file=sys.stderr)
@@ -406,7 +492,9 @@ def commit_batch(mutate, message: str, extra_paths=()) -> int:
 def phase_commit(out_dir: Path) -> int:
     items_file = out_dir / "new_items.json"
     new_items = json.loads(items_file.read_text()) if items_file.exists() else []
-    if not new_items:
+    lessons_file = out_dir / "lessons.json"
+    new_lessons = lessons_file.read_text() if lessons_file.exists() else None
+    if not new_items and not new_lessons:
         print("no new items to commit")
         return 0
     week = datetime.date.today().isocalendar()
@@ -414,16 +502,23 @@ def phase_commit(out_dir: Path) -> int:
     def mutate(batch):
         existing = {p.get("id") for p in batch.get("posts", [])}
         added = [i for i in new_items if i["id"] not in existing]
-        if not added:
-            return False
-        batch["posts"] = batch.get("posts", []) + added
-        batch["week"] = f"{week[0]}-W{week[1]:02d}"
-        print(f"appending {len(added)} item(s)")
-        return True
+        changed = bool(added)
+        if added:
+            batch["posts"] = batch.get("posts", []) + added
+            batch["week"] = f"{week[0]}-W{week[1]:02d}"
+            print(f"appending {len(added)} item(s)")
+        if new_lessons is not None:
+            old = LESSONS_PATH.read_text() if LESSONS_PATH.exists() else ""
+            if new_lessons != old:
+                LESSONS_PATH.write_text(new_lessons, encoding="utf-8")
+                print("lessons.json refreshed")
+                changed = True
+        return changed
 
     return commit_batch(
         mutate,
-        f"AI models: daily batch {datetime.date.today().isoformat()} ({len(new_items)} items)")
+        f"AI models: daily batch {datetime.date.today().isoformat()} ({len(new_items)} items)",
+        extra_paths=("data/aimodels/lessons.json",))
 
 
 def main() -> int:

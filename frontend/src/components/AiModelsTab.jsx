@@ -56,6 +56,12 @@ export default function AiModelsTab({ active }) {
   // Floating preview over a calendar post: follows the mouse on hover;
   // on touch devices a tap on the post toggles the same preview.
   const [preview, setPreview] = useState(null) // {x, y, post}
+  // Rejection dialog: the reason Dudi types is stored on the item and
+  // distilled into generation guidelines for future batches (the
+  // system's learning loop - see scripts/generate_daily.py).
+  const [rejecting, setRejecting] = useState(null)
+  const [rejectReason, setRejectReason] = useState('')
+  const [rejectErr, setRejectErr] = useState('')
 
   useEffect(() => {
     if (!active || roster !== null) return
@@ -185,6 +191,32 @@ export default function AiModelsTab({ active }) {
     }
     return m
   }, [sched, schedMonth, batch])
+
+  const confirmReject = async () => {
+    if (!rejecting) return
+    const next = {
+      ...batch,
+      posts: batch.posts.map((p) =>
+        p.id === rejecting.id
+          ? { ...p, status: 'rejected', reject_reason: rejectReason.trim(),
+              rejectedAt: new Date().toISOString().slice(0, 10) }
+          : p),
+    }
+    setBusy(true)
+    setRejectErr('')
+    try {
+      await backend.aimodels.writeBatch(next)
+      setBatch(next)
+      setDirty(false)
+      setOk(S.rejectedOk)
+      setRejecting(null)
+      setRejectReason('')
+    } catch (e) {
+      setRejectErr(e.message)
+    } finally {
+      setBusy(false)
+    }
+  }
 
   const confirmSchedule = async () => {
     if (!sched || !schedDay) return
@@ -351,11 +383,16 @@ export default function AiModelsTab({ active }) {
                           </div>
                         )}
                         <div dir="ltr" style={{ textAlign: 'left', opacity: 0.85, minHeight: 34 }}>{p.caption}</div>
+                        {st === 'rejected' && p.reject_reason && (
+                          <div style={{ fontSize: 11, color: '#d33', marginTop: 2 }}>
+                            {S.rejectReasonLabel}: {p.reject_reason}
+                          </div>
+                        )}
                         <div style={{ display: 'flex', gap: 6, marginTop: 6 }}>
                           <button style={{ flex: 1, fontWeight: 600 }} onClick={() => openSchedule(p)} disabled={busy}>
                             ⬆ {S.schedule}
                           </button>
-                          <button style={{ flex: 1 }} onClick={() => setStatus(p.id, 'rejected')} disabled={p.status === 'rejected'}>
+                          <button style={{ flex: 1 }} onClick={() => { setRejecting(p); setRejectReason(p.reject_reason || ''); setRejectErr('') }} disabled={p.status === 'rejected'}>
                             ✗ {S.reject}
                           </button>
                         </div>
@@ -368,6 +405,45 @@ export default function AiModelsTab({ active }) {
             )
           })}
         </>
+      )}
+
+      {rejecting && (
+        <div
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, zIndex: 55 }}
+          onClick={(e) => { if (e.target === e.currentTarget) setRejecting(null) }}
+        >
+          <div style={{ background: '#fff', color: '#1c1e24', border: '1px solid #ccc', borderRadius: 14, width: '100%', maxWidth: 420, padding: '16px 18px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+              <img src={rejecting.thumb || rejecting.image} alt="" decoding="async" style={{ width: 52, height: 65, objectFit: 'cover', borderRadius: 8 }} />
+              <div>
+                <b>{S.rejectTitle}</b>
+                <div style={{ fontSize: 12, opacity: 0.65 }}>{(byId[rejecting.char] || {}).name || rejecting.char} · {rejecting.date}</div>
+              </div>
+              <span style={{ flex: 1 }} />
+              <button onClick={() => setRejecting(null)} style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: 'inherit' }}>✕</button>
+            </div>
+            <textarea
+              rows={3}
+              autoFocus
+              style={{ width: '100%', boxSizing: 'border-box', border: '1px solid #ccc', borderRadius: 8, padding: 8, fontFamily: 'inherit', fontSize: 13 }}
+              placeholder={S.rejectWhy}
+              value={rejectReason}
+              onChange={(e) => setRejectReason(e.target.value)}
+            />
+            <div style={{ fontSize: 11, opacity: 0.6, marginTop: 4 }}>{S.rejectLearnNote}</div>
+            <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
+              <button
+                onClick={confirmReject}
+                disabled={busy}
+                style={{ flex: 1, background: '#d33', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 0', fontWeight: 700, cursor: 'pointer' }}
+              >
+                {busy ? S.saving : S.rejectConfirm}
+              </button>
+              <button onClick={() => setRejecting(null)} style={{ flex: 1 }}>{S.cancel}</button>
+            </div>
+            {rejectErr && <p className="error" style={{ marginTop: 8 }}>{rejectErr}</p>}
+          </div>
+        </div>
       )}
 
       {sched && schedMonth && (
