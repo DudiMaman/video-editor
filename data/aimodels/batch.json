@@ -982,9 +982,11 @@
       "caption": "just me, my slippers, and pretending i have my life together today ☕️ #milanlife #casualday #homebody #everydaymoments",
       "date": "2026-08-23",
       "time": "19:30",
-      "status": "pending",
+      "status": "rejected",
       "generatedAt": "2026-08-14",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/giulia-bf-c708d58569.thumb.jpg"
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/giulia-bf-c708d58569.thumb.jpg",
+      "reject_reason": "התמונה הזו לא דומה לקו הכללי של הדמות שיצרנו. הפנים שונות לגמרי",
+      "rejectedAt": "2026-08-17"
     },
     {
       "id": "giulia-bf-cd30a294c4",
