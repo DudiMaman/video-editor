@@ -5,8 +5,10 @@ on:
     branches: [main]
     # Data-file pushes (ledger updates, queue, suggestions) don't change the
     # UI; deploying on each one burns the ~10/hour Pages build quota and
-    # stalls real UI deploys.
-    paths: ['frontend/**', '.github/workflows/pages.yml']
+    # stalls real UI deploys. batch.json IS included: reel videos must be
+    # mirrored into the site (iOS refuses to play release assets - they are
+    # served as octet-stream attachments; Pages serves real video/mp4).
+    paths: ['frontend/**', '.github/workflows/pages.yml', 'data/aimodels/batch.json']
   workflow_dispatch:
 
 permissions:
@@ -45,6 +47,28 @@ jobs:
           mkdir -p frontend/dist/refs
           gh release download aimodels-roster -D frontend/dist/refs --clobber \
             || echo "no aimodels-roster release yet - skipping refs"
+
+      # Reel videos play from the site itself: iOS Safari refuses release
+      # assets (application/octet-stream + attachment disposition), while
+      # Pages serves real video/mp4 with range support.
+      - name: Include reel videos for mobile playback
+        run: |
+          mkdir -p frontend/dist/media
+          python3 - <<'PY'
+          import json, urllib.request
+          batch = json.load(open('data/aimodels/batch.json'))
+          n = 0
+          for p in batch.get('posts', []):
+              url = str(p.get('image', ''))
+              if p.get('type') == 'reel' and url.endswith('.mp4'):
+                  name = url.split('/')[-1]
+                  req = urllib.request.Request(url, headers={'User-Agent': 'pages-media/1.0'})
+                  with urllib.request.urlopen(req, timeout=120) as r:
+                      open(f'frontend/dist/media/{name}', 'wb').write(r.read())
+                  n += 1
+                  print(name)
+          print(f'{n} reel video(s) mirrored')
+          PY
       # Publishing to a gh-pages branch auto-enables GitHub Pages on public
       # repos — no admin API call needed (the workflow token can't create the
       # Pages site via the REST API).
