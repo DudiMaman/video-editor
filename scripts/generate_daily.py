@@ -345,7 +345,9 @@ REEL_MOTIONS = {
     "lifestyle": "very slow lateral drift, breeze in her hair, she glances at the view then back with a soft smile",
     "everyday": "static handheld with micro-shake, she laughs naturally and adjusts her hair, cozy ambient motion",
     "experience": "gentle handheld pan, she looks around and points at something off-screen, candid energy",
-    "swim": "static handheld with micro-shake, sunlight sparkling on the water, she splashes her feet gently and laughs",
+    # No body parts named: "she splashes her feet" made the animator grow a
+    # disembodied foreground foot in a portrait-framed frame (reel-2).
+    "swim": "static handheld with micro-shake, sunlight sparkling on the water, she laughs softly and tucks wet hair behind her ear",
 }
 
 

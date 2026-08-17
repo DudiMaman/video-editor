@@ -49,3 +49,14 @@ jobs:
       - name: Commit batch updates
         if: hashFiles('out/aimodels/new_items.json') != ''
         run: python scripts/generate_daily.py --commit --out out/aimodels
+
+      # The batch push above is made with GITHUB_TOKEN, and GitHub suppresses
+      # push-event workflows for such pushes - deploy-ui never fires on its
+      # own, so a fresh reel would stay unplayable on iOS (its mp4 only plays
+      # from the Pages media mirror). workflow_dispatch is exempt from that
+      # suppression: kick the deploy explicitly.
+      - name: Refresh the Pages media mirror
+        if: hashFiles('out/aimodels/new_items.json') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --ref main

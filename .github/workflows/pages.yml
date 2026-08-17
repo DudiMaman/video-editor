@@ -8,6 +8,9 @@ on:
     # stalls real UI deploys. batch.json IS included: reel videos must be
     # mirrored into the site (iOS refuses to play release assets - they are
     # served as octet-stream attachments; Pages serves real video/mp4).
+    # Note: the daily workflow's own batch pushes use GITHUB_TOKEN, which
+    # GitHub excludes from push triggers - that workflow dispatches this one
+    # explicitly after committing new items.
     paths: ['frontend/**', '.github/workflows/pages.yml', 'data/aimodels/batch.json']
   workflow_dispatch:
 
