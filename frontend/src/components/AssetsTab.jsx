@@ -11,6 +11,7 @@ function AssetEditor({ asset, onSaved, onDeleted }) {
     description: asset.description,
     link: asset.link,
     hashtags: asset.hashtags,
+    zernioAccountId: asset.zernioAccountId || '',
   })
   const [saved, setSaved] = useState(false)
   const [error, setError] = useState('')
@@ -60,6 +61,10 @@ function AssetEditor({ asset, onSaved, onDeleted }) {
         <label>
           {STR.assets.hashtags}
           <input type="text" dir="ltr" {...field('hashtags')} />
+        </label>
+        <label className="wide">
+          {STR.assets.zernioAccountId}
+          <input type="text" dir="ltr" {...field('zernioAccountId')} />
         </label>
       </div>
       <div className="asset-actions">

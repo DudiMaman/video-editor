@@ -163,6 +163,7 @@ export function create(params) {
     description: a.description || '',
     link: a.link || '',
     hashtags: a.hashtags || '',
+    zernioAccountId: a.zernioAccountId || '',
     outros: (a.outros || []).map(toClip),
     intros: (a.intros || []).map(toClip),
   })

@@ -3,8 +3,15 @@ import { STR } from '../strings.js'
 import { backend } from '../backend/index.js'
 import ShareBar from './ShareBar.jsx'
 import CleanPlayer from './CleanPlayer.jsx'
+import ScheduleCalendar from './ScheduleCalendar.jsx'
 
 const S = STR.scout
+
+// 19.8.2026 rendering for the scheduled-for / published-on indicators.
+const fmtDay = (v) => {
+  const m = String(v).match(/^(\d{4})-(\d{2})-(\d{2})/)
+  return m ? `${+m[3]}.${+m[2]}.${m[1]}` : String(v)
+}
 
 // stage: 'pending' | 'approved' | 'published'
 const STAGE = {
@@ -13,12 +20,13 @@ const STAGE = {
   published: { statuses: ['published'], explain: () => S.publishedExplain, empty: () => S.publishedEmpty },
 }
 
-function ReviewCard({ entry, stage, appName, onUpdated }) {
+function ReviewCard({ entry, stage, appName, asset, siblings, onUpdated }) {
   const [urls, setUrls] = useState(undefined) // undefined=loading, null=missing
   const [caption, setCaption] = useState(entry.caption || '')
   const [busy, setBusy] = useState(false)
   const [note, setNote] = useState('')
   const [copied, setCopied] = useState(false)
+  const [calOpen, setCalOpen] = useState(false)
 
   // Curation-only entries carry no processed output — just the source link.
   const linkOnly = !entry.output_asset
@@ -83,6 +91,43 @@ function ReviewCard({ entry, stage, appName, onUpdated }) {
     setTimeout(() => setNote(''), 2000)
   }
 
+  // ---- Zernio distribution (server-side; the tab only marks intent) ----
+
+  const zernioReady = !!asset?.zernioAccountId && !!entry.output_asset
+
+  const confirmSchedule = async (date, time) => {
+    await setStatus({ schedule: { date, time } },
+      `Scout: schedule ${entry.video_id} for ${date} ${time}`)
+    setCalOpen(false)
+    setNote(S.scheduledOk)
+    setTimeout(() => setNote(''), 3000)
+  }
+
+  const publishNow = async () => {
+    if (!confirm(S.publishNowConfirm)) return
+    await setStatus({ publishNow: true }, `Scout: publish now ${entry.video_id}`)
+    setNote(S.publishNowQueued)
+    setTimeout(() => setNote(''), 3000)
+  }
+
+  // Days already taken by this app's other scheduled/published videos -
+  // one post per app per day, same rule as the characters' calendar.
+  const occupied = {}
+  for (const s of siblings || []) {
+    if (s.video_id === entry.video_id) continue
+    const d = (s.schedule || {}).date ||
+      (s.status === 'published' ? String(s.published_at || '').slice(0, 10) : '')
+    if (!d) continue
+    occupied[d] = {
+      img: null,
+      tag: s.status === 'published' ? S.publishedTag : S.scheduledTag,
+      tagColor: s.status === 'published' ? '#0891b2' : '#22a06b',
+    }
+  }
+  const upcoming = Object.keys(occupied)
+    .filter((d) => d >= new Date().toISOString().slice(0, 10))
+    .sort()[0]
+
   // Shape ShareBar/backend helpers expect (same fields as batch requests).
   const shareRequest = urls
     ? { caption, _videoUrl: urls.videoUrl, _assetApiUrl: urls.assetApiUrl }
@@ -95,10 +140,30 @@ function ReviewCard({ entry, stage, appName, onUpdated }) {
         <span className="muted" dir="ltr">{entry.output_asset}</span>
         {stage === 'published' && entry.published_at && (
           <span className="badge badge-done">
-            {S.publishedAtLabel} {entry.published_at.slice(0, 10)}
+            {S.publishedTag} {fmtDay(entry.published_at)}
+            {entry.zernioPostUrl && (
+              <>
+                {' · '}
+                <a href={entry.zernioPostUrl} target="_blank" rel="noreferrer">{S.viewPost}</a>
+              </>
+            )}
           </span>
         )}
       </div>
+      {stage === 'approved' && entry.schedule?.date && (
+        <p style={{ color: '#22a06b', fontWeight: 600, fontSize: 13, margin: '2px 0' }}>
+          {S.scheduledOn} {fmtDay(entry.schedule.date)} {S.atHour} {entry.schedule.time}
+          {entry.zernioPostId && <span style={{ marginInlineStart: 8 }}>{S.distScheduled}</span>}
+        </p>
+      )}
+      {stage === 'approved' && entry.publishNow && !entry.zernioPostId && (
+        <p style={{ color: '#b8860b', fontWeight: 600, fontSize: 13, margin: '2px 0' }}>{S.publishingNow}</p>
+      )}
+      {entry.distribution?.state === 'failed' && (
+        <p className="error" style={{ fontSize: 12, margin: '2px 0' }} title={entry.distribution?.error || ''}>
+          {S.distFailed}{entry.distribution?.error ? `: ${String(entry.distribution.error).slice(0, 80)}` : ''}
+        </p>
+      )}
       {entry.source_url && (
         <p className="muted source-url" dir="ltr">
           <a href={entry.source_url} target="_blank" rel="noreferrer">
@@ -151,11 +216,55 @@ function ReviewCard({ entry, stage, appName, onUpdated }) {
           </>
         )}
         {stage === 'approved' && (
-          <button className="primary" onClick={markUploaded} disabled={busy}>
-            {S.markUploadedBtn}
-          </button>
+          <>
+            <button
+              className="primary"
+              onClick={() => setCalOpen(true)}
+              disabled={busy || !zernioReady || !!entry.zernioPostId}
+              title={!zernioReady ? S.zernioHintApps : ''}
+            >
+              {S.scheduleBtn}
+            </button>
+            <button
+              onClick={publishNow}
+              disabled={busy || !zernioReady || !!entry.zernioPostId || !!entry.publishNow}
+              title={!zernioReady ? S.zernioHintApps : ''}
+              style={{ background: '#22a06b', color: '#fff', border: 'none', borderRadius: 6, padding: '8px 14px', fontWeight: 700, cursor: 'pointer', opacity: (!zernioReady || entry.zernioPostId || entry.publishNow) ? 0.5 : 1 }}
+            >
+              {S.publishNowBtn}
+            </button>
+            <button className="secondary" onClick={markUploaded} disabled={busy}>
+              {S.markUploadedBtn}
+            </button>
+          </>
+        )}
+        {stage === 'approved' && !zernioReady && (
+          <span className="muted" style={{ fontSize: 11 }}>{S.zernioHintApps}</span>
         )}
       </div>
+      {calOpen && (
+        <ScheduleCalendar
+          header={(
+            <div>
+              <b>{S.schedCalendarOf} {appName}</b>
+              <div className="muted" style={{ fontSize: 12 }}>{S.schedOnlyThisApp}</div>
+            </div>
+          )}
+          occupied={occupied}
+          initialDate={entry.schedule?.date || upcoming}
+          defaultTime={entry.schedule?.time || '18:00'}
+          months={STR.aimodels.months}
+          legend={[
+            { color: '#22a06b', label: S.scheduledTag },
+            { color: '#0891b2', label: S.publishedTag },
+          ]}
+          confirmLabel={(day, m1, time) =>
+            busy ? '…' : day ? `${S.scheduleTo}${day}.${m1} ${S.atHour} ${time}` : `${S.scheduleTo}—`}
+          onConfirm={confirmSchedule}
+          onClose={() => setCalOpen(false)}
+          busy={busy}
+        />
+      )}
     </div>
   )
 }
@@ -174,10 +283,15 @@ export default function ReviewTab({ active, stage = 'pending' }) {
   const [appFilter, setAppFilter] = useState('')
   const [error, setError] = useState('')
 
+  const [allEntries, setAllEntries] = useState([])
+
   const load = () =>
     backend.scout
       .readLedger()
-      .then((l) => setEntries(l.filter((e) => cfg.statuses.includes(e.status))))
+      .then((l) => {
+        setAllEntries(l)
+        setEntries(l.filter((e) => cfg.statuses.includes(e.status)))
+      })
       .catch((e) => setError(e.message))
 
   useEffect(() => {
@@ -229,15 +343,21 @@ export default function ReviewTab({ active, stage = 'pending' }) {
       {entries.length === 0 ? (
         <p className="empty">{cfg.empty()}</p>
       ) : (
-        shown.map((e) => (
-          <ReviewCard
-            key={e.video_id}
-            entry={e}
-            stage={stage}
-            appName={appName(assetIdOf(e, inboxById))}
-            onUpdated={load}
-          />
-        ))
+        shown.map((e) => {
+          const aid = assetIdOf(e, inboxById)
+          return (
+            <ReviewCard
+              key={e.video_id}
+              entry={e}
+              stage={stage}
+              appName={appName(aid)}
+              asset={assets.find((a) => String(a.id) === String(aid))}
+              siblings={allEntries.filter(
+                (s) => String(assetIdOf(s, inboxById)) === String(aid))}
+              onUpdated={load}
+            />
+          )
+        })
       )}
     </div>
   )
