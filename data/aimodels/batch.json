@@ -1192,7 +1192,11 @@
       "status": "pending",
       "generatedAt": "2026-08-14",
       "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-2cc1f8d1d5.thumb.jpg",
-      "publishNow": true
+      "zernioPostId": "6a848cb00871505520380051",
+      "distribution": {
+        "via": "zernio",
+        "state": "publishing"
+      }
     },
     {
       "id": "ruby-bf-853ef9c452",
