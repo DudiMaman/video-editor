@@ -1,0 +1,41 @@
+name: distribute-aimodels
+
+# Pushes owner-approved AI-models items to Instagram through Zernio.
+# Publishing happens HERE, server-side, so ZERNIO_API_KEY never reaches
+# the frontend. Triggers:
+# - batch.json push: a tab save right after scheduling or "publish now"
+#   (tab saves use the owner's PAT, so the push event fires normally)
+# - hourly cron: status sync (scheduled -> published) and a safety net
+#   for batch commits made with GITHUB_TOKEN, which don't fire push events
+# - manual dispatch
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 * * * *'
+  push:
+    branches: [main]
+    paths: ['data/aimodels/batch.json']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: distribute-aimodels
+  cancel-in-progress: false
+
+jobs:
+  distribute:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Exits quietly when ZERNIO_API_KEY is not configured yet.
+      - name: Distribute approved items
+        env:
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/distribute_aimodels.py

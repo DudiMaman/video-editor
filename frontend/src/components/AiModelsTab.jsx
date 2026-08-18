@@ -73,6 +73,10 @@ export default function AiModelsTab({ active }) {
   // download fallback fired), ask whether the post actually went out.
   const [sharePrompt, setSharePrompt] = useState(null)
   const [sharing, setSharing] = useState('')
+  // "פרסם עכשיו" confirmation: publishing happens server-side (the
+  // distribute-aimodels Action holds the Zernio key) - the tab only
+  // flags the item publishNow:true and saves.
+  const [pubNow, setPubNow] = useState(null)
 
   useEffect(() => {
     if (!active || roster !== null) return
@@ -203,12 +207,16 @@ export default function AiModelsTab({ active }) {
     return m
   }, [sched, schedMonth, batch])
 
-  // While items are out for rework, quietly re-read batch.json so the
-  // returned image appears without a manual refresh (skipped when there
-  // are unsaved local edits).
+  // While items are out for rework or in-flight at the distributor
+  // (publish-now clicked / Zernio still publishing), quietly re-read
+  // batch.json so results appear without a manual refresh (skipped when
+  // there are unsaved local edits).
   useEffect(() => {
     if (!active || !batch || dirty) return
-    const waiting = (batch.posts || []).some((p) => p.status === 'reworking')
+    const waiting = (batch.posts || []).some(
+      (p) => p.status === 'reworking' ||
+             (p.publishNow && !p.zernioPostId) ||
+             p.distribution?.state === 'publishing')
     if (!waiting) return
     const t = setInterval(() => {
       backend.aimodels.readBatch().then((b) => setBatch(b)).catch(() => {})
@@ -284,6 +292,27 @@ export default function AiModelsTab({ active }) {
     } finally {
       setBusy(false)
       setSharePrompt(null)
+    }
+  }
+
+  const confirmPublishNow = async () => {
+    if (!pubNow) return
+    const next = {
+      ...batch,
+      posts: batch.posts.map((p) =>
+        p.id === pubNow.id ? { ...p, publishNow: true } : p),
+    }
+    setBusy(true)
+    try {
+      await backend.aimodels.writeBatch(next)
+      setBatch(next)
+      setDirty(false)
+      setOk(S.publishNowQueuedOk)
+    } catch (e) {
+      setError(e.message)
+    } finally {
+      setBusy(false)
+      setPubNow(null)
     }
   }
 
@@ -567,6 +596,25 @@ export default function AiModelsTab({ active }) {
                         {st === 'published' && p.publishedAt && (
                           <div style={{ fontSize: 11, color: '#0891b2', marginTop: 2 }}>
                             {S.publishedBadge} {fmtCreated(p.publishedAt)}
+                            {p.zernioPostUrl && (
+                              <>
+                                {' · '}
+                                <a href={p.zernioPostUrl} target="_blank" rel="noreferrer" style={{ color: '#0891b2' }}>
+                                  {S.viewPost}
+                                </a>
+                              </>
+                            )}
+                          </div>
+                        )}
+                        {st === 'scheduled' && p.zernioPostId && (
+                          <div style={{ fontSize: 11, color: '#22a06b', marginTop: 2 }}>{S.distScheduledBadge}</div>
+                        )}
+                        {(p.distribution?.state === 'publishing' || (p.publishNow && !p.zernioPostId)) && (
+                          <div style={{ fontSize: 11, color: '#b8860b', marginTop: 2 }}>{S.distPublishing}</div>
+                        )}
+                        {p.distribution?.state === 'failed' && (
+                          <div style={{ fontSize: 11, color: '#d33', marginTop: 2 }} title={p.distribution?.error || ''}>
+                            {S.distFailed}{p.distribution?.error ? `: ${String(p.distribution.error).slice(0, 80)}` : ''}
                           </div>
                         )}
                         {st !== 'rejected' && st !== 'reworking' && (
@@ -577,6 +625,19 @@ export default function AiModelsTab({ active }) {
                           >
                             {sharing === p.id ? S.sharePreparing : `\u{1F4E4} ${S.share}`}
                           </button>
+                        )}
+                        {st !== 'rejected' && st !== 'reworking' && st !== 'published' && (
+                          <button
+                            onClick={() => setPubNow(p)}
+                            disabled={busy || !c.zernioAccountId || !!p.zernioPostId || !!p.publishNow}
+                            title={!c.zernioAccountId ? S.zernioHint : ''}
+                            style={{ width: '100%', marginTop: 6, padding: '10px 0', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 14, color: '#fff', background: '#22a06b', cursor: c.zernioAccountId ? 'pointer' : 'default', opacity: (!c.zernioAccountId || p.zernioPostId || p.publishNow) ? 0.45 : 1 }}
+                          >
+                            {p.publishNow && !p.zernioPostId ? S.publishNowQueuedBtn : `⚡ ${S.publishNow}`}
+                          </button>
+                        )}
+                        {st !== 'rejected' && st !== 'reworking' && st !== 'published' && !c.zernioAccountId && (
+                          <div style={{ fontSize: 10, opacity: 0.55, marginTop: 2, textAlign: 'center' }}>{S.zernioHint}</div>
                         )}
                         <div style={{ display: 'flex', gap: 6, marginTop: 6 }}>
                           <button style={{ flex: 1, fontWeight: 600 }} onClick={() => openSchedule(p)} disabled={busy || st === 'reworking'}>
@@ -620,6 +681,31 @@ export default function AiModelsTab({ active }) {
                 {busy ? S.saving : S.markPublishedYes}
               </button>
               <button onClick={() => setSharePrompt(null)} style={{ flex: 1, padding: '10px 0' }}>{S.markPublishedNo}</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {pubNow && (
+        <div
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, zIndex: 55 }}
+          onClick={(e) => { if (e.target === e.currentTarget) setPubNow(null) }}
+        >
+          <div style={{ background: '#fff', color: '#1c1e24', border: '1px solid #ccc', borderRadius: 14, width: '100%', maxWidth: 360, padding: '16px 18px', textAlign: 'center' }}>
+            <img src={pubNow.thumb || pubNow.still || pubNow.image} alt="" decoding="async" style={{ width: 72, height: 90, objectFit: 'cover', borderRadius: 8 }} />
+            <p style={{ fontWeight: 700, margin: '10px 0 2px' }}>{S.publishNowQ}</p>
+            <p style={{ fontSize: 12, opacity: 0.65, margin: '0 0 12px' }}>
+              {(byId[pubNow.char] || {}).name || pubNow.char} · {S.publishNowNote}
+            </p>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button
+                onClick={confirmPublishNow}
+                disabled={busy}
+                style={{ flex: 1, background: '#22a06b', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 0', fontWeight: 700, cursor: 'pointer' }}
+              >
+                {busy ? S.saving : S.publishNowYes}
+              </button>
+              <button onClick={() => setPubNow(null)} style={{ flex: 1, padding: '10px 0' }}>{S.cancel}</button>
             </div>
           </div>
         </div>
