@@ -220,7 +220,13 @@
       "time": "18:00",
       "status": "scheduled",
       "generatedAt": "2026-08-14",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-b7103b02f7.thumb.jpg"
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-b7103b02f7.thumb.jpg",
+      "distribution": {
+        "via": "zernio",
+        "state": "failed",
+        "attempts": 1,
+        "error": "HTTP 409 from Zernio: {\"error\":\"This exact content is already scheduled, publishing, or was posted to this account within the last 24 hours.\",\"details\":{\"accountId\":\"6a84896677555aae01951789\",\"platform\":\"instagram\",\"existingPostId\":\"6a84901c922017a09f5751cd\"}}"
+      }
     },
     {
       "id": "ruby-w34-3",
@@ -1172,7 +1178,13 @@
       "time": "13:00",
       "status": "scheduled",
       "generatedAt": "2026-08-14",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-7b9bbef4ad.thumb.jpg"
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-7b9bbef4ad.thumb.jpg",
+      "distribution": {
+        "via": "zernio",
+        "state": "failed",
+        "attempts": 1,
+        "error": "HTTP 409 from Zernio: {\"error\":\"This exact content is already scheduled, publishing, or was posted to this account within the last 24 hours.\",\"details\":{\"accountId\":\"6a84896677555aae01951789\",\"platform\":\"instagram\",\"existingPostId\":\"6a84904bcee97ab853827485\"}}"
+      }
     },
     {
       "id": "ruby-bf-06011708eb",
@@ -1244,7 +1256,14 @@
       "time": "18:00",
       "status": "scheduled",
       "generatedAt": "2026-08-14",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-d808230959.thumb.jpg"
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-d808230959.thumb.jpg",
+      "zernioPostId": "6a8490740f0104fa4dcda4d7",
+      "distributedAt": "2026-08-18T17:03:48Z",
+      "distribution": {
+        "via": "zernio",
+        "state": "scheduled",
+        "scheduledFor": "2026-08-25T23:00:00Z"
+      }
     },
     {
       "id": "ruby-bf-7da92d11ca",
