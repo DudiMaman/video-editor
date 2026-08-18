@@ -220,13 +220,7 @@
       "time": "18:00",
       "status": "scheduled",
       "generatedAt": "2026-08-14",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-b7103b02f7.thumb.jpg",
-      "distribution": {
-        "via": "zernio",
-        "state": "failed",
-        "attempts": 1,
-        "error": "HTTP 409 from Zernio: {\"error\":\"This exact content is already scheduled, publishing, or was posted to this account within the last 24 hours.\",\"details\":{\"accountId\":\"6a84896677555aae01951789\",\"platform\":\"instagram\",\"existingPostId\":\"6a84901c922017a09f5751cd\"}}"
-      }
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-b7103b02f7.thumb.jpg"
     },
     {
       "id": "ruby-w34-3",
@@ -1178,13 +1172,7 @@
       "time": "13:00",
       "status": "scheduled",
       "generatedAt": "2026-08-14",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-7b9bbef4ad.thumb.jpg",
-      "distribution": {
-        "via": "zernio",
-        "state": "failed",
-        "attempts": 1,
-        "error": "HTTP 409 from Zernio: {\"error\":\"This exact content is already scheduled, publishing, or was posted to this account within the last 24 hours.\",\"details\":{\"accountId\":\"6a84896677555aae01951789\",\"platform\":\"instagram\",\"existingPostId\":\"6a84904bcee97ab853827485\"}}"
-      }
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-7b9bbef4ad.thumb.jpg"
     },
     {
       "id": "ruby-bf-06011708eb",
@@ -1256,14 +1244,7 @@
       "time": "18:00",
       "status": "scheduled",
       "generatedAt": "2026-08-14",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-d808230959.thumb.jpg",
-      "zernioPostId": "6a8490740f0104fa4dcda4d7",
-      "distributedAt": "2026-08-18T17:03:48Z",
-      "distribution": {
-        "via": "zernio",
-        "state": "scheduled",
-        "scheduledFor": "2026-08-25T23:00:00Z"
-      }
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-d808230959.thumb.jpg"
     },
     {
       "id": "ruby-bf-7da92d11ca",
@@ -1686,13 +1667,15 @@
       "theme": "swim",
       "date": "2026-08-17",
       "time": "18:00",
-      "status": "pending",
+      "status": "rejected",
       "generatedAt": "2026-08-17T20:15:39Z",
       "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. Copy only her identity from the reference - never its white studio backdrop, its pose layout, or its outfit. Exactly one person in the frame. lying on a towel by a pool near Austin propped on her elbows, modest swimwear, sunglasses pushed up, soft sun flare Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look. Strictly avoid: Do not alter character's established facial features or identity; Avoid generating faces inconsistent with reference character look; Do not duplicate or clone the character within one image; Avoid mismatched backgrounds that ignore the intended scene setting; Avoid overly synthetic, artificial-looking results lacking realism; Avoid duplicating character twice in swim-themed scenes; Do not use plain studio background instead of pool scene; Avoid unrealistic, obviously fake-looking swim photos. Strictly avoid: different face shape/features than reference; not clearly same person. | motion: static handheld with micro-shake, sunlight sparkling on the water, she splashes her feet gently and laughs",
       "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/ruby-2026-08-17-reel-2.mp4",
       "still": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/ruby-2026-08-17-reel-2-still.jpg",
       "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-17/ruby-2026-08-17-reel-2-still.thumb.jpg",
-      "caption": "poolside brain empty, tan lines forming, zero notes ☀️ #austinsummer #poolday #atxlife #sunsoaked"
+      "caption": "poolside brain empty, tan lines forming, zero notes ☀️ #austinsummer #poolday #atxlife #sunsoaked",
+      "reject_reason": "לא דומה לדמות",
+      "rejectedAt": "2026-08-18"
     },
     {
       "id": "ruby-2026-08-18-post",
