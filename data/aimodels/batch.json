@@ -220,13 +220,7 @@
       "time": "18:00",
       "status": "scheduled",
       "generatedAt": "2026-08-14",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-b7103b02f7.thumb.jpg",
-      "distribution": {
-        "via": "zernio",
-        "state": "failed",
-        "attempts": 1,
-        "error": "HTTP 409 from Zernio: {\"error\":\"This exact content is already scheduled, publishing, or was posted to this account within the last 24 hours.\",\"details\":{\"accountId\":\"6a84896677555aae01951789\",\"platform\":\"instagram\",\"existingPostId\":\"6a84901c922017a09f5751cd\"}}"
-      }
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-b7103b02f7.thumb.jpg"
     },
     {
       "id": "ruby-w34-3",
@@ -1178,14 +1172,7 @@
       "time": "13:00",
       "status": "scheduled",
       "generatedAt": "2026-08-14",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-7b9bbef4ad.thumb.jpg",
-      "zernioPostId": "6a84904bcee97ab853827485",
-      "distributedAt": "2026-08-18T17:03:08Z",
-      "distribution": {
-        "via": "zernio",
-        "state": "scheduled",
-        "scheduledFor": "2026-08-24T18:00:00Z"
-      }
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-7b9bbef4ad.thumb.jpg"
     },
     {
       "id": "ruby-bf-06011708eb",
@@ -1194,9 +1181,9 @@
       "theme": "lifestyle",
       "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-06011708eb.png",
       "caption": "golden hour, iced coffee sweating in my hand, austin doing its whole \"main character\" thing again ☀️ #atxlife #austinvibes #slowmornings #goldenhour #lifestyleblogger",
-      "date": "2026-08-19",
-      "time": "18:00",
-      "status": "pending",
+      "date": "2026-08-27",
+      "time": "14:33",
+      "status": "scheduled",
       "generatedAt": "2026-08-14",
       "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-06011708eb.thumb.jpg"
     },
