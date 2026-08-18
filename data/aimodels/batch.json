@@ -220,14 +220,7 @@
       "time": "18:00",
       "status": "scheduled",
       "generatedAt": "2026-08-14",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-b7103b02f7.thumb.jpg",
-      "zernioPostId": "6a84901c922017a09f5751cd",
-      "distributedAt": "2026-08-18T17:02:21Z",
-      "distribution": {
-        "via": "zernio",
-        "state": "scheduled",
-        "scheduledFor": "2026-08-21T23:00:00Z"
-      }
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-b7103b02f7.thumb.jpg"
     },
     {
       "id": "ruby-w34-3",
@@ -1175,9 +1168,9 @@
       "theme": "food",
       "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-7b9bbef4ad.png",
       "caption": "tucked into a cozy austin spot stuffing my face and feeling very at peace about it 🌮 #austineats #atxfoodie #cozyvibes #eatlocal",
-      "date": "2026-08-18",
-      "time": "18:00",
-      "status": "pending",
+      "date": "2026-08-24",
+      "time": "13:00",
+      "status": "scheduled",
       "generatedAt": "2026-08-14",
       "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-7b9bbef4ad.thumb.jpg"
     },
