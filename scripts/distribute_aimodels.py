@@ -79,10 +79,15 @@ def hosted_image(url: str, name: str, work_dir: Path) -> str:
 
 
 def media_for(item: dict, work_dir: Path) -> dict:
+    # isAi: True on everything here - the characters' images and reels
+    # are fully synthetic, and Meta's self-disclosure flag must say so.
+    # The driver default is NO label (real footage is the norm elsewhere),
+    # so this pipeline opts in explicitly.
     typ = item.get("type", "post")
     if typ == "reel":
         video = f"{PAGES_BASE}/media/{str(item['image']).rsplit('/', 1)[-1]}"
-        media = {"type": "video", "url": video, "mimeType": "video/mp4"}
+        media = {"type": "video", "url": video, "mimeType": "video/mp4",
+                 "isAi": True}
         if item.get("still"):
             try:
                 media["cover"] = hosted_image(item["still"],
@@ -91,7 +96,8 @@ def media_for(item: dict, work_dir: Path) -> dict:
                 print(f"  [{item['id']}] cover hosting failed: {e}", file=sys.stderr)
         return media
     media = {"type": "image",
-             "url": hosted_image(item["image"], f"dist-{item['id']}", work_dir)}
+             "url": hosted_image(item["image"], f"dist-{item['id']}", work_dir),
+             "isAi": True}
     if typ == "story":
         media["story"] = True
     return media
