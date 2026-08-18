@@ -220,7 +220,14 @@
       "time": "18:00",
       "status": "scheduled",
       "generatedAt": "2026-08-14",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-b7103b02f7.thumb.jpg"
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-b7103b02f7.thumb.jpg",
+      "zernioPostId": "6a84901c922017a09f5751cd",
+      "distributedAt": "2026-08-18T17:02:21Z",
+      "distribution": {
+        "via": "zernio",
+        "state": "scheduled",
+        "scheduledFor": "2026-08-21T23:00:00Z"
+      }
     },
     {
       "id": "ruby-w34-3",
