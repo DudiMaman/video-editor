@@ -209,7 +209,14 @@
       "time": "18:11",
       "status": "scheduled",
       "generatedAt": "2026-08-14",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-885aec1b8a.thumb.jpg"
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-885aec1b8a.thumb.jpg",
+      "zernioPostId": "6a8490c882011bead2aedd21",
+      "distributedAt": "2026-08-18T17:05:12Z",
+      "distribution": {
+        "via": "zernio",
+        "state": "scheduled",
+        "scheduledFor": "2026-08-29T23:11:00Z"
+      }
     },
     {
       "id": "ruby-w34-2",
@@ -1202,8 +1209,9 @@
       "distributedAt": "2026-08-18T17:04:40Z",
       "distribution": {
         "via": "zernio",
-        "state": "scheduled",
-        "scheduledFor": "2026-08-27T19:33:00Z"
+        "state": "failed",
+        "attempts": 1,
+        "error": "HTTP 409 from Zernio: {\"error\":\"This exact content is already scheduled, publishing, or was posted to this account within the last 24 hours.\",\"details\":{\"accountId\":\"6a84896677555aae01951789\",\"platform\":\"instagram\",\"existingPostId\":\"6a8490a8cee97ab85382850a\"}}"
       }
     },
     {
