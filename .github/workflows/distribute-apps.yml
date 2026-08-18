@@ -1,0 +1,39 @@
+name: distribute-apps
+
+# Pushes owner-approved app-marketing videos (the ledger's approved
+# entries with a Gantt slot or a publish-now flag) to each app's
+# Instagram through the APPS Zernio account - a separate account from
+# the AI-models one, so the two projects' quotas and connections stay
+# isolated. The shared driver reads ZERNIO_API_KEY, so the apps secret
+# is mapped into that name here and the key never reaches the frontend.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 * * * *'
+  push:
+    branches: [main]
+    paths: ['data/ledger.json']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: distribute-apps
+  cancel-in-progress: false
+
+jobs:
+  distribute:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Exits quietly when ZERNIO_APPS_API_KEY is not configured yet.
+      - name: Distribute approved app videos
+        env:
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_APPS_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/distribute_apps.py

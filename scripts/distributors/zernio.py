@@ -122,3 +122,25 @@ def list_accounts() -> list[dict]:
     """Connected accounts - useful for finding a character's accountId
     (the SocialAccount `_id` field) when wiring roster.json."""
     return (_api("/accounts") or {}).get("accounts") or []
+
+
+def upload_media(path, content_type: str, filename: str | None = None) -> str:
+    """Host a local media file on Zernio's own storage and return its
+    public URL: POST /v1/media/presign -> PUT the bytes to uploadUrl ->
+    use publicUrl in mediaItems. This sidesteps the content-type law
+    entirely (release assets serve application/octet-stream, which
+    Zernio's URL fetcher rejects) and carries video sizes that would be
+    unwieldy to mirror elsewhere."""
+    from pathlib import Path as _P
+    data = _P(path).read_bytes()
+    name = filename or _P(path).name
+    pre = _api("/media/presign", {"filename": name,
+                                  "contentType": content_type,
+                                  "size": len(data)})
+    req = urllib.request.Request(
+        pre["uploadUrl"], data=data, method="PUT",
+        headers={"Content-Type": content_type, "User-Agent": USER_AGENT})
+    with urllib.request.urlopen(req, timeout=600) as r:
+        if r.status not in (200, 201, 204):
+            raise RuntimeError(f"media upload failed: HTTP {r.status}")
+    return pre["publicUrl"]
