@@ -1,0 +1,35 @@
+name: check-zernio
+
+# Proves ZERNIO_API_KEY works, lists the connected accounts (platform +
+# username only), and wires roster.json zernioAccountId for characters
+# whose Instagram is connected. Fires on changes to this file (the
+# repo's one-shot pattern - workflow_dispatch needs permissions the
+# integration lacks) and on manual dispatch from the Actions tab.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/check-zernio.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: check-zernio
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify key, list accounts, wire roster
+        env:
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/check_zernio.py
