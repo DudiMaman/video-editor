@@ -1,0 +1,16 @@
+{
+ "source": "https://www.tiktok.com/@bloomify.plantidentifier/video/7587755098835602689",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 0.0,
+   "end": 19.5,
+   "text": "to save home plant?"
+  },
+  {
+   "start": 20.0,
+   "end": 22.0,
+   "text": "Plant Indentifier"
+  }
+ ]
+}

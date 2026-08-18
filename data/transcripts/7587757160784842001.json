@@ -1,0 +1,26 @@
+{
+ "source": "https://www.tiktok.com/@bloomify.plantidentifier/video/7587757160784842001",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 3.5,
+   "end": 5.0,
+   "text": "What's WRONG with this plants? Spathiphyllum aureum Lack of water Lack of light"
+  },
+  {
+   "start": 7.5,
+   "end": 8.0,
+   "text": "What's WRONG with this plants?"
+  },
+  {
+   "start": 14.0,
+   "end": 15.5,
+   "text": "Epipremnum Corn Plant Overwatering Rotten roots"
+  },
+  {
+   "start": 17.5,
+   "end": 20.0,
+   "text": "Plant Identifier Download NOW!"
+  }
+ ]
+}
