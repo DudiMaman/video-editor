@@ -231,7 +231,14 @@
       "time": "11:00",
       "status": "scheduled",
       "generatedAt": "2026-08-14",
-      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-ac3e7e2e43.thumb.jpg"
+      "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-ac3e7e2e43.thumb.jpg",
+      "zernioPostId": "6a848d44d7d8dcf834e283ce",
+      "distributedAt": "2026-08-18T16:50:12Z",
+      "distribution": {
+        "via": "zernio",
+        "state": "scheduled",
+        "scheduledFor": "2026-08-19T16:00:00Z"
+      }
     },
     {
       "id": "isabela-w34-1",
@@ -1189,14 +1196,16 @@
       "caption": "sun's out, floaties out, responsibilities on hold till further notice ☀️🌊 #austinsummer #poolday #atxlife #sunsoaked #lakeliving",
       "date": "2026-08-20",
       "time": "18:00",
-      "status": "pending",
+      "status": "published",
       "generatedAt": "2026-08-14",
       "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-2cc1f8d1d5.thumb.jpg",
       "zernioPostId": "6a848cb00871505520380051",
       "distribution": {
         "via": "zernio",
-        "state": "publishing"
-      }
+        "state": "published"
+      },
+      "publishedAt": "2026-08-18T16:50:12Z",
+      "zernioPostUrl": "https://www.instagram.com/p/DcME8dDjF7h/"
     },
     {
       "id": "ruby-bf-853ef9c452",
