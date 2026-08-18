@@ -1682,12 +1682,14 @@
       "theme": "everyday",
       "date": "2026-08-18",
       "time": "18:00",
-      "status": "pending",
+      "status": "rejected",
       "generatedAt": "2026-08-18T04:31:46Z",
       "prompt": "Candid iPhone-style photo of the exact same young woman as in the reference image - identical face, same person, full identity preserved. Copy only her identity from the reference - never its white studio backdrop, its pose layout, or its outfit. Exactly one person in the frame. at home on the couch in an oversized hoodie holding a mug, lazy morning vibe, blanket half falling off Natural light, matte skin with real texture and visible pores, subtle film grain, slightly imperfect casual framing, authentic everyday social-media photo, no beauty filter, no gloss, no plastic AI look. Strictly avoid: Do not alter character's established facial features or identity; Avoid generating faces inconsistent with reference character look; Do not duplicate or clone the character within one image; Avoid mismatched backgrounds that ignore the intended scene setting; Avoid overly synthetic, artificial-looking results lacking realism; Avoid duplicating character twice in swim-themed scenes; Do not use plain studio background instead of pool scene; Avoid unrealistic, obviously fake-looking swim photos.",
       "image": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-18/ruby-2026-08-18-post.jpg",
       "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-2026-08-18/ruby-2026-08-18-post.thumb.jpg",
-      "caption": "lazy mornings, oversized hoodies, and coffee that actually stayed warm for once ☕️ #lazymorning #austinlife #cozyvibes #couchseason #slowmornings"
+      "caption": "lazy mornings, oversized hoodies, and coffee that actually stayed warm for once ☕️ #lazymorning #austinlife #cozyvibes #couchseason #slowmornings",
+      "reject_reason": "לא דומה לדמות",
+      "rejectedAt": "2026-08-18"
     },
     {
       "id": "yuna-2026-08-18-post",
