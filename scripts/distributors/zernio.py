@@ -14,8 +14,10 @@ API facts this code relies on:
 - A single video mediaItem publishes as a Reel; platformSpecificData
   {contentType: "story"} makes a Story; images default to feed posts.
 - platformSpecificData.isAiGenerated: true labels the post as AI-generated
-  media (Meta self-disclosure) - always set: every asset here is synthetic
-  and the characters' bios say so.
+  media (Meta self-disclosure). The flag describes the MEDIA, so the
+  caller decides per item via media["isAi"] (default True): the
+  characters' images/reels are fully synthetic and stay labeled; the
+  apps' videos are real edited footage and are not.
 - DELETE /v1/posts/{postId} cancels anything not yet published (400 once
   published).
 - Media URLs must be publicly accessible AND served with a real
@@ -68,7 +70,9 @@ def _media_item(media: dict) -> dict:
 
 
 def _platform_entry(account_id: str, media: dict) -> dict:
-    psd = {"isAiGenerated": True}
+    psd = {}
+    if media.get("isAi", True):
+        psd["isAiGenerated"] = True
     if media.get("story"):
         psd["contentType"] = "story"
     return {"platform": "instagram", "accountId": account_id,

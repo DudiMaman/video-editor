@@ -131,7 +131,12 @@ def plan_actions(ledger: list, assets: list) -> list[tuple[str, str, dict]]:
 
 
 def upload_output(entry: dict, work_dir: Path) -> dict:
-    """Release asset -> local bytes -> Zernio storage -> media dict."""
+    """Release asset -> local bytes -> Zernio storage -> media dict.
+
+    isAi: False - these are real commercial app videos (curated footage,
+    conventionally edited: trim/subtitles/outro), not AI-generated media,
+    so Meta's AI self-disclosure flag does not apply. The characters'
+    pipeline keeps the flag: there the imagery is fully synthetic."""
     from distributors import zernio
     url = output_url(entry)
     if not url:
@@ -141,7 +146,8 @@ def upload_output(entry: dict, work_dir: Path) -> dict:
     with urllib.request.urlopen(req, timeout=300) as r:
         local.write_bytes(r.read())
     hosted = zernio.upload_media(local, "video/mp4", local.name)
-    return {"type": "video", "url": hosted, "mimeType": "video/mp4"}
+    return {"type": "video", "url": hosted, "mimeType": "video/mp4",
+            "isAi": False}
 
 
 def execute(actions, ledger, work_dir) -> dict:
