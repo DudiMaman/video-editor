@@ -33,6 +33,11 @@ function statusOf(p) {
 const pad2 = (n) => String(n).padStart(2, '0')
 const dateKey = (y, m0, d) => `${y}-${pad2(m0 + 1)}-${pad2(d)}`
 
+// Date-only rendering (19.8.2026) for the "scheduled for / published on"
+// indicator lines - publishedAt is sometimes a bare date, sometimes a
+// full UTC timestamp.
+const fmtDay = (v) => fmtCreated(String(v).slice(0, 10))
+
 export default function AiModelsTab({ active }) {
   const [view, setView] = useState('batch') // batch | roster
   const [roster, setRoster] = useState(null)
@@ -184,8 +189,20 @@ export default function AiModelsTab({ active }) {
 
   const openSchedule = (p) => {
     const now = new Date()
+    // Open on the month of the character's earliest upcoming scheduled
+    // post so existing placements are visible immediately; fall back to
+    // the current month when nothing is scheduled ahead.
+    const todayKey = now.toISOString().slice(0, 10)
+    const upcoming = (batch?.posts || [])
+      .filter((q) => q.char === p.char && q.id !== p.id && q.date >= todayKey &&
+                     ['scheduled', 'published'].includes(statusOf(q)))
+      .map((q) => q.date)
+      .sort()[0]
+    const [oy, om] = upcoming
+      ? upcoming.split('-').map(Number)
+      : [now.getFullYear(), now.getMonth() + 1]
     setSched(p)
-    setSchedMonth({ y: now.getFullYear(), m0: now.getMonth() })
+    setSchedMonth({ y: oy, m0: om - 1 })
     setSchedDay(null)
     setPreview(null)
     setSchedTime(
@@ -530,7 +547,7 @@ export default function AiModelsTab({ active }) {
                       : st === 'published' ? '2px solid #0891b2'
                       : st === 'rejected' ? '2px solid #d33' : '1px solid var(--border,#ccc)'
                   return (
-                    <div key={p.id} style={{ border, borderRadius: 10, overflow: 'hidden', opacity: st === 'rejected' ? 0.55 : 1, position: 'relative' }}>
+                    <div key={p.id} style={{ border, borderRadius: 10, overflow: 'hidden', opacity: st === 'rejected' ? 0.55 : st === 'published' ? 0.72 : 1, position: 'relative' }}>
                       <span style={{ position: 'absolute', top: 6, insetInlineStart: 6, background: 'rgba(0,0,0,.65)', color: '#fff', borderRadius: 6, padding: '1px 8px', fontSize: 12 }}>
                         {S.types[p.type || 'post'] || p.type}
                       </span>
@@ -594,8 +611,8 @@ export default function AiModelsTab({ active }) {
                           </button>
                         )}
                         {st === 'published' && p.publishedAt && (
-                          <div style={{ fontSize: 11, color: '#0891b2', marginTop: 2 }}>
-                            {S.publishedBadge} {fmtCreated(p.publishedAt)}
+                          <div style={{ fontSize: 11, color: '#0891b2', marginTop: 2, fontWeight: 600 }}>
+                            {S.publishedOn} {fmtDay(p.publishedAt)}
                             {p.zernioPostUrl && (
                               <>
                                 {' · '}
@@ -604,6 +621,11 @@ export default function AiModelsTab({ active }) {
                                 </a>
                               </>
                             )}
+                          </div>
+                        )}
+                        {st === 'scheduled' && p.date && (
+                          <div style={{ fontSize: 11, color: '#22a06b', marginTop: 2, fontWeight: 600 }}>
+                            {S.scheduledOn} {fmtDay(p.date)}{p.time ? ` ${S.atHour} ${p.time}` : ''}
                           </div>
                         )}
                         {st === 'scheduled' && p.zernioPostId && (
@@ -846,10 +868,10 @@ export default function AiModelsTab({ active }) {
                     <span style={{ position: 'absolute', top: 2, insetInlineEnd: 5, zIndex: 1 }}>{d}</span>
                     {taken && (
                       <>
-                        <img src={taken.thumb || taken.image} alt="" loading="lazy" decoding="async"
+                        <img src={taken.thumb || taken.still || taken.image} alt="" loading="lazy" decoding="async"
                           style={{ position: 'absolute', bottom: 14, insetInline: 3, height: '60%', width: 'calc(100% - 6px)', objectFit: 'cover', borderRadius: 4 }} />
-                        <span style={{ position: 'absolute', bottom: 2, insetInline: 3, fontSize: 9, background: '#22a06b', color: '#fff', borderRadius: 4, textAlign: 'center', zIndex: 1 }}>
-                          {S.scheduledBadge}
+                        <span style={{ position: 'absolute', bottom: 2, insetInline: 3, fontSize: 9, background: statusOf(taken) === 'published' ? '#0891b2' : '#22a06b', color: '#fff', borderRadius: 4, textAlign: 'center', zIndex: 1 }}>
+                          {statusOf(taken) === 'published' ? S.publishedTag : S.scheduledBadge}
                         </span>
                       </>
                     )}
@@ -860,6 +882,7 @@ export default function AiModelsTab({ active }) {
 
             <div style={{ display: 'flex', gap: 14, justifyContent: 'center', fontSize: 11, opacity: 0.7, marginTop: 10 }}>
               <span><i style={{ display: 'inline-block', width: 10, height: 10, borderRadius: 3, background: '#22a06b', marginInlineStart: 4, verticalAlign: 'middle' }} /> {S.legendScheduled}</span>
+              <span><i style={{ display: 'inline-block', width: 10, height: 10, borderRadius: 3, background: '#0891b2', marginInlineStart: 4, verticalAlign: 'middle' }} /> {S.publishedTag}</span>
               <span><i style={{ display: 'inline-block', width: 10, height: 10, borderRadius: 3, background: 'rgba(110,168,254,.5)', marginInlineStart: 4, verticalAlign: 'middle' }} /> {S.legendPicked}</span>
             </div>
 
