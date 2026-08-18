@@ -231,7 +231,7 @@
       "distribution": {
         "via": "zernio",
         "state": "failed",
-        "attempts": 2,
+        "attempts": 3,
         "error": "HTTP 409 from Zernio: {\"error\":\"This exact content is already scheduled, publishing, or was posted to this account within the last 24 hours.\",\"details\":{\"accountId\":\"6a84896677555aae01951789\",\"platform\":\"instagram\",\"existingPostId\":\"6a84901c922017a09f5751cd\"}}"
       }
     },
@@ -1189,7 +1189,7 @@
       "distribution": {
         "via": "zernio",
         "state": "failed",
-        "attempts": 2,
+        "attempts": 3,
         "error": "HTTP 409 from Zernio: {\"error\":\"This exact content is already scheduled, publishing, or was posted to this account within the last 24 hours.\",\"details\":{\"accountId\":\"6a84896677555aae01951789\",\"platform\":\"instagram\",\"existingPostId\":\"6a84904bcee97ab853827485\"}}"
       }
     },
@@ -1275,7 +1275,7 @@
       "distribution": {
         "via": "zernio",
         "state": "failed",
-        "attempts": 2,
+        "attempts": 3,
         "error": "HTTP 409 from Zernio: {\"error\":\"This exact content is already scheduled, publishing, or was posted to this account within the last 24 hours.\",\"details\":{\"accountId\":\"6a84896677555aae01951789\",\"platform\":\"instagram\",\"existingPostId\":\"6a8490740f0104fa4dcda4d7\"}}"
       }
     },
