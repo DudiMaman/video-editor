@@ -242,16 +242,18 @@
       "caption": "tailgate sunsets > everything 🌾 #texassunset",
       "date": "2026-08-19",
       "time": "11:00",
-      "status": "scheduled",
+      "status": "published",
       "generatedAt": "2026-08-14",
       "thumb": "https://github.com/DudiMaman/video-editor/releases/download/aimodels-backfill-2026-08-14/ruby-bf-ac3e7e2e43.thumb.jpg",
       "zernioPostId": "6a848d44d7d8dcf834e283ce",
       "distributedAt": "2026-08-18T16:50:12Z",
       "distribution": {
         "via": "zernio",
-        "state": "scheduled",
+        "state": "published",
         "scheduledFor": "2026-08-19T16:00:00Z"
-      }
+      },
+      "publishedAt": "2026-08-19T16:52:33Z",
+      "zernioPostUrl": "https://www.instagram.com/p/DcOkl7pjRBW/"
     },
     {
       "id": "isabela-w34-1",
