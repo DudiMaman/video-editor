@@ -198,5 +198,13 @@
   "asset": "sample",
   "found_at": "2026-08-14",
   "status": "accepted"
+ },
+ {
+  "url": "https://www.tiktok.com/@leafariapp",
+  "name": "Leafari",
+  "reason": "אפליקציית זיהוי צמחים וחרקים במצלמה עם פרופילי טיפול, מתאימה בדיוק לנישת זיהוי הצמחים.",
+  "asset": "sample",
+  "found_at": "2026-08-19",
+  "status": "suggested"
  }
 ]
