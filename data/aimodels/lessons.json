@@ -1,19 +1,18 @@
 {
-  "signature": "7ce5e4fd2e815b8e5a3cd59f13d8ccecbd12b35e",
-  "updated": "2026-08-17",
-  "rejections_learned_from": 15,
+  "signature": "1f317a92e21a17762da808b5d845b2c1497ca045",
+  "updated": "2026-08-19",
+  "rejections_learned_from": 17,
   "global": [
-    "Do not alter character's established facial features or identity",
-    "Avoid generating faces inconsistent with reference character look",
-    "Do not duplicate or clone the character within one image",
-    "Avoid mismatched backgrounds that ignore the intended scene setting",
-    "Avoid overly synthetic, artificial-looking results lacking realism"
+    "Avoid generating faces that differ from the character's reference look",
+    "Avoid inconsistent facial features across images of same character",
+    "Avoid overly artificial or staged appearance lacking authenticity",
+    "Avoid mismatched backgrounds versus the requested theme or setting"
   ],
   "per_char": {
     "ruby": [
-      "Avoid duplicating character twice in swim-themed scenes",
-      "Do not use plain studio background instead of pool scene",
-      "Avoid unrealistic, obviously fake-looking swim photos"
+      "Avoid duplicating the character twice within one frame",
+      "Avoid plain white studio background for swim/pool theme",
+      "Avoid non-candid, obviously fake-looking swim scenes"
     ]
   }
 }
