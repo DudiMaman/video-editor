@@ -206,5 +206,13 @@
   "asset": "sample",
   "found_at": "2026-08-19",
   "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@plantcheck.plant.avntech",
+  "name": "PlantCheck: Plant Identifier",
+  "reason": "עמוד טיקטוק רשמי של אפליקציית PlantCheck לזיהוי צמחים ואבחון בעיות טיפול, בדיוק בנישה של Planty.",
+  "asset": "sample",
+  "found_at": "2026-08-22",
+  "status": "suggested"
  }
 ]
