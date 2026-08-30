@@ -3,10 +3,15 @@
 push owner-approved edited videos from the ledger to each app's
 Instagram through Zernio.
 
-This is the apps' twin of distribute_aimodels.py, against a SEPARATE
-Zernio account: the workflow maps the ZERNIO_APPS_API_KEY secret into
-ZERNIO_API_KEY, so the shared driver needs no changes and the
-characters' account stays isolated.
+This is the apps' twin of distribute_aimodels.py. Zernio accounts are
+PER VENTURE (owner decision: each venture is its own business with its
+own free-tier Zernio account, ~2 connected socials each). Key lookup
+per asset: the env var named by asset.zernioKeyEnv, else
+ZERNIO_KEY_<ASSET_ID_UPPERCASED>, else the legacy shared
+ZERNIO_APPS_API_KEY. The workflow maps one repo secret per venture into
+those names - adding a venture means adding one secret and one env line
+in distribute-apps.yml. The shared driver still reads ZERNIO_API_KEY,
+so each action runs with the right key swapped into that variable.
 
 Human approval is the gate, exactly like the tab flow:
 - An approved video the owner placed on the Gantt (entry.schedule =
@@ -27,10 +32,9 @@ error?}. When the platform confirms publication the entry flips to
 status "published" with published_at/published_to - i.e. the video
 moves itself to the "סרטונים שעלו לרשת" tab.
 
-Auto-wiring: when no asset carries a zernioAccountId yet, exactly one
-asset exists and exactly one active Instagram account is connected in
-this Zernio account, the two are wired together in assets.json - the
-Planty bootstrap needs no manual id hunting.
+Auto-wiring: every venture whose key is configured and whose asset has
+no zernioAccountId yet gets wired automatically when its Zernio account
+holds exactly one active Instagram account - no manual id hunting.
 
 Runs from distribute-apps.yml: ledger.json pushes (tab saves), hourly
 status sync, manual dispatch. Exits quietly while ZERNIO_APPS_API_KEY
@@ -42,6 +46,7 @@ import os
 import sys
 import time
 import urllib.request
+from contextlib import contextmanager
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -90,6 +95,36 @@ def attempts(e: dict) -> int:
     return int((e.get("distribution") or {}).get("attempts") or 0)
 
 
+def key_env_of(asset: dict) -> str:
+    """Env var carrying this venture's Zernio API key. Explicit override
+    via asset.zernioKeyEnv (e.g. ZERNIO_KEY_PLANTY for the legacy asset
+    id 'sample'), else derived from the asset id."""
+    import re
+    return asset.get("zernioKeyEnv") or \
+        "ZERNIO_KEY_" + re.sub(r"[^A-Za-z0-9]", "_", str(asset.get("id"))).upper()
+
+
+def key_of(asset: dict) -> str:
+    return os.environ.get(key_env_of(asset)) or \
+        os.environ.get("ZERNIO_APPS_API_KEY") or ""
+
+
+@contextmanager
+def with_key(key: str):
+    """The shared driver reads ZERNIO_API_KEY from the environment; swap
+    the venture's key in for the duration of its API calls (the runner is
+    single-threaded, so this is safe)."""
+    prev = os.environ.get("ZERNIO_API_KEY")
+    os.environ["ZERNIO_API_KEY"] = key
+    try:
+        yield
+    finally:
+        if prev is None:
+            os.environ.pop("ZERNIO_API_KEY", None)
+        else:
+            os.environ["ZERNIO_API_KEY"] = prev
+
+
 def asset_of(entry: dict, assets: list) -> dict | None:
     a = next((x for x in assets
               if str(x.get("id")) == str(entry.get("asset"))), None)
@@ -121,12 +156,12 @@ def plan_actions(ledger: list, assets: list) -> list[tuple[str, str, dict]]:
             if when and sent_for and when != sent_for and when > now_z():
                 actions.append((vid, "reschedule", {"asset": asset, "when": when}))
             elif dist_state(e) in ("scheduled", "publishing", "sent"):
-                actions.append((vid, "sync", {}))
+                actions.append((vid, "sync", {"asset": asset}))
         elif sent and not e.get("published_at") and status != APPROVED:
             # approval was withdrawn after the send (back to editing /
             # rejected) - take it off the distributor's calendar too
             if dist_state(e) != "canceled":
-                actions.append((vid, "cancel", {}))
+                actions.append((vid, "cancel", {"asset": asset}))
     return actions
 
 
@@ -156,7 +191,17 @@ def execute(actions, ledger, work_dir) -> dict:
     patches = {}
     for vid, verb, ctx in actions:
         e = by_id[vid]
+        # Per-venture Zernio account: every action runs under the key of
+        # the item's own venture. A venture whose key is not configured
+        # yet is skipped without marking the item failed.
+        key = key_of(ctx["asset"])
+        if not key:
+            print(f"::notice::[{vid}] no Zernio key for venture "
+                  f"'{ctx['asset'].get('id')}' (expected env "
+                  f"{key_env_of(ctx['asset'])}) - skipped")
+            continue
         try:
+          with with_key(key):
             if verb == "publish":
                 res = driver.publish_now(ctx["asset"]["zernioAccountId"],
                                          upload_output(e, work_dir),
@@ -208,7 +253,7 @@ def execute(actions, ledger, work_dir) -> dict:
                         "distribution": {**(e.get("distribution") or {}),
                                          "state": "failed",
                                          "error": f"zernio status {res['status']}"}}
-            print(f"[{vid}] {verb}: ok")
+          print(f"[{vid}] {verb}: ok")
         except Exception as err:
             print(f"[{vid}] {verb} FAILED: {err}", file=sys.stderr)
             patches[vid] = {
@@ -219,22 +264,40 @@ def execute(actions, ledger, work_dir) -> dict:
     return patches
 
 
-def autowire_assets() -> None:
-    """One asset + one connected Instagram account + nothing wired yet ->
-    wire them, so the Planty bootstrap needs no manual id hunting."""
+def discover_wirings() -> dict:
+    """Per-venture auto-wiring: each venture has its own Zernio account,
+    so for every asset whose key is configured but whose zernioAccountId
+    is empty, the account is unambiguous when that venture's Zernio holds
+    exactly one active Instagram account. Returns {asset_id: account_id}."""
     from distributors import zernio
-    assets = load_json(ASSETS, [])
-    if not assets or any(a.get("zernioAccountId") for a in assets):
-        return
-    if len(assets) != 1:
-        print("multiple assets and none wired - set zernioAccountId in the "
-              "assets tab")
-        return
-    ig = [a for a in zernio.list_accounts()
-          if a.get("platform") == "instagram" and a.get("isActive", True)]
-    if len(ig) != 1:
-        print(f"{len(ig)} active Instagram account(s) connected - "
-              "cannot auto-wire unambiguously")
+    wirings = {}
+    for asset in load_json(ASSETS, []):
+        if asset.get("zernioAccountId"):
+            continue
+        key = key_of(asset)
+        if not key:
+            continue
+        try:
+            with with_key(key):
+                ig = [a for a in zernio.list_accounts()
+                      if a.get("platform") == "instagram"
+                      and a.get("isActive", True)]
+        except RuntimeError as e:
+            print(f"::warning::listing accounts for '{asset.get('id')}' "
+                  f"failed: {e}", file=sys.stderr)
+            continue
+        if len(ig) == 1:
+            wirings[str(asset["id"])] = str(ig[0]["_id"])
+            print(f"auto-wire {asset['id']} -> Zernio {ig[0].get('username')}")
+        else:
+            print(f"venture '{asset.get('id')}': {len(ig)} active Instagram "
+                  "account(s) in its Zernio - cannot wire unambiguously")
+    return wirings
+
+
+def autowire_assets() -> None:
+    wirings = discover_wirings()
+    if not wirings:
         return
     git("config", "user.name", "github-actions[bot]")
     git("config", "user.email",
@@ -243,15 +306,19 @@ def autowire_assets() -> None:
         git("fetch", "origin", "main")
         git("reset", "--hard", "origin/main")
         assets = load_json(ASSETS, [])
-        if any(a.get("zernioAccountId") for a in assets) or len(assets) != 1:
+        changed = False
+        for a in assets:
+            acc = wirings.get(str(a.get("id")))
+            if acc and not a.get("zernioAccountId"):
+                a["zernioAccountId"] = acc
+                changed = True
+        if not changed:
             return
-        assets[0]["zernioAccountId"] = str(ig[0]["_id"])
         ASSETS.write_text(json.dumps(assets, indent=1) + "\n", encoding="utf-8")
         git("add", "assets.json")
         git("commit", "-m",
-            f"Apps: wire Zernio account for {assets[0].get('name', assets[0]['id'])}")
+            f"Apps: wire Zernio account for {', '.join(sorted(wirings))}")
         if git("push", "origin", "main", check=False).returncode == 0:
-            print(f"auto-wired {assets[0]['id']} -> Zernio {ig[0].get('username')}")
             return
         time.sleep(2 * (attempt + 1))
     print("::warning::could not push assets.json auto-wire", file=sys.stderr)
@@ -297,10 +364,13 @@ def commit_ledger(patches: dict, message: str) -> int:
 
 
 def main() -> int:
-    if not os.environ.get("ZERNIO_API_KEY"):
-        print("::notice::ZERNIO_APPS_API_KEY is not set - app distribution "
-              "skipped (add the repo secret once the apps' Zernio account "
-              "exists)")
+    any_key = os.environ.get("ZERNIO_APPS_API_KEY") or \
+        any(k.startswith("ZERNIO_KEY_") and v
+            for k, v in os.environ.items())
+    if not any_key:
+        print("::notice::no venture Zernio key is configured - app "
+              "distribution skipped (add a ZERNIO_KEY_<VENTURE> repo secret "
+              "and its env line in distribute-apps.yml)")
         return 0
     autowire_assets()
     assets = load_json(ASSETS, [])

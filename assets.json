@@ -19,6 +19,7 @@
    "intros/sample/ugc-man-plantshop.mp4",
    "intros/sample/ugc-woman-rooftop.mp4",
    "intros/sample/planty-intro.mp4"
-  ]
+  ],
+  "zernioKeyEnv": "ZERNIO_KEY_PLANTY"
  }
 ]

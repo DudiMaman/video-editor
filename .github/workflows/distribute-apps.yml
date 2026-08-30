@@ -31,9 +31,15 @@ jobs:
         with:
           python-version: '3.12'
 
-      # Exits quietly when ZERNIO_APPS_API_KEY is not configured yet.
+      # One Zernio account (and one repo secret) PER VENTURE - the free
+      # tier covers ~2 connected socials per account, and each venture is
+      # its own business. Onboarding a venture = create its Zernio
+      # account, add the repo secret ZERNIO_KEY_<VENTURE>, and add one
+      # env line here. ZERNIO_APPS_API_KEY remains as a legacy shared
+      # fallback. Exits quietly while no key is configured.
       - name: Distribute approved app videos
         env:
-          ZERNIO_API_KEY: ${{ secrets.ZERNIO_APPS_API_KEY }}
+          ZERNIO_KEY_PLANTY: ${{ secrets.ZERNIO_KEY_PLANTY }}
+          ZERNIO_APPS_API_KEY: ${{ secrets.ZERNIO_APPS_API_KEY }}
           GH_TOKEN: ${{ github.token }}
         run: python scripts/distribute_apps.py
