@@ -14,5 +14,21 @@
   "ts": "2026-08-30T17:46:03Z",
   "remedy": "transient",
   "id": "c66adcf31bbd45b0"
+ },
+ {
+  "source": "apps",
+  "venture": "sample",
+  "ventureName": "Planty",
+  "platform": "tiktok",
+  "postId": "6a94304aa27b9c86779f77f3",
+  "refId": "7628476845524143381",
+  "level": "error",
+  "message": "TikTok direct posting is at capacity right now. Use tiktokSettings.draft: true to deliver via Creator Inbox, or try again in a few hours as capacity frees up.",
+  "contentPreview": "Eggshells, aged beer, and one dying succulent later… it bloomed 🌿 Not sure what plant you’re babying? Just scan it and P",
+  "scheduledFor": "2026-08-30T21:00:00Z",
+  "postUrl": "",
+  "ts": "2026-08-30T21:34:34Z",
+  "remedy": "transient",
+  "id": "a3ff139d4d715c49"
  }
 ]
