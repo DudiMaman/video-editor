@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { STR } from './strings.js'
 import { backend } from './backend/index.js'
 import BatchBuilder from './components/BatchBuilder.jsx'
@@ -10,18 +10,39 @@ import BriefTab from './components/BriefTab.jsx'
 import ReviewTab from './components/ReviewTab.jsx'
 import LogTab from './components/LogTab.jsx'
 import AiModelsTab from './components/AiModelsTab.jsx'
+import ZernioAccountsTab from './components/ZernioAccountsTab.jsx'
 
 // All tabs are shown directly in the bar (the bar wraps into extra rows
 // on narrow screens; each tab label stays on one line).
 const TABS = backend.supportsScout
-  ? ['inbox', 'review', 'batch', 'approved', 'published', 'assets', 'results', 'brief', 'log', 'aimodels']
-  : ['batch', 'results', 'assets', 'aimodels']
+  ? ['inbox', 'review', 'batch', 'approved', 'published', 'assets', 'zernio', 'results', 'brief', 'log', 'aimodels']
+  : ['batch', 'results', 'assets', 'zernio', 'aimodels']
 
 export default function App() {
   const [tab, setTab] = useState(TABS[0])
   const [showSettings, setShowSettings] = useState(
     backend.mode === 'github' && !backend.hasToken()
   )
+  const [tokenOk, setTokenOk] = useState(
+    backend.mode !== 'github' || backend.hasToken()
+  )
+
+  // Any write attempted without a token (the token lives only in this
+  // browser's local storage) reopens the settings panel - the fix is one
+  // paste away instead of an error toast plus a hunt for the gear.
+  useEffect(() => {
+    const onMissing = () => {
+      setTokenOk(false)
+      setShowSettings(true)
+    }
+    window.addEventListener('ve-token-missing', onMissing)
+    return () => window.removeEventListener('ve-token-missing', onMissing)
+  }, [])
+
+  const closeSettings = () => {
+    setShowSettings(false)
+    setTokenOk(backend.mode !== 'github' || backend.hasToken())
+  }
 
   const pick = (t) => {
     setTab(t)
@@ -44,16 +65,17 @@ export default function App() {
           {backend.mode === 'github' && (
             <button
               className={'tab' + (showSettings ? ' active' : '')}
-              onClick={() => setShowSettings((v) => !v)}
-              title={STR.github.settingsTitle}
+              onClick={() => (showSettings ? closeSettings() : setShowSettings(true))}
+              title={tokenOk ? STR.github.settingsTitle : STR.github.needToken}
+              style={tokenOk ? undefined : { color: '#d33', fontWeight: 700 }}
             >
-              ⚙
+              ⚙{tokenOk ? '' : ' !'}
             </button>
           )}
         </nav>
       </header>
       <main>
-        {showSettings && <TokenPanel onClose={() => setShowSettings(false)} />}
+        {showSettings && <TokenPanel onClose={closeSettings} />}
         <div hidden={tab !== 'batch'}>
           <BatchBuilder active={tab === 'batch'} onSent={() => setTab('results')} />
         </div>
@@ -62,6 +84,9 @@ export default function App() {
         </div>
         <div hidden={tab !== 'assets'}>
           <AssetsTab active={tab === 'assets'} />
+        </div>
+        <div hidden={tab !== 'zernio'}>
+          <ZernioAccountsTab active={tab === 'zernio'} />
         </div>
         <div hidden={tab !== 'aimodels'}>
           <AiModelsTab active={tab === 'aimodels'} />

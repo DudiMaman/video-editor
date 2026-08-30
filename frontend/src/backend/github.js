@@ -120,7 +120,12 @@ export function create(params) {
   }
 
   function requireToken() {
-    if (!token()) throw new Error(STR.github.needToken)
+    if (!token()) {
+      // Let the app shell open the settings panel so the fix is one
+      // paste away instead of an error toast plus a hunt for the gear.
+      window.dispatchEvent(new Event('ve-token-missing'))
+      throw new Error(STR.github.needToken)
+    }
   }
 
   async function readAssetsFile() {
