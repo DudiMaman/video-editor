@@ -25,6 +25,12 @@
   "zernioAccountName": "Dudi Maman",
   "zernioEmail": "dudi.maman@gmail.com",
   "zernioLogin": "google",
-  "zernioTargets": []
+  "zernioTargets": [
+   {
+    "platform": "tiktok",
+    "accountId": "6a9422c477555aae0107d279",
+    "username": "planty9348"
+   }
+  ]
  }
 ]
