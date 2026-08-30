@@ -20,6 +20,10 @@
    "intros/sample/ugc-woman-rooftop.mp4",
    "intros/sample/planty-intro.mp4"
   ],
-  "zernioKeyEnv": "ZERNIO_KEY_PLANTY"
+  "zernioKeyEnv": "ZERNIO_KEY_PLANTY",
+  "zernioAccountId": "",
+  "zernioAccountName": "Dudi Maman",
+  "zernioEmail": "dudi.maman@gmail.com",
+  "zernioLogin": "google"
  }
 ]
