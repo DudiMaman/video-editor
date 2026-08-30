@@ -99,7 +99,8 @@
     "tiktok"
    ],
    "scheduledFor": "2026-08-30T12:50:00Z",
-   "error": "zernio status failed"
+   "error": "tiktok: TikTok direct posting is at capacity right now. Use tiktokSettings.draft: true to deliver via Creator Inbox, or try again in a few hours as capacity frees up.",
+   "transient": true
   }
  },
  {
