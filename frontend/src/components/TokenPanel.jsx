@@ -12,12 +12,21 @@ export default function TokenPanel({ onClose }) {
   const [hasToken, setHasToken] = useState(backend.hasToken())
   const [keyValue, setKeyValue] = useState('')
   const [hasKey, setHasKey] = useState(!!getAnthropicKey())
+  const [linkNote, setLinkNote] = useState('')
 
   const save = () => {
     if (!value.trim()) return
     backend.setToken(value)
     setValue('')
     setHasToken(true)
+  }
+
+  const copyQuickLink = async () => {
+    const url = backend.tokenLink && backend.tokenLink()
+    if (!url) return
+    try { await navigator.clipboard.writeText(url) } catch { /* clipboard blocked */ }
+    setLinkNote(STR.github.quickLinkCopied)
+    setTimeout(() => setLinkNote(''), 4000)
   }
 
   const clear = () => {
@@ -74,6 +83,17 @@ export default function TokenPanel({ onClose }) {
           {STR.github.close}
         </button>
       </div>
+      <p className="hint">{STR.github.tokenPersistNote}</p>
+      {hasToken && (
+        <div style={{ marginTop: 6 }}>
+          <h4 style={{ margin: '8px 0 2px' }}>{STR.github.quickLinkTitle}</h4>
+          <p className="hint" style={{ margin: '0 0 6px' }}>{STR.github.quickLinkExplain}</p>
+          <button className="secondary" onClick={copyQuickLink}>
+            {STR.github.quickLinkBtn}
+          </button>
+          {linkNote && <span className="ok" style={{ marginInlineStart: 8 }}>{linkNote}</span>}
+        </div>
+      )}
 
       <hr className="panel-divider" />
       <h3>{STR.captions.settingsTitle}</h3>

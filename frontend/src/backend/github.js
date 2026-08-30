@@ -81,10 +81,55 @@ async function transcriptKeyFor(source) {
 
 const encodePath = (p) => p.split('/').map(encodeURIComponent).join('/')
 
+// The token lives only in this browser (never in the repo). To survive
+// storage eviction it is kept in THREE places, read in order:
+// localStorage -> cookie -> a bookmarkable URL hash. Opening a saved
+// "quick link" (#gh=<token>) re-hydrates it with no manual paste, so the
+// owner never re-enters it even if the browser clears site data.
+const lsGet = (k) => { try { return localStorage.getItem(k) || '' } catch { return '' } }
+const lsSet = (k, v) => { try { localStorage.setItem(k, v) } catch { /* private mode */ } }
+const lsDel = (k) => { try { localStorage.removeItem(k) } catch { /* private mode */ } }
+
+function readCookie(name) {
+  const m = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'))
+  return m ? decodeURIComponent(m[1]) : ''
+}
+function writeCookie(name, val) {
+  // ~400 days (browsers cap here), HTTPS-only, not sent cross-site.
+  document.cookie =
+    `${name}=${encodeURIComponent(val)}; Max-Age=34560000; Path=/; SameSite=Strict; Secure`
+}
+function eraseCookie(name) {
+  document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Strict; Secure`
+}
+
+// One-time bootstrap from a bookmarkable URL hash (#gh=... or
+// #video_editor_gh_token=...), then scrub it from the address bar so it
+// isn't left on screen.
+function bootstrapTokenFromHash() {
+  const h = (location.hash || '').replace(/^#/, '')
+  if (!h) return
+  const p = new URLSearchParams(h)
+  const t = p.get('gh') || p.get(TOKEN_KEY)
+  if (!t) return
+  lsSet(TOKEN_KEY, t.trim())
+  writeCookie(TOKEN_KEY, t.trim())
+  p.delete('gh'); p.delete(TOKEN_KEY)
+  const rest = p.toString()
+  history.replaceState(null, '',
+    location.pathname + location.search + (rest ? '#' + rest : ''))
+}
+
 export function create(params) {
   const repo = detectRepo(params)
   const api = `https://api.github.com/repos/${repo}`
-  const token = () => localStorage.getItem(TOKEN_KEY) || ''
+
+  bootstrapTokenFromHash()
+  // Keep both stores warm from whichever survived.
+  const _boot = lsGet(TOKEN_KEY) || readCookie(TOKEN_KEY)
+  if (_boot) { lsSet(TOKEN_KEY, _boot); writeCookie(TOKEN_KEY, _boot) }
+
+  const token = () => lsGet(TOKEN_KEY) || readCookie(TOKEN_KEY)
 
   async function gh(path, { method = 'GET', body, raw = false } = {}) {
     const headers = {
@@ -108,7 +153,13 @@ export function create(params) {
         msg = (await res.json()).message || msg
       } catch { /* keep status text */ }
       if (method !== 'GET' && [401, 403, 404].includes(res.status)) {
-        msg = `${STR.github.needToken} (${msg})`
+        // A token IS stored but GitHub rejected it -> almost always an
+        // expired/revoked fine-grained PAT (they carry a required expiry).
+        // Say so distinctly from "no token", and reopen settings either way.
+        msg = token()
+          ? `${STR.github.tokenRejected} (${msg})`
+          : `${STR.github.needToken} (${msg})`
+        try { window.dispatchEvent(new Event('ve-token-missing')) } catch { /* SSR guard */ }
       }
       const err = new Error(msg)
       err.status = res.status
@@ -463,9 +514,14 @@ export function create(params) {
     // anonymous quota: 5 minutes ≈ 24 calls/hour for the two-call poll.
     pollInterval: () => (token() ? 15000 : 300000),
     hasToken: () => !!token(),
-    setToken: (t) => localStorage.setItem(TOKEN_KEY, t.trim()),
-    clearToken: () => localStorage.removeItem(TOKEN_KEY),
+    setToken: (t) => { lsSet(TOKEN_KEY, t.trim()); writeCookie(TOKEN_KEY, t.trim()) },
+    clearToken: () => { lsDel(TOKEN_KEY); eraseCookie(TOKEN_KEY) },
     tokenCreateUrl: 'https://github.com/settings/personal-access-tokens/new',
+    // Bookmarkable link that re-hydrates the token on open - the owner's
+    // safety net against browser storage eviction (no re-paste ever).
+    tokenLink: () => token()
+      ? `${location.origin}${location.pathname}${location.search}#gh=${encodeURIComponent(token())}`
+      : '',
 
     listAssets: async () => (await readAssetsFile()).assets.map(toUiAsset),
 
