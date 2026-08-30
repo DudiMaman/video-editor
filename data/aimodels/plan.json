@@ -1,7 +1,7 @@
 {
-  "daily_posts_per_character": 1,
+  "daily_posts_per_character": 0,
   "reels": {
-    "enabled": true,
+    "enabled": false,
     "days": [
       "Wed",
       "Sat"
@@ -10,10 +10,7 @@
     "chars": [
       "ruby"
     ],
-    "duration_s": 5,
-    "extra_dates": [
-      "2026-08-17"
-    ]
+    "duration_s": 5
   },
   "stories": {
     "enabled": false,
@@ -48,5 +45,5 @@
     "swim"
   ],
   "everyday_ratio": 0.4,
-  "note": "reels: ruby only, Wed+Sat; daily posts for all; 2026-08-17 regen retry 3 (--input fix)"
+  "note": "PAUSED by owner 2026-08-30: no new content until further notice (set daily_posts_per_character back to 1 and reels.enabled true to resume)"
 }
