@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { STR } from '../strings.js'
 import { backend } from '../backend/index.js'
 import ShareBar from './ShareBar.jsx'
@@ -54,7 +54,7 @@ const STAGE = {
   },
 }
 
-function ReviewCard({ entry, stage, appName, asset, siblings, onUpdated, onFlash }) {
+function ReviewCard({ entry, stage, appName, asset, siblings, onFlash }) {
   const [urls, setUrls] = useState(undefined) // undefined=loading, null=missing
   const [caption, setCaption] = useState(entry.caption || '')
   const [busy, setBusy] = useState(false)
@@ -84,7 +84,11 @@ function ReviewCard({ entry, stage, appName, asset, siblings, onUpdated, onFlash
         if (!e) return false
         Object.assign(e, patch)
       }, message)
-      onUpdated()
+      // Broadcast so EVERY mounted tab reloads live - the just-scheduled/
+      // published video leaves this tab and appears in "סרטונים שעלו לרשת"
+      // with no page refresh (and the backend distributor already fires on
+      // the data/ledger.json push this write makes).
+      window.dispatchEvent(new Event('ve-ledger-changed'))
     } catch (e) {
       alert(e.message)
     } finally {
@@ -361,6 +365,19 @@ export default function ReviewTab({ active, stage = 'pending' }) {
       .catch(() => {})
   }, [active])
 
+  // Every mounted tab (even the hidden ones) reloads the moment any card
+  // schedules / publishes / approves / rejects, so a video moves to the
+  // right tab live - no page refresh, and it is already in place when the
+  // owner switches tabs. loadRef keeps the listener pointing at the latest
+  // closure without re-subscribing.
+  const loadRef = useRef(load)
+  loadRef.current = load
+  useEffect(() => {
+    const onChanged = () => loadRef.current()
+    window.addEventListener('ve-ledger-changed', onChanged)
+    return () => window.removeEventListener('ve-ledger-changed', onChanged)
+  }, [])
+
   if (error) return <p className="error">{STR.errors.generic}{error}</p>
   if (entries === null) return <p className="empty">…</p>
 
@@ -414,7 +431,6 @@ export default function ReviewTab({ active, stage = 'pending' }) {
               asset={assets.find((a) => String(a.id) === String(aid))}
               siblings={allEntries.filter(
                 (s) => String(assetIdOf(s, inboxById)) === String(aid))}
-              onUpdated={load}
               onFlash={showFlash}
             />
           )
