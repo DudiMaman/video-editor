@@ -94,11 +94,12 @@
   "zernioPostId": "6a94260a7aefacc3eeab75b6",
   "distribution": {
    "via": "zernio",
-   "state": "scheduled",
+   "state": "failed",
    "platforms": [
     "tiktok"
    ],
-   "scheduledFor": "2026-08-30T12:50:00Z"
+   "scheduledFor": "2026-08-30T12:50:00Z",
+   "error": "zernio status failed"
   }
  },
  {
