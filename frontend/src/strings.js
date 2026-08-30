@@ -101,7 +101,18 @@ export const STR = {
     saved: 'נשמר ✓',
     delete: 'מחק',
     confirmDelete: 'למחוק את האפליקציה ואת כל הסגירים שלה?',
-    zernioAccountId: 'מזהה חשבון Zernio (הפצה לאינסטגרם; מתמלא אוטומטית כשמחובר חשבון אחד)',
+    zernioSection: 'חשבון Zernio של המיזם',
+    zernioKeyNote: (secretName) =>
+      `⚠️ את ה-API Key לא שומרים כאן! השדות בעמוד הזה נשמרים בקובץ ציבורי. ` +
+      `את המפתח מדביקים אך ורק כ-Secret בגיטהאב בשם ${secretName} ` +
+      `(Settings ← Secrets and variables ← Actions).`,
+    zernioAccountId: 'מזהה חשבון האינסטגרם המחובר (לא ה-API Key! מתמלא אוטומטית אחרי חיבור החשבון והוספת ה-Secret)',
+    zernioAccountName: 'שם חשבון Zernio (לתיעוד)',
+    zernioEmail: 'אימייל חשבון Zernio (לתיעוד)',
+    zernioLogin: 'שיטת התחברות לחשבון',
+    zernioLoginNone: '— לא הוגדר —',
+    zernioLoginGoogle: 'גוגל',
+    zernioLoginEmail: 'מייל וסיסמה',
     clipsTitle: 'סגירים',
     uploadClip: 'העלאת סגיר',
     deleteClip: 'מחק סגיר',

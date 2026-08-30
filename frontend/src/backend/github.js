@@ -164,6 +164,10 @@ export function create(params) {
     link: a.link || '',
     hashtags: a.hashtags || '',
     zernioAccountId: a.zernioAccountId || '',
+    zernioKeyEnv: a.zernioKeyEnv || '',
+    zernioAccountName: a.zernioAccountName || '',
+    zernioEmail: a.zernioEmail || '',
+    zernioLogin: a.zernioLogin || '',
     outros: (a.outros || []).map(toClip),
     intros: (a.intros || []).map(toClip),
   })
