@@ -51,7 +51,27 @@ export default function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>{STR.appTitle}</h1>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap' }}>
+          <h1 style={{ margin: 0 }}>{STR.appTitle}</h1>
+          {backend.mode === 'github' && (
+            // A labeled, always-visible settings button in the header -
+            // the bare ⚙ was getting lost at the end of the wrapping tab
+            // bar. Turns red when no token is stored in this browser.
+            <button
+              onClick={() => (showSettings ? closeSettings() : setShowSettings(true))}
+              title={tokenOk ? STR.github.settingsTitle : STR.github.needToken}
+              style={{
+                border: tokenOk ? '1px solid var(--border,#ccc)' : '1px solid #d33',
+                background: tokenOk ? 'transparent' : '#d3333311',
+                color: tokenOk ? 'inherit' : '#d33',
+                fontWeight: 700, borderRadius: 8, padding: '6px 12px', cursor: 'pointer',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              ⚙ {STR.github.settingsBtn}{tokenOk ? '' : ' ⚠️'}
+            </button>
+          )}
+        </div>
         <nav className="tabs">
           {TABS.map((t) => (
             <button
@@ -62,16 +82,6 @@ export default function App() {
               {STR.tabs[t]}
             </button>
           ))}
-          {backend.mode === 'github' && (
-            <button
-              className={'tab' + (showSettings ? ' active' : '')}
-              onClick={() => (showSettings ? closeSettings() : setShowSettings(true))}
-              title={tokenOk ? STR.github.settingsTitle : STR.github.needToken}
-              style={tokenOk ? undefined : { color: '#d33', fontWeight: 700 }}
-            >
-              ⚙{tokenOk ? '' : ' !'}
-            </button>
-          )}
         </nav>
       </header>
       <main>
