@@ -51,27 +51,7 @@ export default function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap' }}>
-          <h1 style={{ margin: 0 }}>{STR.appTitle}</h1>
-          {backend.mode === 'github' && (
-            // A labeled, always-visible settings button in the header -
-            // the bare ⚙ was getting lost at the end of the wrapping tab
-            // bar. Turns red when no token is stored in this browser.
-            <button
-              onClick={() => (showSettings ? closeSettings() : setShowSettings(true))}
-              title={tokenOk ? STR.github.settingsTitle : STR.github.needToken}
-              style={{
-                border: tokenOk ? '1px solid var(--border,#ccc)' : '1px solid #d33',
-                background: tokenOk ? 'transparent' : '#d3333311',
-                color: tokenOk ? 'inherit' : '#d33',
-                fontWeight: 700, borderRadius: 8, padding: '6px 12px', cursor: 'pointer',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              ⚙ {STR.github.settingsBtn}{tokenOk ? '' : ' ⚠️'}
-            </button>
-          )}
-        </div>
+        <h1>{STR.appTitle}</h1>
         <nav className="tabs">
           {TABS.map((t) => (
             <button
@@ -82,6 +62,20 @@ export default function App() {
               {STR.tabs[t]}
             </button>
           ))}
+          {backend.mode === 'github' && (
+            // Settings/token as a labeled tab right after "דמויות AI"
+            // (the last tab). A full-label tab is findable in the wrapping
+            // bar where the bare ⚙ was not; turns red when no token is
+            // stored in this browser.
+            <button
+              className={'tab' + (showSettings ? ' active' : '')}
+              onClick={() => (showSettings ? closeSettings() : setShowSettings(true))}
+              title={tokenOk ? STR.github.settingsTitle : STR.github.needToken}
+              style={tokenOk ? undefined : { color: '#d33', fontWeight: 700 }}
+            >
+              ⚙ {STR.github.settingsBtn}{tokenOk ? '' : ' ⚠️'}
+            </button>
+          )}
         </nav>
       </header>
       <main>
