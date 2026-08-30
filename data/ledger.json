@@ -266,7 +266,16 @@
   },
   "platforms": [
    "tiktok"
-  ]
+  ],
+  "zernioPostId": "6a9430bc5c459b1fdca379ee",
+  "distribution": {
+   "via": "zernio",
+   "state": "scheduled",
+   "platforms": [
+    "tiktok"
+   ],
+   "scheduledFor": "2026-09-01T05:00:00Z"
+  }
  },
  {
   "video_id": "7650988932066331926",
