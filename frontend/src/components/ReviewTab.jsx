@@ -93,7 +93,14 @@ function ReviewCard({ entry, stage, appName, asset, siblings, onUpdated }) {
 
   // ---- Zernio distribution (server-side; the tab only marks intent) ----
 
-  const zernioReady = !!asset?.zernioAccountId && !!entry.output_asset
+  // Ready once the venture has a Zernio publish target (multi-platform
+  // zernioTargets, or the legacy single zernioAccountId) and this entry
+  // has a processed output to send. Mirrors targets_of() in the runner.
+  const hasZernioTarget =
+    (Array.isArray(asset?.zernioTargets) &&
+      asset.zernioTargets.some((t) => t?.platform && t?.accountId)) ||
+    !!asset?.zernioAccountId
+  const zernioReady = hasZernioTarget && !!entry.output_asset
 
   const confirmSchedule = async (date, time) => {
     await setStatus({ schedule: { date, time } },
@@ -203,7 +210,11 @@ function ReviewCard({ entry, stage, appName, asset, siblings, onUpdated }) {
         )}
         {note && <span className="ok">{note}</span>}
       </div>
-      {stage !== 'published' && shareRequest && <ShareBar request={shareRequest} />}
+      {/* The manual device-share row belongs to the pre-Zernio flow. In the
+          approved stage the real publish paths are the Zernio buttons
+          below (schedule / publish now), so the manual bar is shown only
+          in the pending review stage to avoid two competing "share" UIs. */}
+      {stage === 'pending' && shareRequest && <ShareBar request={shareRequest} />}
       <div className="result-actions review-actions">
         {stage === 'pending' && (
           <>
