@@ -21,7 +21,7 @@ export const STR = {
     colAccountName: 'שם חשבון Zernio',
     colEmail: 'מייל החשבון',
     colLogin: 'שיטת התחברות',
-    colStatus: 'חיבור אינסטגרם',
+    colStatus: 'פלטפורמות מחוברות',
     colSecret: 'Secret של המפתח',
     connected: 'מחובר ✓',
     notConnected: 'לא מחובר',

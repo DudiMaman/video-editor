@@ -220,6 +220,7 @@ export function create(params) {
     link: a.link || '',
     hashtags: a.hashtags || '',
     zernioAccountId: a.zernioAccountId || '',
+    zernioTargets: Array.isArray(a.zernioTargets) ? a.zernioTargets : [],
     zernioKeyEnv: a.zernioKeyEnv || '',
     zernioAccountName: a.zernioAccountName || '',
     zernioEmail: a.zernioEmail || '',

@@ -125,10 +125,22 @@ def with_key(key: str):
             os.environ["ZERNIO_API_KEY"] = prev
 
 
+def targets_of(asset: dict) -> list[dict]:
+    """The venture's publish targets: the multi-platform zernioTargets
+    list when present, else the legacy single Instagram zernioAccountId."""
+    tg = [t for t in (asset.get("zernioTargets") or [])
+          if t.get("platform") and t.get("accountId")]
+    if tg:
+        return tg
+    if asset.get("zernioAccountId"):
+        return [{"platform": "instagram", "accountId": asset["zernioAccountId"]}]
+    return []
+
+
 def asset_of(entry: dict, assets: list) -> dict | None:
     a = next((x for x in assets
               if str(x.get("id")) == str(entry.get("asset"))), None)
-    return a if a and a.get("zernioAccountId") else None
+    return a if a and targets_of(a) else None
 
 
 def plan_actions(ledger: list, assets: list) -> list[tuple[str, str, dict]]:
@@ -201,9 +213,11 @@ def execute(actions, ledger, work_dir) -> dict:
                   f"{key_env_of(ctx['asset'])}) - skipped")
             continue
         try:
+          targets = targets_of(ctx["asset"])
+          platforms = sorted({t["platform"] for t in targets})
           with with_key(key):
             if verb == "publish":
-                res = driver.publish_now(ctx["asset"]["zernioAccountId"],
+                res = driver.publish_now(targets,
                                          upload_output(e, work_dir),
                                          e.get("caption") or "")
                 published = res["status"] == "published" or bool(res["postUrl"])
@@ -212,10 +226,11 @@ def execute(actions, ledger, work_dir) -> dict:
                     **({"zernioPostUrl": res["postUrl"]} if res["postUrl"] else {}),
                     **({"status": "published", "published_at": now_z(),
                         "published_to": sorted(set((e.get("published_to") or [])
-                                                   + ["instagram"]))}
+                                                   + platforms))}
                        if published else {}),
                     "publishNow": None,
-                    "distribution": {"via": DISTRIBUTOR,
+                    "distribution": {"via": DISTRIBUTOR, "platforms": platforms,
+                                     **({"urls": res["urls"]} if res.get("urls") else {}),
                                      "state": "published" if published else "publishing"},
                 }
             elif verb in ("schedule", "reschedule"):
@@ -225,13 +240,14 @@ def execute(actions, ledger, work_dir) -> dict:
                     except RuntimeError as err:
                         print(f"  [{vid}] cancel before reschedule failed: {err}",
                               file=sys.stderr)
-                res = driver.schedule_post(ctx["asset"]["zernioAccountId"],
+                res = driver.schedule_post(targets,
                                            upload_output(e, work_dir),
                                            e.get("caption") or "",
                                            ctx["when"])
                 patches[vid] = {
                     "zernioPostId": res["externalId"],
                     "distribution": {"via": DISTRIBUTOR, "state": "scheduled",
+                                     "platforms": platforms,
                                      "scheduledFor": ctx["when"]},
                 }
             elif verb == "cancel":
@@ -244,9 +260,10 @@ def execute(actions, ledger, work_dir) -> dict:
                     patches[vid] = {
                         "status": "published", "published_at": now_z(),
                         "published_to": sorted(set((e.get("published_to") or [])
-                                                   + ["instagram"])),
+                                                   + platforms)),
                         **({"zernioPostUrl": res["postUrl"]} if res["postUrl"] else {}),
                         "distribution": {**(e.get("distribution") or {}),
+                                         **({"urls": res["urls"]} if res.get("urls") else {}),
                                          "state": "published"}}
                 elif res["status"] in ("failed", "partial"):
                     patches[vid] = {
@@ -265,33 +282,37 @@ def execute(actions, ledger, work_dir) -> dict:
 
 
 def discover_wirings() -> dict:
-    """Per-venture auto-wiring: each venture has its own Zernio account,
-    so for every asset whose key is configured but whose zernioAccountId
-    is empty, the account is unambiguous when that venture's Zernio holds
-    exactly one active Instagram account. Returns {asset_id: account_id}."""
+    """Per-venture auto-wiring: each venture has its own Zernio account
+    holding that venture's connected social accounts. For every asset
+    whose key is configured but whose targets are empty, record ALL its
+    active connected accounts (any platform) as publish targets. Returns
+    {asset_id: [{platform, accountId, username}]}."""
     from distributors import zernio
     wirings = {}
     for asset in load_json(ASSETS, []):
-        if asset.get("zernioAccountId"):
+        if targets_of(asset):
             continue
         key = key_of(asset)
         if not key:
             continue
         try:
             with with_key(key):
-                ig = [a for a in zernio.list_accounts()
-                      if a.get("platform") == "instagram"
-                      and a.get("isActive", True)]
+                accts = [a for a in zernio.list_accounts()
+                         if a.get("isActive", True) and a.get("_id")
+                         and a.get("platform")]
         except RuntimeError as e:
             print(f"::warning::listing accounts for '{asset.get('id')}' "
                   f"failed: {e}", file=sys.stderr)
             continue
-        if len(ig) == 1:
-            wirings[str(asset["id"])] = str(ig[0]["_id"])
-            print(f"auto-wire {asset['id']} -> Zernio {ig[0].get('username')}")
+        if accts:
+            wirings[str(asset["id"])] = [
+                {"platform": a["platform"], "accountId": str(a["_id"]),
+                 "username": a.get("username", "")} for a in accts]
+            print(f"auto-wire {asset['id']} -> "
+                  + ", ".join(f"{a['platform']}:{a.get('username')}" for a in accts))
         else:
-            print(f"venture '{asset.get('id')}': {len(ig)} active Instagram "
-                  "account(s) in its Zernio - cannot wire unambiguously")
+            print(f"venture '{asset.get('id')}': no active connected accounts "
+                  "in its Zernio yet")
     return wirings
 
 
@@ -308,16 +329,18 @@ def autowire_assets() -> None:
         assets = load_json(ASSETS, [])
         changed = False
         for a in assets:
-            acc = wirings.get(str(a.get("id")))
-            if acc and not a.get("zernioAccountId"):
-                a["zernioAccountId"] = acc
+            tg = wirings.get(str(a.get("id")))
+            if tg and not targets_of(a):
+                a["zernioTargets"] = tg
+                # keep the legacy single field warm for older UI reads
+                a.setdefault("zernioAccountId", tg[0]["accountId"])
                 changed = True
         if not changed:
             return
         ASSETS.write_text(json.dumps(assets, indent=1) + "\n", encoding="utf-8")
         git("add", "assets.json")
         git("commit", "-m",
-            f"Apps: wire Zernio account for {', '.join(sorted(wirings))}")
+            f"Apps: wire Zernio targets for {', '.join(sorted(wirings))}")
         if git("push", "origin", "main", check=False).returncode == 0:
             return
         time.sleep(2 * (attempt + 1))
@@ -374,8 +397,8 @@ def main() -> int:
         return 0
     autowire_assets()
     assets = load_json(ASSETS, [])
-    if not any(a.get("zernioAccountId") for a in assets):
-        print("no asset has a zernioAccountId yet - nothing to distribute")
+    if not any(targets_of(a) for a in assets):
+        print("no venture has connected Zernio targets yet - nothing to distribute")
         return 0
     ledger = load_json(LEDGER, [])
     actions = plan_actions(ledger, assets)

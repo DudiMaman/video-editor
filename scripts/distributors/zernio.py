@@ -11,8 +11,15 @@ API facts this code relies on:
 - The created post id is post._id; post.status is one of draft/scheduled/
   publishing/published/failed/partial; per-platform entries carry
   platformPostUrl once published.
-- A single video mediaItem publishes as a Reel; platformSpecificData
-  {contentType: "story"} makes a Story; images default to feed posts.
+- Multi-platform: publish_now/schedule_post take `targets` - a bare
+  account-id string (legacy: Instagram) or a list of {platform,
+  accountId}. All targets go out in ONE request (platforms[]), so a
+  single post._id stays the idempotency key; per-platform URLs come back
+  in the result's `urls`. Each platform gets the correct
+  platformSpecificData: Instagram (story/reel + isAiGenerated), Facebook
+  (video -> Reel), TikTok (privacyLevel from the account's creator-info,
+  comment/duet/stitch, disclosure flags), YouTube (title, visibility,
+  synthetic-media flag). A single video otherwise publishes as a Reel.
 - platformSpecificData.isAiGenerated: true labels the post as AI-generated
   media (Meta self-disclosure). The flag describes the MEDIA and the
   caller opts IN per item via media["isAi"] (default: no label). The
@@ -71,49 +78,123 @@ def _media_item(media: dict) -> dict:
     return item
 
 
-def _platform_entry(account_id: str, media: dict) -> dict:
+_privacy_cache = {}
+
+
+def tiktok_privacy(account_id: str) -> str:
+    """The most public privacy level the connected TikTok account allows.
+    TikTok requires privacyLevel to be one of the values its creator-info
+    API returns for that account (unaudited apps are forced to SELF_ONLY);
+    sending an unlisted value errors. Cached per account per run."""
+    if account_id in _privacy_cache:
+        return _privacy_cache[account_id]
+    val = "PUBLIC_TO_EVERYONE"
+    try:
+        info = _api(f"/accounts/{account_id}/tiktok/creator-info")
+        levels = [x.get("value") for x in (info.get("privacyLevels") or [])
+                  if x.get("value")]
+        if levels:
+            val = "PUBLIC_TO_EVERYONE" if "PUBLIC_TO_EVERYONE" in levels else levels[0]
+    except Exception as e:
+        print(f"  tiktok creator-info failed ({str(e)[:120]}), "
+              "defaulting privacy to PUBLIC_TO_EVERYONE", file=sys.stderr)
+    _privacy_cache[account_id] = val
+    return val
+
+
+def _normalize_targets(targets) -> list[dict]:
+    """Accept a bare account-id string (legacy: Instagram) or a list of
+    {platform, accountId} dicts."""
+    if isinstance(targets, str):
+        return [{"platform": "instagram", "accountId": targets}]
+    out = []
+    for t in targets or []:
+        if t.get("accountId") and t.get("platform"):
+            out.append({"platform": t["platform"], "accountId": t["accountId"]})
+    return out
+
+
+def _platform_entry(target: dict, media: dict) -> dict:
+    """Build one platforms[] entry with the platform-correct
+    platformSpecificData. `media` carries type/isAi/story/cover/title."""
+    platform = target["platform"]
+    is_video = media.get("type") == "video"
+    is_ai = bool(media.get("isAi"))
     psd = {}
-    if media.get("isAi"):
-        psd["isAiGenerated"] = True
-    if media.get("story"):
-        psd["contentType"] = "story"
-    return {"platform": "instagram", "accountId": account_id,
+    if platform == "instagram":
+        if is_ai:
+            psd["isAiGenerated"] = True
+        if media.get("story"):
+            psd["contentType"] = "story"
+        # a single video otherwise publishes as a Reel automatically
+    elif platform == "facebook":
+        # vertical marketing video -> Facebook Reel; image/story optional
+        if media.get("story"):
+            psd["contentType"] = "story"
+        elif is_video:
+            psd["contentType"] = "reel"
+    elif platform == "tiktok":
+        psd.update({
+            "privacyLevel": tiktok_privacy(target["accountId"]),
+            "allowComment": True,
+            "allowDuet": True,
+            "allowStitch": True,
+            "commercialContentType": "none",
+            "contentPreviewConfirmed": True,
+            "expressConsentGiven": True,
+            "videoMadeWithAi": is_ai,
+        })
+    elif platform == "youtube":
+        psd["visibility"] = "public"
+        psd["containsSyntheticMedia"] = is_ai
+        if media.get("title"):
+            psd["title"] = media["title"][:100]
+    else:
+        # any other platform Zernio supports - post with defaults
+        pass
+    return {"platform": platform, "accountId": target["accountId"],
             "platformSpecificData": psd}
+
+
+def _build(targets, media: dict, caption: str) -> dict:
+    entries = [_platform_entry(t, media) for t in _normalize_targets(targets)]
+    if not entries:
+        raise RuntimeError("no publish targets")
+    payload = {"content": caption, "mediaItems": [_media_item(media)],
+               "platforms": entries}
+    # YouTube needs a title; default to the first non-empty caption line.
+    if any(e["platform"] == "youtube" for e in entries) and not media.get("title"):
+        first = next((ln.strip() for ln in str(caption).splitlines() if ln.strip()), "")
+        if first:
+            payload["title"] = first[:100]
+    return payload
 
 
 def _result(resp: dict) -> dict:
     post = resp.get("post") or {}
     platforms = post.get("platforms") or [{}]
     url = None
+    urls = {}
     for p in platforms:
         if p.get("platformPostUrl"):
-            url = p["platformPostUrl"]
-            break
+            urls[p.get("platform", "?")] = p["platformPostUrl"]
+            url = url or p["platformPostUrl"]
         if p.get("errorMessage"):
-            print(f"  zernio platform error: {p['errorMessage'][:200]}",
-                  file=sys.stderr)
+            print(f"  zernio {p.get('platform','?')} error: "
+                  f"{p['errorMessage'][:200]}", file=sys.stderr)
     return {"externalId": post.get("_id"),
             "status": post.get("status"),
-            "postUrl": url}
+            "postUrl": url, "urls": urls}
 
 
-def schedule_post(account_id: str, media: dict, caption: str,
-                  scheduled_at: str) -> dict:
-    return _result(_api("/posts", {
-        "content": caption,
-        "mediaItems": [_media_item(media)],
-        "platforms": [_platform_entry(account_id, media)],
-        "scheduledFor": scheduled_at,
-    }))
+def schedule_post(targets, media: dict, caption: str, scheduled_at: str) -> dict:
+    return _result(_api("/posts", {**_build(targets, media, caption),
+                                    "scheduledFor": scheduled_at}))
 
 
-def publish_now(account_id: str, media: dict, caption: str) -> dict:
-    return _result(_api("/posts", {
-        "content": caption,
-        "mediaItems": [_media_item(media)],
-        "platforms": [_platform_entry(account_id, media)],
-        "publishNow": True,
-    }))
+def publish_now(targets, media: dict, caption: str) -> dict:
+    return _result(_api("/posts", {**_build(targets, media, caption),
+                                   "publishNow": True}))
 
 
 def get_post(external_id: str) -> dict:

@@ -15,6 +15,20 @@ const loginLabel = (v) =>
     : v === 'email' ? STR.assets.zernioLoginEmail
     : '—'
 
+const PLATFORM_LABEL = {
+  instagram: 'Instagram', tiktok: 'TikTok', facebook: 'Facebook',
+  youtube: 'YouTube', twitter: 'X', threads: 'Threads', linkedin: 'LinkedIn',
+  pinterest: 'Pinterest',
+}
+
+// The connected platforms for a venture: the multi-platform targets when
+// present, else the legacy single Instagram account.
+const platformsOf = (a) => {
+  const tg = Array.isArray(a.zernioTargets) ? a.zernioTargets : []
+  if (tg.length) return tg.map((t) => PLATFORM_LABEL[t.platform] || t.platform)
+  return a.zernioAccountId ? ['Instagram'] : []
+}
+
 // Read-only overview of every venture (asset) and its Zernio account
 // details, as recorded in the assets tab. Editing stays there - this
 // tab is the registry view the owner asked for.
@@ -65,8 +79,8 @@ export default function ZernioAccountsTab({ active }) {
                     {loginLabel(a.zernioLogin)}
                   </td>
                   <td style={{ padding: '8px 10px', borderBottom: '1px solid var(--border,#e2e2e6)' }}>
-                    {a.zernioAccountId
-                      ? <span style={{ color: '#22a06b', fontWeight: 600 }}>{Z.connected}</span>
+                    {platformsOf(a).length
+                      ? <span style={{ color: '#22a06b', fontWeight: 600 }}>{platformsOf(a).join(', ')}</span>
                       : <span style={{ opacity: 0.6 }}>{Z.notConnected}</span>}
                   </td>
                   <td dir="ltr" style={{ padding: '8px 10px', borderBottom: '1px solid var(--border,#e2e2e6)', fontFamily: 'monospace', fontSize: 12 }}>
