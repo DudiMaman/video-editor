@@ -33,9 +33,16 @@ jobs:
         with:
           python-version: '3.12'
 
-      # Exits quietly when ZERNIO_API_KEY is not configured yet.
+      # Exits quietly when no distributor key is configured yet.
+      # One Buffer secret per brand (Buffer Free = one API key per
+      # account, one account per brand). Adding a brand to Buffer means:
+      # one BUFFER_TOKEN_<BRAND> repo secret + one env line here +
+      # distributor: "buffer" on the brand in roster.json - channels
+      # auto-wire on the first run. ZERNIO_API_KEY stays as the fallback
+      # for brands that have not migrated.
       - name: Distribute approved items
         env:
           ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+          BUFFER_TOKEN_RUBY: ${{ secrets.BUFFER_TOKEN_RUBY }}
           GH_TOKEN: ${{ github.token }}
         run: python scripts/distribute_aimodels.py
