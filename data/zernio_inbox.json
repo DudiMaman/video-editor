@@ -1,1 +1,18 @@
-[]
+[
+ {
+  "source": "apps",
+  "venture": "sample",
+  "ventureName": "Planty",
+  "platform": "tiktok",
+  "postId": "6a94260a7aefacc3eeab75b6",
+  "refId": "7628476859172326676",
+  "level": "error",
+  "message": "TikTok direct posting is at capacity right now. Use tiktokSettings.draft: true to deliver via Creator Inbox, or try again in a few hours as capacity frees up.",
+  "contentPreview": "Your plant is dying and sugar water won’t save it. 😳🌿\n\nScan it with Planty and get the REAL cure in seconds - personaliz",
+  "scheduledFor": "2026-08-30T12:50:00Z",
+  "postUrl": "",
+  "ts": "2026-08-30T17:46:03Z",
+  "remedy": "transient",
+  "id": "c66adcf31bbd45b0"
+ }
+]
