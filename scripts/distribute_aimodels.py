@@ -48,6 +48,7 @@ from generate_daily import (  # noqa: E402
     raw_hosted_file,
 )
 import distributors  # noqa: E402
+import zernio_inbox  # noqa: E402
 
 PAGES_BASE = "https://dudimaman.github.io/video-editor"
 DISTRIBUTOR = "zernio"
@@ -156,13 +157,35 @@ def plan_actions(batch: dict, chars: dict) -> list[tuple[str, str, dict]]:
     return actions
 
 
-def execute(actions, batch, work_dir) -> dict:
-    """Run the network side; return {item_id: patch}."""
+def notice(item: dict, char: dict, message: str) -> dict:
+    """A Zernio-inbox record for one failed character post."""
+    return {
+        "source": "aimodels",
+        "venture": str((char or {}).get("id") or item.get("char") or ""),
+        "ventureName": (char or {}).get("name")
+        or str(item.get("char") or "דמות"),
+        "platform": "instagram",
+        "postId": item.get("zernioPostId") or "",
+        "refId": item.get("id"),
+        "level": "error",
+        "message": str(message)[:400],
+        "contentPreview": (item.get("caption") or "").strip()[:120],
+        "scheduledFor": (item.get("distribution") or {}).get("scheduledFor") or "",
+        "postUrl": item.get("zernioPostUrl") or "",
+    }
+
+
+def execute(actions, batch, work_dir, chars=None) -> tuple[dict, list]:
+    """Run the network side; return (patches, inbox) where inbox is a list
+    of Zernio-inbox notice records for the failures surfaced this run."""
+    chars = chars or {}
     driver = distributors.get(DISTRIBUTOR)
     by_id = {p["id"]: p for p in batch.get("posts", [])}
     patches = {}
+    inbox = []
     for item_id, verb, ctx in actions:
         item = by_id[item_id]
+        char = ctx.get("char") or chars.get(item.get("char")) or {}
         try:
             if verb == "publish":
                 res = driver.publish_now(ctx["char"][ACCOUNT_FIELD],
@@ -209,10 +232,14 @@ def execute(actions, batch, work_dir) -> dict:
                         "distribution": {**(item.get("distribution") or {}),
                                          "state": "published"}}
                 elif res["status"] in ("failed", "partial"):
+                    msg = zernio_inbox.errors_text(res) \
+                        or f"zernio status {res['status']}"
                     patches[item_id] = {
                         "distribution": {**(item.get("distribution") or {}),
-                                         "state": "failed",
-                                         "error": f"zernio status {res['status']}"}}
+                                         "state": "failed", "error": msg[:300]}}
+                    for x in (res.get("errors")
+                              or [{"platform": "", "message": msg}]):
+                        inbox.append(notice(item, char, x.get("message")))
             print(f"[{item_id}] {verb}: ok")
         except Exception as e:
             print(f"[{item_id}] {verb} FAILED: {e}", file=sys.stderr)
@@ -221,7 +248,8 @@ def execute(actions, batch, work_dir) -> dict:
                 "distribution": {**prev, "via": DISTRIBUTOR, "state": "failed",
                                  "attempts": attempts(item) + 1,
                                  "error": str(e)[:300]}}
-    return patches
+            inbox.append(notice(item, char, str(e)))
+    return patches, inbox
 
 
 def main() -> int:
@@ -241,7 +269,9 @@ def main() -> int:
         return 0
     work_dir = Path("out/distribute")
     work_dir.mkdir(parents=True, exist_ok=True)
-    patches = execute(actions, batch, work_dir)
+    patches, inbox = execute(actions, batch, work_dir, chars)
+    if inbox:
+        zernio_inbox.append(inbox)
     if not patches:
         return 0
 

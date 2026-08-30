@@ -175,16 +175,24 @@ def _result(resp: dict) -> dict:
     platforms = post.get("platforms") or [{}]
     url = None
     urls = {}
+    errors = []  # [{platform, message}] - the real per-platform failure text
     for p in platforms:
         if p.get("platformPostUrl"):
             urls[p.get("platform", "?")] = p["platformPostUrl"]
             url = url or p["platformPostUrl"]
-        if p.get("errorMessage"):
+        msg = p.get("errorMessage") or p.get("error")
+        if msg:
+            errors.append({"platform": p.get("platform", "?"),
+                           "message": str(msg)[:400]})
             print(f"  zernio {p.get('platform','?')} error: "
-                  f"{p['errorMessage'][:200]}", file=sys.stderr)
+                  f"{str(msg)[:200]}", file=sys.stderr)
+    # A post-level error (no per-platform breakdown) still needs surfacing.
+    top = post.get("errorMessage") or post.get("error") or resp.get("error")
+    if top and not errors:
+        errors.append({"platform": "", "message": str(top)[:400]})
     return {"externalId": post.get("_id"),
             "status": post.get("status"),
-            "postUrl": url, "urls": urls}
+            "postUrl": url, "urls": urls, "errors": errors}
 
 
 def schedule_post(targets, media: dict, caption: str, scheduled_at: str) -> dict:

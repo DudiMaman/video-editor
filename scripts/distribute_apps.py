@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Distribution sync for the app-marketing side (Planty and future apps):
-push owner-approved edited videos from the ledger to each app's
-Instagram through Zernio.
+push owner-approved edited videos from the ledger to each app's connected
+socials (TikTok / Instagram / Facebook / YouTube) through Zernio. The
+owner picks which of the connected platforms each video goes to on the
+schedule calendar (entry.platforms); the default is all of them.
 
 This is the apps' twin of distribute_aimodels.py. Zernio accounts are
 PER VENTURE (owner decision: each venture is its own business with its
@@ -55,6 +57,7 @@ from generate_daily import (  # noqa: E402
     REPO_ROOT, REPO_SLUG, USER_AGENT, git, load_json,
 )
 import distributors  # noqa: E402
+import zernio_inbox  # noqa: E402
 
 DISTRIBUTOR = "zernio"
 DEFAULT_TZ = "Asia/Jerusalem"
@@ -137,6 +140,43 @@ def targets_of(asset: dict) -> list[dict]:
     return []
 
 
+def targets_for(asset: dict, entry: dict) -> list[dict]:
+    """Publish targets for THIS video: the venture's connected targets,
+    narrowed to the platforms the owner kept checked on the schedule
+    calendar (entry.platforms, platform-value strings). An empty/absent
+    selection means every connected platform - the calendar defaults to
+    all checked, so unchecking is the only way to reach a subset."""
+    tg = targets_of(asset)
+    picked = entry.get("platforms")
+    if picked:
+        sel = [t for t in tg if t["platform"] in set(picked)]
+        if sel:
+            return sel
+    return tg
+
+
+errors_text = zernio_inbox.errors_text
+
+
+def notice(entry: dict, asset: dict, platform: str, message: str,
+           level: str = "error", post_url: str = "") -> dict:
+    """A Zernio-inbox record for one problem on one video."""
+    return {
+        "source": "apps",
+        "venture": str(asset.get("id")),
+        "ventureName": asset.get("name") or str(asset.get("id")),
+        "platform": platform or "",
+        "postId": entry.get("zernioPostId") or "",
+        "refId": entry.get("video_id"),
+        "level": level,
+        "message": str(message)[:400],
+        "contentPreview": (entry.get("caption") or "").strip()[:120],
+        "scheduledFor": (entry.get("distribution") or {}).get("scheduledFor")
+        or scheduled_at_utc(entry, asset) or "",
+        "postUrl": post_url or entry.get("zernioPostUrl") or "",
+    }
+
+
 def asset_of(entry: dict, assets: list) -> dict | None:
     a = next((x for x in assets
               if str(x.get("id")) == str(entry.get("asset"))), None)
@@ -169,6 +209,14 @@ def plan_actions(ledger: list, assets: list) -> list[tuple[str, str, dict]]:
                 actions.append((vid, "reschedule", {"asset": asset, "when": when}))
             elif dist_state(e) in ("scheduled", "publishing", "sent"):
                 actions.append((vid, "sync", {"asset": asset}))
+            elif (dist_state(e) == "failed"
+                  and (e.get("distribution") or {}).get("transient")
+                  and attempts(e) < MAX_ATTEMPTS):
+                # A transient failure (e.g. "TikTok direct posting is at
+                # capacity right now") clears on its own - re-publish on the
+                # hourly run. MAX_ATTEMPTS hourly retries span the "few
+                # hours" Zernio says capacity takes to free up.
+                actions.append((vid, "retry", {"asset": asset}))
         elif sent and not e.get("published_at") and status != APPROVED:
             # approval was withdrawn after the send (back to editing /
             # rejected) - take it off the distributor's calendar too
@@ -197,42 +245,80 @@ def upload_output(entry: dict, work_dir: Path) -> dict:
             "isAi": False}
 
 
-def execute(actions, ledger, work_dir) -> dict:
+def execute(actions, ledger, work_dir) -> tuple[dict, list]:
+    """Run the network side. Returns (patches, inbox) where inbox is a list
+    of Zernio-inbox notice records for every failure surfaced this run."""
     driver = distributors.get(DISTRIBUTOR)
     by_id = {e.get("video_id"): e for e in ledger}
     patches = {}
+    inbox = []
     for vid, verb, ctx in actions:
         e = by_id[vid]
+        asset = ctx["asset"]
         # Per-venture Zernio account: every action runs under the key of
         # the item's own venture. A venture whose key is not configured
         # yet is skipped without marking the item failed.
-        key = key_of(ctx["asset"])
+        key = key_of(asset)
         if not key:
             print(f"::notice::[{vid}] no Zernio key for venture "
-                  f"'{ctx['asset'].get('id')}' (expected env "
-                  f"{key_env_of(ctx['asset'])}) - skipped")
+                  f"'{asset.get('id')}' (expected env "
+                  f"{key_env_of(asset)}) - skipped")
             continue
+        targets = targets_for(asset, e)
+        if not targets:
+            # every connected platform was unchecked on the calendar
+            print(f"::notice::[{vid}] no platforms selected - skipped")
+            continue
+        platforms = sorted({t["platform"] for t in targets})
+        caption = e.get("caption") or ""
+
+        def _fail_patch(msg, transient, bump=True):
+            dist = {**(e.get("distribution") or {}), "via": DISTRIBUTOR,
+                    "platforms": platforms, "state": "failed",
+                    "transient": bool(transient), "error": str(msg)[:300]}
+            if bump:
+                dist["attempts"] = attempts(e) + 1
+            return {"distribution": dist}
+
         try:
-          targets = targets_of(ctx["asset"])
-          platforms = sorted({t["platform"] for t in targets})
           with with_key(key):
-            if verb == "publish":
-                res = driver.publish_now(targets,
-                                         upload_output(e, work_dir),
-                                         e.get("caption") or "")
+            if verb in ("publish", "retry"):
+                # retry re-publishes a transiently-failed post: drop the dead
+                # one first so we do not leave an orphan at Zernio.
+                if verb == "retry" and e.get("zernioPostId"):
+                    try:
+                        driver.cancel_post(e["zernioPostId"])
+                    except Exception as err:
+                        print(f"  [{vid}] cancel before retry failed: {err}",
+                              file=sys.stderr)
+                res = driver.publish_now(targets, upload_output(e, work_dir),
+                                         caption)
                 published = res["status"] == "published" or bool(res["postUrl"])
-                patches[vid] = {
-                    "zernioPostId": res["externalId"],
-                    **({"zernioPostUrl": res["postUrl"]} if res["postUrl"] else {}),
-                    **({"status": "published", "published_at": now_z(),
+                if published:
+                    patches[vid] = {
+                        "zernioPostId": res["externalId"],
+                        **({"zernioPostUrl": res["postUrl"]} if res["postUrl"] else {}),
+                        "status": "published", "published_at": now_z(),
                         "published_to": sorted(set((e.get("published_to") or [])
-                                                   + platforms))}
-                       if published else {}),
-                    "publishNow": None,
-                    "distribution": {"via": DISTRIBUTOR, "platforms": platforms,
-                                     **({"urls": res["urls"]} if res.get("urls") else {}),
-                                     "state": "published" if published else "publishing"},
-                }
+                                                   + platforms)),
+                        "publishNow": None,
+                        "distribution": {"via": DISTRIBUTOR, "platforms": platforms,
+                                         **({"urls": res["urls"]} if res.get("urls") else {}),
+                                         "state": "published"},
+                    }
+                else:
+                    msg = errors_text(res) or f"zernio status {res.get('status')}"
+                    patch = _fail_patch(msg, zernio_inbox.is_transient(msg))
+                    if res.get("externalId"):
+                        # a post exists at Zernio - stop re-sending as a fresh
+                        # publish; retries continue via the transient branch
+                        patch["zernioPostId"] = res["externalId"]
+                        patch["publishNow"] = None
+                    patches[vid] = patch
+                    for x in (res.get("errors")
+                              or [{"platform": "", "message": msg}]):
+                        inbox.append(notice(e, asset, x.get("platform"),
+                                            x.get("message")))
             elif verb in ("schedule", "reschedule"):
                 if verb == "reschedule":
                     try:
@@ -240,10 +326,8 @@ def execute(actions, ledger, work_dir) -> dict:
                     except RuntimeError as err:
                         print(f"  [{vid}] cancel before reschedule failed: {err}",
                               file=sys.stderr)
-                res = driver.schedule_post(targets,
-                                           upload_output(e, work_dir),
-                                           e.get("caption") or "",
-                                           ctx["when"])
+                res = driver.schedule_post(targets, upload_output(e, work_dir),
+                                           caption, ctx["when"])
                 patches[vid] = {
                     "zernioPostId": res["externalId"],
                     "distribution": {"via": DISTRIBUTOR, "state": "scheduled",
@@ -266,19 +350,21 @@ def execute(actions, ledger, work_dir) -> dict:
                                          **({"urls": res["urls"]} if res.get("urls") else {}),
                                          "state": "published"}}
                 elif res["status"] in ("failed", "partial"):
-                    patches[vid] = {
-                        "distribution": {**(e.get("distribution") or {}),
-                                         "state": "failed",
-                                         "error": f"zernio status {res['status']}"}}
+                    msg = errors_text(res) or f"zernio status {res['status']}"
+                    # detection, not our send - don't bump attempts here; the
+                    # transient flag lets plan_actions schedule a retry.
+                    patches[vid] = _fail_patch(
+                        msg, zernio_inbox.is_transient(msg), bump=False)
+                    for x in (res.get("errors")
+                              or [{"platform": "", "message": msg}]):
+                        inbox.append(notice(e, asset, x.get("platform"),
+                                            x.get("message")))
           print(f"[{vid}] {verb}: ok")
         except Exception as err:
             print(f"[{vid}] {verb} FAILED: {err}", file=sys.stderr)
-            patches[vid] = {
-                "distribution": {**(e.get("distribution") or {}),
-                                 "via": DISTRIBUTOR, "state": "failed",
-                                 "attempts": attempts(e) + 1,
-                                 "error": str(err)[:300]}}
-    return patches
+            patches[vid] = _fail_patch(str(err), zernio_inbox.is_transient(str(err)))
+            inbox.append(notice(e, asset, "", str(err)))
+    return patches, inbox
 
 
 def discover_wirings() -> dict:
@@ -407,10 +493,14 @@ def main() -> int:
         return 0
     work_dir = Path("out/distribute-apps")
     work_dir.mkdir(parents=True, exist_ok=True)
-    patches = execute(actions, ledger, work_dir)
-    if not patches:
-        return 0
-    rc = commit_ledger(patches, "Apps: distribution sync (zernio)")
+    patches, inbox = execute(actions, ledger, work_dir)
+    rc = 0
+    if patches:
+        rc = commit_ledger(patches, "Apps: distribution sync (zernio)")
+    # Surface every failure in the "Zernio Inbox" tab (committed separately
+    # so the ledger push above is never blocked by the feed write).
+    if inbox:
+        zernio_inbox.append(inbox)
     failures = [v for v, p in patches.items()
                 if (p.get("distribution") or {}).get("error")]
     if failures:

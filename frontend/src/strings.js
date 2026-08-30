@@ -12,7 +12,33 @@ export const STR = {
     log: 'יומן',
     aimodels: 'דמויות AI',
     zernio: 'חשבונות Zernio',
+    zernioInbox: 'Zernio Inbox',
     more: 'עוד',
+  },
+  zernioInbox: {
+    title: 'Zernio Inbox',
+    explain:
+      'כל הודעות השגיאה והכשל מכל חשבונות ה-Zernio, במקום אחד — פרסומים ' +
+      'שנכשלו, בעיות חשבון ועומס/קצב זמני. נאסף אוטומטית מכל ריצת הפצה, כדי ' +
+      'שלא תצטרך להסתמך על מיילים.',
+    empty: 'אין הודעות שגיאה — כל הפרסומים תקינים ✓',
+    allVentures: 'כל החשבונות',
+    colWhen: 'מתי',
+    colVenture: 'חשבון / מיזם',
+    colPlatform: 'פלטפורמה',
+    colMessage: 'הודעת השגיאה',
+    colContent: 'תוכן הפוסט',
+    transientBadge: '⏳ עומס זמני — יתבצע ניסיון חוזר אוטומטי',
+    transientHint:
+      'שגיאת עומס/קצב זמנית (למשל "TikTok direct posting is at capacity"). ' +
+      'המערכת תפרסם שוב אוטומטית בשעות הקרובות — אין צורך לעשות דבר.',
+    needsAttention: '⚠️ דורש טיפול',
+    scheduledForLabel: 'תוזמן ל־',
+    postIdLabel: 'מזהה פוסט',
+    viewPost: 'צפה בפוסט ↗',
+    filterAll: 'הכל',
+    filterErrors: 'דורש טיפול',
+    filterTransient: 'עומס זמני',
   },
   zernioTab: {
     title: 'חשבונות Zernio',
@@ -228,6 +254,13 @@ export const STR = {
     publishedTag: 'פורסם',
     scheduleTo: 'שבץ ל־',
     scheduledOk: 'שובץ ✓ — יישלח ל-Zernio ויפורסם בזמן.',
+    platformsPickTitle: 'לאילו פלטפורמות לפרסם? (כל המחוברות מסומנות — אפשר להסיר)',
+    scheduledOkPlatforms: (date, time, plats) =>
+      `תוזמן בהצלחה לתאריך ${date} בשעה ${time} לפלטפורמות: ${plats} ✓`,
+    publishNowQueuedPlatforms: (plats) =>
+      `נשלח לפרסום מיידי לפלטפורמות: ${plats} — הסטטוס יתעדכן בדקות הקרובות.`,
+    liveScheduledOn: 'מתוזמן לתאריך',
+    liveToPlatforms: 'לפלטפורמות',
     videoUnavailable: 'קובץ הווידאו לא נמצא ב-Release',
     openOnTikTok: '▶ פתח את הסרטון בטיקטוק',
     preparePreview: '▶ טען תצוגה מלאה של הסרטון',
