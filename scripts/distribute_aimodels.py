@@ -1,6 +1,18 @@
 #!/usr/bin/env python3
 """Distribution sync for the AI-models tab: push owner-approved items to
-Instagram through the configured distributor (Zernio).
+each brand's socials through that brand's distributor.
+
+Two drivers, chosen PER BRAND via roster.json:
+- zernio (default): the original wiring - zernioAccountId + the
+  ZERNIO_API_KEY secret. Untouched; remains the fallback.
+- buffer: one Buffer Free account per brand (3 channels: facebook /
+  instagram / tiktok), key in the BUFFER_TOKEN_<BRAND> secret,
+  channel ids auto-wired into char.bufferChannels on the first run.
+  Buffer quirks handled here: media by public URL only, a 10-posts-
+  per-channel queue cap (items HOLD in queue_wait and retry next run -
+  never failed, never lost), and a 3,000-calls/30-days key quota
+  (status polling is skipped until a post's dueAt is near; every call
+  is logged).
 
 Human approval is the gate - nothing is ever sent unless Dudi acted:
 - An item he scheduled in the Gantt (status "scheduled" with date+time)
@@ -37,24 +49,83 @@ absent so the repo works before Zernio is set up.
 """
 import datetime
 import json
+import re
 import sys
 import os
+import time
+from contextlib import contextmanager
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from generate_daily import (  # noqa: E402
-    REPO_ROOT, USER_AGENT, commit_batch, download_to, load_json,
+    REPO_ROOT, USER_AGENT, commit_batch, download_to, git, load_json,
     raw_hosted_file,
 )
 import distributors  # noqa: E402
+from distributors.buffer import QueueFullError  # noqa: E402
 import zernio_inbox  # noqa: E402
 
 PAGES_BASE = "https://dudimaman.github.io/video-editor"
-DISTRIBUTOR = "zernio"
+DISTRIBUTOR = "zernio"  # the default; per-brand override via char.distributor
 ACCOUNT_FIELD = "zernioAccountId"
+ROSTER = REPO_ROOT / "data" / "aimodels" / "roster.json"
 APPROVED_FOR_SEND = {"scheduled", "approved"}
 MAX_ATTEMPTS = 3
+
+
+# ------------------------------------------------- per-brand distributor
+
+def distributor_of(char: dict) -> str:
+    """Which publishing driver this brand uses. Default: zernio (the
+    original wiring). A brand migrated to Buffer sets
+    distributor: "buffer" in roster.json - Zernio stays untouched as the
+    fallback (switching back = removing the field)."""
+    return char.get("distributor") or DISTRIBUTOR
+
+
+def buffer_key_env_of(char: dict) -> str:
+    """Env var carrying this brand's Buffer API key: explicit
+    char.bufferKeyEnv, else BUFFER_TOKEN_<BRAND_ID>. One Buffer account
+    (and therefore one key/secret) per brand - the free plan's unit."""
+    return char.get("bufferKeyEnv") or \
+        "BUFFER_TOKEN_" + re.sub(r"[^A-Za-z0-9]", "_", str(char.get("id"))).upper()
+
+
+def buffer_targets_of(char: dict) -> list[dict]:
+    """The brand's publish targets: bufferChannels is
+    {platform: channelId} (facebook / instagram / tiktok), auto-wired
+    from the brand's Buffer account on the first run with its token."""
+    ch = char.get("bufferChannels") or {}
+    return [{"platform": p, "channelId": cid} for p, cid in ch.items() if cid]
+
+
+@contextmanager
+def with_buffer_key(key: str):
+    """The buffer driver reads BUFFER_ACCESS_TOKEN; swap the brand's key
+    in for the duration of its API calls (single-threaded runner)."""
+    prev = os.environ.get("BUFFER_ACCESS_TOKEN")
+    os.environ["BUFFER_ACCESS_TOKEN"] = key
+    try:
+        yield
+    finally:
+        if prev is None:
+            os.environ.pop("BUFFER_ACCESS_TOKEN", None)
+        else:
+            os.environ["BUFFER_ACCESS_TOKEN"] = prev
+
+
+def brand_ready(char: dict) -> bool:
+    """Can this brand publish right now? zernio: has a connected account
+    id. buffer: has its token secret AND wired channels (channels are
+    auto-wired by autowire_buffer_channels when the token exists). A
+    buffer brand with no token is SKIPPED - it never silently falls back
+    to Zernio, so a migrated brand cannot surprise-publish through the
+    old account."""
+    if distributor_of(char) == "buffer":
+        return bool(os.environ.get(buffer_key_env_of(char))) and \
+            bool(buffer_targets_of(char))
+    return bool(char.get(ACCOUNT_FIELD))
 
 
 def scheduled_at_utc(item: dict, char: dict) -> str | None:
@@ -158,13 +229,18 @@ def plan_actions(batch: dict, chars: dict) -> list[tuple[str, str, dict]]:
 
 
 def notice(item: dict, char: dict, message: str) -> dict:
-    """A Zernio-inbox record for one failed character post."""
+    """A distribution-inbox record for one failed character post."""
+    if distributor_of(char or {}) == "buffer":
+        platform = ",".join(sorted(t["platform"]
+                                   for t in buffer_targets_of(char or {}))) or ""
+    else:
+        platform = "instagram"
     return {
         "source": "aimodels",
         "venture": str((char or {}).get("id") or item.get("char") or ""),
         "ventureName": (char or {}).get("name")
         or str(item.get("char") or "דמות"),
-        "platform": "instagram",
+        "platform": platform,
         "postId": item.get("zernioPostId") or "",
         "refId": item.get("id"),
         "level": "error",
@@ -177,18 +253,35 @@ def notice(item: dict, char: dict, message: str) -> dict:
 
 def execute(actions, batch, work_dir, chars=None) -> tuple[dict, list]:
     """Run the network side; return (patches, inbox) where inbox is a list
-    of Zernio-inbox notice records for the failures surfaced this run."""
+    of Zernio-inbox notice records for the failures surfaced this run.
+
+    Per-brand driver selection: each item runs through its brand's
+    distributor (zernio - default - or buffer) under that brand's own
+    key. The Buffer post id(s) are stored in the same zernioPostId field
+    the whole pipeline (and the tab) already uses as THE idempotency
+    key/guard; distribution.via says which service the id belongs to.
+    Renaming that field across ledger+UI is a later cleanup - reusing it
+    keeps every existing double-send guard intact during the migration."""
     chars = chars or {}
-    driver = distributors.get(DISTRIBUTOR)
     by_id = {p["id"]: p for p in batch.get("posts", [])}
     patches = {}
     inbox = []
     for item_id, verb, ctx in actions:
         item = by_id[item_id]
         char = ctx.get("char") or chars.get(item.get("char")) or {}
+        drv_name = distributor_of(char)
+        driver = distributors.get(drv_name)
+        if drv_name == "buffer":
+            account = buffer_targets_of(char)
+            key_ctx = with_buffer_key(os.environ.get(buffer_key_env_of(char), ""))
+        else:
+            account = char.get(ACCOUNT_FIELD)
+            from contextlib import nullcontext
+            key_ctx = nullcontext()
         try:
+          with key_ctx:
             if verb == "publish":
-                res = driver.publish_now(ctx["char"][ACCOUNT_FIELD],
+                res = driver.publish_now(account,
                                          media_for(item, work_dir),
                                          item.get("caption") or "")
                 published = res["status"] == "published" or bool(res["postUrl"])
@@ -198,24 +291,41 @@ def execute(actions, batch, work_dir, chars=None) -> tuple[dict, list]:
                     **({"status": "published", "publishedAt": now_z()}
                        if published else {}),
                     "publishNow": None,  # None = remove the key
-                    "distribution": {"via": DISTRIBUTOR,
+                    "distribution": {"via": drv_name,
+                                     **({"urls": res["urls"]} if res.get("urls") else {}),
                                      "state": "published" if published else "publishing"},
                 }
             elif verb in ("schedule", "reschedule"):
+                # Buffer Free holds at most 10 pending posts per channel.
+                # A full queue is NOT a failure: hold the item in
+                # queue_wait (attempts untouched) and re-plan next run -
+                # a slot frees whenever a queued post publishes.
+                if drv_name == "buffer" and verb == "schedule":
+                    full = driver.check_queues(account)
+                    if full:
+                        patches[item_id] = {
+                            "distribution": {**(item.get("distribution") or {}),
+                                             "via": drv_name,
+                                             "state": "queue_wait",
+                                             "reason": "queue full: "
+                                             + ", ".join(full)}}
+                        print(f"[{item_id}] held - Buffer queue full on "
+                              f"{', '.join(full)}; retrying next run")
+                        continue
                 if verb == "reschedule":
                     try:
                         driver.cancel_post(item["zernioPostId"])
                     except RuntimeError as e:
                         print(f"  [{item_id}] cancel before reschedule failed: {e}",
                               file=sys.stderr)
-                res = driver.schedule_post(ctx["char"][ACCOUNT_FIELD],
+                res = driver.schedule_post(account,
                                            media_for(item, work_dir),
                                            item.get("caption") or "",
                                            ctx["when"])
                 patches[item_id] = {
                     "zernioPostId": res["externalId"],
                     "distributedAt": now_z(),
-                    "distribution": {"via": DISTRIBUTOR, "state": "scheduled",
+                    "distribution": {"via": drv_name, "state": "scheduled",
                                      "scheduledFor": ctx["when"]},
                 }
             elif verb == "cancel":
@@ -224,43 +334,133 @@ def execute(actions, batch, work_dir, chars=None) -> tuple[dict, list]:
                     "distribution": {**(item.get("distribution") or {}),
                                      "state": "canceled"}}
             elif verb == "sync":
+                # Rate-limit frugality (Buffer Free: 3,000 calls/30 days):
+                # a post whose slot is still in the future cannot have
+                # published - skip the status call entirely until ~5
+                # minutes before dueAt.
+                if drv_name == "buffer":
+                    sched = (item.get("distribution") or {}).get("scheduledFor")
+                    if sched and sched > (datetime.datetime.now(datetime.timezone.utc)
+                                          + datetime.timedelta(minutes=5)
+                                          ).strftime("%Y-%m-%dT%H:%M:%SZ"):
+                        continue
                 res = driver.get_post(item["zernioPostId"])
                 if res["status"] == "published":
                     patches[item_id] = {
                         "status": "published", "publishedAt": now_z(),
                         **({"zernioPostUrl": res["postUrl"]} if res["postUrl"] else {}),
                         "distribution": {**(item.get("distribution") or {}),
+                                         **({"urls": res["urls"]} if res.get("urls") else {}),
                                          "state": "published"}}
                 elif res["status"] in ("failed", "partial"):
                     msg = zernio_inbox.errors_text(res) \
-                        or f"zernio status {res['status']}"
+                        or f"{drv_name} status {res['status']}"
                     patches[item_id] = {
                         "distribution": {**(item.get("distribution") or {}),
                                          "state": "failed", "error": msg[:300]}}
                     for x in (res.get("errors")
                               or [{"platform": "", "message": msg}]):
                         inbox.append(notice(item, char, x.get("message")))
-            print(f"[{item_id}] {verb}: ok")
+            print(f"[{item_id}] {verb}: ok ({drv_name})")
+        except QueueFullError as e:
+            # publish-now / reschedule hitting a full queue: same hold.
+            patches[item_id] = {
+                "distribution": {**(item.get("distribution") or {}),
+                                 "via": drv_name, "state": "queue_wait",
+                                 "reason": str(e)[:200]}}
+            print(f"[{item_id}] held - {e}; retrying next run")
         except Exception as e:
             print(f"[{item_id}] {verb} FAILED: {e}", file=sys.stderr)
             prev = item.get("distribution") or {}
             patches[item_id] = {
-                "distribution": {**prev, "via": DISTRIBUTOR, "state": "failed",
+                "distribution": {**prev, "via": drv_name, "state": "failed",
                                  "attempts": attempts(item) + 1,
                                  "error": str(e)[:300]}}
             inbox.append(notice(item, char, str(e)))
     return patches, inbox
 
 
+def autowire_buffer_channels(roster: list) -> None:
+    """For every buffer brand whose token secret exists but whose
+    bufferChannels are still empty, list the channels of its Buffer
+    account and commit {service: channelId} to roster.json (race-safe,
+    same pattern as the apps-side autowire). The owner only pastes the
+    token; channel-id hunting is automated. Costs 2 API calls per brand,
+    once ever."""
+    wirings = {}
+    for char in roster:
+        if distributor_of(char) != "buffer" or buffer_targets_of(char):
+            continue
+        key = os.environ.get(buffer_key_env_of(char), "")
+        if not key:
+            print(f"::notice::brand '{char.get('id')}' is set to Buffer but "
+                  f"secret {buffer_key_env_of(char)} is not configured - skipped")
+            continue
+        from distributors import buffer as buffer_drv
+        try:
+            with with_buffer_key(key):
+                channels = buffer_drv.list_channels()
+        except RuntimeError as e:
+            print(f"::warning::listing Buffer channels for "
+                  f"'{char.get('id')}' failed: {e}", file=sys.stderr)
+            continue
+        wired = {c["service"]: str(c["id"]) for c in channels
+                 if c.get("id") and c.get("service")}
+        if wired:
+            wirings[str(char["id"])] = wired
+            print(f"auto-wire {char['id']} -> "
+                  + ", ".join(f"{c['service']}:{c.get('name', '')}"
+                              for c in channels
+                              if c.get("id") and c.get("service")))
+        else:
+            print(f"brand '{char.get('id')}': no channels connected in its "
+                  "Buffer account yet")
+    if not wirings:
+        return
+    git("config", "user.name", "github-actions[bot]")
+    git("config", "user.email",
+        "41898282+github-actions[bot]@users.noreply.github.com")
+    for attempt in range(3):
+        git("fetch", "origin", "main")
+        git("reset", "--hard", "origin/main")
+        fresh = load_json(ROSTER, [])
+        changed = False
+        for c in fresh:
+            wired = wirings.get(str(c.get("id")))
+            if wired and not (c.get("bufferChannels") or {}):
+                c["bufferChannels"] = wired
+                changed = True
+        if not changed:
+            return
+        ROSTER.write_text(json.dumps(fresh, ensure_ascii=False, indent=1) + "\n",
+                          encoding="utf-8")
+        git("add", str(ROSTER.relative_to(REPO_ROOT)))
+        git("commit", "-m",
+            f"AI models: wire Buffer channels for {', '.join(sorted(wirings))}")
+        if git("push", "origin", "main", check=False).returncode == 0:
+            # keep the in-memory roster in step with what we just wired
+            for c in roster:
+                w = wirings.get(str(c.get("id")))
+                if w and not (c.get("bufferChannels") or {}):
+                    c["bufferChannels"] = w
+            return
+        time.sleep(2 * (attempt + 1))
+    print("::warning::could not push roster.json Buffer auto-wire", file=sys.stderr)
+
+
 def main() -> int:
-    if not os.environ.get("ZERNIO_API_KEY"):
-        print("::notice::ZERNIO_API_KEY is not set - distribution skipped "
-              "(add the repo secret once Zernio is connected)")
+    any_buffer = any(k.startswith("BUFFER_TOKEN_") and v
+                     for k, v in os.environ.items())
+    if not os.environ.get("ZERNIO_API_KEY") and not any_buffer:
+        print("::notice::no distributor key is configured (ZERNIO_API_KEY / "
+              "BUFFER_TOKEN_<BRAND>) - distribution skipped")
         return 0
-    roster = load_json(REPO_ROOT / "data" / "aimodels" / "roster.json", [])
-    chars = {c["id"]: c for c in roster if c.get(ACCOUNT_FIELD)}
+    roster = load_json(ROSTER, [])
+    if any_buffer:
+        autowire_buffer_channels(roster)
+    chars = {c["id"]: c for c in roster if brand_ready(c)}
     if not chars:
-        print("no character has a zernioAccountId yet - nothing to distribute")
+        print("no brand is connected to a distributor yet - nothing to distribute")
         return 0
     batch = load_json(REPO_ROOT / "data" / "aimodels" / "batch.json", {"posts": []})
     actions = plan_actions(batch, chars)

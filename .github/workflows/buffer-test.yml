@@ -1,0 +1,59 @@
+name: buffer-test
+
+# Phase-1 gate of the Zernio -> Buffer migration: owner-triggered only.
+# "doctor" verifies the brand's BUFFER_TOKEN_<BRAND> secret and
+# auto-wires its channel ids into roster.json; "test-post" publishes one
+# test post per connected platform so the owner can eyeball the result
+# on the live networks before more brands migrate.
+#
+# The brand's token is mapped below - adding a brand's secret means
+# adding one env line here (same rule as distribute-aimodels.yml).
+
+on:
+  workflow_dispatch:
+    inputs:
+      brand:
+        description: 'Brand id from roster.json (e.g. ruby)'
+        required: true
+        default: 'ruby'
+      action:
+        description: 'What to run'
+        required: true
+        default: 'doctor'
+        type: choice
+        options: [doctor, test-post]
+      in_minutes:
+        description: 'test-post: schedule N minutes out (0 = publish now)'
+        required: false
+        default: '0'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: buffer-test
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Doctor - verify key, list channels, auto-wire roster
+        if: ${{ inputs.action == 'doctor' }}
+        env:
+          BUFFER_TOKEN_RUBY: ${{ secrets.BUFFER_TOKEN_RUBY }}
+        run: python scripts/check_buffer.py "${{ inputs.brand }}"
+
+      - name: Test post - one per connected platform
+        if: ${{ inputs.action == 'test-post' }}
+        env:
+          BUFFER_TOKEN_RUBY: ${{ secrets.BUFFER_TOKEN_RUBY }}
+        run: >
+          python scripts/buffer_test_post.py "${{ inputs.brand }}"
+          --in-minutes "${{ inputs.in_minutes }}"

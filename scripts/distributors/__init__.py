@@ -13,14 +13,23 @@ a trailing Z; `media` is {"type": "image"|"video", "url": ..., optional
 `result` is {"externalId": str, "status": str, "postUrl": str|None}.
 Drivers raise RuntimeError with a readable message on API failure.
 
-The UI never talks to a distributor - publishing happens in GitHub
-Actions (scripts/distribute_aimodels.py) so API keys stay server-side.
-A future driver (e.g. the Instagram Graph API) slots in here without
-touching the tab.
-"""
-from . import zernio
+Multi-platform drivers additionally accept a `targets` list of
+{platform, accountId|channelId} dicts wherever account_id appears, and
+return {"externalId", "status", "postUrl", "urls", "errors"}.
 
-DRIVERS = {"zernio": zernio}
+The UI never talks to a distributor - publishing happens in GitHub
+Actions (scripts/distribute_aimodels.py / distribute_apps.py) so API
+keys stay server-side. A future driver slots in here without touching
+the tab.
+
+Available drivers:
+- zernio: the original driver (per-venture ZERNIO_* keys)
+- buffer: Buffer's GraphQL API, one Buffer account per brand
+  (BUFFER_TOKEN_<BRAND> secrets swapped into BUFFER_ACCESS_TOKEN)
+"""
+from . import buffer, zernio
+
+DRIVERS = {"zernio": zernio, "buffer": buffer}
 
 
 def get(name: str):
