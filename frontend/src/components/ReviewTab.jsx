@@ -7,6 +7,10 @@ import ScheduleCalendar from './ScheduleCalendar.jsx'
 
 const S = STR.scout
 
+// Apps may schedule several posts on the same day (owner request), up to
+// this cap - unlike the characters' calendar which allows one per day.
+const MAX_PER_DAY = 5
+
 // 19.8.2026 rendering for the scheduled-for / published-on indicators.
 const fmtDay = (v) => {
   const m = String(v).match(/^(\d{4})-(\d{2})-(\d{2})/)
@@ -135,19 +139,27 @@ function ReviewCard({ entry, stage, appName, asset, siblings, onUpdated, onFlash
     onFlash?.(S.publishNowQueuedPlatforms(connected.map(platLabel).join(', ')))
   }
 
-  // Days already taken by this app's other scheduled/published videos -
-  // one post per app per day, same rule as the characters' calendar.
+  // Days this app already has videos on, with a per-day count so the
+  // calendar can allow several (up to MAX_PER_DAY) instead of blocking a
+  // day after the first post.
   const occupied = {}
   for (const s of siblings || []) {
     if (s.video_id === entry.video_id) continue
     const d = (s.schedule || {}).date ||
-      (s.status === 'published' ? String(s.published_at || '').slice(0, 10) : '')
+      ((s.status === 'published' || s.published_at)
+        ? String(s.published_at || '').slice(0, 10) : '')
     if (!d) continue
-    occupied[d] = {
-      img: null,
-      tag: s.status === 'published' ? S.publishedTag : S.scheduledTag,
-      tagColor: s.status === 'published' ? '#0891b2' : '#22a06b',
-    }
+    const isPub = s.status === 'published' || !!s.published_at
+    const cur = occupied[d] || { count: 0, pub: 0, img: null }
+    cur.count += 1
+    if (isPub) cur.pub += 1
+    occupied[d] = cur
+  }
+  for (const d in occupied) {
+    const o = occupied[d]
+    const allPub = o.pub === o.count
+    o.tag = allPub ? S.publishedTag : S.scheduledTag
+    o.tagColor = allPub ? '#0891b2' : '#22a06b'
   }
   const upcoming = Object.keys(occupied)
     .filter((d) => d >= new Date().toISOString().slice(0, 10))
@@ -288,6 +300,8 @@ function ReviewCard({ entry, stage, appName, asset, siblings, onUpdated, onFlash
           months={STR.aimodels.months}
           platforms={connected.map((p) => ({ value: p, label: platLabel(p) }))}
           platformsTitle={S.platformsPickTitle}
+          maxPerDay={MAX_PER_DAY}
+          dayLimitNote={S.dayLimitNote(MAX_PER_DAY)}
           legend={[
             { color: '#22a06b', label: S.scheduledTag },
             { color: '#0891b2', label: S.publishedTag },

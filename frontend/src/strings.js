@@ -255,6 +255,7 @@ export const STR = {
     scheduleTo: 'שבץ ל־',
     scheduledOk: 'שובץ ✓ — יישלח ל-Zernio ויפורסם בזמן.',
     platformsPickTitle: 'לאילו פלטפורמות לפרסם? (כל המחוברות מסומנות — אפשר להסיר)',
+    dayLimitNote: (n) => `אפשר לתזמן עד ${n} פוסטים באותו יום`,
     scheduledOkPlatforms: (date, time, plats) =>
       `תוזמן בהצלחה לתאריך ${date} בשעה ${time} לפלטפורמות: ${plats} ✓`,
     publishNowQueuedPlatforms: (plats) =>
