@@ -11,12 +11,13 @@ import ReviewTab from './components/ReviewTab.jsx'
 import LogTab from './components/LogTab.jsx'
 import AiModelsTab from './components/AiModelsTab.jsx'
 import ZernioAccountsTab from './components/ZernioAccountsTab.jsx'
+import ZernioInboxTab from './components/ZernioInboxTab.jsx'
 
 // All tabs are shown directly in the bar (the bar wraps into extra rows
 // on narrow screens; each tab label stays on one line).
 const TABS = backend.supportsScout
-  ? ['inbox', 'review', 'batch', 'approved', 'published', 'assets', 'zernio', 'results', 'brief', 'log', 'aimodels']
-  : ['batch', 'results', 'assets', 'zernio', 'aimodels']
+  ? ['inbox', 'review', 'batch', 'approved', 'published', 'assets', 'zernio', 'zernioInbox', 'results', 'brief', 'log', 'aimodels']
+  : ['batch', 'results', 'assets', 'zernio', 'zernioInbox', 'aimodels']
 
 export default function App() {
   const [tab, setTab] = useState(TABS[0])
@@ -91,6 +92,9 @@ export default function App() {
         </div>
         <div hidden={tab !== 'zernio'}>
           <ZernioAccountsTab active={tab === 'zernio'} />
+        </div>
+        <div hidden={tab !== 'zernioInbox'}>
+          <ZernioInboxTab active={tab === 'zernioInbox'} />
         </div>
         <div hidden={tab !== 'aimodels'}>
           <AiModelsTab active={tab === 'aimodels'} />

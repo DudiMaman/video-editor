@@ -14,7 +14,9 @@ import { useState } from 'react'
 //   months      array of 12 localized month names
 //   confirmLabel(day, m1, time) -> button text
 //   legend      [{color, label}]
-//   onConfirm(dateStr, time)
+//   platforms   [{value, label}] connected platforms to offer as targets
+//   platformsTitle  heading above the platform checkboxes
+//   onConfirm(dateStr, time, selectedPlatforms[])
 //   onClose()
 //   busy        disables the confirm button while saving
 
@@ -22,7 +24,8 @@ const pad2 = (n) => String(n).padStart(2, '0')
 
 export default function ScheduleCalendar({
   header, occupied = {}, initialDate, defaultTime = '18:00', months,
-  confirmLabel, legend = [], onConfirm, onClose, busy = false,
+  confirmLabel, legend = [], platforms = [], platformsTitle = '',
+  onConfirm, onClose, busy = false,
 }) {
   const base = /^\d{4}-\d{2}/.test(String(initialDate || ''))
     ? { y: +initialDate.slice(0, 4), m0: +initialDate.slice(5, 7) - 1 }
@@ -30,6 +33,10 @@ export default function ScheduleCalendar({
   const [month, setMonth] = useState(base)
   const [day, setDay] = useState(null)
   const [time, setTime] = useState(defaultTime)
+  // Every connected platform is a target by default; the owner can uncheck.
+  const [picked, setPicked] = useState(() => platforms.map((p) => p.value))
+  const toggle = (v) =>
+    setPicked((cur) => cur.includes(v) ? cur.filter((x) => x !== v) : [...cur, v])
 
   const moveMonth = (dir) => {
     setDay(null)
@@ -107,13 +114,30 @@ export default function ScheduleCalendar({
           </div>
         )}
 
+        {platforms.length > 0 && (
+          <div style={{ marginTop: 14 }}>
+            {platformsTitle && (
+              <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>{platformsTitle}</div>
+            )}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+              {platforms.map((p) => (
+                <label key={p.value} style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 14, cursor: 'pointer' }}>
+                  <input type="checkbox" checked={picked.includes(p.value)}
+                    onChange={() => toggle(p.value)} />
+                  {p.label}
+                </label>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginTop: 14 }}>
           <input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
           <span style={{ flex: 1 }} />
           <button
-            disabled={!day || busy}
-            onClick={() => onConfirm(keyOf(day), time)}
-            style={{ background: '#22a06b', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 16px', fontWeight: 700, cursor: day ? 'pointer' : 'default', opacity: day ? 1 : 0.45 }}
+            disabled={!day || busy || (platforms.length > 0 && picked.length === 0)}
+            onClick={() => onConfirm(keyOf(day), time, picked)}
+            style={{ background: '#22a06b', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 16px', fontWeight: 700, cursor: (day && (platforms.length === 0 || picked.length)) ? 'pointer' : 'default', opacity: (day && (platforms.length === 0 || picked.length)) ? 1 : 0.45 }}
           >
             {confirmLabel(day, month.m0 + 1, time)}
           </button>

@@ -6,6 +6,7 @@ data/*
 !data/ledger.json
 !data/config.json
 !data/suggestions.json
+!data/zernio_inbox.json
 !data/aimodels/
 !data/aimodels/**
 !data/transcripts/

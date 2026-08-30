@@ -13,14 +13,44 @@ const fmtDay = (v) => {
   return m ? `${+m[3]}.${+m[2]}.${m[1]}` : String(v)
 }
 
-// stage: 'pending' | 'approved' | 'published'
-const STAGE = {
-  pending: { statuses: ['pending_review'], explain: () => S.reviewExplain, empty: () => S.reviewEmpty },
-  approved: { statuses: ['approved'], explain: () => S.approvedExplain, empty: () => S.approvedEmpty },
-  published: { statuses: ['published'], explain: () => S.publishedExplain, empty: () => S.publishedEmpty },
+const PLATFORM_LABEL = {
+  instagram: 'Instagram', tiktok: 'TikTok', facebook: 'Facebook',
+  youtube: 'YouTube', twitter: 'X', threads: 'Threads', linkedin: 'LinkedIn',
+  pinterest: 'Pinterest',
+}
+const platLabel = (v) => PLATFORM_LABEL[v] || v
+
+// The venture's connected platforms (from zernioTargets, else legacy IG).
+const platformsOf = (asset) => {
+  const tg = (asset?.zernioTargets || []).filter((t) => t?.platform && t?.accountId)
+  if (tg.length) return [...new Set(tg.map((t) => t.platform))]
+  return asset?.zernioAccountId ? ['instagram'] : []
 }
 
-function ReviewCard({ entry, stage, appName, asset, siblings, onUpdated }) {
+// An approved entry the owner has acted on (scheduled or sent to publish)
+// leaves the "approved" tab and shows in "published/live" instead.
+const acted = (e) => !!((e.schedule && e.schedule.date) || e.publishNow || e.zernioPostId)
+
+// stage: 'pending' | 'approved' | 'published'
+const STAGE = {
+  pending: {
+    match: (e) => e.status === 'pending_review',
+    explain: () => S.reviewExplain, empty: () => S.reviewEmpty,
+  },
+  approved: {
+    // only videos still awaiting a decision - once scheduled/published
+    // they move to the live tab
+    match: (e) => e.status === 'approved' && !acted(e),
+    explain: () => S.approvedExplain, empty: () => S.approvedEmpty,
+  },
+  published: {
+    // live videos AND ones scheduled/queued for publishing
+    match: (e) => e.status === 'published' || (e.status === 'approved' && acted(e)),
+    explain: () => S.publishedExplain, empty: () => S.publishedEmpty,
+  },
+}
+
+function ReviewCard({ entry, stage, appName, asset, siblings, onUpdated, onFlash }) {
   const [urls, setUrls] = useState(undefined) // undefined=loading, null=missing
   const [caption, setCaption] = useState(entry.caption || '')
   const [busy, setBusy] = useState(false)
@@ -73,18 +103,6 @@ function ReviewCard({ entry, stage, appName, asset, siblings, onUpdated }) {
     )
   }
 
-  const markUploaded = () => {
-    if (!confirm(S.confirmUploaded)) return
-    setStatus(
-      {
-        status: 'published',
-        published_to: [...new Set([...(entry.published_to || []), 'social'])],
-        published_at: new Date().toISOString(),
-      },
-      `Scout: uploaded ${entry.video_id}`
-    )
-  }
-
   const saveCaption = async () => {
     await setStatus({ caption }, `Scout: edit caption ${entry.video_id}`)
     setNote(S.captionSaved)
@@ -93,28 +111,28 @@ function ReviewCard({ entry, stage, appName, asset, siblings, onUpdated }) {
 
   // ---- Zernio distribution (server-side; the tab only marks intent) ----
 
-  // Ready once the venture has a Zernio publish target (multi-platform
-  // zernioTargets, or the legacy single zernioAccountId) and this entry
-  // has a processed output to send. Mirrors targets_of() in the runner.
-  const hasZernioTarget =
-    (Array.isArray(asset?.zernioTargets) &&
-      asset.zernioTargets.some((t) => t?.platform && t?.accountId)) ||
-    !!asset?.zernioAccountId
-  const zernioReady = hasZernioTarget && !!entry.output_asset
+  const connected = platformsOf(asset)
+  const zernioReady = connected.length > 0 && !!entry.output_asset
+  // Platforms this video is aimed at: the owner's calendar choice, else all
+  // connected. Once scheduled/published the card leaves the "approved" tab,
+  // so the success message is flashed at the tab level (onFlash), not here.
+  const entryPlatforms =
+    (entry.platforms && entry.platforms.length) ? entry.platforms : connected
 
-  const confirmSchedule = async (date, time) => {
-    await setStatus({ schedule: { date, time } },
-      `Scout: schedule ${entry.video_id} for ${date} ${time}`)
+  const confirmSchedule = async (date, time, platforms) => {
+    const plats = (platforms && platforms.length) ? platforms : connected
+    await setStatus({ schedule: { date, time }, platforms: plats },
+      `Scout: schedule ${entry.video_id} for ${date} ${time} (${plats.join(',')})`)
     setCalOpen(false)
-    setNote(S.scheduledOk)
-    setTimeout(() => setNote(''), 3000)
+    onFlash?.(S.scheduledOkPlatforms(fmtDay(date), time,
+      plats.map(platLabel).join(', ')))
   }
 
   const publishNow = async () => {
     if (!confirm(S.publishNowConfirm)) return
-    await setStatus({ publishNow: true }, `Scout: publish now ${entry.video_id}`)
-    setNote(S.publishNowQueued)
-    setTimeout(() => setNote(''), 3000)
+    await setStatus({ publishNow: true, platforms: connected },
+      `Scout: publish now ${entry.video_id}`)
+    onFlash?.(S.publishNowQueuedPlatforms(connected.map(platLabel).join(', ')))
   }
 
   // Days already taken by this app's other scheduled/published videos -
@@ -145,9 +163,10 @@ function ReviewCard({ entry, stage, appName, asset, siblings, onUpdated }) {
       <div className="result-head">
         <strong>{appName}</strong>
         <span className="muted" dir="ltr">{entry.output_asset}</span>
-        {stage === 'published' && entry.published_at && (
+        {entry.published_at && (
           <span className="badge badge-done">
             {S.publishedTag} {fmtDay(entry.published_at)}
+            {entryPlatforms.length > 0 && ` · ${entryPlatforms.map(platLabel).join(', ')}`}
             {entry.zernioPostUrl && (
               <>
                 {' · '}
@@ -157,14 +176,19 @@ function ReviewCard({ entry, stage, appName, asset, siblings, onUpdated }) {
           </span>
         )}
       </div>
-      {stage === 'approved' && entry.schedule?.date && (
+      {entry.schedule?.date && !entry.published_at && (
         <p style={{ color: '#22a06b', fontWeight: 600, fontSize: 13, margin: '2px 0' }}>
-          {S.scheduledOn} {fmtDay(entry.schedule.date)} {S.atHour} {entry.schedule.time}
+          {S.liveScheduledOn} {fmtDay(entry.schedule.date)} {S.atHour} {entry.schedule.time}
+          {entryPlatforms.length > 0 &&
+            ` · ${S.liveToPlatforms} ${entryPlatforms.map(platLabel).join(', ')}`}
           {entry.zernioPostId && <span style={{ marginInlineStart: 8 }}>{S.distScheduled}</span>}
         </p>
       )}
-      {stage === 'approved' && entry.publishNow && !entry.zernioPostId && (
-        <p style={{ color: '#b8860b', fontWeight: 600, fontSize: 13, margin: '2px 0' }}>{S.publishingNow}</p>
+      {entry.publishNow && !entry.zernioPostId && !entry.published_at && (
+        <p style={{ color: '#b8860b', fontWeight: 600, fontSize: 13, margin: '2px 0' }}>
+          {S.publishingNow}
+          {entryPlatforms.length > 0 && ` · ${entryPlatforms.map(platLabel).join(', ')}`}
+        </p>
       )}
       {entry.distribution?.state === 'failed' && (
         <p className="error" style={{ fontSize: 12, margin: '2px 0' }} title={entry.distribution?.error || ''}>
@@ -244,9 +268,6 @@ function ReviewCard({ entry, stage, appName, asset, siblings, onUpdated }) {
             >
               {S.publishNowBtn}
             </button>
-            <button className="secondary" onClick={markUploaded} disabled={busy}>
-              {S.markUploadedBtn}
-            </button>
           </>
         )}
         {stage === 'approved' && !zernioReady && (
@@ -265,6 +286,8 @@ function ReviewCard({ entry, stage, appName, asset, siblings, onUpdated }) {
           initialDate={entry.schedule?.date || upcoming}
           defaultTime={entry.schedule?.time || '18:00'}
           months={STR.aimodels.months}
+          platforms={connected.map((p) => ({ value: p, label: platLabel(p) }))}
+          platformsTitle={S.platformsPickTitle}
           legend={[
             { color: '#22a06b', label: S.scheduledTag },
             { color: '#0891b2', label: S.publishedTag },
@@ -293,6 +316,13 @@ export default function ReviewTab({ active, stage = 'pending' }) {
   const [inboxById, setInboxById] = useState({})
   const [appFilter, setAppFilter] = useState('')
   const [error, setError] = useState('')
+  // Scheduling/publishing moves a card out of this tab, so its success
+  // message is shown here at the tab level instead of on the (unmounting) card.
+  const [flash, setFlash] = useState('')
+  const showFlash = (msg) => {
+    setFlash(msg)
+    setTimeout(() => setFlash(''), 6000)
+  }
 
   const [allEntries, setAllEntries] = useState([])
 
@@ -301,7 +331,7 @@ export default function ReviewTab({ active, stage = 'pending' }) {
       .readLedger()
       .then((l) => {
         setAllEntries(l)
-        setEntries(l.filter((e) => cfg.statuses.includes(e.status)))
+        setEntries(l.filter(cfg.match))
       })
       .catch((e) => setError(e.message))
 
@@ -331,6 +361,11 @@ export default function ReviewTab({ active, stage = 'pending' }) {
   return (
     <div>
       <p className="hint">{cfg.explain()}</p>
+      {flash && (
+        <p className="ok" style={{ background: '#e6f7ee', border: '1px solid #22a06b', borderRadius: 8, padding: '8px 12px', fontWeight: 600, margin: '8px 0' }}>
+          {flash}
+        </p>
+      )}
       {idsHere.length > 1 && (
         <div className="log-filter">
           <button
@@ -366,6 +401,7 @@ export default function ReviewTab({ active, stage = 'pending' }) {
               siblings={allEntries.filter(
                 (s) => String(assetIdOf(s, inboxById)) === String(aid))}
               onUpdated={load}
+              onFlash={showFlash}
             />
           )
         })

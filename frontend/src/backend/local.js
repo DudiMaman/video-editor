@@ -11,6 +11,10 @@ export function create() {
     setToken: () => {},
     clearToken: () => {},
 
+    // The Zernio inbox is a GitHub-mode feed (data/zernio_inbox.json,
+    // written by the distributor Actions); the local dev server has none.
+    readZernioInbox: async () => [],
+
     listAssets: () => get('/api/assets'),
     createAsset: (fields) => post('/api/assets', fields),
     updateAsset: (id, fields) => put(`/api/assets/${id}`, fields),

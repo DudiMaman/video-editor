@@ -524,6 +524,12 @@ export function create(params) {
       ? `${location.origin}${location.pathname}${location.search}#gh=${encodeURIComponent(token())}`
       : '',
 
+    // Failure/notice feed written by the distributor Actions (both apps
+    // and characters), surfaced in the "Zernio Inbox" tab. Tokenless reads
+    // are fine - it is a public data file like the ledger.
+    readZernioInbox: async () =>
+      JSON.parse((await readRepoFile('data/zernio_inbox.json', '[]')).text || '[]'),
+
     listAssets: async () => (await readAssetsFile()).assets.map(toUiAsset),
 
     createAsset: async (fields) => {
