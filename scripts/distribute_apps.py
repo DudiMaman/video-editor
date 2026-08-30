@@ -45,6 +45,7 @@ is absent.
 import datetime
 import json
 import os
+import subprocess
 import sys
 import time
 import urllib.request
@@ -57,14 +58,22 @@ from generate_daily import (  # noqa: E402
     REPO_ROOT, REPO_SLUG, USER_AGENT, git, load_json,
 )
 import distributors  # noqa: E402
+from distributors.buffer import QueueFullError  # noqa: E402
+import buffer_wiring  # noqa: E402
 import zernio_inbox  # noqa: E402
 
-DISTRIBUTOR = "zernio"
+DISTRIBUTOR = "zernio"  # default; a venture opts into buffer in assets.json
 DEFAULT_TZ = "Asia/Jerusalem"
 APPROVED = "approved"
 MAX_ATTEMPTS = 3
 LEDGER = REPO_ROOT / "data" / "ledger.json"
 ASSETS = REPO_ROOT / "assets.json"
+PAGES_BASE = "https://dudimaman.github.io/video-editor"
+
+
+class MediaWait(Exception):
+    """The Pages mirror copy of the video is not live yet - hold the
+    entry (state media_wait) and retry next run instead of failing."""
 
 
 def now_z() -> str:
@@ -140,13 +149,85 @@ def targets_of(asset: dict) -> list[dict]:
     return []
 
 
+def connected_targets_of(asset: dict) -> list[dict]:
+    """Publish targets through the venture's CURRENT distributor: the
+    Buffer channels when it migrated, else the Zernio targets."""
+    if buffer_wiring.distributor_of(asset) == "buffer":
+        return buffer_wiring.targets_of(asset)
+    return targets_of(asset)
+
+
+def driver_name_for(entry: dict, asset: dict) -> str:
+    """Driver for an entry. A post already sent somewhere STAYS with the
+    service that holds it (distribution.via) - so Planty's posts that
+    were scheduled through Zernio keep syncing/canceling through Zernio
+    even after the venture migrated to Buffer. Unsent work follows the
+    venture's current distributor."""
+    if entry.get("zernioPostId"):
+        return (entry.get("distribution") or {}).get("via") or \
+            buffer_wiring.distributor_of(asset)
+    return buffer_wiring.distributor_of(asset)
+
+
+def key_ctx_for(drv_name: str, asset: dict):
+    """Key context for running `drv_name` calls as this venture."""
+    if drv_name == "buffer":
+        return buffer_wiring.with_key(
+            os.environ.get(buffer_wiring.key_env_of(asset), ""))
+    return with_key(key_of(asset))
+
+
+def pages_media_url(entry: dict) -> str:
+    """The stable public URL Buffer gets: the video's copy on the Pages
+    site (real video/mp4, no redirect) - mirrored by pages.yml for every
+    Buffer venture's pending/recent ledger entry."""
+    out = str(entry.get("output_asset") or "")
+    tag, name = out.split("/", 1)
+    return f"{PAGES_BASE}/media/apps-{tag}-{name.replace('/', '-')}"
+
+
+def url_live(url: str) -> bool:
+    try:
+        req = urllib.request.Request(url, method="HEAD",
+                                     headers={"User-Agent": USER_AGENT})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return 200 <= r.status < 300
+    except Exception:
+        return False
+
+
+def ensure_pages_media(entry: dict) -> str:
+    """Return the entry's live Pages media URL. When the mirror copy is
+    not there yet, kick the pages deploy (the proven daily-workflow
+    pattern) and poll for a few minutes; still missing -> MediaWait, the
+    entry holds and the next hourly run finds the mirror ready."""
+    url = pages_media_url(entry)
+    if url_live(url):
+        return url
+    print(f"  media not on Pages yet - dispatching pages.yml and waiting: {url}")
+    subprocess.run(["gh", "workflow", "run", "pages.yml", "--ref", "main"],
+                   cwd=REPO_ROOT, check=False, capture_output=True, text=True)
+    for _ in range(12):
+        time.sleep(20)
+        if url_live(url):
+            return url
+    raise MediaWait(url)
+
+
+def buffer_media(entry: dict) -> dict:
+    """isAi False - same reasoning as upload_output: these are real
+    commercial app videos, conventionally edited."""
+    return {"type": "video", "url": ensure_pages_media(entry),
+            "mimeType": "video/mp4", "isAi": False}
+
+
 def targets_for(asset: dict, entry: dict) -> list[dict]:
     """Publish targets for THIS video: the venture's connected targets,
     narrowed to the platforms the owner kept checked on the schedule
     calendar (entry.platforms, platform-value strings). An empty/absent
     selection means every connected platform - the calendar defaults to
     all checked, so unchecking is the only way to reach a subset."""
-    tg = targets_of(asset)
+    tg = connected_targets_of(asset)
     picked = entry.get("platforms")
     if picked:
         sel = [t for t in tg if t["platform"] in set(picked)]
@@ -178,9 +259,19 @@ def notice(entry: dict, asset: dict, platform: str, message: str,
 
 
 def asset_of(entry: dict, assets: list) -> dict | None:
+    """The entry's venture, when it can act on it. A Buffer venture must
+    be ready (token + wired channels) for NEW sends, but an entry already
+    sent through Zernio (before the migration) stays actionable via its
+    Zernio wiring - so pending Zernio posts keep syncing/canceling."""
     a = next((x for x in assets
               if str(x.get("id")) == str(entry.get("asset"))), None)
-    return a if a and targets_of(a) else None
+    if not a:
+        return None
+    if buffer_wiring.distributor_of(a) == "buffer":
+        if buffer_wiring.ready(a):
+            return a
+        return a if entry.get("zernioPostId") and targets_of(a) else None
+    return a if targets_of(a) else None
 
 
 def plan_actions(ledger: list, assets: list) -> list[tuple[str, str, dict]]:
@@ -254,72 +345,113 @@ def upload_output(entry: dict, work_dir: Path) -> dict:
 
 
 def execute(actions, ledger, work_dir) -> tuple[dict, list]:
-    """Run the network side. Returns (patches, inbox) where inbox is a list
-    of Zernio-inbox notice records for every failure surfaced this run."""
-    driver = distributors.get(DISTRIBUTOR)
+    """Run the network side. Returns (patches, inbox) where inbox is a
+    list of distribution-inbox notice records for every failure surfaced
+    this run.
+
+    Per-entry driver selection: NEW sends go through the venture's
+    current distributor (buffer for a migrated venture, zernio
+    otherwise); an entry already sent stays with the service that holds
+    its post (distribution.via) for sync/cancel, so Planty's pending
+    Zernio posts keep working after her migration. Buffer holds are not
+    failures: a full channel queue -> queue_wait, a not-yet-mirrored
+    video -> media_wait; both retry on the next run without burning
+    attempts."""
     by_id = {e.get("video_id"): e for e in ledger}
     patches = {}
     inbox = []
     for vid, verb, ctx in actions:
         e = by_id[vid]
         asset = ctx["asset"]
-        # Per-venture Zernio account: every action runs under the key of
-        # the item's own venture. A venture whose key is not configured
-        # yet is skipped without marking the item failed.
-        key = key_of(asset)
-        if not key:
-            print(f"::notice::[{vid}] no Zernio key for venture "
-                  f"'{asset.get('id')}' (expected env "
-                  f"{key_env_of(asset)}) - skipped")
+        cur_drv = buffer_wiring.distributor_of(asset)
+        sent_drv = driver_name_for(e, asset)
+        caption = e.get("caption") or ""
+
+        def _key_missing(drv_name):
+            if drv_name == "buffer":
+                if os.environ.get(buffer_wiring.key_env_of(asset), ""):
+                    return None
+                return buffer_wiring.key_env_of(asset)
+            return None if key_of(asset) else key_env_of(asset)
+
+        needed = {sent_drv} if verb in ("cancel", "sync") else {cur_drv, sent_drv}
+        missing = [env for env in (_key_missing(d) for d in needed) if env]
+        if missing:
+            print(f"::notice::[{vid}] no key for venture "
+                  f"'{asset.get('id')}' (expected env {', '.join(missing)}) "
+                  "- skipped")
             continue
-        targets = targets_for(asset, e)
-        if not targets:
+
+        creates = verb in ("publish", "retry", "schedule", "reschedule")
+        targets = targets_for(asset, e) if creates else []
+        if creates and not targets:
             # every connected platform was unchecked on the calendar
             print(f"::notice::[{vid}] no platforms selected - skipped")
             continue
-        platforms = sorted({t["platform"] for t in targets})
-        caption = e.get("caption") or ""
+        platforms = sorted({t["platform"] for t in targets}) if creates else \
+            ((e.get("distribution") or {}).get("platforms")
+             or sorted({t["platform"] for t in connected_targets_of(asset)}))
 
-        def _fail_patch(msg, transient, bump=True):
-            dist = {**(e.get("distribution") or {}), "via": DISTRIBUTOR,
+        def _fail_patch(msg, transient, bump=True, via=None):
+            dist = {**(e.get("distribution") or {}), "via": via or cur_drv,
                     "platforms": platforms, "state": "failed",
                     "transient": bool(transient), "error": str(msg)[:300]}
             if bump:
                 dist["attempts"] = attempts(e) + 1
             return {"distribution": dist}
 
+        def _hold_patch(state, reason):
+            return {"distribution": {**(e.get("distribution") or {}),
+                                     "via": cur_drv, "state": state,
+                                     "reason": str(reason)[:200]}}
+
+        def _media():
+            if cur_drv == "buffer":
+                return buffer_media(e)  # public Pages URL (may raise MediaWait)
+            with key_ctx_for("zernio", asset):
+                return upload_output(e, work_dir)
+
+        def _cancel_old():
+            if not e.get("zernioPostId"):
+                return
+            try:
+                with key_ctx_for(sent_drv, asset):
+                    distributors.get(sent_drv).cancel_post(e["zernioPostId"])
+            except Exception as err:
+                print(f"  [{vid}] cancel of old {sent_drv} post failed: {err}",
+                      file=sys.stderr)
+
         try:
-          with with_key(key):
             if verb in ("publish", "retry"):
-                # retry re-publishes a transiently-failed post: drop the dead
-                # one first so we do not leave an orphan at Zernio.
-                if verb == "retry" and e.get("zernioPostId"):
-                    try:
-                        driver.cancel_post(e["zernioPostId"])
-                    except Exception as err:
-                        print(f"  [{vid}] cancel before retry failed: {err}",
-                              file=sys.stderr)
-                res = driver.publish_now(targets, upload_output(e, work_dir),
-                                         caption)
+                # retry re-publishes a transiently-failed post: drop the
+                # dead one first so we do not leave an orphan behind.
+                if verb == "retry":
+                    _cancel_old()
+                media = _media()
+                with key_ctx_for(cur_drv, asset):
+                    res = distributors.get(cur_drv).publish_now(
+                        targets, media, caption)
                 published = res["status"] == "published" or bool(res["postUrl"])
-                if published:
+                if published or res["status"] == "publishing":
                     patches[vid] = {
                         "zernioPostId": res["externalId"],
                         **({"zernioPostUrl": res["postUrl"]} if res["postUrl"] else {}),
-                        "status": "published", "published_at": now_z(),
-                        "published_to": sorted(set((e.get("published_to") or [])
-                                                   + platforms)),
+                        **({"status": "published", "published_at": now_z(),
+                            "published_to": sorted(set((e.get("published_to") or [])
+                                                       + platforms))}
+                           if published else {}),
                         "publishNow": None,
-                        "distribution": {"via": DISTRIBUTOR, "platforms": platforms,
+                        "distribution": {"via": cur_drv, "platforms": platforms,
                                          **({"urls": res["urls"]} if res.get("urls") else {}),
-                                         "state": "published"},
+                                         "state": "published" if published
+                                         else "publishing"},
                     }
                 else:
-                    msg = errors_text(res) or f"zernio status {res.get('status')}"
+                    msg = errors_text(res) or f"{cur_drv} status {res.get('status')}"
                     patch = _fail_patch(msg, zernio_inbox.is_transient(msg))
                     if res.get("externalId"):
-                        # a post exists at Zernio - stop re-sending as a fresh
-                        # publish; retries continue via the transient branch
+                        # a post exists at the service - stop re-sending as a
+                        # fresh publish; retries continue via the transient path
                         patch["zernioPostId"] = res["externalId"]
                         patch["publishNow"] = None
                     patches[vid] = patch
@@ -328,26 +460,47 @@ def execute(actions, ledger, work_dir) -> tuple[dict, list]:
                         inbox.append(notice(e, asset, x.get("platform"),
                                             x.get("message")))
             elif verb in ("schedule", "reschedule"):
+                if cur_drv == "buffer":
+                    # Buffer Free: 10 pending posts per channel. Full ->
+                    # hold, retry next run (a slot frees on every publish).
+                    with key_ctx_for(cur_drv, asset):
+                        full = distributors.get("buffer").check_queues(targets)
+                    if full:
+                        patches[vid] = _hold_patch(
+                            "queue_wait", "queue full: " + ", ".join(full))
+                        print(f"[{vid}] held - Buffer queue full on "
+                              f"{', '.join(full)}; retrying next run")
+                        continue
                 if verb == "reschedule":
-                    try:
-                        driver.cancel_post(e["zernioPostId"])
-                    except RuntimeError as err:
-                        print(f"  [{vid}] cancel before reschedule failed: {err}",
-                              file=sys.stderr)
-                res = driver.schedule_post(targets, upload_output(e, work_dir),
-                                           caption, ctx["when"])
+                    _cancel_old()
+                media = _media()
+                with key_ctx_for(cur_drv, asset):
+                    res = distributors.get(cur_drv).schedule_post(
+                        targets, media, caption, ctx["when"])
                 patches[vid] = {
                     "zernioPostId": res["externalId"],
-                    "distribution": {"via": DISTRIBUTOR, "state": "scheduled",
+                    "distribution": {"via": cur_drv, "state": "scheduled",
                                      "platforms": platforms,
                                      "scheduledFor": ctx["when"]},
                 }
             elif verb == "cancel":
-                driver.cancel_post(e["zernioPostId"])
+                with key_ctx_for(sent_drv, asset):
+                    distributors.get(sent_drv).cancel_post(e["zernioPostId"])
                 patches[vid] = {"distribution": {**(e.get("distribution") or {}),
                                                  "state": "canceled"}}
             elif verb == "sync":
-                res = driver.get_post(e["zernioPostId"])
+                # Buffer quota frugality: a scheduled post cannot have
+                # published before its slot - skip the status call until
+                # ~5 minutes before scheduledFor.
+                if sent_drv == "buffer":
+                    sched = (e.get("distribution") or {}).get("scheduledFor")
+                    soon = (datetime.datetime.now(datetime.timezone.utc)
+                            + datetime.timedelta(minutes=5)
+                            ).strftime("%Y-%m-%dT%H:%M:%SZ")
+                    if sched and sched > soon:
+                        continue
+                with key_ctx_for(sent_drv, asset):
+                    res = distributors.get(sent_drv).get_post(e["zernioPostId"])
                 if res["status"] == "published":
                     patches[vid] = {
                         "status": "published", "published_at": now_z(),
@@ -358,16 +511,24 @@ def execute(actions, ledger, work_dir) -> tuple[dict, list]:
                                          **({"urls": res["urls"]} if res.get("urls") else {}),
                                          "state": "published"}}
                 elif res["status"] in ("failed", "partial"):
-                    msg = errors_text(res) or f"zernio status {res['status']}"
+                    msg = errors_text(res) or f"{sent_drv} status {res['status']}"
                     # detection, not our send - don't bump attempts here; the
                     # transient flag lets plan_actions schedule a retry.
                     patches[vid] = _fail_patch(
-                        msg, zernio_inbox.is_transient(msg), bump=False)
+                        msg, zernio_inbox.is_transient(msg), bump=False,
+                        via=sent_drv)
                     for x in (res.get("errors")
                               or [{"platform": "", "message": msg}]):
                         inbox.append(notice(e, asset, x.get("platform"),
                                             x.get("message")))
-          print(f"[{vid}] {verb}: ok")
+            print(f"[{vid}] {verb}: ok ({cur_drv if creates else sent_drv})")
+        except MediaWait as err:
+            patches[vid] = _hold_patch("media_wait",
+                                       f"waiting for Pages mirror: {err}")
+            print(f"[{vid}] held - media not mirrored yet; retrying next run")
+        except QueueFullError as err:
+            patches[vid] = _hold_patch("queue_wait", err)
+            print(f"[{vid}] held - {err}; retrying next run")
         except Exception as err:
             print(f"[{vid}] {verb} FAILED: {err}", file=sys.stderr)
             patches[vid] = _fail_patch(str(err), zernio_inbox.is_transient(str(err)))
@@ -481,18 +642,23 @@ def commit_ledger(patches: dict, message: str) -> int:
 
 
 def main() -> int:
-    any_key = os.environ.get("ZERNIO_APPS_API_KEY") or \
+    any_zernio = os.environ.get("ZERNIO_APPS_API_KEY") or \
         any(k.startswith("ZERNIO_KEY_") and v
             for k, v in os.environ.items())
-    if not any_key:
-        print("::notice::no venture Zernio key is configured - app "
-              "distribution skipped (add a ZERNIO_KEY_<VENTURE> repo secret "
-              "and its env line in distribute-apps.yml)")
+    any_buffer = buffer_wiring.any_buffer_key()
+    if not any_zernio and not any_buffer:
+        print("::notice::no venture distributor key is configured "
+              "(ZERNIO_KEY_<VENTURE> / BUFFER_TOKEN_<VENTURE>) - app "
+              "distribution skipped")
         return 0
-    autowire_assets()
+    if any_zernio:
+        autowire_assets()
+    if any_buffer:
+        buffer_wiring.autowire_channels(ASSETS)
     assets = load_json(ASSETS, [])
-    if not any(targets_of(a) for a in assets):
-        print("no venture has connected Zernio targets yet - nothing to distribute")
+    if not any(connected_targets_of(a) or targets_of(a) for a in assets):
+        print("no venture has connected distribution targets yet - "
+              "nothing to distribute")
         return 0
     ledger = load_json(LEDGER, [])
     actions = plan_actions(ledger, assets)

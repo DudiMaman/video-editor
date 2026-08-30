@@ -43,5 +43,12 @@ jobs:
         env:
           ZERNIO_KEY_PLANTY: ${{ secrets.ZERNIO_KEY_PLANTY }}
           ZERNIO_APPS_API_KEY: ${{ secrets.ZERNIO_APPS_API_KEY }}
+          # One Buffer secret per venture (one Buffer account = one key).
+          # Adding a venture to Buffer: one BUFFER_TOKEN_<VENTURE> secret
+          # + one env line here + distributor: "buffer" in assets.json -
+          # channels auto-wire on the first run. Zernio lines above stay
+          # as the fallback for un-migrated ventures and for posts that
+          # were already scheduled through Zernio.
+          BUFFER_TOKEN_PLANTY: ${{ secrets.BUFFER_TOKEN_PLANTY }}
           GH_TOKEN: ${{ github.token }}
         run: python scripts/distribute_apps.py

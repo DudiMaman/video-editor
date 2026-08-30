@@ -72,6 +72,51 @@ jobs:
                   print(name)
           print(f'{n} reel video(s) mirrored')
           PY
+
+      # Buffer's API takes media as PUBLIC URLS ONLY and fetches them at
+      # publish time (docs: hosting-media - stable, direct, https, no
+      # redirects). Release assets are octet-stream behind a redirect, so
+      # every ledger video a Buffer venture still needs is mirrored into
+      # the site as /media/apps-<tag>-<name> (real video/mp4). The set is
+      # rebuilt on every deploy (this branch is force-pushed), covering
+      # entries awaiting/holding distribution plus 30 days of published
+      # ones so scheduled posts never lose their media URL.
+      - name: Include app videos for Buffer distribution
+        run: |
+          python3 - <<'PY'
+          import datetime, json, urllib.request
+          assets = {str(a.get('id')): a for a in json.load(open('assets.json'))}
+          ledger = json.load(open('data/ledger.json'))
+          keep_after = (datetime.datetime.now(datetime.timezone.utc)
+                        - datetime.timedelta(days=30)).strftime('%Y-%m-%dT%H:%M:%SZ')
+          n = 0
+          for e in ledger:
+              a = assets.get(str(e.get('asset')))
+              if not a or (a.get('distributor') or 'zernio') != 'buffer':
+                  continue
+              out = str(e.get('output_asset') or '')
+              if '/' not in out:
+                  continue
+              acted = (e.get('schedule') or {}).get('date') or e.get('publishNow') \
+                  or e.get('zernioPostId')
+              state = (e.get('distribution') or {}).get('state') or ''
+              recent_pub = e.get('status') == 'published' and \
+                  str(e.get('published_at') or '') >= keep_after
+              pending = e.get('status') == 'approved' and acted and \
+                  state != 'canceled'
+              if not (pending or recent_pub):
+                  continue
+              tag, name = out.split('/', 1)
+              dest = f"apps-{tag}-{name.replace('/', '-')}"
+              url = ('https://github.com/${{ github.repository }}'
+                     f'/releases/download/{tag}/{name}')
+              req = urllib.request.Request(url, headers={'User-Agent': 'pages-media/1.0'})
+              with urllib.request.urlopen(req, timeout=300) as r:
+                  open(f'frontend/dist/media/{dest}', 'wb').write(r.read())
+              n += 1
+              print(dest)
+          print(f'{n} app video(s) mirrored for Buffer')
+          PY
       # Publishing to a gh-pages branch auto-enables GitHub Pages on public
       # repos — no admin API call needed (the workflow token can't create the
       # Pages site via the REST API).

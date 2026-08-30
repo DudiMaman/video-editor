@@ -13,9 +13,9 @@ on:
   workflow_dispatch:
     inputs:
       brand:
-        description: 'Brand id from roster.json (e.g. ruby)'
+        description: 'Brand id or name (assets.json / roster.json), e.g. planty'
         required: true
-        default: 'ruby'
+        default: 'planty'
       action:
         description: 'What to run'
         required: true
@@ -47,13 +47,13 @@ jobs:
       - name: Doctor - verify key, list channels, auto-wire roster
         if: ${{ inputs.action == 'doctor' }}
         env:
-          BUFFER_TOKEN_RUBY: ${{ secrets.BUFFER_TOKEN_RUBY }}
+          BUFFER_TOKEN_PLANTY: ${{ secrets.BUFFER_TOKEN_PLANTY }}
         run: python scripts/check_buffer.py "${{ inputs.brand }}"
 
       - name: Test post - one per connected platform
         if: ${{ inputs.action == 'test-post' }}
         env:
-          BUFFER_TOKEN_RUBY: ${{ secrets.BUFFER_TOKEN_RUBY }}
+          BUFFER_TOKEN_PLANTY: ${{ secrets.BUFFER_TOKEN_PLANTY }}
         run: >
           python scripts/buffer_test_post.py "${{ inputs.brand }}"
           --in-minutes "${{ inputs.in_minutes }}"

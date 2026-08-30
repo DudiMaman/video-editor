@@ -5,13 +5,18 @@ on the live networks before more brands migrate.
 
 The post is a real publish (mode shareNow by default, or scheduled a
 few minutes out with --in-minutes so it can still be deleted from the
-Buffer dashboard). Media must be a PUBLIC URL - the default is the
-repo's Pages-hosted favicon-sized logo if no --media is given, which
-every platform accepts as an image post.
+Buffer dashboard). Media must be a PUBLIC direct URL - the default is
+the Pages-hosted test image, which every platform accepts; TikTok
+accepts video only, so a TikTok channel is auto-skipped on an image
+test (use --video --media <public mp4 URL> to test it, e.g. a
+/media/apps-... mirror URL from the Pages site).
+
+Brand lookup spans assets.json and roster.json, by id or name
+(case-insensitive) - `planty` works.
 
 Usage (from .github/workflows/buffer-test.yml, or locally):
-    python scripts/buffer_test_post.py <brand-id> [--media URL]
-        [--video] [--in-minutes N] [--platforms instagram,facebook]
+    python scripts/buffer_test_post.py <brand> [--media URL] [--video]
+        [--in-minutes N] [--platforms instagram,facebook]
         [--caption TEXT]
 
 Safety: refuses to run when the brand has no bufferChannels wired, and
@@ -25,8 +30,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from generate_daily import load_json  # noqa: E402
-import distribute_aimodels as run  # noqa: E402
+import buffer_wiring  # noqa: E402
 from distributors import buffer  # noqa: E402
 
 # Served by the Pages deploy (frontend/public/test-post.png).
@@ -48,32 +52,37 @@ def main() -> int:
     ap.add_argument("--caption", default=DEFAULT_CAPTION)
     args = ap.parse_args()
 
-    roster = load_json(run.ROSTER, [])
-    char = next((c for c in roster if str(c.get("id")) == args.brand), None)
-    if not char:
-        print(f"::error::brand '{args.brand}' is not in roster.json",
-              file=sys.stderr)
+    brand, path = buffer_wiring.find_brand(args.brand)
+    if not brand:
+        print(f"::error::brand '{args.brand}' is not in assets.json or "
+              "roster.json", file=sys.stderr)
         return 1
-    key = os.environ.get(run.buffer_key_env_of(char), "")
+    key = os.environ.get(buffer_wiring.key_env_of(brand), "")
     if not key:
-        print(f"::error::secret {run.buffer_key_env_of(char)} is not set",
+        print(f"::error::secret {buffer_wiring.key_env_of(brand)} is not set",
               file=sys.stderr)
         return 1
-    targets = run.buffer_targets_of(char)
+    targets = buffer_wiring.targets_of(brand)
     if args.platforms:
         want = {p.strip() for p in args.platforms.split(",") if p.strip()}
         targets = [t for t in targets if t["platform"] in want]
+    if not args.video:
+        skipped = [t["platform"] for t in targets if t["platform"] == "tiktok"]
+        targets = [t for t in targets if t["platform"] != "tiktok"]
+        if skipped:
+            print("tiktok skipped on an image test (video-only platform) - "
+                  "test it with --video --media <public mp4 URL>")
     if not targets:
-        print("::error::no wired bufferChannels for this brand (run "
-              "check_buffer.py first - channels auto-wire when the token "
-              "works)", file=sys.stderr)
+        print("::error::no wired bufferChannels to post to (run the doctor "
+              "first - channels auto-wire when the token works)",
+              file=sys.stderr)
         return 1
 
     media = {"type": "video" if args.video else "image", "url": args.media,
              "isAi": False}
-    print(f"test post for '{args.brand}' -> "
+    print(f"test post for '{brand.get('id')}' ({path.name}) -> "
           + ", ".join(t["platform"] for t in targets))
-    with run.with_buffer_key(key):
+    with buffer_wiring.with_key(key):
         if args.in_minutes > 0:
             when = (datetime.datetime.now(datetime.timezone.utc)
                     + datetime.timedelta(minutes=args.in_minutes)
