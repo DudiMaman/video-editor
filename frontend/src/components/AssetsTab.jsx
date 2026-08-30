@@ -5,6 +5,12 @@ import OutroManager from './OutroManager.jsx'
 
 const emptyForm = { name: '', description: '', link: '', hashtags: '' }
 
+// The GitHub Actions secret expected to hold this venture's Zernio API
+// key (mirrors key_env_of() in scripts/distribute_apps.py).
+const secretNameOf = (asset) =>
+  asset.zernioKeyEnv ||
+  'ZERNIO_KEY_' + String(asset.id).replace(/[^A-Za-z0-9]/g, '_').toUpperCase()
+
 function AssetEditor({ asset, onSaved, onDeleted }) {
   const [form, setForm] = useState({
     name: asset.name,
@@ -12,6 +18,9 @@ function AssetEditor({ asset, onSaved, onDeleted }) {
     link: asset.link,
     hashtags: asset.hashtags,
     zernioAccountId: asset.zernioAccountId || '',
+    zernioAccountName: asset.zernioAccountName || '',
+    zernioEmail: asset.zernioEmail || '',
+    zernioLogin: asset.zernioLogin || '',
   })
   const [saved, setSaved] = useState(false)
   const [error, setError] = useState('')
@@ -61,6 +70,29 @@ function AssetEditor({ asset, onSaved, onDeleted }) {
         <label>
           {STR.assets.hashtags}
           <input type="text" dir="ltr" {...field('hashtags')} />
+        </label>
+      </div>
+      <h4 style={{ margin: '14px 0 4px' }}>{STR.assets.zernioSection}</h4>
+      <p className="hint" style={{ margin: '0 0 8px' }}>
+        {STR.assets.zernioKeyNote(secretNameOf(asset))}
+      </p>
+      <div className="fields">
+        <label>
+          {STR.assets.zernioAccountName}
+          <input type="text" {...field('zernioAccountName')} />
+        </label>
+        <label>
+          {STR.assets.zernioEmail}
+          <input type="email" dir="ltr" {...field('zernioEmail')} />
+        </label>
+        <label>
+          {STR.assets.zernioLogin}
+          <select value={form.zernioLogin}
+            onChange={(e) => setForm({ ...form, zernioLogin: e.target.value })}>
+            <option value="">{STR.assets.zernioLoginNone}</option>
+            <option value="google">{STR.assets.zernioLoginGoogle}</option>
+            <option value="email">{STR.assets.zernioLoginEmail}</option>
+          </select>
         </label>
         <label className="wide">
           {STR.assets.zernioAccountId}
