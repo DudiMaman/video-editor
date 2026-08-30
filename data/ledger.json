@@ -120,7 +120,16 @@
   },
   "platforms": [
    "tiktok"
-  ]
+  ],
+  "zernioPostId": "6a94304aa27b9c86779f77f3",
+  "distribution": {
+   "via": "zernio",
+   "state": "scheduled",
+   "platforms": [
+    "tiktok"
+   ],
+   "scheduledFor": "2026-08-30T21:00:00Z"
+  }
  },
  {
   "video_id": "7670485418403679491",
