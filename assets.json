@@ -24,6 +24,7 @@
   "zernioAccountId": "",
   "zernioAccountName": "Dudi Maman",
   "zernioEmail": "dudi.maman@gmail.com",
-  "zernioLogin": "google"
+  "zernioLogin": "google",
+  "zernioTargets": []
  }
 ]

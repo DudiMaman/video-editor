@@ -12,7 +12,9 @@ on:
     - cron: '41 * * * *'
   push:
     branches: [main]
-    paths: ['data/ledger.json']
+    # assets.json included so wiring a venture's Zernio account
+    # (or editing its details) re-runs distribution + auto-wire.
+    paths: ['data/ledger.json', 'assets.json']
 
 permissions:
   contents: write
