@@ -217,6 +217,14 @@ def plan_actions(ledger: list, assets: list) -> list[tuple[str, str, dict]]:
                 # hourly run. MAX_ATTEMPTS hourly retries span the "few
                 # hours" Zernio says capacity takes to free up.
                 actions.append((vid, "retry", {"asset": asset}))
+            elif (dist_state(e) == "failed"
+                  and "transient" not in (e.get("distribution") or {})):
+                # A failure recorded before transient/permanent was
+                # classified (older code, or a pre-classification write).
+                # Re-check via get_post to capture the real error and set
+                # the transient flag, so the next run can retry it if it is
+                # just capacity/rate limit.
+                actions.append((vid, "sync", {"asset": asset}))
         elif sent and not e.get("published_at") and status != APPROVED:
             # approval was withdrawn after the send (back to editing /
             # rejected) - take it off the distributor's calendar too

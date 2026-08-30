@@ -16,6 +16,12 @@ import { useState } from 'react'
 //   legend      [{color, label}]
 //   platforms   [{value, label}] connected platforms to offer as targets
 //   platformsTitle  heading above the platform checkboxes
+//   maxPerDay   how many posts one day may hold before it is full and
+//               blocked (default 1 - the characters' one-per-day rule).
+//               occupied[date].count drives it; a day is selectable while
+//               count < maxPerDay so several posts can share a day.
+//   dayLimitNote  optional localized note shown under the grid when
+//               maxPerDay > 1 (e.g. "up to 5 posts per day")
 //   onConfirm(dateStr, time, selectedPlatforms[])
 //   onClose()
 //   busy        disables the confirm button while saving
@@ -25,6 +31,7 @@ const pad2 = (n) => String(n).padStart(2, '0')
 export default function ScheduleCalendar({
   header, occupied = {}, initialDate, defaultTime = '18:00', months,
   confirmLabel, legend = [], platforms = [], platformsTitle = '',
+  maxPerDay = 1, dayLimitNote = '',
   onConfirm, onClose, busy = false,
 }) {
   const base = /^\d{4}-\d{2}/.test(String(initialDate || ''))
@@ -74,28 +81,31 @@ export default function ScheduleCalendar({
           {Array.from({ length: monthOffset }, (_, i) => <div key={`e${i}`} />)}
           {Array.from({ length: monthDays }, (_, i) => {
             const d = i + 1
-            const taken = occupied[keyOf(d)]
-            const picked = day === d
+            const info = occupied[keyOf(d)]
+            const cnt = info ? (info.count ?? 1) : 0
+            const full = cnt >= maxPerDay
+            const isSel = day === d
             return (
               <div
                 key={d}
-                onClick={taken ? undefined : () => setDay(d)}
+                onClick={full ? undefined : () => setDay(d)}
                 style={{
-                  aspectRatio: '1', border: picked ? '2px solid #6ea8fe' : '1px solid #ccc',
-                  background: picked ? 'rgba(110,168,254,.15)' : taken ? '#f4f4f6' : 'transparent',
+                  aspectRatio: '1', border: isSel ? '2px solid #6ea8fe' : '1px solid #ccc',
+                  background: isSel ? 'rgba(110,168,254,.15)'
+                    : full ? '#f4f4f6' : cnt > 0 ? 'rgba(34,160,107,.10)' : 'transparent',
                   borderRadius: 8, padding: 3, position: 'relative', fontSize: 11,
-                  cursor: taken ? 'default' : 'pointer', overflow: 'hidden',
+                  cursor: full ? 'default' : 'pointer', overflow: 'hidden',
                 }}
               >
                 <span style={{ position: 'absolute', top: 2, insetInlineEnd: 5, zIndex: 1 }}>{d}</span>
-                {taken && (
+                {info && (
                   <>
-                    {taken.img && (
-                      <img src={taken.img} alt="" loading="lazy" decoding="async"
+                    {info.img && (
+                      <img src={info.img} alt="" loading="lazy" decoding="async"
                         style={{ position: 'absolute', bottom: 14, insetInline: 3, height: '60%', width: 'calc(100% - 6px)', objectFit: 'cover', borderRadius: 4 }} />
                     )}
-                    <span style={{ position: 'absolute', bottom: 2, insetInline: 3, fontSize: 9, background: taken.tagColor || '#22a06b', color: '#fff', borderRadius: 4, textAlign: 'center', zIndex: 1 }}>
-                      {taken.tag}
+                    <span style={{ position: 'absolute', bottom: 2, insetInline: 3, fontSize: 9, background: info.tagColor || '#22a06b', color: '#fff', borderRadius: 4, textAlign: 'center', zIndex: 1 }}>
+                      {maxPerDay > 1 ? `${info.tag} ${cnt}/${maxPerDay}` : info.tag}
                     </span>
                   </>
                 )}
@@ -103,6 +113,9 @@ export default function ScheduleCalendar({
             )
           })}
         </div>
+        {dayLimitNote && (
+          <div style={{ fontSize: 11, opacity: 0.7, textAlign: 'center', marginTop: 8 }}>{dayLimitNote}</div>
+        )}
 
         {legend.length > 0 && (
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', fontSize: 11, opacity: 0.7, marginTop: 10 }}>
