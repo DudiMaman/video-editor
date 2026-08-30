@@ -68,13 +68,38 @@ Failures surface exactly like Zernio failures: `distribution.state:
 8. Approve → the brand's regular scheduled/publish-now flow now runs
    through Buffer. Nothing else changes.
 
+## Where brands live
+
+A "brand" is either an app venture in `assets.json` (Planty) or a
+character in `data/aimodels/roster.json`. Both runners
+(`distribute_apps.py` / `distribute_aimodels.py`) share one wiring
+implementation (`scripts/buffer_wiring.py`), and the owner scripts look
+a brand up by **id or name** across both files — `planty` finds the
+venture whose legacy id is `sample`.
+
+## Video hosting for app ventures
+
+Buffer fetches media **at publish time** from a public direct URL.
+Ledger videos live in GitHub Releases (octet-stream behind a redirect —
+not Buffer-safe), so the Pages deploy mirrors every video a Buffer
+venture still needs to `/media/apps-<tag>-<name>` (real `video/mp4`),
+and the runner uses that URL. If the mirror copy isn't live yet the
+runner kicks the Pages deploy, waits a few minutes, and otherwise holds
+the entry in `media_wait` for the next hourly run — never failed, never
+lost.
+
 ## Migration status
 
-- **Phase 1 (current)**: `ruby` is wired as the first Buffer brand and
-  waiting for its `BUFFER_TOKEN_RUBY` secret. Her Zernio wiring
-  (`zernioAccountId`) is intentionally left in place as the documented
-  fallback. **Stop after her test posts — owner approval required
-  before migrating the remaining brands.**
+- **Phase 1 (current)**: **Planty** is wired as the first Buffer brand
+  (`assets.json`: `distributor: "buffer"`, secret
+  `BUFFER_TOKEN_PLANTY`). Her Zernio wiring stays in place — posts that
+  were **already scheduled through Zernio keep syncing and publishing
+  through Zernio** (an entry follows the service that holds it,
+  `distribution.via`); only new sends go through Buffer. **Stop after
+  Planty's test posts — owner approval required before migrating the
+  remaining brands.**
 - A brand set to `buffer` whose token is missing is **skipped with a
   notice** — it never silently falls back to Zernio, so a migrated
   brand can't surprise-publish through the old account.
+- ruby (characters side) was un-wired from Buffer per the owner —
+  characters stay on Zernio until further notice.

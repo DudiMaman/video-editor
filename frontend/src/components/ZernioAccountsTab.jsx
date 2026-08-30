@@ -21,9 +21,16 @@ const PLATFORM_LABEL = {
   pinterest: 'Pinterest',
 }
 
-// The connected platforms for a venture: the multi-platform targets when
-// present, else the legacy single Instagram account.
+// The connected platforms for a venture through its current
+// distributor: Buffer channels for a migrated venture (marked so the
+// table shows which service publishes), else the Zernio targets / the
+// legacy single Instagram account.
 const platformsOf = (a) => {
+  if (a.distributor === 'buffer') {
+    return Object.keys(a.bufferChannels || {})
+      .filter((p) => a.bufferChannels[p])
+      .map((p) => `${PLATFORM_LABEL[p] || p} (Buffer)`)
+  }
   const tg = Array.isArray(a.zernioTargets) ? a.zernioTargets : []
   if (tg.length) return tg.map((t) => PLATFORM_LABEL[t.platform] || t.platform)
   return a.zernioAccountId ? ['Instagram'] : []

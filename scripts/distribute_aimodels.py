@@ -49,17 +49,14 @@ absent so the repo works before Zernio is set up.
 """
 import datetime
 import json
-import re
 import sys
 import os
-import time
-from contextlib import contextmanager
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from generate_daily import (  # noqa: E402
-    REPO_ROOT, USER_AGENT, commit_batch, download_to, git, load_json,
+    REPO_ROOT, USER_AGENT, commit_batch, download_to, load_json,
     raw_hosted_file,
 )
 import distributors  # noqa: E402
@@ -75,56 +72,22 @@ MAX_ATTEMPTS = 3
 
 
 # ------------------------------------------------- per-brand distributor
-
-def distributor_of(char: dict) -> str:
-    """Which publishing driver this brand uses. Default: zernio (the
-    original wiring). A brand migrated to Buffer sets
-    distributor: "buffer" in roster.json - Zernio stays untouched as the
-    fallback (switching back = removing the field)."""
-    return char.get("distributor") or DISTRIBUTOR
-
-
-def buffer_key_env_of(char: dict) -> str:
-    """Env var carrying this brand's Buffer API key: explicit
-    char.bufferKeyEnv, else BUFFER_TOKEN_<BRAND_ID>. One Buffer account
-    (and therefore one key/secret) per brand - the free plan's unit."""
-    return char.get("bufferKeyEnv") or \
-        "BUFFER_TOKEN_" + re.sub(r"[^A-Za-z0-9]", "_", str(char.get("id"))).upper()
-
-
-def buffer_targets_of(char: dict) -> list[dict]:
-    """The brand's publish targets: bufferChannels is
-    {platform: channelId} (facebook / instagram / tiktok), auto-wired
-    from the brand's Buffer account on the first run with its token."""
-    ch = char.get("bufferChannels") or {}
-    return [{"platform": p, "channelId": cid} for p, cid in ch.items() if cid]
-
-
-@contextmanager
-def with_buffer_key(key: str):
-    """The buffer driver reads BUFFER_ACCESS_TOKEN; swap the brand's key
-    in for the duration of its API calls (single-threaded runner)."""
-    prev = os.environ.get("BUFFER_ACCESS_TOKEN")
-    os.environ["BUFFER_ACCESS_TOKEN"] = key
-    try:
-        yield
-    finally:
-        if prev is None:
-            os.environ.pop("BUFFER_ACCESS_TOKEN", None)
-        else:
-            os.environ["BUFFER_ACCESS_TOKEN"] = prev
+# Shared with distribute_apps.py and the owner scripts - one
+# implementation of "which driver, which key, which channels".
+from buffer_wiring import (  # noqa: E402
+    distributor_of, key_env_of as buffer_key_env_of,
+    targets_of as buffer_targets_of, with_key as with_buffer_key,
+)
+import buffer_wiring  # noqa: E402
 
 
 def brand_ready(char: dict) -> bool:
     """Can this brand publish right now? zernio: has a connected account
-    id. buffer: has its token secret AND wired channels (channels are
-    auto-wired by autowire_buffer_channels when the token exists). A
-    buffer brand with no token is SKIPPED - it never silently falls back
-    to Zernio, so a migrated brand cannot surprise-publish through the
-    old account."""
+    id. buffer: has its token secret AND wired channels (auto-wired when
+    the token exists). A buffer brand with no token is SKIPPED - never a
+    silent fallback to Zernio."""
     if distributor_of(char) == "buffer":
-        return bool(os.environ.get(buffer_key_env_of(char))) and \
-            bool(buffer_targets_of(char))
+        return buffer_wiring.ready(char)
     return bool(char.get(ACCOUNT_FIELD))
 
 
@@ -380,84 +343,15 @@ def execute(actions, batch, work_dir, chars=None) -> tuple[dict, list]:
     return patches, inbox
 
 
-def autowire_buffer_channels(roster: list) -> None:
-    """For every buffer brand whose token secret exists but whose
-    bufferChannels are still empty, list the channels of its Buffer
-    account and commit {service: channelId} to roster.json (race-safe,
-    same pattern as the apps-side autowire). The owner only pastes the
-    token; channel-id hunting is automated. Costs 2 API calls per brand,
-    once ever."""
-    wirings = {}
-    for char in roster:
-        if distributor_of(char) != "buffer" or buffer_targets_of(char):
-            continue
-        key = os.environ.get(buffer_key_env_of(char), "")
-        if not key:
-            print(f"::notice::brand '{char.get('id')}' is set to Buffer but "
-                  f"secret {buffer_key_env_of(char)} is not configured - skipped")
-            continue
-        from distributors import buffer as buffer_drv
-        try:
-            with with_buffer_key(key):
-                channels = buffer_drv.list_channels()
-        except RuntimeError as e:
-            print(f"::warning::listing Buffer channels for "
-                  f"'{char.get('id')}' failed: {e}", file=sys.stderr)
-            continue
-        wired = {c["service"]: str(c["id"]) for c in channels
-                 if c.get("id") and c.get("service")}
-        if wired:
-            wirings[str(char["id"])] = wired
-            print(f"auto-wire {char['id']} -> "
-                  + ", ".join(f"{c['service']}:{c.get('name', '')}"
-                              for c in channels
-                              if c.get("id") and c.get("service")))
-        else:
-            print(f"brand '{char.get('id')}': no channels connected in its "
-                  "Buffer account yet")
-    if not wirings:
-        return
-    git("config", "user.name", "github-actions[bot]")
-    git("config", "user.email",
-        "41898282+github-actions[bot]@users.noreply.github.com")
-    for attempt in range(3):
-        git("fetch", "origin", "main")
-        git("reset", "--hard", "origin/main")
-        fresh = load_json(ROSTER, [])
-        changed = False
-        for c in fresh:
-            wired = wirings.get(str(c.get("id")))
-            if wired and not (c.get("bufferChannels") or {}):
-                c["bufferChannels"] = wired
-                changed = True
-        if not changed:
-            return
-        ROSTER.write_text(json.dumps(fresh, ensure_ascii=False, indent=1) + "\n",
-                          encoding="utf-8")
-        git("add", str(ROSTER.relative_to(REPO_ROOT)))
-        git("commit", "-m",
-            f"AI models: wire Buffer channels for {', '.join(sorted(wirings))}")
-        if git("push", "origin", "main", check=False).returncode == 0:
-            # keep the in-memory roster in step with what we just wired
-            for c in roster:
-                w = wirings.get(str(c.get("id")))
-                if w and not (c.get("bufferChannels") or {}):
-                    c["bufferChannels"] = w
-            return
-        time.sleep(2 * (attempt + 1))
-    print("::warning::could not push roster.json Buffer auto-wire", file=sys.stderr)
-
-
 def main() -> int:
-    any_buffer = any(k.startswith("BUFFER_TOKEN_") and v
-                     for k, v in os.environ.items())
+    any_buffer = buffer_wiring.any_buffer_key()
     if not os.environ.get("ZERNIO_API_KEY") and not any_buffer:
         print("::notice::no distributor key is configured (ZERNIO_API_KEY / "
               "BUFFER_TOKEN_<BRAND>) - distribution skipped")
         return 0
-    roster = load_json(ROSTER, [])
     if any_buffer:
-        autowire_buffer_channels(roster)
+        buffer_wiring.autowire_channels(ROSTER)
+    roster = load_json(ROSTER, [])
     chars = {c["id"]: c for c in roster if brand_ready(c)}
     if not chars:
         print("no brand is connected to a distributor yet - nothing to distribute")

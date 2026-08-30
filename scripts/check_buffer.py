@@ -3,45 +3,45 @@
 
 Verifies the brand's BUFFER_TOKEN_<BRAND> secret works, prints the
 account's organization and connected channels (platform/name - public
-information), the per-channel queue depth, and whether the brand's
-roster.json wiring matches. Read-only except that a successful check
-also runs the same channel auto-wire the distributor does, so a token
-paste alone completes the setup.
+information) with each channel's queue depth, and whether the brand's
+wiring matches. A successful check also runs the same channel auto-wire
+the distributor does, so a token paste alone completes the setup.
+
+Brands live in assets.json (app ventures - Planty first) or
+data/aimodels/roster.json (characters); lookup is by id OR name,
+case-insensitive, so `planty` finds the venture whose legacy id is
+'sample'.
 
 Usage (runs from .github/workflows/buffer-test.yml, or locally):
-    python scripts/check_buffer.py <brand-id>
-The brand's token is read from the env var named by the brand's
-bufferKeyEnv (default BUFFER_TOKEN_<BRAND-ID>).
+    python scripts/check_buffer.py <brand-id-or-name>
 
 Exits non-zero when the key is missing or rejected - this check exists
 to prove the key works before the first real post.
 """
+import os
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from generate_daily import load_json  # noqa: E402
-import distribute_aimodels as run  # noqa: E402
+import buffer_wiring  # noqa: E402
 from distributors import buffer  # noqa: E402
-import os  # noqa: E402
 
 
 def main() -> int:
-    brand_id = sys.argv[1] if len(sys.argv) > 1 else "ruby"
-    roster = load_json(run.ROSTER, [])
-    char = next((c for c in roster if str(c.get("id")) == brand_id), None)
-    if not char:
-        print(f"::error::brand '{brand_id}' is not in roster.json",
-              file=sys.stderr)
+    ident = sys.argv[1] if len(sys.argv) > 1 else "planty"
+    brand, path = buffer_wiring.find_brand(ident)
+    if not brand:
+        print(f"::error::brand '{ident}' is not in assets.json or "
+              "roster.json", file=sys.stderr)
         return 1
-    env = run.buffer_key_env_of(char)
+    env = buffer_wiring.key_env_of(brand)
     key = os.environ.get(env, "")
     if not key:
         print(f"::error::secret {env} is not set (Settings > Secrets and "
               "variables > Actions)", file=sys.stderr)
         return 1
     try:
-        with run.with_buffer_key(key):
+        with buffer_wiring.with_key(key):
             org = buffer.organization_id()
             channels = buffer.list_channels()
             print(f"key OK - organization {org}, "
@@ -59,14 +59,14 @@ def main() -> int:
         print("::warning::no channels connected in this Buffer account yet "
               "- connect Facebook/Instagram/TikTok in the Buffer dashboard")
         return 0
-    if run.distributor_of(char) != "buffer":
-        print(f"::warning::brand '{brand_id}' has no distributor: \"buffer\" "
-              "in roster.json yet - it still publishes through Zernio")
-    if not run.buffer_targets_of(char):
-        print("channels not wired in roster yet - auto-wiring now")
-        run.autowire_buffer_channels(roster)
+    if buffer_wiring.distributor_of(brand) != "buffer":
+        print(f"::warning::brand '{brand.get('id')}' ({path.name}) has no "
+              'distributor: "buffer" yet - it still publishes through Zernio')
+    if not buffer_wiring.targets_of(brand):
+        print("channels not wired yet - auto-wiring now")
+        buffer_wiring.autowire_channels(path)
     else:
-        print(f"roster wiring: {char.get('bufferChannels')}")
+        print(f"wiring in {path.name}: {brand.get('bufferChannels')}")
     print("doctor: all good")
     return 0
 

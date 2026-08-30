@@ -31,6 +31,9 @@
     "accountId": "6a9422c477555aae0107d279",
     "username": "planty9348"
    }
-  ]
+  ],
+  "distributor": "buffer",
+  "bufferKeyEnv": "BUFFER_TOKEN_PLANTY",
+  "bufferChannels": {}
  }
 ]

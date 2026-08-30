@@ -24,8 +24,14 @@ const PLATFORM_LABEL = {
 }
 const platLabel = (v) => PLATFORM_LABEL[v] || v
 
-// The venture's connected platforms (from zernioTargets, else legacy IG).
+// The venture's connected platforms through its CURRENT distributor:
+// the wired Buffer channels for a migrated venture, else the Zernio
+// targets (or the legacy single Instagram account).
 const platformsOf = (asset) => {
+  if (asset?.distributor === 'buffer') {
+    return Object.keys(asset.bufferChannels || {}).filter(
+      (p) => asset.bufferChannels[p])
+  }
   const tg = (asset?.zernioTargets || []).filter((t) => t?.platform && t?.accountId)
   if (tg.length) return [...new Set(tg.map((t) => t.platform))]
   return asset?.zernioAccountId ? ['instagram'] : []
