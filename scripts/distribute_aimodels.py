@@ -344,6 +344,7 @@ def execute(actions, batch, work_dir, chars=None) -> tuple[dict, list]:
 
 
 def main() -> int:
+    buffer_wiring.load_secrets_context()
     any_buffer = buffer_wiring.any_buffer_key()
     if not os.environ.get("ZERNIO_API_KEY") and not any_buffer:
         print("::notice::no distributor key is configured (ZERNIO_API_KEY / "

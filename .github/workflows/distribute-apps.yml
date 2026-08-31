@@ -50,5 +50,10 @@ jobs:
           # as the fallback for un-migrated ventures and for posts that
           # were already scheduled through Zernio.
           BUFFER_TOKEN_PLANTY: ${{ secrets.BUFFER_TOKEN_PLANTY }}
+          # every BUFFER_TOKEN_* / ZERNIO_KEY_* secret is picked up
+          # dynamically - a NEW brand needs only its repo secret, no
+          # workflow edit (buffer_wiring.load_secrets_context filters
+          # this to distributor keys only).
+          SECRETS_CONTEXT: ${{ toJSON(secrets) }}
           GH_TOKEN: ${{ github.token }}
         run: python scripts/distribute_apps.py

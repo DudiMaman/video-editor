@@ -11,16 +11,16 @@ export const STR = {
     published: 'סרטונים שעלו לרשת',
     log: 'יומן',
     aimodels: 'דמויות AI',
-    zernio: 'חשבונות Zernio',
-    zernioInbox: 'Zernio Inbox',
+    zernio: 'חשבונות Buffer',
+    zernioInbox: 'Buffer Inbox',
     more: 'עוד',
   },
   zernioInbox: {
-    title: 'Zernio Inbox',
+    title: 'Buffer Inbox',
     explain:
-      'כל הודעות השגיאה והכשל מכל חשבונות ה-Zernio, במקום אחד — פרסומים ' +
-      'שנכשלו, בעיות חשבון ועומס/קצב זמני. נאסף אוטומטית מכל ריצת הפצה, כדי ' +
-      'שלא תצטרך להסתמך על מיילים.',
+      'כל הודעות השגיאה והכשל מכל חשבונות ההפצה (Buffer, ו-Zernio הישן), ' +
+      'במקום אחד — פרסומים שנכשלו, בעיות חשבון ועומס/קצב זמני. נאסף ' +
+      'אוטומטית מכל ריצת הפצה, כדי שלא תצטרך להסתמך על מיילים.',
     empty: 'אין הודעות שגיאה — כל הפרסומים תקינים ✓',
     allVentures: 'כל החשבונות',
     colWhen: 'מתי',
@@ -41,10 +41,11 @@ export const STR = {
     filterTransient: 'עומס זמני',
   },
   zernioTab: {
-    title: 'חשבונות Zernio',
-    explain: 'כל הפרוייקטים הפתוחים וחשבון ה-Zernio המקושר לכל אחד. הפרטים נשמרים אוטומטית לטבלה כשממלאים אותם בטאב "אפליקציות".',
+    title: 'חשבונות Buffer',
+    explain: 'כל הפרוייקטים הפתוחים וחשבון ההפצה המקושר לכל אחד. פרוייקט חדש: הוסף אפליקציה בטאב "אפליקציות", בחר שם מפיץ Buffer, פתח חשבון Buffer והדבק את המפתח כ-Secret בשם שמופיע בטבלה — הערוצים יחווטו אוטומטית.',
     colProject: 'שם הפרוייקט',
-    colAccountName: 'שם חשבון Zernio',
+    colDistributor: 'מפיץ',
+    colAccountName: 'שם החשבון',
     colEmail: 'מייל החשבון',
     colLogin: 'שיטת התחברות',
     colStatus: 'פלטפורמות מחוברות',
@@ -52,7 +53,7 @@ export const STR = {
     connected: 'מחובר ✓',
     notConnected: 'לא מחובר',
     empty: 'אין עדיין פרוייקטים — הוסף אפליקציה בטאב "אפליקציות".',
-    editHint: 'עריכת הפרטים נעשית בטאב "אפליקציות", באזור "חשבון Zernio של המיזם".',
+    editHint: 'עריכת הפרטים נעשית בטאב "אפליקציות", באזור "חשבון ההפצה של המיזם".',
   },
   status: {
     queued: 'ממתין',
@@ -142,6 +143,19 @@ export const STR = {
     saved: 'נשמר ✓',
     delete: 'מחק',
     confirmDelete: 'למחוק את האפליקציה ואת כל הסגירים שלה?',
+    distSection: 'חשבון ההפצה של המיזם',
+    distributorLabel: 'מפיץ (דרך מי מתפרסמים הסרטונים)',
+    distributorBuffer: 'Buffer (מומלץ — חינמי עד 3 ערוצים)',
+    distributorZernio: 'Zernio (ישן)',
+    bufferKeyNote: (secretName) =>
+      `⚠️ את ה-API Key של Buffer לא שומרים כאן! השדות בעמוד הזה נשמרים בקובץ ציבורי. ` +
+      `את המפתח מדביקים אך ורק כ-Secret בגיטהאב בשם ${secretName} ` +
+      `(Settings ← Secrets and variables ← Actions). אחרי ההדבקה הערוצים יחווטו אוטומטית.`,
+    bufferAccountName: 'שם חשבון Buffer (לתיעוד)',
+    bufferEmail: 'אימייל חשבון Buffer (לתיעוד)',
+    bufferLogin: 'שיטת התחברות לחשבון',
+    bufferChannelsLabel: 'ערוצים מחוברים (מתמלא אוטומטית אחרי הדבקת המפתח)',
+    bufferNoChannels: 'עדיין לא חוברו ערוצים — הדבק את ה-Secret והרץ doctor (או המתן לריצה השעתית)',
     zernioSection: 'חשבון Zernio של המיזם',
     zernioKeyNote: (secretName) =>
       `⚠️ את ה-API Key לא שומרים כאן! השדות בעמוד הזה נשמרים בקובץ ציבורי. ` +
@@ -242,7 +256,7 @@ export const STR = {
     publishNowConfirm: 'לפרסם את הסרטון לאינסטגרם עכשיו דרך Zernio?',
     publishNowQueued: 'נשלח לפרסום — הסטטוס יתעדכן בדקות הקרובות.',
     publishingNow: 'בפרסום…',
-    zernioHintApps: 'חבר את האפליקציה ל-Zernio (שדה מזהה החשבון בטאב האפליקציות) כדי לפרסם מכאן',
+    zernioHintApps: 'חבר את המיזם ל-Buffer (טאב "אפליקציות" ← חשבון ההפצה, ואז Secret עם המפתח) כדי לפרסם מכאן',
     schedCalendarOf: 'לוח הפרסום של',
     schedOnlyThisApp: 'רק האפליקציה הזו',
     scheduledOn: 'תוזמן לתאריך',

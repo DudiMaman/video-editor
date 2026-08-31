@@ -226,9 +226,14 @@ export function create(params) {
     zernioEmail: a.zernioEmail || '',
     zernioLogin: a.zernioLogin || '',
     // Buffer migration fields: which distributor the venture publishes
-    // through, and its wired Buffer channels {platform: channelId}.
+    // through, its wired Buffer channels {platform: channelId}, and the
+    // owner's record-keeping details for the venture's Buffer account.
     distributor: a.distributor || 'zernio',
     bufferChannels: a.bufferChannels || {},
+    bufferKeyEnv: a.bufferKeyEnv || '',
+    bufferAccountName: a.bufferAccountName || '',
+    bufferEmail: a.bufferEmail || '',
+    bufferLogin: a.bufferLogin || '',
     outros: (a.outros || []).map(toClip),
     intros: (a.intros || []).map(toClip),
   })
