@@ -26,6 +26,15 @@ on:
         description: 'test-post: schedule N minutes out (0 = publish now)'
         required: false
         default: '0'
+      media:
+        description: 'test-post: public media URL (empty = default test image)'
+        required: false
+        default: ''
+      video:
+        description: 'test-post: media is a video (required for TikTok)'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -57,3 +66,5 @@ jobs:
         run: >
           python scripts/buffer_test_post.py "${{ inputs.brand }}"
           --in-minutes "${{ inputs.in_minutes }}"
+          ${{ inputs.media != '' && format('--media "{0}"', inputs.media) || '' }}
+          ${{ inputs.video && '--video' || '' }}

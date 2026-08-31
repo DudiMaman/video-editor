@@ -36,6 +36,7 @@
   "bufferKeyEnv": "BUFFER_TOKEN_PLANTY",
   "bufferChannels": {
    "tiktok": "6a953bb7065799be465c55e7"
-  }
+  },
+  "bufferMigratedAt": "2026-08-31"
  }
 ]
