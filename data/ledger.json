@@ -81,12 +81,14 @@
   "source_page": "pg_007",
   "source_url": "https://www.tiktok.com/@leafcheck.plant.iden/video/7628476859172326676",
   "found_at": "2026-08-06",
-  "status": "approved",
+  "status": "published",
   "reject_reason": "",
   "output_asset": "batch-10/video_01.mp4",
   "caption": "Your plant is dying and sugar water won’t save it. 😳🌿\n\nScan it with Planty and get the REAL cure in seconds - personalized care plans, watering reminders, and instant ID for 10,000+ species. Don’t let another plant die from guessing.\n\nhttps://planty-app.com/\n\n#PlantIdentification #PlantIdentifier #PlantID #PlantCare #PlantTips #PlantTikTok #Houseplants #PlantLovers #GardeningTips #PlantyApp #WhatPlantIsThis #IdentifyPlants #PlantApp #NatureTok #PlantSOS #SaveMyPlant",
-  "published_to": [],
-  "published_at": "",
+  "published_to": [
+   "tiktok"
+  ],
+  "published_at": "2026-08-31T09:04:38Z",
   "schedule": {
    "date": "2026-08-30",
    "time": "15:50"
@@ -97,8 +99,12 @@
    "platforms": [
     "tiktok"
    ],
-   "state": "publishing"
-  }
+   "state": "published",
+   "urls": {
+    "6a953eccdc3ba1e8154c9109": "https://tiktok.com/@planty9348/video/7680113709775064336"
+   }
+  },
+  "zernioPostUrl": "https://tiktok.com/@planty9348/video/7680113709775064336"
  },
  {
   "video_id": "7628476845524143381",
@@ -106,12 +112,14 @@
   "source_page": "pg_007",
   "source_url": "https://www.tiktok.com/@leafcheck.plant.iden/video/7628476845524143381",
   "found_at": "2026-08-06",
-  "status": "approved",
+  "status": "published",
   "reject_reason": "",
   "output_asset": "batch-10/video_02.mp4",
   "caption": "Eggshells, aged beer, and one dying succulent later… it bloomed 🌿 Not sure what plant you’re babying? Just scan it and Planty tells you exactly what it needs.\n\nDownload Planty and never guess again 📲\n\nhttps://planty-app.com/\n\n#PlantIdentification #PlantIdentifier #PlantID #PlantCare #PlantTips #PlantTikTok #Houseplants #PlantLovers #GardeningTips #PlantyApp #WhatPlantIsThis #IdentifyPlants #PlantApp #NatureTok #PlantParents #GreenThumb",
-  "published_to": [],
-  "published_at": "",
+  "published_to": [
+   "tiktok"
+  ],
+  "published_at": "2026-08-31T09:04:38Z",
   "schedule": {
    "date": "2026-08-31",
    "time": "00:00"
@@ -125,8 +133,12 @@
    "platforms": [
     "tiktok"
    ],
-   "state": "publishing"
-  }
+   "state": "published",
+   "urls": {
+    "6a953ed798929597c460b11d": "https://tiktok.com/@planty9348/video/7680113853216214290"
+   }
+  },
+  "zernioPostUrl": "https://tiktok.com/@planty9348/video/7680113853216214290"
  },
  {
   "video_id": "7670485418403679491",
