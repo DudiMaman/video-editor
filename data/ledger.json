@@ -91,16 +91,13 @@
    "date": "2026-08-30",
    "time": "15:50"
   },
-  "zernioPostId": "6a94260a7aefacc3eeab75b6",
+  "zernioPostId": "6a953eccdc3ba1e8154c9109",
   "distribution": {
-   "via": "zernio",
-   "state": "failed",
+   "via": "buffer",
    "platforms": [
     "tiktok"
    ],
-   "scheduledFor": "2026-08-30T12:50:00Z",
-   "error": "tiktok: TikTok direct posting is at capacity right now. Use tiktokSettings.draft: true to deliver via Creator Inbox, or try again in a few hours as capacity frees up.",
-   "transient": true
+   "state": "publishing"
   }
  },
  {
@@ -122,16 +119,13 @@
   "platforms": [
    "tiktok"
   ],
-  "zernioPostId": "6a94304aa27b9c86779f77f3",
+  "zernioPostId": "6a953ed798929597c460b11d",
   "distribution": {
-   "via": "zernio",
-   "state": "failed",
+   "via": "buffer",
    "platforms": [
     "tiktok"
    ],
-   "scheduledFor": "2026-08-30T21:00:00Z",
-   "transient": true,
-   "error": "tiktok: TikTok direct posting is at capacity right now. Use tiktokSettings.draft: true to deliver via Creator Inbox, or try again in a few hours as capacity frees up."
+   "state": "publishing"
   }
  },
  {
