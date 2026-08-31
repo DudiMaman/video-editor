@@ -123,12 +123,15 @@ _org_cache = {}
 
 def organization_id() -> str:
     """The (first) organization of this Buffer account - each brand has
-    its own account, so one organization per key. Cached per key."""
+    its own account, so one organization per key. Cached per key.
+    Organizations hang off the account query (per the get-organizations
+    example; the bare top-level `organizations` field requires a
+    different input and is not the documented path)."""
     key = os.environ.get("BUFFER_ACCESS_TOKEN", "")
     if key in _org_cache:
         return _org_cache[key]
-    data = _api("query { organizations { id name } }")
-    orgs = data.get("organizations") or []
+    data = _api("query { account { organizations { id name } } }")
+    orgs = ((data.get("account") or {}).get("organizations")) or []
     if not orgs:
         raise RuntimeError("Buffer account has no organization")
     _org_cache[key] = orgs[0]["id"]
