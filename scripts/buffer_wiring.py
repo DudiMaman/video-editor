@@ -155,3 +155,31 @@ def autowire_channels(path: Path, quiet_missing: bool = False) -> None:
 def any_buffer_key() -> bool:
     return any(k.startswith("BUFFER_TOKEN_") and v
                for k, v in os.environ.items())
+
+
+def load_secrets_context() -> None:
+    """Adding a brand must not require editing workflow files, so the
+    workflows pass ALL repo secrets as one JSON blob (the documented
+    GitHub Actions pattern for dynamically-named secrets:
+    SECRETS_CONTEXT: toJSON(secrets)). Only distributor keys -
+    BUFFER_TOKEN_* / ZERNIO_KEY_* - are lifted into the environment;
+    values are never printed and GitHub masks them in logs anyway.
+    Explicit env lines still win (we never overwrite an existing var)."""
+    raw = os.environ.get("SECRETS_CONTEXT", "")
+    if not raw:
+        return
+    try:
+        secrets = json.loads(raw)
+    except Exception:
+        print("::warning::SECRETS_CONTEXT is not valid JSON - ignored",
+              file=sys.stderr)
+        return
+    loaded = []
+    for k, v in secrets.items():
+        if (re.fullmatch(r"(BUFFER_TOKEN|ZERNIO_KEY)_[A-Za-z0-9_]+", k)
+                and v and not os.environ.get(k)):
+            os.environ[k] = v
+            loaded.append(k)
+    if loaded:
+        print("distributor keys from secrets context: "
+              + ", ".join(sorted(loaded)))

@@ -56,13 +56,13 @@ jobs:
       - name: Doctor - verify key, list channels, auto-wire roster
         if: ${{ inputs.action == 'doctor' }}
         env:
-          BUFFER_TOKEN_PLANTY: ${{ secrets.BUFFER_TOKEN_PLANTY }}
+          SECRETS_CONTEXT: ${{ toJSON(secrets) }}
         run: python scripts/check_buffer.py "${{ inputs.brand }}"
 
       - name: Test post - one per connected platform
         if: ${{ inputs.action == 'test-post' }}
         env:
-          BUFFER_TOKEN_PLANTY: ${{ secrets.BUFFER_TOKEN_PLANTY }}
+          SECRETS_CONTEXT: ${{ toJSON(secrets) }}
         run: >
           python scripts/buffer_test_post.py "${{ inputs.brand }}"
           --in-minutes "${{ inputs.in_minutes }}"

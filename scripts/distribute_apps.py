@@ -642,6 +642,7 @@ def commit_ledger(patches: dict, message: str) -> int:
 
 
 def main() -> int:
+    buffer_wiring.load_secrets_context()
     any_zernio = os.environ.get("ZERNIO_APPS_API_KEY") or \
         any(k.startswith("ZERNIO_KEY_") and v
             for k, v in os.environ.items())

@@ -28,6 +28,7 @@ from distributors import buffer  # noqa: E402
 
 
 def main() -> int:
+    buffer_wiring.load_secrets_context()
     ident = sys.argv[1] if len(sys.argv) > 1 else "planty"
     brand, path = buffer_wiring.find_brand(ident)
     if not brand:

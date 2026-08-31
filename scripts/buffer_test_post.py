@@ -51,6 +51,7 @@ def main() -> int:
                     help="comma list; default = every wired channel")
     ap.add_argument("--caption", default=DEFAULT_CAPTION)
     args = ap.parse_args()
+    buffer_wiring.load_secrets_context()
 
     brand, path = buffer_wiring.find_brand(args.brand)
     if not brand:

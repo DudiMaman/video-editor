@@ -40,33 +40,33 @@ Failures surface exactly like Zernio failures: `distribution.state:
 "failed"` on the item (visible in the tab) + a notice in the
 **Zernio Inbox** tab.
 
-## Adding a brand (owner checklist)
+## Adding a brand (owner checklist — no code changes needed)
 
-1. **Buffer account**: create a fresh Buffer account for the brand
-   (Free plan), connect its Facebook, Instagram and TikTok channels in
+1. **Create the project**: app tab ("אפליקציות") → add the app. In its
+   "חשבון ההפצה" section pick **Buffer** as the distributor (the exact
+   secret name to use is shown there and in the "חשבונות Buffer" tab).
+2. **Buffer account**: create a fresh Buffer account for the brand
+   (Free plan), connect its Facebook / Instagram / TikTok channels in
    the Buffer dashboard.
-2. **API key**: Buffer → Settings → API → create the key
-   (publish.buffer.com/settings/api).
-3. **Secret**: repo → Settings → Secrets and variables → Actions → new
-   secret `BUFFER_TOKEN_<BRAND>` (brand id uppercased, e.g.
-   `BUFFER_TOKEN_RUBY`) with the key as value.
-4. **Workflow env**: add one line in **both**
-   `.github/workflows/distribute-aimodels.yml` and
-   `.github/workflows/buffer-test.yml`:
-   `BUFFER_TOKEN_<BRAND>: ${{ secrets.BUFFER_TOKEN_<BRAND> }}`.
-5. **Roster**: on the brand's entry in `data/aimodels/roster.json` set
-   `"distributor": "buffer"`. (Optional: `"bufferKeyEnv"` to override
-   the secret name.) Leave `bufferChannels` out — it auto-wires.
-6. **Doctor**: Actions → **buffer-test** → Run workflow → brand id +
-   action `doctor`. It verifies the key, prints the channels and queue
-   depths, and commits `bufferChannels: {facebook: …, instagram: …,
-   tiktok: …}` to the roster automatically.
-7. **Test post**: same workflow with action `test-post`
-   (`in_minutes: 10` schedules it 10 minutes out so it can still be
-   deleted from the Buffer dashboard; `0` publishes immediately). Check
-   the post on each platform.
-8. Approve → the brand's regular scheduled/publish-now flow now runs
-   through Buffer. Nothing else changes.
+3. **API key**: publish.buffer.com/settings/api → create the key.
+4. **Secret**: repo → Settings → Secrets and variables → Actions → new
+   secret with the name shown in the tab (`BUFFER_TOKEN_<BRAND>`).
+   That's it — the workflows pick up every `BUFFER_TOKEN_*` /
+   `ZERNIO_KEY_*` secret dynamically (`SECRETS_CONTEXT`), so **no
+   workflow edits** are needed per brand.
+5. **Doctor**: Actions → **buffer-test** → Run workflow → brand id/name
+   + action `doctor`. Verifies the key, prints channels + queue depths,
+   and auto-wires `bufferChannels` into the registry. (Skipping this is
+   fine too — the hourly distribution run auto-wires as well.)
+6. **Test post**: same workflow with action `test-post`
+   (`in_minutes: 10` keeps it deletable from the Buffer dashboard; for
+   a TikTok-only brand pass a public mp4 via the `media` input +
+   `video: true`). Check the post on each platform.
+7. Done — the brand's regular scheduled/publish-now flow runs through
+   Buffer.
+
+Characters (roster.json) migrate the same way: set
+`"distributor": "buffer"` on the character + its secret.
 
 ## Where brands live
 
