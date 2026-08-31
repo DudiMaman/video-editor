@@ -63,11 +63,11 @@ def main() -> int:
     if buffer_wiring.distributor_of(brand) != "buffer":
         print(f"::warning::brand '{brand.get('id')}' ({path.name}) has no "
               'distributor: "buffer" yet - it still publishes through Zernio')
-    if not buffer_wiring.targets_of(brand):
-        print("channels not wired yet - auto-wiring now")
-        buffer_wiring.autowire_channels(path)
-    else:
-        print(f"wiring in {path.name}: {brand.get('bufferChannels')}")
+    # Full re-sync every doctor run: picks up channels connected to the
+    # Buffer account AFTER the initial wiring (e.g. adding FB+IG to a
+    # brand that started TikTok-only). The hourly runner only wires
+    # empty brands (quota frugality) - the doctor is the refresh button.
+    buffer_wiring.autowire_channels(path, refresh=True)
     print("doctor: all good")
     return 0
 

@@ -88,16 +88,27 @@ def find_brand(ident: str) -> tuple[dict | None, Path | None]:
     return None, None
 
 
-def autowire_channels(path: Path, quiet_missing: bool = False) -> None:
+def autowire_channels(path: Path, quiet_missing: bool = False,
+                      refresh: bool = False) -> None:
     """For every buffer brand in `path` whose token exists but whose
     bufferChannels are empty, list its Buffer account's channels and
     commit {service: channelId} back to the file (race-safe fetch/reset/
     push, the repo's standard pattern). The owner only pastes the token;
-    channel-id hunting is automated. ~2 API calls per brand, once ever."""
+    channel-id hunting is automated.
+
+    refresh=True re-syncs brands that are ALREADY wired too, picking up
+    channels connected to the Buffer account later (e.g. Planty adding
+    Facebook+Instagram after starting with TikTok). The hourly runner
+    stays refresh=False to protect the 3,000-calls/30-days quota; the
+    owner-triggered doctor refreshes - so after connecting a new channel
+    in Buffer, one doctor run (or nothing at all for a NEW brand) wires
+    everything."""
     from distributors import buffer as buffer_drv
     wirings = {}
     for brand in load_json(path, []):
-        if distributor_of(brand) != "buffer" or targets_of(brand):
+        if distributor_of(brand) != "buffer":
+            continue
+        if targets_of(brand) and not refresh:
             continue
         key = os.environ.get(key_env_of(brand), "")
         if not key:
@@ -114,12 +125,15 @@ def autowire_channels(path: Path, quiet_missing: bool = False) -> None:
             continue
         wired = {c["service"]: str(c["id"]) for c in channels
                  if c.get("id") and c.get("service")}
-        if wired:
+        if wired and wired != (brand.get("bufferChannels") or {}):
             wirings[str(brand["id"])] = wired
             print(f"auto-wire {brand['id']} -> "
                   + ", ".join(f"{c['service']}:{c.get('name', '')}"
                               for c in channels
                               if c.get("id") and c.get("service")))
+        elif wired:
+            print(f"brand '{brand.get('id')}': wiring already up to date "
+                  f"({', '.join(sorted(wired))})")
         else:
             print(f"brand '{brand.get('id')}': no channels connected in its "
                   "Buffer account yet")
@@ -135,7 +149,7 @@ def autowire_channels(path: Path, quiet_missing: bool = False) -> None:
         changed = False
         for b in fresh:
             wired = wirings.get(str(b.get("id")))
-            if wired and not (b.get("bufferChannels") or {}):
+            if wired and (b.get("bufferChannels") or {}) != wired:
                 b["bufferChannels"] = wired
                 changed = True
         if not changed:
