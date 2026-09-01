@@ -279,11 +279,13 @@
   "zernioPostId": "6a9430bc5c459b1fdca379ee",
   "distribution": {
    "via": "zernio",
-   "state": "scheduled",
+   "state": "failed",
    "platforms": [
     "tiktok"
    ],
-   "scheduledFor": "2026-09-01T05:00:00Z"
+   "scheduledFor": "2026-09-01T05:00:00Z",
+   "transient": true,
+   "error": "tiktok: TikTok direct posting is at capacity right now. Use tiktokSettings.draft: true to deliver via Creator Inbox, or try again in a few hours as capacity frees up."
   }
  },
  {
