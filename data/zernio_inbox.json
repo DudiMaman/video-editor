@@ -30,5 +30,21 @@
   "ts": "2026-08-30T21:34:34Z",
   "remedy": "transient",
   "id": "a3ff139d4d715c49"
+ },
+ {
+  "source": "apps",
+  "venture": "sample",
+  "ventureName": "Planty",
+  "platform": "tiktok",
+  "postId": "6a9430bc5c459b1fdca379ee",
+  "refId": "7655040424981089558",
+  "level": "error",
+  "message": "TikTok direct posting is at capacity right now. Use tiktokSettings.draft: true to deliver via Creator Inbox, or try again in a few hours as capacity frees up.",
+  "contentPreview": "Still killing your lavender with these 3 mistakes? 🌿 Overwatering, wrong light, and skipping the drought phase are silen",
+  "scheduledFor": "2026-09-01T05:00:00Z",
+  "postUrl": "",
+  "ts": "2026-09-01T08:50:50Z",
+  "remedy": "transient",
+  "id": "d962ab2bc0e215cf"
  }
 ]
