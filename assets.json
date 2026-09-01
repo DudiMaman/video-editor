@@ -37,6 +37,7 @@
   "bufferChannels": {
    "tiktok": "6a953bb7065799be465c55e7"
   },
-  "bufferMigratedAt": "2026-08-31"
+  "bufferMigratedAt": "2026-08-31",
+  "tz": "Asia/Jerusalem"
  }
 ]

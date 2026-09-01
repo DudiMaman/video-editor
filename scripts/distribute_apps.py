@@ -103,6 +103,21 @@ def dist_state(e: dict) -> str:
     return ((e.get("distribution") or {}).get("state")) or ""
 
 
+# How long past a post's slot the sender gets before a migrated venture's
+# post is rescued to the current distributor.
+RESCUE_GRACE_MIN = 45
+
+
+def _slot_long_past(e: dict) -> bool:
+    sched = (e.get("distribution") or {}).get("scheduledFor")
+    if not sched:
+        return False
+    cutoff = (datetime.datetime.now(datetime.timezone.utc)
+              - datetime.timedelta(minutes=RESCUE_GRACE_MIN)
+              ).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return sched < cutoff
+
+
 def attempts(e: dict) -> int:
     return int((e.get("distribution") or {}).get("attempts") or 0)
 
@@ -374,7 +389,10 @@ def execute(actions, ledger, work_dir) -> tuple[dict, list]:
                 return buffer_wiring.key_env_of(asset)
             return None if key_of(asset) else key_env_of(asset)
 
-        needed = {sent_drv} if verb in ("cancel", "sync") else {cur_drv, sent_drv}
+        # sync may escalate into a rescue (republish via the current
+        # distributor), so it needs both services' keys; cancel only the
+        # sender's.
+        needed = {sent_drv} if verb == "cancel" else {cur_drv, sent_drv}
         missing = [env for env in (_key_missing(d) for d in needed) if env]
         if missing:
             print(f"::notice::[{vid}] no key for venture "
@@ -521,6 +539,40 @@ def execute(actions, ledger, work_dir) -> tuple[dict, list]:
                               or [{"platform": "", "message": msg}]):
                         inbox.append(notice(e, asset, x.get("platform"),
                                             x.get("message")))
+                elif sent_drv != cur_drv and _slot_long_past(e):
+                    # RESCUE: the venture migrated but this post still sits
+                    # with the old service, which MISSED its slot by 45+
+                    # minutes without reporting failure (Zernio's stuck
+                    # TikTok scheduler does exactly this). Media is readied
+                    # first (a MediaWait hold cancels nothing), then the old
+                    # post is canceled STRICTLY - a cancel failure aborts, so
+                    # a racing late publish can never double-post - and only
+                    # then it republishes through the current distributor.
+                    sched = (e.get("distribution") or {}).get("scheduledFor")
+                    print(f"[{vid}] rescue: {sent_drv} missed its slot "
+                          f"({sched}) - moving to {cur_drv}")
+                    media = _media()
+                    with key_ctx_for(sent_drv, asset):
+                        distributors.get(sent_drv).cancel_post(e["zernioPostId"])
+                    r_targets = targets_for(asset, e)
+                    r_platforms = sorted({t["platform"] for t in r_targets})
+                    with key_ctx_for(cur_drv, asset):
+                        res2 = distributors.get(cur_drv).publish_now(
+                            r_targets, media, caption)
+                    published = (res2["status"] == "published"
+                                 or bool(res2["postUrl"]))
+                    patches[vid] = {
+                        "zernioPostId": res2["externalId"],
+                        **({"zernioPostUrl": res2["postUrl"]} if res2["postUrl"] else {}),
+                        **({"status": "published", "published_at": now_z(),
+                            "published_to": sorted(set((e.get("published_to") or [])
+                                                       + r_platforms))}
+                           if published else {}),
+                        "distribution": {"via": cur_drv, "platforms": r_platforms,
+                                         **({"urls": res2["urls"]} if res2.get("urls") else {}),
+                                         "state": "published" if published
+                                         else "publishing"},
+                    }
             print(f"[{vid}] {verb}: ok ({cur_drv if creates else sent_drv})")
         except MediaWait as err:
             patches[vid] = _hold_patch("media_wait",
