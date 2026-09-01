@@ -323,7 +323,12 @@
   "platforms": [
    "tiktok",
    "facebook"
-  ]
+  ],
+  "distribution": {
+   "via": "buffer",
+   "state": "media_wait",
+   "reason": "waiting for Pages mirror: https://dudimaman.github.io/video-editor/media/apps-batch-14-video_01.mp4"
+  }
  },
  {
   "video_id": "7633395834993839382",
@@ -370,7 +375,12 @@
   "platforms": [
    "tiktok",
    "facebook"
-  ]
+  ],
+  "distribution": {
+   "via": "buffer",
+   "state": "media_wait",
+   "reason": "waiting for Pages mirror: https://dudimaman.github.io/video-editor/media/apps-batch-12-video_01.mp4"
+  }
  },
  {
   "video_id": "7628476853677837588",
@@ -391,7 +401,12 @@
   "platforms": [
    "tiktok",
    "facebook"
-  ]
+  ],
+  "distribution": {
+   "via": "buffer",
+   "state": "media_wait",
+   "reason": "waiting for Pages mirror: https://dudimaman.github.io/video-editor/media/apps-batch-11-video_06.mp4"
+  }
  },
  {
   "video_id": "7628476925450734855",
@@ -412,7 +427,12 @@
   "platforms": [
    "tiktok",
    "facebook"
-  ]
+  ],
+  "distribution": {
+   "via": "buffer",
+   "state": "media_wait",
+   "reason": "waiting for Pages mirror: https://dudimaman.github.io/video-editor/media/apps-batch-11-video_07.mp4"
+  }
  },
  {
   "video_id": "7628476854797683988",
@@ -433,7 +453,12 @@
   "platforms": [
    "tiktok",
    "facebook"
-  ]
+  ],
+  "distribution": {
+   "via": "buffer",
+   "state": "media_wait",
+   "reason": "waiting for Pages mirror: https://dudimaman.github.io/video-editor/media/apps-batch-11-video_08.mp4"
+  }
  },
  {
   "video_id": "7595128289719520524",
@@ -454,7 +479,12 @@
   "platforms": [
    "tiktok",
    "facebook"
-  ]
+  ],
+  "distribution": {
+   "via": "buffer",
+   "state": "media_wait",
+   "reason": "waiting for Pages mirror: https://dudimaman.github.io/video-editor/media/apps-batch-11-video_09.mp4"
+  }
  },
  {
   "video_id": "7651677081285250307",
