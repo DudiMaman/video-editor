@@ -159,7 +159,12 @@
   "platforms": [
    "tiktok",
    "facebook"
-  ]
+  ],
+  "distribution": {
+   "via": "buffer",
+   "state": "media_wait",
+   "reason": "waiting for Pages mirror: https://dudimaman.github.io/video-editor/media/apps-batch-10-video_03.mp4"
+  }
  },
  {
   "video_id": "7628476854797716756",
