@@ -35,7 +35,8 @@
   "distributor": "buffer",
   "bufferKeyEnv": "BUFFER_TOKEN_PLANTY",
   "bufferChannels": {
-   "tiktok": "6a953bb7065799be465c55e7"
+   "tiktok": "6a953bb7065799be465c55e7",
+   "facebook": "6a96b839065799be4667cca7"
   },
   "bufferMigratedAt": "2026-08-31",
   "tz": "Asia/Jerusalem"
