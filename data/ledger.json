@@ -263,12 +263,14 @@
   "source_page": "pg_004",
   "source_url": "https://www.tiktok.com/@planta_app/video/7655040424981089558",
   "found_at": "2026-08-06",
-  "status": "approved",
+  "status": "published",
   "reject_reason": "",
   "output_asset": "batch-11/video_01.mp4",
   "caption": "Still killing your lavender with these 3 mistakes? 🌿 Overwatering, wrong light, and skipping the drought phase are silent killers.\n\nScan yours with Planty for a personalized care plan before it's too late 💧\n\nhttps://planty-app.com/\n\n#PlantIdentification #PlantIdentifier #PlantID #PlantCare #PlantTips #PlantTikTok #Houseplants #PlantLovers #GardeningTips #PlantyApp #WhatPlantIsThis #PlantIdentification #PlantID #PlantIdentifier #IdentifyPlants #PlantApp #NatureTok #PlantTikTok #PlantyApp #LavenderCare #PlantParent",
-  "published_to": [],
-  "published_at": "",
+  "published_to": [
+   "tiktok"
+  ],
+  "published_at": "2026-09-01T09:56:46Z",
   "schedule": {
    "date": "2026-09-01",
    "time": "08:00"
@@ -282,8 +284,12 @@
    "platforms": [
     "tiktok"
    ],
-   "state": "publishing"
-  }
+   "state": "published",
+   "urls": {
+    "6a969f6f9b1601335489c73a": "https://tiktok.com/@planty9348/video/7680501546559261960"
+   }
+  },
+  "zernioPostUrl": "https://tiktok.com/@planty9348/video/7680501546559261960"
  },
  {
   "video_id": "7650988932066331926",
