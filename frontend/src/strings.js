@@ -8,6 +8,7 @@ export const STR = {
     brief: 'בריף',
     review: 'סרטונים לאישור',
     approved: 'סרטונים שאושרו',
+    gantt: 'גאנט',
     published: 'סרטונים שעלו לרשת',
     log: 'יומן',
     aimodels: 'דמויות AI',
@@ -39,6 +40,23 @@ export const STR = {
     filterAll: 'הכל',
     filterErrors: 'דורש טיפול',
     filterTransient: 'עומס זמני',
+  },
+  gantt: {
+    title: 'גאנט פרסום חודשי',
+    explain:
+      'תמונת המצב של כל מיזם: מה מתוזמן קדימה, מה כבר פורסם, מה תקוע ומה ' +
+      'עדיין ממתין לשיבוץ. בחר מיזם ונווט בין חודשים.',
+    empty: 'אין עדיין סרטונים מתוזמנים או שפורסמו למיזם הזה.',
+    noVentures: 'אין עדיין מיזמים — הוסף אפליקציה בטאב "אפליקציות".',
+    awaiting: (n) => `ממתינים לשיבוץ: ${n}`,
+    monthScheduled: (n) => `מתוזמנים החודש: ${n}`,
+    monthPublished: (n) => `פורסמו החודש: ${n}`,
+    legendScheduled: 'מתוזמן',
+    legendPublished: 'פורסם',
+    legendWaiting: 'ממתין',
+    legendProblem: 'נכשל',
+    todayTag: 'היום',
+    moreCount: (n) => `+${n} נוספים`,
   },
   zernioTab: {
     title: 'חשבונות Buffer',

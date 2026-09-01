@@ -8,6 +8,7 @@ import TokenPanel from './components/TokenPanel.jsx'
 import InboxTab from './components/InboxTab.jsx'
 import BriefTab from './components/BriefTab.jsx'
 import ReviewTab from './components/ReviewTab.jsx'
+import GanttTab from './components/GanttTab.jsx'
 import LogTab from './components/LogTab.jsx'
 import AiModelsTab from './components/AiModelsTab.jsx'
 import ZernioAccountsTab from './components/ZernioAccountsTab.jsx'
@@ -16,7 +17,7 @@ import ZernioInboxTab from './components/ZernioInboxTab.jsx'
 // All tabs are shown directly in the bar (the bar wraps into extra rows
 // on narrow screens; each tab label stays on one line).
 const TABS = backend.supportsScout
-  ? ['inbox', 'review', 'batch', 'approved', 'published', 'assets', 'zernio', 'zernioInbox', 'results', 'brief', 'log', 'aimodels']
+  ? ['inbox', 'review', 'batch', 'approved', 'gantt', 'published', 'assets', 'zernio', 'zernioInbox', 'results', 'brief', 'log', 'aimodels']
   : ['batch', 'results', 'assets', 'zernio', 'zernioInbox', 'aimodels']
 
 export default function App() {
@@ -112,6 +113,9 @@ export default function App() {
             </div>
             <div hidden={tab !== 'approved'}>
               <ReviewTab active={tab === 'approved'} stage="approved" />
+            </div>
+            <div hidden={tab !== 'gantt'}>
+              <GanttTab active={tab === 'gantt'} />
             </div>
             <div hidden={tab !== 'published'}>
               <ReviewTab active={tab === 'published'} stage="published" />
