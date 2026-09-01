@@ -49,11 +49,10 @@ jobs:
           # channels auto-wire on the first run. Zernio lines above stay
           # as the fallback for un-migrated ventures and for posts that
           # were already scheduled through Zernio.
+          # One env line per brand secret. NOTE: passing the whole secrets
+          # context (toJSON(secrets)) is NOT allowed - GitHub flags it and
+          # holds every scheduled run in action_required, which silently
+          # killed the hourly engine on 2026-08-31. Explicit lines only.
           BUFFER_TOKEN_PLANTY: ${{ secrets.BUFFER_TOKEN_PLANTY }}
-          # every BUFFER_TOKEN_* / ZERNIO_KEY_* secret is picked up
-          # dynamically - a NEW brand needs only its repo secret, no
-          # workflow edit (buffer_wiring.load_secrets_context filters
-          # this to distributor keys only).
-          SECRETS_CONTEXT: ${{ toJSON(secrets) }}
           GH_TOKEN: ${{ github.token }}
         run: python scripts/distribute_apps.py

@@ -43,6 +43,5 @@ jobs:
       - name: Distribute approved items
         env:
           ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
-          SECRETS_CONTEXT: ${{ toJSON(secrets) }}
           GH_TOKEN: ${{ github.token }}
         run: python scripts/distribute_aimodels.py
