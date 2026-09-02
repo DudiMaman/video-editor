@@ -146,12 +146,15 @@
   "source_page": "pg_004",
   "source_url": "https://www.tiktok.com/@planta_app/video/7670485418403679491",
   "found_at": "2026-08-06",
-  "status": "approved",
+  "status": "published",
   "reject_reason": "",
   "output_asset": "batch-10/video_03.mp4",
   "caption": "Air plants need a soak, not a splash 💧 Feed and water at the exact same time, then let Planty tell you exactly when it's time for a drink again.\n\nDownload Planty for your custom watering & feeding schedule 🌱\n\nhttps://planty-app.com/\n\n#PlantIdentification #PlantIdentifier #PlantID #PlantCare #PlantTips #PlantTikTok #Houseplants #PlantLovers #GardeningTips #PlantyApp #WhatPlantIsThis #IdentifyPlants #PlantApp #NatureTok #AirPlants #PlantParent",
-  "published_to": [],
-  "published_at": "",
+  "published_to": [
+   "facebook",
+   "tiktok"
+  ],
+  "published_at": "2026-09-02T07:14:52Z",
   "schedule": {
    "date": "2026-09-02",
    "time": "10:00"
@@ -162,9 +165,17 @@
   ],
   "distribution": {
    "via": "buffer",
-   "state": "media_wait",
-   "reason": "waiting for Pages mirror: https://dudimaman.github.io/video-editor/media/apps-batch-10-video_03.mp4"
-  }
+   "platforms": [
+    "facebook",
+    "tiktok"
+   ],
+   "urls": {
+    "facebook": "https://facebook.com/1327375383786094_122101668261459776"
+   },
+   "state": "published"
+  },
+  "zernioPostId": "6a97ccd73a15d22a0a07cfda,6a97cce205227e3172aff326",
+  "zernioPostUrl": "https://facebook.com/1327375383786094_122101668261459776"
  },
  {
   "video_id": "7628476854797716756",
@@ -326,9 +337,14 @@
   ],
   "distribution": {
    "via": "buffer",
-   "state": "media_wait",
-   "reason": "waiting for Pages mirror: https://dudimaman.github.io/video-editor/media/apps-batch-14-video_01.mp4"
-  }
+   "state": "scheduled",
+   "platforms": [
+    "facebook",
+    "tiktok"
+   ],
+   "scheduledFor": "2026-09-02T11:00:00Z"
+  },
+  "zernioPostId": "6a97cced143685ad434442fa,6a97ccee05227e3172aff3ba"
  },
  {
   "video_id": "7633395834993839382",
@@ -378,9 +394,14 @@
   ],
   "distribution": {
    "via": "buffer",
-   "state": "media_wait",
-   "reason": "waiting for Pages mirror: https://dudimaman.github.io/video-editor/media/apps-batch-12-video_01.mp4"
-  }
+   "state": "scheduled",
+   "platforms": [
+    "facebook",
+    "tiktok"
+   ],
+   "scheduledFor": "2026-09-03T07:32:00Z"
+  },
+  "zernioPostId": "6a97ccf015bd89572dcfb968,6a97ccf015bd89572dcfb98e"
  },
  {
   "video_id": "7628476853677837588",
@@ -404,9 +425,14 @@
   ],
   "distribution": {
    "via": "buffer",
-   "state": "media_wait",
-   "reason": "waiting for Pages mirror: https://dudimaman.github.io/video-editor/media/apps-batch-11-video_06.mp4"
-  }
+   "state": "scheduled",
+   "platforms": [
+    "facebook",
+    "tiktok"
+   ],
+   "scheduledFor": "2026-09-04T08:33:00Z"
+  },
+  "zernioPostId": "6a97ccf23a15d22a0a07d060,6a97ccf205227e3172aff3f3"
  },
  {
   "video_id": "7628476925450734855",
@@ -430,9 +456,14 @@
   ],
   "distribution": {
    "via": "buffer",
-   "state": "media_wait",
-   "reason": "waiting for Pages mirror: https://dudimaman.github.io/video-editor/media/apps-batch-11-video_07.mp4"
-  }
+   "state": "scheduled",
+   "platforms": [
+    "facebook",
+    "tiktok"
+   ],
+   "scheduledFor": "2026-09-05T09:21:00Z"
+  },
+  "zernioPostId": "6a97ccf53a15d22a0a07d259,6a97ccf615bd89572dcfb9ef"
  },
  {
   "video_id": "7628476854797683988",
@@ -456,9 +487,14 @@
   ],
   "distribution": {
    "via": "buffer",
-   "state": "media_wait",
-   "reason": "waiting for Pages mirror: https://dudimaman.github.io/video-editor/media/apps-batch-11-video_08.mp4"
-  }
+   "state": "scheduled",
+   "platforms": [
+    "facebook",
+    "tiktok"
+   ],
+   "scheduledFor": "2026-09-06T08:11:00Z"
+  },
+  "zernioPostId": "6a97ccf915bd89572dcfba79,6a97ccf915bd89572dcfbaa8"
  },
  {
   "video_id": "7595128289719520524",
@@ -482,9 +518,14 @@
   ],
   "distribution": {
    "via": "buffer",
-   "state": "media_wait",
-   "reason": "waiting for Pages mirror: https://dudimaman.github.io/video-editor/media/apps-batch-11-video_09.mp4"
-  }
+   "state": "scheduled",
+   "platforms": [
+    "facebook",
+    "tiktok"
+   ],
+   "scheduledFor": "2026-09-07T09:34:00Z"
+  },
+  "zernioPostId": "6a97ccfc143685ad434444ca,6a97ccfc201adc854465e745"
  },
  {
   "video_id": "7651677081285250307",
