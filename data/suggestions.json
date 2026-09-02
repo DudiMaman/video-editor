@@ -222,5 +222,45 @@
   "asset": "sample",
   "found_at": "2026-08-28",
   "status": "accepted"
+ },
+ {
+  "url": "https://www.tiktok.com/@godsplan.orphanagecentre",
+  "name": "God's Plan Orphanage Centre",
+  "reason": "עמותה אוגנדית המאכילה ומטפלת בילדים יתומים ופגיעים בכפר בבוגירי אוגנדה, בדיוק בנישה של עמותות האכלה כפריות באפריקה.",
+  "asset": "acf",
+  "found_at": "2026-09-02",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@buhubalochildrenfoundati",
+  "name": "Buhubalo Children Foundation",
+  "reason": "עמותה המספקת מזון ותמיכה לילדים חסרי בית ויתומים באפריקה, עם תוכן דומה מאוד לעמודי המקור.",
+  "asset": "acf",
+  "found_at": "2026-09-02",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@baptistnaturekitchen2",
+  "name": "Baptist Amah Foundation",
+  "reason": "עמותה שמתעדת האכלת יתומים באפריקה דרך בישול קהילתי, מתאים לנושא תחנות האכלה ומזון חם.",
+  "asset": "acf",
+  "found_at": "2026-09-02",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@holy_hope_ministr",
+  "name": "Holy Hope Ministry",
+  "reason": "עמותת סיוע לילדים יתומים המספקת מזון וצרכים בסיסיים, תוכן ישיר על תרומות והאכלה.",
+  "asset": "acf",
+  "found_at": "2026-09-02",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@home.of.hope.foun0",
+  "name": "Home of Hope Foundation (Uganda)",
+  "reason": "עמותה אוגנדית לטיפול בילדים נזקקים הכוללת תיעוד של האכלה וצרכים יומיומיים בקהילה.",
+  "asset": "acf",
+  "found_at": "2026-09-02",
+  "status": "suggested"
  }
 ]
