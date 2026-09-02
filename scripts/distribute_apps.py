@@ -220,8 +220,13 @@ def ensure_pages_media(entry: dict) -> str:
     if url_live(url):
         return url
     print(f"  media not on Pages yet - dispatching pages.yml and waiting: {url}")
-    subprocess.run(["gh", "workflow", "run", "pages.yml", "--ref", "main"],
-                   cwd=REPO_ROOT, check=False, capture_output=True, text=True)
+    r = subprocess.run(["gh", "workflow", "run", "pages.yml", "--ref", "main"],
+                       cwd=REPO_ROOT, check=False, capture_output=True, text=True)
+    if r.returncode != 0:
+        # A silent dispatch failure (e.g. the workflow token missing
+        # actions:write) once stalled every buffer post in media_wait
+        # for 14 hours - never swallow it again.
+        print(f"  WARNING: pages.yml dispatch failed: {(r.stderr or '').strip()}")
     for _ in range(12):
         time.sleep(20)
         if url_live(url):
@@ -308,6 +313,11 @@ def plan_actions(ledger: list, assets: list) -> list[tuple[str, str, dict]]:
             when = scheduled_at_utc(e, asset)
             if when and when > now_z():
                 actions.append((vid, "schedule", {"asset": asset, "when": when}))
+            elif when:
+                # The slot passed while the entry was still held (media
+                # mirror not ready, queue full, or the engine simply did
+                # not run in time). Late beats lost: publish it now.
+                actions.append((vid, "publish", {"asset": asset}))
         elif status == APPROVED and sent:
             when = scheduled_at_utc(e, asset)
             sent_for = (e.get("distribution") or {}).get("scheduledFor")
