@@ -4011,5 +4011,31 @@
   "caption": "Something was living in that soil — and it wasn't good news. One photo told us exactly what it was and how to fix it. Scan yours with Planty before it spreads.\n\n#PlantIdentification #PlantCare #PlantTips #Houseplants #PlantyApp #PlantID\n\n📌 הוק חזק (זחלי פטרייה חבויים באדמה!), ידיים בלבד, הדגמת אבחון מלאה (Root Rot + פתרון קונקרטי: ניגוב אלכוהול + החלפת אדמה). מסך אפליקציה בשם 'PlantDoc' — להחליף מיתוג ל-Planty בעריכה.",
   "published_to": [],
   "published_at": ""
+ },
+ {
+  "video_id": "7680584815724203295",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7680584815724203295",
+  "found_at": "2026-09-02",
+  "status": "rejected",
+  "reject_reason": "תוכן גידול ירקות בשדה (צנוניות, יבולי סתיו מהירים) — לא צמחי בית/זיהוי, מחוץ לבריף (דפוס עקבי של pg_016)",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7680570568659291423",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7680570568659291423",
+  "found_at": "2026-09-02",
+  "status": "rejected",
+  "reject_reason": "תוכן טיפוח דשא/מדשאה ('grass season') — גינון חוץ, מחוץ לבריף (דפוס עקבי של pg_016)",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
  }
 ]
