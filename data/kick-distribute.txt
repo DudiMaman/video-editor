@@ -1,1 +1,2 @@
 kick 2026-09-01T09:56:20Z sync: confirm buffer publish of 7655040424981089558
+2026-09-02T07:14Z kick: publish the missed 10:00 slot + send this week's queue to Buffer

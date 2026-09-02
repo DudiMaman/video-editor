@@ -20,8 +20,13 @@ on:
     # for rescues and owner-requested immediate syncs).
     paths: ['data/ledger.json', 'assets.json', 'data/kick-distribute.txt']
 
+# actions:write lets the runner dispatch pages.yml when a video's Pages
+# mirror is missing (ensure_pages_media). Without it the dispatch fails
+# 403 and every Buffer post stalls in media_wait until some unrelated
+# frontend push happens to rebuild Pages.
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: distribute-apps
