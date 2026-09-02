@@ -11,12 +11,26 @@ const PLATFORM_SHORT = {
 }
 
 // The calendar day an entry lives on: where it actually published, else
-// where it is scheduled to.
+// where it is scheduled to. published_at is UTC; the calendar shows the
+// owner's local day, so convert before slicing a date out of it.
 const dayOf = (e) => {
   if (e.status === 'published' && e.published_at) {
+    const t = new Date(e.published_at)
+    if (!isNaN(t)) return `${t.getFullYear()}-${pad2(t.getMonth() + 1)}-${pad2(t.getDate())}`
     return String(e.published_at).slice(0, 10)
   }
   return (e.schedule || {}).date || ''
+}
+
+// The hour shown on the chip: for live posts the verified time it
+// actually went up (published_at is written only after the distributor
+// confirmed the post is live), local time; otherwise the scheduled slot.
+const timeOf = (e) => {
+  if (e.status === 'published' && e.published_at) {
+    const t = new Date(e.published_at)
+    if (!isNaN(t)) return `${pad2(t.getHours())}:${pad2(t.getMinutes())}`
+  }
+  return (e.schedule || {}).time || ''
 }
 
 // published (live) / problem (failed) / waiting (queue/media hold or
@@ -98,9 +112,7 @@ export default function GanttTab({ active }) {
     ;(byDay[d] = byDay[d] || []).push(e)
   }
   for (const d in byDay) {
-    byDay[d].sort((a, b) =>
-      String((a.schedule || {}).time || '').localeCompare(
-        String((b.schedule || {}).time || '')))
+    byDay[d].sort((a, b) => timeOf(a).localeCompare(timeOf(b)))
   }
 
   const awaiting = mine.filter((e) =>
@@ -181,10 +193,17 @@ export default function GanttTab({ active }) {
               </div>
               {posts.slice(0, MAX_SHOWN).map((e) => {
                 const st = stateOf(e)
-                const label = st === 'published' ? STR.scout.publishedTag
+                const time = timeOf(e)
+                // Every chip leads with its hour - actual air time for
+                // live posts, the scheduled slot otherwise. Scheduled
+                // chips keep the bare hour (the green color says the
+                // rest); other states add their word.
+                const word = st === 'published' ? STR.scout.publishedTag
                   : st === 'problem' ? G.legendProblem
                   : st === 'waiting' ? G.legendWaiting
-                  : ((e.schedule || {}).time || STR.scout.scheduledTag)
+                  : (time ? '' : STR.scout.scheduledTag)
+                const label = [time, word, platformsShort(e)]
+                  .filter(Boolean).join(' · ')
                 return (
                   <span
                     key={e.video_id}
@@ -195,7 +214,7 @@ export default function GanttTab({ active }) {
                       textOverflow: 'ellipsis',
                     }}
                   >
-                    {label}{platformsShort(e) ? ` · ${platformsShort(e)}` : ''}
+                    {label}
                   </span>
                 )
               })}
