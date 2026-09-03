@@ -530,8 +530,13 @@ def execute(actions, ledger, work_dir) -> tuple[dict, list]:
                 with key_ctx_for(sent_drv, asset):
                     res = distributors.get(sent_drv).get_post(e["zernioPostId"])
                 if res["status"] == "published":
+                    # The driver's own sent time when it reports one
+                    # (Buffer's dueAt): this sync may be running hours
+                    # after the post actually went out, and the Gantt
+                    # shows published_at as the verified air time.
                     patches[vid] = {
-                        "status": "published", "published_at": now_z(),
+                        "status": "published",
+                        "published_at": res.get("sentAt") or now_z(),
                         "published_to": sorted(set((e.get("published_to") or [])
                                                    + platforms)),
                         **({"zernioPostUrl": res["postUrl"]} if res["postUrl"] else {}),
