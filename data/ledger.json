@@ -386,12 +386,15 @@
   "source_page": "pg_004",
   "source_url": "https://www.tiktok.com/@planta_app/video/7649843485314518295",
   "found_at": "2026-08-06",
-  "status": "approved",
+  "status": "published",
   "reject_reason": "note: spoken audio still says 'Planta' (~26s); burned text swapped to Planty",
   "output_asset": "batch-12/video_01.mp4",
   "caption": "Yellow, crispy palm fronds? That’s your plant screaming for help 🌿\n\nThis gardener asked Planty what was wrong, and got an instant diagnosis + step-by-step treatment plan in seconds.\n\nStop guessing why your plants are struggling - scan, ask, and save them before it’s too late. Download Planty free and get your own care plan today 📲\n\nhttps://planty-app.com/\n\n#PlantIdentification #PlantIdentifier #PlantID #PlantCare #PlantTips #PlantTikTok #Houseplants #PlantLovers #GardeningTips #PlantyApp #WhatPlantIsThis #IdentifyPlants #PlantApp #NatureTok #PlantParent #GreenThumb",
-  "published_to": [],
-  "published_at": "",
+  "published_to": [
+   "facebook",
+   "tiktok"
+  ],
+  "published_at": "2026-09-03T10:05:14Z",
   "schedule": {
    "date": "2026-09-03",
    "time": "10:32"
@@ -402,14 +405,19 @@
   ],
   "distribution": {
    "via": "buffer",
-   "state": "scheduled",
+   "state": "published",
    "platforms": [
     "facebook",
     "tiktok"
    ],
-   "scheduledFor": "2026-09-03T07:32:00Z"
+   "scheduledFor": "2026-09-03T07:32:00Z",
+   "urls": {
+    "6a97ccf015bd89572dcfb968": "https://tiktok.com/@planty9348/video/7681208533303495954",
+    "6a97ccf015bd89572dcfb98e": "https://www.facebook.com/reel/1738375710546289/"
+   }
   },
-  "zernioPostId": "6a97ccf015bd89572dcfb968,6a97ccf015bd89572dcfb98e"
+  "zernioPostId": "6a97ccf015bd89572dcfb968,6a97ccf015bd89572dcfb98e",
+  "zernioPostUrl": "https://tiktok.com/@planty9348/video/7681208533303495954"
  },
  {
   "video_id": "7628476853677837588",
