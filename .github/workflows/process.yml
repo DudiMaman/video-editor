@@ -27,8 +27,15 @@ jobs:
       - name: Install ffmpeg and OCR
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg tesseract-ocr
 
+      # yt-dlp[default] - NOT bare yt-dlp. The extra pulls curl_cffi,
+      # which is what gives yt-dlp its browser-impersonation targets.
+      # TikTok now refuses plain requests, and without a target every
+      # download dies with "Unexpected response from webpage request"
+      # (preceded by "attempting impersonation, but no impersonate
+      # target is available"). That silently stalled every ACF preview
+      # on 2026-09-03.
       - name: Install Python dependencies
-        run: pip install yt-dlp anthropic python-dotenv faster-whisper
+        run: pip install "yt-dlp[default]" anthropic python-dotenv faster-whisper
 
       - name: Process batch
         env:
