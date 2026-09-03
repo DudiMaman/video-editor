@@ -262,5 +262,21 @@
   "asset": "acf",
   "found_at": "2026-09-02",
   "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@compassioninternational",
+  "name": "Compassion International",
+  "reason": "עמותה נוצרית המפעילה חסות חודשית על ילדים במצוקה באפריקה ובעולם, בדיוק בתחום של ACF — האכלה, חינוך וקשר אישי עם הילד.",
+  "asset": "acf",
+  "found_at": "2026-09-03",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@worldvisionusa",
+  "name": "World Vision USA",
+  "reason": "ארגון חסות ילדים גלובלי הפעיל גם באפריקה, עם תוכן על מזון, מים נקיים וסיפורי אימפקט אישיים התואם למודל של ACF.",
+  "asset": "acf",
+  "found_at": "2026-09-03",
+  "status": "suggested"
  }
 ]
