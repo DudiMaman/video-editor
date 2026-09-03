@@ -41,6 +41,7 @@ API facts this code relies on:
 
 The API key comes from the BUFFER_ACCESS_TOKEN environment variable.
 """
+import datetime
 import json
 import os
 import sys
@@ -280,10 +281,37 @@ _STATUS_MAP = {"sent": "published", "error": "failed",
                "draft": "draft", "needs_approval": "draft"}
 
 
+def _sent_at(posts: list[dict]) -> str | None:
+    """When Buffer sent the posts, from their dueAt - Buffer publishes at
+    dueAt, so this is the real air time. The status sync can run hours
+    after that (GitHub throttles the hourly cron), and stamping the sync
+    moment instead would report an air time that never happened. The
+    latest dueAt wins (all channels must be out for a post to count as
+    published); a dueAt in the future is not an air time, so it is
+    ignored rather than trusted."""
+    best = None
+    now = datetime.datetime.now(datetime.timezone.utc)
+    for p in posts:
+        raw = p.get("dueAt")
+        if not raw:
+            continue
+        try:
+            t = datetime.datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        if t.tzinfo is None:
+            t = t.replace(tzinfo=datetime.timezone.utc)
+        t = t.astimezone(datetime.timezone.utc)
+        if t > now:
+            continue
+        best = t if best is None or t > best else best
+    return best.strftime("%Y-%m-%dT%H:%M:%SZ") if best else None
+
+
 def _aggregate(posts: list[dict]) -> dict:
     """Fold per-channel Buffer posts into the shared driver result:
-    {externalId, status, postUrl, urls, errors}. published only when ALL
-    are sent; failed as soon as ANY errored."""
+    {externalId, status, sentAt, postUrl, urls, errors}. published only
+    when ALL are sent; failed as soon as ANY errored."""
     urls, errors = {}, []
     statuses = []
     for p in posts:
@@ -300,10 +328,19 @@ def _aggregate(posts: list[dict]) -> dict:
         status = "failed"
     elif any(s == "sending" for s in statuses):
         status = "publishing"
+    elif statuses:
+        # Mixed, nothing failing: some channel is still waiting. Report
+        # the channel that has NOT gone out - taking statuses[0] would
+        # call a half-published post "published" whenever the sent
+        # channel happened to be listed first, and the runner would stop
+        # syncing it and never notice the other channel failing later.
+        rest = next(s for s in statuses if s != "sent")
+        status = _STATUS_MAP.get(rest, rest)
     else:
-        status = _STATUS_MAP.get(statuses[0], statuses[0]) if statuses else ""
+        status = ""
     return {"externalId": ",".join(p["id"] for p in posts),
             "status": status,
+            "sentAt": _sent_at(posts) if status == "published" else None,
             "postUrl": next(iter(urls.values()), None),
             "urls": urls, "errors": errors}
 
