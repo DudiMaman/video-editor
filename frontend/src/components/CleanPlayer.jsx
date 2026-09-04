@@ -13,11 +13,30 @@ const S = STR.scout
 // broken pipeline never blocks approving or rejecting.
 const MAX_POLLS = 12 // x20s = 4 minutes
 
+// Reviewing is skimming: most clips are judged in a couple of seconds,
+// so the player opens at 2x instead of making the reviewer reach for the
+// browser's own speed menu on every video. The slower rates stay one
+// click away for the clips that need a real look, and the choice is
+// remembered per browser.
+const SPEEDS = [1, 1.5, 2]
+const SPEED_KEY = 've-player-speed'
+
+const storedSpeed = () => {
+  try {
+    const v = Number(localStorage.getItem(SPEED_KEY))
+    return SPEEDS.includes(v) ? v : 2
+  } catch {
+    return 2 // private windows / blocked site data
+  }
+}
+
 export default function CleanPlayer({ entry }) {
   const [asset, setAsset] = useState(entry.preview_asset || null)
   const [url, setUrl] = useState(undefined) // undefined=loading, null=none
   const [gaveUp, setGaveUp] = useState(false)
   const [attempt, setAttempt] = useState(0)
+  const [speed, setSpeed] = useState(storedSpeed)
+  const video = useRef(null)
   const poll = useRef(null)
   const dispatched = useRef(false)
 
@@ -62,8 +81,47 @@ export default function CleanPlayer({ entry }) {
     return () => clearInterval(poll.current)
   }, [asset, entry, attempt])
 
+  // playbackRate lives on the element and resets whenever a source
+  // loads, so it is re-applied on load as well as on every change.
+  const applySpeed = (rate) => {
+    if (video.current) video.current.playbackRate = rate
+  }
+  const pickSpeed = (rate) => {
+    setSpeed(rate)
+    applySpeed(rate)
+    try {
+      localStorage.setItem(SPEED_KEY, String(rate))
+    } catch {
+      /* not worth failing playback over */
+    }
+  }
+
   if (url) {
-    return <video className="clean-player" controls preload="metadata" src={url} />
+    return (
+      <div className="clean-player-wrap">
+        <video
+          ref={video}
+          className="clean-player"
+          controls
+          preload="metadata"
+          src={url}
+          onLoadedMetadata={() => applySpeed(speed)}
+        />
+        <div className="clean-player-speed">
+          <span className="muted">{S.speedLabel}</span>
+          {SPEEDS.map((rate) => (
+            <button
+              key={rate}
+              type="button"
+              className={'tab' + (speed === rate ? ' active' : '')}
+              onClick={() => pickSpeed(rate)}
+            >
+              {rate}&times;
+            </button>
+          ))}
+        </div>
+      </div>
+    )
   }
   if (gaveUp) {
     return (
