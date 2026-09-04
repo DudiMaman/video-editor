@@ -712,6 +712,41 @@ button.small {
   font-size: 0.85rem;
 }
 
+/* Collapsed by default: the whole header row is the disclosure control,
+   and it carries the on/off state so it is readable while shut. */
+.subtitles-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.15rem 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-align: start;
+  font: inherit;
+  color: inherit;
+}
+
+.subtitles-summary .disclosure {
+  font-size: 0.8rem;
+  opacity: 0.65;
+}
+
+.subtitles-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.subtitles-enable {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
 /* ---- Self-contained editing card ---- */
 .editor-card .editor-controls {
   display: flex;

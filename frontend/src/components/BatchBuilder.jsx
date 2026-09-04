@@ -41,6 +41,12 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
   const [cutSeconds, setCutSeconds] = useState('')
   const [caption, setCaption] = useState(entry.caption || '')
   const [subtitlesText, setSubtitlesText] = useState('')
+  // Subtitles are off unless the reviewer turns them on for this video,
+  // and the panel stays collapsed: burn-in is a rare, deliberate choice,
+  // and the timings still need a human eye before they go on screen.
+  const [subsOpen, setSubsOpen] = useState(false)
+  const [subsOn, setSubsOn] = useState(false)
+  const [subsFetched, setSubsFetched] = useState(false)
   const [openPicker, setOpenPicker] = useState(null) // 'outro' | 'intro' | null
   const [busy, setBusy] = useState(false)
   const [subBusy, setSubBusy] = useState(false)
@@ -52,24 +58,6 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
     setter(msg)
     setTimeout(() => setter(''), ms)
   }
-
-  // Pull the video's subtitles into the box automatically when the card opens.
-  useEffect(() => {
-    let alive = true
-    backend
-      .readTranscript(entry.source_url)
-      .then((t) => {
-        if (alive && t?.cues?.length) {
-          setSubtitlesText(
-            t.cues.map((c) => `${c.start} - ${c.end} | ${c.text}`).join('\n')
-          )
-        }
-      })
-      .catch(() => {})
-    return () => {
-      alive = false
-    }
-  }, [entry.source_url])
 
   const clipName = (clips, id) =>
     clips.find((c) => String(c.id) === String(id))?.original_name
@@ -104,6 +92,19 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
       flash(setNote, S.originalFailed)
       setCaption(suggested)
     }
+  }
+
+  // Existing subtitles are fetched the first time the panel is opened,
+  // not on every card - a collapsed panel should cost nothing.
+  const toggleSubsPanel = () => {
+    const opening = !subsOpen
+    setSubsOpen(opening)
+    if (!opening || subsFetched) return
+    setSubsFetched(true)
+    backend
+      .readTranscript(entry.source_url)
+      .then((t) => t?.cues?.length && applyCues(t))
+      .catch(() => {})
   }
 
   const applyCues = (t) => {
@@ -170,7 +171,7 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
         introId,
         startSeconds,
         cutSeconds,
-        subtitlesText,
+        subtitlesText: subsOn ? subtitlesText : '',
         caption,
         sourceUrl: entry.source_url,
         ledgerVideoId: entry.video_id,
@@ -292,19 +293,48 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
         </div>
 
         <div className="subtitles-field">
-          <span className="picker-label">{B.subtitlesLabel}</span>
-          <div className="result-actions">
-            <button className="secondary small" onClick={loadTranscript} disabled={subBusy}>
-              {subBusy ? B.transcribeWorking : B.loadTranscriptBtn}
-            </button>
-            {subNote && <span className="ok">{subNote}</span>}
-          </div>
-          <textarea
-            dir="ltr" rows={6} placeholder={B.subtitlesPlaceholder}
-            value={subtitlesText}
-            onChange={(e) => setSubtitlesText(e.target.value)}
-          />
-          <p className="hint">{B.subtitlesHint}</p>
+          <button
+            type="button"
+            className="subtitles-summary"
+            onClick={toggleSubsPanel}
+            aria-expanded={subsOpen}
+          >
+            <span className="disclosure">{subsOpen ? '\u25be' : '\u25c2'}</span>
+            <span className="picker-label">{B.subtitlesLabel}</span>
+            <span className={subsOn ? 'ok' : 'muted'}>
+              {subsOn ? B.subtitlesStateOn : B.subtitlesStateOff}
+            </span>
+          </button>
+          {subsOpen && (
+            <div className="subtitles-body">
+              <label className="subtitles-enable">
+                <input
+                  type="checkbox"
+                  checked={subsOn}
+                  onChange={(e) => setSubsOn(e.target.checked)}
+                />
+                {B.subtitlesEnable}
+              </label>
+              <div className="result-actions">
+                <button className="secondary small" onClick={loadTranscript} disabled={subBusy}>
+                  {subBusy ? B.transcribeWorking : B.loadTranscriptBtn}
+                </button>
+                {subNote && <span className="ok">{subNote}</span>}
+              </div>
+              <textarea
+                dir="ltr" rows={6} placeholder={B.subtitlesPlaceholder}
+                value={subtitlesText}
+                onChange={(e) => setSubtitlesText(e.target.value)}
+              />
+              <p className="hint">
+                {!subsOn && subtitlesText.trim()
+                  ? B.subtitlesIgnored
+                  : subsOn
+                    ? B.subtitlesHint
+                    : B.subtitlesOffHint}
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
