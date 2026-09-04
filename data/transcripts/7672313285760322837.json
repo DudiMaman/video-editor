@@ -1,0 +1,31 @@
+{
+ "source": "https://www.tiktok.com/@plantcheck.plant.avntech/video/7672313285760322837",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 3.5,
+   "end": 4.0,
+   "text": "want to"
+  },
+  {
+   "start": 5.0,
+   "end": 9.5,
+   "text": "Your plant needs care it can check"
+  },
+  {
+   "start": 9.5,
+   "end": 14.0,
+   "text": "Lemon helps combat fungal infections or pests like aphids or whiteflies and part,"
+  },
+  {
+   "start": 15.5,
+   "end": 16.0,
+   "text": "it and"
+  },
+  {
+   "start": 19.5,
+   "end": 20.0,
+   "text": "App Store"
+  }
+ ]
+}

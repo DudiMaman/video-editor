@@ -1,0 +1,21 @@
+{
+ "source": "https://www.tiktok.com/@plantcheck.plant.avntech/video/7672318865883270420",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 24.5,
+   "end": 25.5,
+   "text": "Add Cola"
+  },
+  {
+   "start": 42.5,
+   "end": 43.0,
+   "text": "then let"
+  },
+  {
+   "start": 59.0,
+   "end": 60.5,
+   "text": "App Store"
+  }
+ ]
+}

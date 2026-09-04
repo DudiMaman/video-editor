@@ -1,0 +1,36 @@
+{
+ "source": "https://www.tiktok.com/@plantcheck.plant.avntech/video/7672318847168367892",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 5.5,
+   "end": 7.5,
+   "text": "Peace Lily SICK ROOTS app SUGAR WATER"
+  },
+  {
+   "start": 7.5,
+   "end": 8.0,
+   "text": "Peace Lily"
+  },
+  {
+   "start": 20.5,
+   "end": 22.0,
+   "text": "JADE PLANT LACK OF"
+  },
+  {
+   "start": 22.5,
+   "end": 23.5,
+   "text": "USE BASIL"
+  },
+  {
+   "start": 27.5,
+   "end": 28.5,
+   "text": "AFTER WHILE"
+  },
+  {
+   "start": 32.5,
+   "end": 33.0,
+   "text": "DOWNLOAD NOW"
+  }
+ ]
+}

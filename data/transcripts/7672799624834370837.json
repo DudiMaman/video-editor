@@ -1,0 +1,31 @@
+{
+ "source": "https://www.tiktok.com/@raisechidrenshomeuganda/video/7672799624834370837",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 0.0,
+   "end": 2.0,
+   "text": "Thank you once again sharing with Raise Childrenisy"
+  },
+  {
+   "start": 2.5,
+   "end": 3.0,
+   "text": "sharing with Raise"
+  },
+  {
+   "start": 4.5,
+   "end": 7.0,
+   "text": "sharing with Raise Children’s"
+  },
+  {
+   "start": 8.0,
+   "end": 11.0,
+   "text": "“Thank you for sharing with Raise"
+  },
+  {
+   "start": 11.0,
+   "end": 13.0,
+   "text": "Thank you for sharing with Raise Children’s."
+  }
+ ]
+}

@@ -1,0 +1,26 @@
+{
+ "source": "https://www.tiktok.com/@raisechidrenshomeuganda/video/7672617101789613333",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 0.0,
+   "end": 3.0,
+   "text": "can help feed several children. Any amount you can give can make"
+  },
+  {
+   "start": 3.0,
+   "end": 4.5,
+   "text": "$1can help provide meal. feed several children."
+  },
+  {
+   "start": 4.5,
+   "end": 10.5,
+   "text": "$1can help provide meal. canhelp feed several Any amount you can give can make difference."
+  },
+  {
+   "start": 10.5,
+   "end": 11.5,
+   "text": "feed several children. Any amount you can give can make"
+  }
+ ]
+}
