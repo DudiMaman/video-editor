@@ -22,6 +22,59 @@ const emptyRow = () => ({
   subtitlesText: '',
 })
 
+// A video handed to the pipeline. The run happens outside the browser
+// and can fail without ever reporting back - which once left five videos
+// sitting on "processing" for four days while TikTok downloads were
+// broken. So this card ages: past STUCK_AFTER_MIN it stops claiming
+// progress and offers the way out.
+const STUCK_AFTER_MIN = 15
+
+function ProcessingCard({ entry, onUpdated }) {
+  const [busy, setBusy] = useState(false)
+  const started = entry.processing_at ? Date.parse(entry.processing_at) : NaN
+  // No stamp means it predates the stamping, i.e. it is an old one.
+  const mins = isNaN(started) ? Infinity : (Date.now() - started) / 60000
+  const stuck = mins > STUCK_AFTER_MIN
+
+  const backToEditing = async () => {
+    setBusy(true)
+    try {
+      await backend.scout.mutateLedger((list) => {
+        const e = list.find((x) => x.video_id === entry.video_id)
+        if (!e) return false
+        e.status = 'editing'
+        e.processing_at = ''
+      }, `Scout: back to editing ${entry.video_id}`)
+      onUpdated()
+    } catch (err) {
+      alert(err.message)
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <div className={'card result-card ' + (stuck ? 'status-failed' : 'status-queued')}>
+      <div className="result-head">
+        <strong>{stuck ? S.processingStuckTag : S.statuses.processing}</strong>
+        <span className="muted" dir="ltr">{entry.video_id}</span>
+      </div>
+      {stuck ? (
+        <>
+          <p className="muted">
+            {S.processingStuck(isFinite(mins) ? Math.round(mins) : null)}
+          </p>
+          <button className="secondary small" onClick={backToEditing} disabled={busy}>
+            {S.backToEditing}
+          </button>
+        </>
+      ) : (
+        <p className="muted">{S.processingNote}</p>
+      )}
+    </div>
+  )
+}
+
 // A curated video the user approved: a self-contained editor. All editing
 // controls sit above the embedded source player, inside one card, so it is
 // always clear which video is being edited. "Process" runs it through the
@@ -179,7 +232,7 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
       // Mark that processing started; the pipeline flips it to approved
       // once the file is built and wired back.
       await setStatus(
-        { caption, status: 'processing' },
+        { caption, status: 'processing', processing_at: new Date().toISOString() },
         `Scout: process ${entry.video_id}`
       )
     } catch (e) {
@@ -435,13 +488,11 @@ export default function BatchBuilder({ active, onSent }) {
           {editing &&
             editing.map((e) =>
               e.status === 'processing' ? (
-                <div key={e.video_id} className="card result-card status-queued">
-                  <div className="result-head">
-                    <strong>{S.statuses.processing}</strong>
-                    <span className="muted" dir="ltr">{e.video_id}</span>
-                  </div>
-                  <p className="muted">{S.processingNote}</p>
-                </div>
+                <ProcessingCard
+                  key={e.video_id}
+                  entry={e}
+                  onUpdated={loadEditing}
+                />
               ) : (
                 <EditingCard
                   key={e.video_id}
