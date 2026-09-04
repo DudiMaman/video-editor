@@ -1,0 +1,41 @@
+{
+ "source": "https://www.tiktok.com/@compassioninternational/video/7672845221880663309",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 0.0,
+   "end": 3.0,
+   "text": "We're here in"
+  },
+  {
+   "start": 3.5,
+   "end": 4.5,
+   "text": "serving special"
+  },
+  {
+   "start": 5.5,
+   "end": 6.0,
+   "text": "local drinks."
+  },
+  {
+   "start": 9.5,
+   "end": 11.0,
+   "text": "and this is sobolo,"
+  },
+  {
+   "start": 11.0,
+   "end": 14.5,
+   "text": "hich is made WHICH IS"
+  },
+  {
+   "start": 15.0,
+   "end": 15.5,
+   "text": "lOOKS absolutely"
+  },
+  {
+   "start": 18.0,
+   "end": 18.5,
+   "text": "itis hot."
+  }
+ ]
+}
