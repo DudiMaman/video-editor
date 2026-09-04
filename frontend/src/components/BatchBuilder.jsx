@@ -86,20 +86,28 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
   const outros = asset ? asset.outros : []
   const intros = (asset && asset.intros) || []
 
+  // Choices saved on the last "process" of this video. They used to live
+  // only in the workflow-dispatch inputs, so a failed run took the trim
+  // points and the outro pick with it; the ledger keeps them now and the
+  // card reopens exactly where it was left.
+  const saved = entry.edit_settings || {}
+
   const [outroId, setOutroId] = useState(
-    outros.length === 1 ? String(outros[0].id) : ''
+    saved.outro || (outros.length === 1 ? String(outros[0].id) : '')
   )
-  const [introId, setIntroId] = useState('')
-  const [startSeconds, setStartSeconds] = useState('')
-  const [cutSeconds, setCutSeconds] = useState('')
+  const [introId, setIntroId] = useState(saved.intro || '')
+  const [startSeconds, setStartSeconds] = useState(saved.start_seconds || '')
+  const [cutSeconds, setCutSeconds] = useState(saved.cut_seconds || '')
   const [caption, setCaption] = useState(entry.caption || '')
-  const [subtitlesText, setSubtitlesText] = useState('')
+  const [subtitlesText, setSubtitlesText] = useState(saved.subtitles_text || '')
   // Subtitles are off unless the reviewer turns them on for this video,
   // and the panel stays collapsed: burn-in is a rare, deliberate choice,
   // and the timings still need a human eye before they go on screen.
   const [subsOpen, setSubsOpen] = useState(false)
-  const [subsOn, setSubsOn] = useState(false)
-  const [subsFetched, setSubsFetched] = useState(false)
+  const [subsOn, setSubsOn] = useState(Boolean(saved.subtitles_on))
+  // Restored text counts as already fetched, so opening the panel does
+  // not overwrite it with whatever the transcript file holds.
+  const [subsFetched, setSubsFetched] = useState(Boolean(saved.subtitles_text))
   const [openPicker, setOpenPicker] = useState(null) // 'outro' | 'intro' | null
   const [busy, setBusy] = useState(false)
   const [subBusy, setSubBusy] = useState(false)
@@ -232,7 +240,19 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
       // Mark that processing started; the pipeline flips it to approved
       // once the file is built and wired back.
       await setStatus(
-        { caption, status: 'processing', processing_at: new Date().toISOString() },
+        {
+          caption,
+          status: 'processing',
+          processing_at: new Date().toISOString(),
+          edit_settings: {
+            outro: outroId,
+            intro: introId,
+            start_seconds: startSeconds,
+            cut_seconds: cutSeconds,
+            subtitles_on: subsOn,
+            subtitles_text: subsOn ? subtitlesText : '',
+          },
+        },
         `Scout: process ${entry.video_id}`
       )
     } catch (e) {
