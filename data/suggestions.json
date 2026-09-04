@@ -278,5 +278,45 @@
   "asset": "acf",
   "found_at": "2026-09-03",
   "status": "accepted"
+ },
+ {
+  "url": "https://www.tiktok.com/@childfundinternational",
+  "name": "ChildFund International",
+  "reason": "ארגון חסות ילדים גלובלי (ChildFund) עם עמוד טיקטוק רשמי שמפרסם תוכן על ילדים חסויים והשפעת התרומות.",
+  "asset": "acf",
+  "found_at": "2026-09-04",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@feedthechildrenorg",
+  "name": "Feed the Children",
+  "reason": "עמוד הטיקטוק הרשמי של ארגון Feed the Children המתמקד בהאכלת ילדים רעבים, תואם ישירות למסר של ACF.",
+  "asset": "acf",
+  "found_at": "2026-09-04",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@savethechildrenus",
+  "name": "Save the Children US",
+  "reason": "עמוד רשמי של Save the Children בארה\"ב, ארגון גלובלי לרווחת ילדים עם תוכן באנגלית על סיוע והזנה.",
+  "asset": "acf",
+  "found_at": "2026-09-04",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@savechildrenuk",
+  "name": "Save the Children UK",
+  "reason": "עמוד רשמי בריטי של Save the Children עם עוקבים רבים ותוכן אנגלי על הצלת ילדים בעולם.",
+  "asset": "acf",
+  "found_at": "2026-09-04",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@unicef",
+  "name": "UNICEF",
+  "reason": "העמוד הרשמי הגלובלי של אונסף\"ף, ארגון האו\"ם לילדים, עם תוכן אנגלי על רווחת ילדים ברחבי העולם.",
+  "asset": "acf",
+  "found_at": "2026-09-04",
+  "status": "suggested"
  }
 ]
