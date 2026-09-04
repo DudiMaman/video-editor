@@ -22,11 +22,11 @@ jobs:
       - name: Install ffmpeg
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
 
-      # yt-dlp[default], not bare yt-dlp: the extra pulls curl_cffi for
-      # browser impersonation, without which TikTok downloads fail.
-      # Same rule as process.yml.
+      # Both extras, same rule as process.yml: "curl-cffi" (not
+      # "default") is what installs curl_cffi for browser
+      # impersonation, without which TikTok downloads fail.
       - name: Install Python dependencies
-        run: pip install anthropic python-dotenv "yt-dlp[default]"
+        run: pip install anthropic python-dotenv "yt-dlp[default,curl-cffi]"
 
       - name: Update release captions
         env:
