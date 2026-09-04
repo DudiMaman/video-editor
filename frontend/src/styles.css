@@ -752,3 +752,21 @@ button.small {
   text-align: center;
   padding: 1rem;
 }
+
+/* Speed picker sits under the player, matching its column width so the
+   controls read as one unit. */
+.clean-player-speed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin: 0.4rem auto 0;
+  max-width: 340px;
+  font-size: 0.85rem;
+}
+
+.clean-player-speed button {
+  padding: 0.1rem 0.5rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
