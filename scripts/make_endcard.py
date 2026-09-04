@@ -14,8 +14,14 @@ The layout mirrors Planty's rhythm - badge, brand, rule, setup line, CTA,
 where-to-go line, arrow - while the palette and copy come from each
 venture's own brand.
 
+A card can also carry a voice-over. Planty ships a silent card and a
+female-narrated one; pass --voice to build the narrated variant, whose
+length follows the read instead of the silent card's fixed 3.70 s.
+
 Usage: python scripts/make_endcard.py acf
+       python scripts/make_endcard.py acf --voice vo.wav
 """
+import argparse
 import math
 import subprocess
 import sys
@@ -46,8 +52,16 @@ SPECS = {
         "setup": "$1 a day changes a life",
         "cta": "Donate Now",
         "where": "ac-fund.org",
+        # Narrated variant. The read is the on-screen copy plus the ask,
+        # the same way Planty's voice card reads its own card aloud.
+        "voice_out": "outros/acf/acf-endcard-female-voice.mp4",
+        "voice_script": ("One dollar a day changes a life. "
+                         "Donate now, and help a child eat today."),
     },
 }
+
+VOICE_LEAD = 0.30   # beat before the read, so the cut does not clip it
+VOICE_TAIL = 0.45   # beat after it, so the card does not vanish on the last word
 
 
 def font(name: str, size: int) -> ImageFont.FreeTypeFont:
@@ -131,28 +145,64 @@ def card(spec: dict) -> Image.Image:
     return im
 
 
+def audio_duration(path: Path) -> float:
+    out = subprocess.run(
+        ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+         "-of", "default=nw=1:nk=1", str(path)],
+        capture_output=True, text=True, check=True)
+    return float(out.stdout.strip())
+
+
 def main() -> int:
-    key = sys.argv[1] if len(sys.argv) > 1 else "acf"
-    spec = SPECS.get(key)
+    ap = argparse.ArgumentParser()
+    ap.add_argument("venture", nargs="?", default="acf")
+    ap.add_argument("--voice", help="voice-over audio; builds the narrated "
+                                    "variant at the length of the read")
+    args = ap.parse_args()
+    spec = SPECS.get(args.venture)
     if spec is None:
-        print(f"unknown venture {key!r}; known: {', '.join(SPECS)}",
+        print(f"unknown venture {args.venture!r}; known: {', '.join(SPECS)}",
               file=sys.stderr)
         return 2
-    out = REPO / spec["out"]
+
+    if args.voice:
+        voice = Path(args.voice)
+        length = VOICE_LEAD + audio_duration(voice) + VOICE_TAIL
+        rel = spec.get("voice_out")
+        if not rel:
+            print(f"{args.venture} has no voice_out in its spec", file=sys.stderr)
+            return 2
+        audio_in = ["-i", str(voice)]
+        # Lead-in silence in front of the read, then pad the track out to
+        # the picture length. The padding is not cosmetic: the pipeline
+        # re-encodes with -shortest, so an audio stream that ends before
+        # the video truncates the card and the last word lands on the
+        # cut. apad + -t keeps both streams exactly `length`.
+        audio_filter = ["-af",
+                        f"adelay={int(VOICE_LEAD * 1000)}:all=1,apad",
+                        "-t", f"{length}"]
+    else:
+        length, rel = DURATION, spec["out"]
+        audio_in = ["-f", "lavfi", "-t", f"{length}", "-i",
+                    "anullsrc=r=44100:cl=stereo"]
+        audio_filter = []
+
+    out = REPO / rel
     out.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as tmp:
         still = Path(tmp) / "card.png"
         card(spec).save(still)
         subprocess.run([
             "ffmpeg", "-y", "-loglevel", "error",
-            "-loop", "1", "-t", f"{DURATION}", "-i", str(still),
-            "-f", "lavfi", "-t", f"{DURATION}", "-i", "anullsrc=r=44100:cl=stereo",
+            "-loop", "1", "-t", f"{length}", "-i", str(still),
+            *audio_in,
             "-vf", f"fade=t=in:st=0:d={FADE},format=yuv420p,fps={FPS}",
+            *audio_filter,
             "-c:v", "libx264", "-profile:v", "high", "-preset", "slow",
             "-crf", "20", "-c:a", "aac", "-b:a", "128k", "-ar", "44100",
-            "-ac", "2", "-shortest", "-movflags", "+faststart", str(out),
+            "-ac", "2", "-movflags", "+faststart", str(out),
         ], check=True)
-    print(f"wrote {spec['out']}")
+    print(f"wrote {rel} ({length:.2f}s)")
     return 0
 
 
