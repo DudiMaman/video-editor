@@ -27,15 +27,22 @@ jobs:
       - name: Install ffmpeg and OCR
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg tesseract-ocr
 
-      # yt-dlp[default] - NOT bare yt-dlp. The extra pulls curl_cffi,
-      # which is what gives yt-dlp its browser-impersonation targets.
-      # TikTok now refuses plain requests, and without a target every
-      # download dies with "Unexpected response from webpage request"
-      # (preceded by "attempting impersonation, but no impersonate
-      # target is available"). That silently stalled every ACF preview
-      # on 2026-09-03.
+      # BOTH extras are required, and they are separate: "default"
+      # brings brotli/websockets/requests, while "curl-cffi" is the ONLY
+      # thing that installs curl_cffi and thus gives yt-dlp any
+      # browser-impersonation target. TikTok now refuses un-impersonated
+      # requests, and with no target every download dies with
+      # "Unexpected response from webpage request" - which stalled every
+      # preview from 2026-09-03. Installing "yt-dlp[default]" alone does
+      # NOT fix it; the extras list is checked against PyPI metadata.
       - name: Install Python dependencies
-        run: pip install "yt-dlp[default]" anthropic python-dotenv faster-whisper
+        run: pip install "yt-dlp[default,curl-cffi]" anthropic python-dotenv faster-whisper
+
+      # Proves in the log that impersonation is actually available. An
+      # empty list here means downloads are about to fail, and is far
+      # easier to spot than inferring it from per-video errors.
+      - name: Show yt-dlp impersonation targets
+        run: python -m yt_dlp --list-impersonate-targets
 
       - name: Process batch
         env:
