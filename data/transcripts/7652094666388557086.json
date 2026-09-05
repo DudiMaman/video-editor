@@ -1,0 +1,66 @@
+{
+ "source": "https://www.tiktok.com/@childfundinternational/video/7652094666388557086",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 0.0,
+   "end": 2.0,
+   "text": "Hello, ladies and"
+  },
+  {
+   "start": 2.5,
+   "end": 3.0,
+   "text": "name is"
+  },
+  {
+   "start": 4.5,
+   "end": 8.0,
+   "text": "Itam going to show you"
+  },
+  {
+   "start": 10.0,
+   "end": 13.0,
+   "text": "This water point you.see"
+  },
+  {
+   "start": 13.0,
+   "end": 17.5,
+   "text": "provides the people in"
+  },
+  {
+   "start": 18.0,
+   "end": 20.5,
+   "text": "with clean drinking water for an"
+  },
+  {
+   "start": 21.0,
+   "end": 21.5,
+   "text": "health of their"
+  },
+  {
+   "start": 24.0,
+   "end": 26.0,
+   "text": "longer have to"
+  },
+  {
+   "start": 26.0,
+   "end": 28.0,
+   "text": "walk miles to find clean drinking water."
+  },
+  {
+   "start": 28.5,
+   "end": 30.0,
+   "text": "Thanks to you,"
+  },
+  {
+   "start": 30.0,
+   "end": 32.0,
+   "text": "longer have stomach"
+  },
+  {
+   "start": 32.5,
+   "end": 34.0,
+   "text": "Thank you!"
+  }
+ ]
+}
