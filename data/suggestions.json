@@ -318,5 +318,53 @@
   "asset": "acf",
   "found_at": "2026-09-04",
   "status": "accepted"
+ },
+ {
+  "url": "https://www.tiktok.com/@charitywater",
+  "name": "charity: water",
+  "reason": "עמותה בינלאומית המספקת מים נקיים לקהילות עניות – תואם ישירות למסר \"מים נקיים\" של ACF.",
+  "asset": "acf",
+  "found_at": "2026-09-05",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@worldfoodprogramme",
+  "name": "World Food Programme | WFP",
+  "reason": "ארגון האו״ם למלחמה ברעב עולמי המתעד סיוע מזון וארוחות לילדים באפריקה ובעולם, תואם למסר ההאכלה.",
+  "asset": "acf",
+  "found_at": "2026-09-05",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@actionagainsthungeruk",
+  "name": "Action Against Hunger UK",
+  "reason": "עמותת ACF (Action Contre la Faim) הבינלאומית עצמה – אותו שם ותחום בדיוק של תת-תזונה וסיוע מזון לילדים.",
+  "asset": "acf",
+  "found_at": "2026-09-05",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@soschildrensvillagesusa",
+  "name": "SOS Children's Villages USA",
+  "reason": "עמותת חסות ילדים בינלאומית עם דגש על קהילה ומשפחה, דומה במודל החסות החודשית לילד.",
+  "asset": "acf",
+  "found_at": "2026-09-05",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@nokidhungry",
+  "name": "No Kid Hungry",
+  "reason": "עמותה שמטרתה לחסל רעב ילדים ולהבטיח ארוחות חמות, תואמת למסר המרכזי של האכלת ילדים.",
+  "asset": "acf",
+  "found_at": "2026-09-05",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@sos_cv_botswana",
+  "name": "SOS Children's Villages Botswana",
+  "reason": "עמוד רשמי מקומי באפריקה של עמותת חסות ילדים המתעד תחנות טיפוח וסיוע קהילתי לילדים.",
+  "asset": "acf",
+  "found_at": "2026-09-05",
+  "status": "suggested"
  }
 ]
