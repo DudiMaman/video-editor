@@ -503,12 +503,15 @@
   "source_page": "pg_007",
   "source_url": "https://www.tiktok.com/@leafcheck.plant.iden/video/7628476854797683988",
   "found_at": "2026-08-06",
-  "status": "approved",
+  "status": "published",
   "reject_reason": "",
   "output_asset": "batch-11/video_08.mp4",
   "caption": "That plant swarming with bugs isn't dying from neglect—it's screaming for a fix you probably don't know. 🌿\n\nJust scan it with Planty and get the exact cure (yes, even weird ones like sugar) in seconds.\n\nDon't let your plants suffer in silence, download now and save them before it's too late 👇\n\nhttps://planty-app.com/\n\n#PlantIdentification #PlantIdentifier #PlantID #PlantCare #PlantTips #PlantTikTok #Houseplants #PlantLovers #GardeningTips #PlantyApp #WhatPlantIsThis #IdentifyPlants #PlantApp #NatureTok #PlantRescue #SaveYourPlants",
-  "published_to": [],
-  "published_at": "",
+  "published_to": [
+   "facebook",
+   "tiktok"
+  ],
+  "published_at": "2026-09-06T08:11:00Z",
   "schedule": {
    "date": "2026-09-06",
    "time": "11:11"
@@ -519,14 +522,19 @@
   ],
   "distribution": {
    "via": "buffer",
-   "state": "scheduled",
+   "state": "published",
    "platforms": [
     "facebook",
     "tiktok"
    ],
-   "scheduledFor": "2026-09-06T08:11:00Z"
+   "scheduledFor": "2026-09-06T08:11:00Z",
+   "urls": {
+    "6a97ccf915bd89572dcfba79": "https://tiktok.com/@planty9348/video/7682331833945771285",
+    "6a97ccf915bd89572dcfbaa8": "https://www.facebook.com/reel/4539475929644439/"
+   }
   },
-  "zernioPostId": "6a97ccf915bd89572dcfba79,6a97ccf915bd89572dcfbaa8"
+  "zernioPostId": "6a97ccf915bd89572dcfba79,6a97ccf915bd89572dcfbaa8",
+  "zernioPostUrl": "https://tiktok.com/@planty9348/video/7682331833945771285"
  },
  {
   "video_id": "7595128289719520524",
