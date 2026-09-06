@@ -366,5 +366,21 @@
   "asset": "acf",
   "found_at": "2026-09-05",
   "status": "accepted"
+ },
+ {
+  "url": "https://www.tiktok.com/@lushly__",
+  "name": "Lushly Plants",
+  "reason": "אפליקציית זיהוי צמחים בשם Lushly Plants (lushly.cloud) המציגה סריקת צמח וייעוץ טיפול מיידי, אותו נישא כמו Planty.",
+  "asset": "sample",
+  "found_at": "2026-09-06",
+  "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@marysmeals",
+  "name": "Mary's Meals",
+  "reason": "עמותה עולמית המפעילה תחנות האכלה בבתי ספר במדינות עניות ומאכילה מיליוני ילדים מדי יום, בדיוק בתחום ההאכלה ההומניטרית של ACF.",
+  "asset": "acf",
+  "found_at": "2026-09-06",
+  "status": "suggested"
  }
 ]
