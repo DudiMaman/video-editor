@@ -9494,5 +9494,70 @@
   "caption": "",
   "published_to": [],
   "published_at": ""
+ },
+ {
+  "video_id": "7682424119907863839",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7682424119907863839",
+  "found_at": "2026-09-07",
+  "status": "rejected",
+  "reject_reason": "אורך לא מתאים (83 שניות, נדרש 14-75)",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7682489073256107284",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7682489073256107284",
+  "found_at": "2026-09-07",
+  "status": "rejected",
+  "reject_reason": "אורך לא מתאים (9 שניות, נדרש 14-75)",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7682430816206490900",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7682430816206490900",
+  "found_at": "2026-09-07",
+  "status": "rejected",
+  "reject_reason": "אורך לא מתאים (10 שניות, נדרש 14-75)",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7682559548535688462",
+  "asset": "acf",
+  "source_page": "pg_032",
+  "source_url": "https://www.tiktok.com/@savethechildrenus/video/7682559548535688462",
+  "found_at": "2026-09-07",
+  "status": "rejected",
+  "reject_reason": "מחוץ לתחום גיאוגרפי (אפריקה בלבד) — קמפיין ארצי בארה\"ב (nationwide Day of Action, Read A Book Day)",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7682346893736774932",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7682346893736774932",
+  "found_at": "2026-09-07",
+  "status": "rejected",
+  "reject_reason": "כפילות תוכן — סצנת האכלה כמעט זהה לסרטון שאושר ב-05.09 מאותו אירוע צילום (אותו מתנדב, אותה תפאורה, אותם ילדים בתור)",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
  }
 ]
