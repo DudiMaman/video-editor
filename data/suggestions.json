@@ -382,5 +382,13 @@
   "asset": "acf",
   "found_at": "2026-09-06",
   "status": "suggested"
+ },
+ {
+  "url": "https://www.tiktok.com/@plan.international",
+  "name": "Plan International",
+  "reason": "עמוד TikTok רשמי של ארגון הומניטרי בינלאומי לזכויות ילדים הפועל גם באפריקה, בדומה לזרעים כמו World Vision ו-Save the Children.",
+  "asset": "acf",
+  "found_at": "2026-09-07",
+  "status": "suggested"
  }
 ]
