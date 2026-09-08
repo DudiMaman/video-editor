@@ -1,0 +1,36 @@
+{
+ "source": "https://www.tiktok.com/@compassioninternational/video/7682783389878914318",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 0.5,
+   "end": 2.0,
+   "text": "donke cat name is Martha."
+  },
+  {
+   "start": 2.5,
+   "end": 3.0,
+   "text": "nameis Martha."
+  },
+  {
+   "start": 7.0,
+   "end": 8.5,
+   "text": "every day."
+  },
+  {
+   "start": 12.5,
+   "end": 13.0,
+   "text": "because they"
+  },
+  {
+   "start": 15.5,
+   "end": 17.5,
+   "text": "Thank you for"
+  },
+  {
+   "start": 18.5,
+   "end": 19.5,
+   "text": "donke cat"
+  }
+ ]
+}
