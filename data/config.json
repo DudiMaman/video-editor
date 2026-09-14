@@ -2,6 +2,10 @@
  "discovery_daily": true,
  "pending_review_cap": 300,
  "daily_cap_per_venture": 25,
+ "source_duration_seconds": {
+  "min": 10,
+  "max": 180
+ },
  "timezone": "Asia/Jerusalem",
  "run_hour": "06:00",
  "release_tag_prefix": "scout-",
