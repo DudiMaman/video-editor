@@ -11124,5 +11124,70 @@
   "caption": "",
   "published_to": [],
   "published_at": ""
+ },
+ {
+  "video_id": "7684957573027564813",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7684957573027564813",
+  "found_at": "2026-09-14",
+  "status": "rejected",
+  "reject_reason": "אורך לא מתאים (101 שניות, נדרש 14-75)",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7684927887413169428",
+  "asset": "acf",
+  "source_page": "pg_022",
+  "source_url": "https://www.tiktok.com/@raisechidrenshomeuganda/video/7684927887413169428",
+  "found_at": "2026-09-14",
+  "status": "rejected",
+  "reject_reason": "ספאם (האשטאגים בלבד)",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7685047248912223519",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7685047248912223519",
+  "found_at": "2026-09-14",
+  "status": "rejected",
+  "reject_reason": "אורך לא מתאים (6 שניות, נדרש 14-75)",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7685011545050467605",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7685011545050467605",
+  "found_at": "2026-09-14",
+  "status": "rejected",
+  "reject_reason": "ספאם/ריק (ללא כותרת או תיאור)",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7685010623545003285",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7685010623545003285",
+  "found_at": "2026-09-14",
+  "status": "rejected",
+  "reject_reason": "אורך לא מתאים (88 שניות, נדרש 14-75); גם תוכן אדמיניסטרטיבי (אזהרת scammers)",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
  }
 ]
