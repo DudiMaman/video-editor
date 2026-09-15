@@ -11189,5 +11189,70 @@
   "caption": "",
   "published_to": [],
   "published_at": ""
+ },
+ {
+  "video_id": "7685471724128750868",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7685471724128750868",
+  "found_at": "2026-09-15",
+  "status": "pending_review",
+  "reject_reason": "",
+  "output_asset": "",
+  "caption": "Hands up and hearts full — a whole crowd of kids giving thanks before a warm plate of food. This is what your sponsorship makes possible, one meal at a time. Just $1 a day helps make sure a hungry child eats.\n\nhttps://ac-fund.org/\n\n#AfricanChildrenFund #ACF #EndChildHunger #FeedAChild #CleanWater #HotMeals #ChildSponsorship #CharityTikTok #NonprofitTikTok #MakeADifference #GivingBack #Africa #DonateToday\n\n📌 מאות ילדים בתחנת האכלה כפרית מרימים ידיים בהודיה לפני ארוחה (אורז/פסטה), אוגנדה (gods__love_ministries). חם, מכבד, ממוקד מאוד בליבת הבריף.",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7685427190418165012",
+  "asset": "acf",
+  "source_page": "pg_022",
+  "source_url": "https://www.tiktok.com/@raisechidrenshomeuganda/video/7685427190418165012",
+  "found_at": "2026-09-15",
+  "status": "rejected",
+  "reject_reason": "ספאם (האשטאגים בלבד)",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7685385254957223182",
+  "asset": "acf",
+  "source_page": "pg_026",
+  "source_url": "https://www.tiktok.com/@compassioninternational/video/7685385254957223182",
+  "found_at": "2026-09-15",
+  "status": "rejected",
+  "reject_reason": "טוקינג-הד של איש צוות (Compassion) מתויג באופן מפורש 'קולומביה' — לא תיעוד שטח של ילדים, וגם הקשר גיאוגרפי סותר במפורש (לא אפריקה)",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7685409156743826718",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7685409156743826718",
+  "found_at": "2026-09-15",
+  "status": "rejected",
+  "reject_reason": "אורך לא מתאים (223 שניות, מעל המקסימום 180 שנקבע ב-config)",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
+ },
+ {
+  "video_id": "7685520216167615758",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7685520216167615758",
+  "found_at": "2026-09-15",
+  "status": "rejected",
+  "reject_reason": "פוסט תמונות/סליידשואו (ללא ערוץ וידאו בהורדה)",
+  "output_asset": "",
+  "caption": "",
+  "published_to": [],
+  "published_at": ""
  }
 ]
