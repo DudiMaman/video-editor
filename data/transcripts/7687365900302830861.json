@@ -1,0 +1,26 @@
+{
+ "source": "https://www.tiktok.com/@worldvisionusa/video/7687365900302830861",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 1.5,
+   "end": 4.5,
+   "text": "nis iS to clean water"
+  },
+  {
+   "start": 6.0,
+   "end": 7.0,
+   "text": "This is"
+  },
+  {
+   "start": 9.0,
+   "end": 9.5,
+   "text": "with access"
+  },
+  {
+   "start": 22.5,
+   "end": 25.0,
+   "text": "World Vision"
+  }
+ ]
+}
