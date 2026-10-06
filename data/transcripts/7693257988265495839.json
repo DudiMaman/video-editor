@@ -1,0 +1,36 @@
+{
+ "source": "https://www.tiktok.com/@childfundinternational/video/7693257988265495839",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 0.0,
+   "end": 3.5,
+   "text": "How “Zero Out of School Children” is supporting students in The Gambia. Iam Ogis. Teaching agricultural"
+  },
+  {
+   "start": 6.5,
+   "end": 10.0,
+   "text": "motivates students to be attending extra classes."
+  },
+  {
+   "start": 10.0,
+   "end": 14.0,
+   "text": "also have prize-giving"
+  },
+  {
+   "start": 14.0,
+   "end": 17.5,
+   "text": "[where] award prizes to students that perform well."
+  },
+  {
+   "start": 18.0,
+   "end": 19.5,
+   "text": "[The motivates the students'to come to the school,"
+  },
+  {
+   "start": 19.5,
+   "end": 23.5,
+   "text": "[The program] also motivates the students to come to the school,"
+  }
+ ]
+}
