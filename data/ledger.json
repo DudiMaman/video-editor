@@ -13998,5 +13998,77 @@
     "found_at": "2026-10-05T00:11:12Z",
     "status": "rejected",
     "reject_reason": "כפילות — אותו אירוע הגשה בדיוק כמו הסרטון שאושר ב-04/10, רק ילד אחר בתור."
+  },
+  {
+    "video_id": "7693199446863023390",
+    "asset": "sample",
+    "source_page": "pg_016",
+    "source_url": "https://www.tiktok.com/@plantsnap/video/7693199446863023390",
+    "found_at": "2026-10-06T00:10:27Z",
+    "status": "rejected",
+    "reject_reason": "נושא לא רלוונטי — זריעת תחליף ירוק (cover crop) בערוגת ירק חיצונית לחורף, לא טיפול בצמחי בית."
+  },
+  {
+    "video_id": "7693298527262215454",
+    "asset": "sample",
+    "source_page": "pg_020",
+    "source_url": "https://www.tiktok.com/@seed2spoon/video/7693298527262215454",
+    "found_at": "2026-10-06T00:10:27Z",
+    "status": "rejected",
+    "reject_reason": "נושא לא רלוונטי — זני ציניה קומפקטיים לגינה חיצונית, לא טיפול בצמחי בית."
+  },
+  {
+    "video_id": "7693154690464304398",
+    "asset": "acf",
+    "source_page": "pg_032",
+    "source_url": "https://www.tiktok.com/@savethechildrenus/video/7693154690464304398",
+    "found_at": "2026-10-06T00:10:27Z",
+    "status": "rejected",
+    "reject_reason": "תוכן ארגוני/חודש מודעות אמריקאי מקומי — מורה ב-Early Head Start בצפון קרוליינה, לא תיעוד שטח באפריקה."
+  },
+  {
+    "video_id": "7693231187166285089",
+    "asset": "acf",
+    "source_page": "pg_043",
+    "source_url": "https://www.tiktok.com/@plan.international/video/7693231187166285089",
+    "found_at": "2026-10-06T00:10:27Z",
+    "status": "rejected",
+    "reject_reason": "תוכן אדבוקסי/דוח (משבר האקלים ומגדר), לא תיעוד שטח ממוקד."
+  },
+  {
+    "video_id": "7693211266181205254",
+    "asset": "acf",
+    "source_page": "pg_021",
+    "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7693211266181205254",
+    "found_at": "2026-10-06T00:10:27Z",
+    "status": "rejected",
+    "reject_reason": "כפילות — אותו אירוע הגשה בדיוק (אותו מתנדב, אותו סיר אורז שחור, אותו סיר רוטב) כמו 7693249157816962356 שאושר, רק ילד אחר בתור."
+  },
+  {
+    "video_id": "7693115060452986132",
+    "asset": "acf",
+    "source_page": "pg_021",
+    "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7693115060452986132",
+    "found_at": "2026-10-06T00:10:27Z",
+    "status": "rejected",
+    "reject_reason": "כפילות — אותו אירוע הגשה בדיוק כמו 7693249157816962356 שאושר, רק ילד אחר בתור."
+  },
+  {
+    "video_id": "7693249157816962356",
+    "asset": "acf",
+    "source_page": "pg_021",
+    "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7693249157816962356",
+    "found_at": "2026-10-06T00:10:27Z",
+    "status": "pending_review",
+    "caption": "One volunteer, one pot of rice, and a line of kids who know they're taken care of 🍚\n\nThis is the quiet, consistent work that keeps children fed every single day. Your support makes it possible.\n\nhttps://ac-fund.org/\n\n#AfricanChildrenFund #ACF #EndChildHunger #FeedAChild #CleanWater #HotMeals #ChildSponsorship #CharityTikTok #NonprofitTikTok #MakeADifference #GivingBack #Africa #DonateToday\n\n📌 מתנדב מגיש אורז מסיר שחור גדול וממלא קערות לילדים בתור — אירוע הגשה חדש, שונה מהאירוע עם שני המתנדבים והבננות."
+  },
+  {
+    "video_id": "7693257988265495839",
+    "asset": "acf",
+    "source_page": "pg_030",
+    "source_url": "https://www.tiktok.com/@childfundinternational/video/7693257988265495839",
+    "found_at": "2026-10-06T00:10:27Z",
+    "status": "pending_review",
+    "caption": "Meet Ogis, a teacher helping rewrite what's possible for his students 📚\n\nThrough ChildFund's Zero Out of School Children project, thousands of kids in The Gambia are enrolling, staying, and learning — because of people like him, and support like yours.\n\nhttps://ac-fund.org/\n\n#AfricanChildrenFund #ACF #EndChildHunger #FeedAChild #CleanWater #HotMeals #ChildSponsorship #CharityTikTok #NonprofitTikTok #MakeADifference #GivingBack #Africa #DonateToday\n\n📌 מורה בשם Ogis מלמד מדעי חקלאות בכיתה בגמביה — תוכן חינוכי מאומת כאפריקה (The Gambia מוזכר בכתוביות ובטקסט על המסך)."
   }
 ]
