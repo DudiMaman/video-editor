@@ -1,0 +1,16 @@
+{
+ "source": "https://www.tiktok.com/@planta_app/video/7694380259092876566",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 4.5,
+   "end": 6.0,
+   "text": "to know about grow lights"
+  },
+  {
+   "start": 6.0,
+   "end": 9.0,
+   "text": "thipgs to know"
+  }
+ ]
+}
