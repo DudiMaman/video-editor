@@ -1,0 +1,21 @@
+{
+ "source": "https://www.tiktok.com/@savechildrenuk/video/7694613420930387222",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 4.0,
+   "end": 4.5,
+   "text": "Motivational quotes"
+  },
+  {
+   "start": 6.0,
+   "end": 6.5,
+   "text": "Motiva quotes"
+  },
+  {
+   "start": 10.5,
+   "end": 11.0,
+   "text": "flom baby"
+  }
+ ]
+}
