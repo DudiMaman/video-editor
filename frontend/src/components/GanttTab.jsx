@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { STR } from '../strings.js'
 import { backend } from '../backend/index.js'
+import { assetIdOf } from './ReviewTab.jsx'
 
 const G = STR.gantt
 const pad2 = (n) => String(n).padStart(2, '0')
@@ -66,6 +67,7 @@ export default function GanttTab({ active }) {
   const now = new Date()
   const [entries, setEntries] = useState(null)
   const [assets, setAssets] = useState([])
+  const [inboxById, setInboxById] = useState({})
   const [venture, setVenture] = useState('')
   const [month, setMonth] = useState({ y: now.getFullYear(), m0: now.getMonth() })
   const [error, setError] = useState('')
@@ -77,6 +79,14 @@ export default function GanttTab({ active }) {
     if (!active) return
     load()
     backend.listAssets().then(setAssets).catch(() => {})
+    // Entries written before the ventures split carry no `asset` and are
+    // only attributable through their inbox page. Reading `e.asset` raw
+    // turned those into the string "undefined", which matches no venture
+    // chip - two published posts were missing from every calendar.
+    backend.scout
+      .readInbox()
+      .then((pages) => setInboxById(Object.fromEntries(pages.map((p) => [p.id, p]))))
+      .catch(() => {})
   }, [active])
 
   const loadRef = useRef(load)
@@ -91,12 +101,13 @@ export default function GanttTab({ active }) {
   if (entries === null) return <p className="empty">…</p>
 
   // Ventures = every asset; ones with calendar content first.
+  const ventureOf = (e) => String(assetIdOf(e, inboxById) || '')
   const withDay = entries.filter((e) => dayOf(e))
   const ventureIds = [...new Set([
     ...assets.map((a) => String(a.id)),
-    ...withDay.map((e) => String(e.asset || '')),
+    ...withDay.map(ventureOf),
   ])].filter(Boolean)
-  const hasContent = (id) => withDay.some((e) => String(e.asset) === id)
+  const hasContent = (id) => withDay.some((e) => ventureOf(e) === id)
   ventureIds.sort((a, b) => (hasContent(b) ? 1 : 0) - (hasContent(a) ? 1 : 0))
   const current = venture || ventureIds.find(hasContent) || ventureIds[0] || ''
   const nameOf = (id) =>
@@ -104,7 +115,7 @@ export default function GanttTab({ active }) {
 
   if (!ventureIds.length) return <p className="empty">{G.noVentures}</p>
 
-  const mine = entries.filter((e) => String(e.asset) === current)
+  const mine = entries.filter((e) => ventureOf(e) === current)
   const byDay = {}
   for (const e of mine) {
     const d = dayOf(e)

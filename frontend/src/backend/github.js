@@ -294,6 +294,17 @@ export function create(params) {
 
   // ---- Video Scout data files (data/*.json, data/brief.md) ----
 
+  // The raw CDN: unmetered and with no size ceiling, but it carries no sha.
+  async function readRawFile(path, fallback) {
+    const res = await fetch(
+      `https://raw.githubusercontent.com/${repo}/main/${encodePath(path)}?cb=${Date.now()}`,
+      { cache: 'no-store' }
+    )
+    if (res.status === 404) return fallback
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
+    return await res.text()
+  }
+
   async function readRepoFile(path, fallback) {
     // Anonymous api.github.com calls share a 60/hour per-IP quota; one open
     // tab polling data files exhausts it and every read then fails with
@@ -303,18 +314,23 @@ export function create(params) {
     // requireToken() first — so a write-time read always has a token and
     // takes the API branch, which returns the sha and counts against the
     // authenticated 5000/hour quota instead.
-    if (!token()) {
-      const res = await fetch(
-        `https://raw.githubusercontent.com/${repo}/main/${encodePath(path)}?cb=${Date.now()}`,
-        { cache: 'no-store' }
-      )
-      if (res.status === 404) return { text: fallback, sha: null }
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
-      return { text: await res.text(), sha: null }
-    }
+    if (!token()) return { text: await readRawFile(path, fallback), sha: null }
     try {
       const res = await gh(`/contents/${encodePath(path)}?ref=main`)
-      return { text: b64ToUtf8(res.content), sha: res.sha }
+      // The Contents API stops inlining content at 1 MB: past that it
+      // still returns size and sha, but `encoding: "none"` and an empty
+      // `content`. Decoding that gives "", so every caller holding a token
+      // reads an EMPTY ledger — every tab blank, and every approve/reject
+      // a silent no-op, because each mutator bails with `if (!e) return
+      // false` on the entry it cannot find. data/ledger.json is 0.55 MB
+      // and grows ~5 KB a day, so take the bytes from the raw CDN (no size
+      // ceiling) whenever the API declines to inline them, and keep the
+      // API's sha so the write still targets the right version.
+      if (res.encoding === 'base64' && res.content) {
+        return { text: b64ToUtf8(res.content), sha: res.sha }
+      }
+      if (res.size > 0) return { text: await readRawFile(path, fallback), sha: res.sha }
+      return { text: '', sha: res.sha }
     } catch (e) {
       if (e.status === 404) return { text: fallback, sha: null }
       throw e
@@ -328,11 +344,19 @@ export function create(params) {
   }
 
   // CAS loop like mutateAssets: re-read and re-apply on a 409 conflict.
-  async function mutateDataJson(path, mutator, message, fallback = '[]') {
+  // guardNonEmpty: for files whose emptiness can only be a failed read
+  // (the ledger). Every ledger mutator bails out when it cannot find its
+  // entry, so an empty read makes the click do nothing at all and say
+  // nothing - raise it instead of leaving the owner clicking a dead button.
+  async function mutateDataJson(path, mutator, message, fallback = '[]',
+                                { guardNonEmpty = false } = {}) {
     requireToken()
     for (let attempt = 0; ; attempt++) {
       const { text, sha } = await readRepoFile(path, fallback)
       const data = JSON.parse(text || fallback)
+      if (guardNonEmpty && sha && Array.isArray(data) && data.length === 0) {
+        throw new Error(STR.github.readIncomplete)
+      }
       if (mutator(data) === false) return data
       try {
         await writeRepoFile(path, JSON.stringify(data, null, 1) + '\n', sha, message)
@@ -350,6 +374,13 @@ export function create(params) {
     }
     const rel = await releaseByTagCache[tag]
     const asset = (rel?.assets || []).find((a) => a.name === fileName)
+    // A hit stays cached (one fetch per release per page), but a miss must
+    // never stick. The release may not exist yet, may still be uploading
+    // its assets, or the fetch may have hit a rate-limit blip — and a
+    // cached null meant the player said "video unavailable" for the rest
+    // of the session, curable only by F5. Dropping the entry lets the next
+    // poll (CleanPlayer retries every 20s) pick the asset up.
+    if (!asset) delete releaseByTagCache[tag]
     return asset ? { videoUrl: asset.browser_download_url, assetApiUrl: asset.url } : null
   }
 
@@ -478,7 +509,8 @@ export function create(params) {
         }
         return list
       },
-      mutateLedger: (mutator, message) => mutateDataJson('data/ledger.json', mutator, message),
+      mutateLedger: (mutator, message) =>
+        mutateDataJson('data/ledger.json', mutator, message, '[]', { guardNonEmpty: true }),
       readSuggestions: async () =>
         JSON.parse((await readRepoFile('data/suggestions.json', '[]')).text || '[]'),
       mutateSuggestions: (mutator, message) =>

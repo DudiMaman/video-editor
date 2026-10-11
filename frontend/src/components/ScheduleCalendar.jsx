@@ -22,21 +22,31 @@ import { useState } from 'react'
 //               count < maxPerDay so several posts can share a day.
 //   dayLimitNote  optional localized note shown under the grid when
 //               maxPerDay > 1 (e.g. "up to 5 posts per day")
+//   pastSlotNote  optional localized note shown when the picked slot has
+//               already passed (the confirm button is blocked then)
 //   onConfirm(dateStr, time, selectedPlatforms[])
 //   onClose()
 //   busy        disables the confirm button while saving
 
 const pad2 = (n) => String(n).padStart(2, '0')
+const dayKey = (d) =>
+  `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`
 
 export default function ScheduleCalendar({
   header, occupied = {}, initialDate, defaultTime = '18:00', months,
   confirmLabel, legend = [], platforms = [], platformsTitle = '',
-  maxPerDay = 1, dayLimitNote = '',
+  maxPerDay = 1, dayLimitNote = '', pastSlotNote = '',
   onConfirm, onClose, busy = false,
 }) {
-  const base = /^\d{4}-\d{2}/.test(String(initialDate || ''))
+  // Open on initialDate's month, but never on a month already behind us -
+  // every day there is unselectable now, which would look like a dead
+  // calendar until the owner thought to page forward.
+  const thisMonth = { y: new Date().getFullYear(), m0: new Date().getMonth() }
+  const asked = /^\d{4}-\d{2}/.test(String(initialDate || ''))
     ? { y: +initialDate.slice(0, 4), m0: +initialDate.slice(5, 7) - 1 }
-    : { y: new Date().getFullYear(), m0: new Date().getMonth() }
+    : thisMonth
+  const base =
+    asked.y * 12 + asked.m0 < thisMonth.y * 12 + thisMonth.m0 ? thisMonth : asked
   const [month, setMonth] = useState(base)
   const [day, setDay] = useState(null)
   const [time, setTime] = useState(defaultTime)
@@ -56,6 +66,18 @@ export default function ScheduleCalendar({
   const monthDays = new Date(month.y, month.m0 + 1, 0).getDate()
   const monthOffset = new Date(month.y, month.m0, 1).getDay()
   const keyOf = (d) => `${month.y}-${pad2(month.m0 + 1)}-${pad2(d)}`
+
+  // A slot in the past is never a schedule: the distributor treats an
+  // elapsed slot as "late, publish it now", so picking a past day (the
+  // ‹ arrow walks back without limit) put a post straight on air with no
+  // confirmation. Past days are therefore unselectable, and a time that
+  // has already passed today blocks the confirm button.
+  const now = new Date()
+  const todayKey = dayKey(now)
+  const isPastDay = (d) => keyOf(d) < todayKey
+  const slotPast =
+    !!day && keyOf(day) === todayKey &&
+    time < `${pad2(now.getHours())}:${pad2(now.getMinutes())}`
 
   return (
     <div
@@ -83,18 +105,21 @@ export default function ScheduleCalendar({
             const d = i + 1
             const info = occupied[keyOf(d)]
             const cnt = info ? (info.count ?? 1) : 0
+            const past = isPastDay(d)
             const full = cnt >= maxPerDay
+            const blocked = full || past
             const isSel = day === d
             return (
               <div
                 key={d}
-                onClick={full ? undefined : () => setDay(d)}
+                onClick={blocked ? undefined : () => setDay(d)}
                 style={{
                   aspectRatio: '1', border: isSel ? '2px solid #6ea8fe' : '1px solid #ccc',
                   background: isSel ? 'rgba(110,168,254,.15)'
                     : full ? '#f4f4f6' : cnt > 0 ? 'rgba(34,160,107,.10)' : 'transparent',
                   borderRadius: 8, padding: 3, position: 'relative', fontSize: 11,
-                  cursor: full ? 'default' : 'pointer', overflow: 'hidden',
+                  cursor: blocked ? 'default' : 'pointer', overflow: 'hidden',
+                  opacity: past ? 0.35 : 1,
                 }}
               >
                 <span style={{ position: 'absolute', top: 2, insetInlineEnd: 5, zIndex: 1 }}>{d}</span>
@@ -115,6 +140,11 @@ export default function ScheduleCalendar({
         </div>
         {dayLimitNote && (
           <div style={{ fontSize: 11, opacity: 0.7, textAlign: 'center', marginTop: 8 }}>{dayLimitNote}</div>
+        )}
+        {slotPast && pastSlotNote && (
+          <div style={{ fontSize: 12, color: '#b8860b', fontWeight: 600, textAlign: 'center', marginTop: 8 }}>
+            {pastSlotNote}
+          </div>
         )}
 
         {legend.length > 0 && (
@@ -148,9 +178,9 @@ export default function ScheduleCalendar({
           <input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
           <span style={{ flex: 1 }} />
           <button
-            disabled={!day || busy || (platforms.length > 0 && picked.length === 0)}
+            disabled={!day || busy || slotPast || (platforms.length > 0 && picked.length === 0)}
             onClick={() => onConfirm(keyOf(day), time, picked)}
-            style={{ background: '#22a06b', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 16px', fontWeight: 700, cursor: (day && (platforms.length === 0 || picked.length)) ? 'pointer' : 'default', opacity: (day && (platforms.length === 0 || picked.length)) ? 1 : 0.45 }}
+            style={{ background: '#22a06b', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 16px', fontWeight: 700, cursor: (day && !slotPast && (platforms.length === 0 || picked.length)) ? 'pointer' : 'default', opacity: (day && !slotPast && (platforms.length === 0 || picked.length)) ? 1 : 0.45 }}
           >
             {confirmLabel(day, month.m0 + 1, time)}
           </button>

@@ -422,6 +422,22 @@ export default function AiModelsTab({ active }) {
   const schedChar = sched ? byId[sched.char] || {} : {}
   const monthDays = schedMonth ? new Date(schedMonth.y, schedMonth.m0 + 1, 0).getDate() : 0
   const monthOffset = schedMonth ? new Date(schedMonth.y, schedMonth.m0, 1).getDay() : 0
+  // The distributor refuses a slot that has already passed (it wants an
+  // explicit publish-now instead), so a past day could be picked and
+  // confirmed while the post then simply never went out. Block it here.
+  const todayKey = (() => {
+    const n = new Date()
+    return dateKey(n.getFullYear(), n.getMonth(), n.getDate())
+  })()
+  const isPastDay = (d) =>
+    !!schedMonth && dateKey(schedMonth.y, schedMonth.m0, d) < todayKey
+  const schedSlotPast = (() => {
+    if (!schedMonth || !schedDay) return false
+    const key = dateKey(schedMonth.y, schedMonth.m0, schedDay)
+    if (key < todayKey) return true
+    const n = new Date()
+    return key === todayKey && schedTime < `${pad2(n.getHours())}:${pad2(n.getMinutes())}`
+  })()
   const moveMonth = (d) =>
     setSchedMonth(({ y, m0 }) => {
       const dt = new Date(y, m0 + d, 1)
@@ -848,6 +864,7 @@ export default function AiModelsTab({ active }) {
                 const d = i + 1
                 const taken = occupied[d]
                 const picked = schedDay === d
+                const past = isPastDay(d)
                 return (
                   <div
                     key={d}
@@ -855,14 +872,16 @@ export default function AiModelsTab({ active }) {
                       ? (e) => (preview && preview.post.id === taken.id
                           ? setPreview(null)
                           : placePreview(e, taken))
-                      : () => { setPreview(null); setSchedDay(d) }}
+                      : past ? undefined
+                        : () => { setPreview(null); setSchedDay(d) }}
                     onMouseMove={taken ? (e) => placePreview(e, taken) : undefined}
                     onMouseLeave={taken ? () => setPreview(null) : undefined}
                     style={{
                       aspectRatio: '1', border: picked ? '2px solid #6ea8fe' : '1px solid #ccc',
                       background: picked ? 'rgba(110,168,254,.15)' : taken ? '#f4f4f6' : 'transparent',
                       borderRadius: 8, padding: 3, position: 'relative', fontSize: 11,
-                      cursor: 'pointer', overflow: 'hidden',
+                      cursor: past && !taken ? 'default' : 'pointer', overflow: 'hidden',
+                      opacity: past && !taken ? 0.35 : 1,
                     }}
                   >
                     <span style={{ position: 'absolute', top: 2, insetInlineEnd: 5, zIndex: 1 }}>{d}</span>
@@ -891,15 +910,20 @@ export default function AiModelsTab({ active }) {
               <input type="time" value={schedTime} onChange={(e) => setSchedTime(e.target.value)} />
               <span style={{ flex: 1 }} />
               <button
-                disabled={!schedDay || busy}
+                disabled={!schedDay || busy || schedSlotPast}
                 onClick={confirmSchedule}
-                style={{ background: '#22a06b', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 16px', fontWeight: 700, cursor: schedDay ? 'pointer' : 'default', opacity: schedDay ? 1 : 0.45 }}
+                style={{ background: '#22a06b', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 16px', fontWeight: 700, cursor: schedDay && !schedSlotPast ? 'pointer' : 'default', opacity: schedDay && !schedSlotPast ? 1 : 0.45 }}
               >
                 {busy ? S.saving : schedDay
                   ? `${S.scheduleTo}${schedDay}.${schedMonth.m0 + 1} ${S.atHour} ${schedTime}`
                   : `${S.scheduleTo}— ${S.atHour} ${schedTime}`}
               </button>
             </div>
+            {schedSlotPast && (
+              <p style={{ fontSize: 12, color: '#b8860b', fontWeight: 600, marginTop: 8 }}>
+                {S.pastSlotNote}
+              </p>
+            )}
             {schedErr && <p className="error" style={{ marginTop: 8 }}>{schedErr}</p>}
             <p style={{ fontSize: 12, opacity: 0.6, marginTop: 8 }}>{S.calendarHint}</p>
           </div>

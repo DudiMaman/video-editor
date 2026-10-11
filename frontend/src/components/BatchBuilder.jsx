@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { STR } from '../strings.js'
 import { backend } from '../backend/index.js'
 import RequestRow from './RequestRow.jsx'
@@ -46,6 +46,7 @@ function ProcessingCard({ entry, onUpdated }) {
         e.processing_at = ''
       }, `Scout: back to editing ${entry.video_id}`)
       onUpdated()
+      window.dispatchEvent(new Event('ve-ledger-changed'))
     } catch (err) {
       alert(err.message)
     } finally {
@@ -81,9 +82,12 @@ function ProcessingCard({ entry, onUpdated }) {
 // pipeline (trim + subtitles + outro + caption); the pipeline wires the
 // finished file back to the ledger as approved.
 function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
-  const asset =
-    assets.find((a) => String(a.id) === String(entry.asset)) || assets[0]
-  const outros = asset ? asset.outros : []
+  // Strictly this video's own venture. Falling back to assets[0] meant an
+  // entry whose venture could not be resolved was edited with ANOTHER
+  // venture's clips and submitted under its id - an ACF video coming back
+  // with Planty's endcard and caption style. Better to say so and stop.
+  const asset = assets.find((a) => String(a.id) === String(entry.asset)) || null
+  const outros = (asset && asset.outros) || []
   const intros = (asset && asset.intros) || []
 
   // Choices saved on the last "process" of this video. They used to live
@@ -113,6 +117,11 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
   const [subBusy, setSubBusy] = useState(false)
   const [note, setNote] = useState('')
   const [subNote, setSubNote] = useState('')
+  // The transcribe poll outlives nothing: the card unmounts the moment the
+  // video is processed or the list reloads, and the interval used to keep
+  // fetching (and setting state) for the full six minutes afterwards.
+  const subPoll = useRef(null)
+  useEffect(() => () => clearInterval(subPoll.current), [])
 
   const suggested = entry.caption || ''
   const flash = (setter, msg, ms = 3000) => {
@@ -132,6 +141,9 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
         Object.assign(e, patch)
       }, message)
       onUpdated()
+      // Tell every other mounted tab too: a reject from here must leave
+      // the review list, and a processed video must appear in "approved".
+      window.dispatchEvent(new Event('ve-ledger-changed'))
     } catch (e) {
       alert(e.message)
     } finally {
@@ -188,9 +200,10 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
       flash(setSubNote, B.transcribeSent, 60000)
       await backend.submitTranscribe({ sourceType: 'url', url: entry.source_url })
       const started = Date.now()
-      const timer = setInterval(async () => {
+      clearInterval(subPoll.current)
+      subPoll.current = setInterval(async () => {
         if (Date.now() - started > 6 * 60 * 1000) {
-          clearInterval(timer)
+          clearInterval(subPoll.current)
           setSubBusy(false)
           flash(setSubNote, B.transcriptMissing)
           return
@@ -198,7 +211,7 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
         try {
           const r = await backend.readTranscript(entry.source_url)
           if (r?.cues?.length) {
-            clearInterval(timer)
+            clearInterval(subPoll.current)
             applyCues(r)
             setSubBusy(false)
             flash(setSubNote, B.transcriptLoaded)
@@ -262,7 +275,9 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
   }
 
   const reject = () => {
-    const reason = prompt(S.rejectReason) ?? ''
+    const reason = prompt(S.rejectReason)
+    // Cancel means cancel - see the same guard in ReviewTab.
+    if (reason === null) return
     setStatus(
       { status: 'rejected', reject_reason: reason },
       `Scout: reject ${entry.video_id}`
@@ -270,6 +285,25 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
   }
 
   const srcDisabled = false
+
+  // No venture, no editing: every control below (outro, intro, caption
+  // style) and the pipeline request itself are venture-specific.
+  if (!asset) {
+    return (
+      <div className="card result-card status-failed">
+        <div className="result-head">
+          <strong>{S.statuses.editing}</strong>
+          <span className="muted" dir="ltr">{entry.video_id}</span>
+        </div>
+        <p className="error">{S.unknownVentureEdit(String(entry.asset || '—'))}</p>
+        {entry.source_url && (
+          <p className="muted source-url" dir="ltr">
+            <a href={entry.source_url} target="_blank" rel="noreferrer">{S.sourceLink}</a>
+          </p>
+        )}
+      </div>
+    )
+  }
 
   return (
     <div className="card result-card status-queued editor-card">
@@ -429,6 +463,7 @@ function EditingCard({ entry, assets, onUpdated, onAssetsChanged }) {
 
 export default function BatchBuilder({ active, onSent }) {
   const [assets, setAssets] = useState([])
+  const [assetsLoaded, setAssetsLoaded] = useState(false)
   const [rows, setRows] = useState([emptyRow()])
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
@@ -448,9 +483,37 @@ export default function BatchBuilder({ active, onSent }) {
 
   useEffect(() => {
     if (!active) return
-    backend.listAssets().then(setAssets).catch((e) => setError(e.message))
+    setAssetsLoaded(false)
+    backend
+      .listAssets()
+      .then((a) => { setAssets(a); setAssetsLoaded(true); setError('') })
+      .catch((e) => setError(e.message))
     if (backend.supportsScout) loadEditing()
   }, [active])
+
+  // Any ledger write anywhere in the app (a review-tab approval landing a
+  // video here, a reject, a schedule) refreshes this tab too - it is
+  // mounted the whole time, so without this it kept showing a stale list.
+  const loadRef = useRef(loadEditing)
+  loadRef.current = loadEditing
+  useEffect(() => {
+    if (!backend.supportsScout) return
+    const onChanged = () => loadRef.current()
+    window.addEventListener('ve-ledger-changed', onChanged)
+    return () => window.removeEventListener('ve-ledger-changed', onChanged)
+  }, [])
+
+  // A video handed to the pipeline is finished OUTSIDE the browser, and
+  // nothing pushes that back. Without polling, a card that succeeded kept
+  // saying "processing" until the tab was left and re-entered - and after
+  // STUCK_AFTER_MIN it started claiming it was stuck, on a video that had
+  // in fact been approved minutes earlier. Poll while any card waits.
+  const anyProcessing = !!editing?.some((e) => e.status === 'processing')
+  useEffect(() => {
+    if (!active || !anyProcessing) return
+    const t = setInterval(() => loadRef.current(), 30000)
+    return () => clearInterval(t)
+  }, [active, anyProcessing])
 
   const updateRow = (key, patch) => {
     setRows((rows) => rows.map((r) => (r.key === key ? { ...r, ...patch } : r)))
@@ -492,6 +555,17 @@ export default function BatchBuilder({ active, onSent }) {
     }
   }
 
+  // "No apps" is a claim about the registry, so only make it once the
+  // registry has actually been read. This early return used to fire
+  // before the fetch resolved AND whenever it failed, so a token or
+  // rate-limit error showed up as "no apps configured" - with the real
+  // message set in state but rendered further down, past the return.
+  if (error && assets.length === 0) {
+    return <p className="error">{STR.errors.generic}{error}</p>
+  }
+  if (!assetsLoaded && assets.length === 0) {
+    return <p className="empty">…</p>
+  }
   if (assets.length === 0) {
     return <p className="empty">{B.noAssets}</p>
   }

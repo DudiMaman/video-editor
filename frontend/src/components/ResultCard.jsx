@@ -19,7 +19,14 @@ export default function ResultCard({ request, assetName, onChanged }) {
   }
 
   const copy = async () => {
-    await navigator.clipboard.writeText(r.caption)
+    // writeText rejects when the clipboard is blocked (permission denied,
+    // no user activation). Unhandled, that left the button doing nothing
+    // with nothing in the console the owner would look at.
+    try {
+      await navigator.clipboard.writeText(r.caption)
+    } catch {
+      return
+    }
     setCopied(true)
     setTimeout(() => setCopied(false), 1500)
   }

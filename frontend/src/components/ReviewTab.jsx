@@ -77,7 +77,12 @@ function ReviewCard({ entry, stage, appName, asset, siblings, onFlash }) {
   }, [entry.output_asset, linkOnly])
 
   const copy = async () => {
-    await navigator.clipboard.writeText(caption)
+    // A blocked clipboard rejects; don't claim "copied" when it failed.
+    try {
+      await navigator.clipboard.writeText(caption)
+    } catch {
+      return
+    }
     setCopied(true)
     setTimeout(() => setCopied(false), 1500)
   }
@@ -110,7 +115,11 @@ function ReviewCard({ entry, stage, appName, asset, siblings, onFlash }) {
       : setStatus({ status: 'approved' }, `Scout: approve ${entry.video_id}`)
 
   const reject = () => {
-    const reason = prompt(S.rejectReason) ?? ''
+    const reason = prompt(S.rejectReason)
+    // Cancel means cancel. This prompt is the only confirmation the reject
+    // button has, and `?? ''` turned dismissing it into a rejection with a
+    // blank reason - a mis-click threw the video away.
+    if (reason === null) return
     setStatus(
       { status: 'rejected', reject_reason: reason },
       `Scout: reject ${entry.video_id}`
@@ -312,6 +321,7 @@ function ReviewCard({ entry, stage, appName, asset, siblings, onFlash }) {
           platformsTitle={S.platformsPickTitle}
           maxPerDay={MAX_PER_DAY}
           dayLimitNote={S.dayLimitNote(MAX_PER_DAY)}
+          pastSlotNote={S.pastSlotNote}
           legend={[
             { color: '#22a06b', label: S.scheduledTag },
             { color: '#0891b2', label: S.publishedTag },
@@ -423,7 +433,10 @@ export default function ReviewTab({ active, stage = 'pending' }) {
           ))}
         </div>
       )}
-      {entries.length === 0 ? (
+      {shown.length === 0 ? (
+        // Also covers "this stage has videos, but none for the venture
+        // the filter is on" - that used to render an empty page with no
+        // explanation at all.
         <p className="empty">{cfg.empty()}</p>
       ) : (
         shown.map((e) => {

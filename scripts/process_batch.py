@@ -417,7 +417,12 @@ def ledger_patch_entries(results: list[dict], batch_tag: str) -> list[dict]:
             patch.append({"video_id": vid,
                           "preview_asset": f"{batch_tag}/{r['preview']}"})
         elif r.get("video"):
+            # processing_at is cleared with the status it belongs to: the
+            # batch tab ages a 'processing' card off it and calls the video
+            # stuck past 15 minutes, so a stale stamp left on a finished
+            # entry would misread a re-edit of it as already overdue.
             m = {"video_id": vid, "status": "approved",
+                 "processing_at": "",
                  "output_asset": f"{batch_tag}/{r['video']}"}
             if r.get("caption"):
                 m["caption"] = r["caption"]

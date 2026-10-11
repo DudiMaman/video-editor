@@ -107,6 +107,23 @@ def dist_state(e: dict) -> str:
 # post is rescued to the current distributor.
 RESCUE_GRACE_MIN = 45
 
+# How long after its slot an unsent post may still go out on its own.
+# Inside the window the miss is the engine's fault - the media mirror was
+# not ready, the queue was full, or GitHub throttled the cron to every
+# 4-6 hours - and late beats lost. Outside it, a slot that old is either a
+# mis-click in the calendar or an outage the owner needs to know about, so
+# publishing silently would be worse than waiting: the publish-slot
+# watchdog reports it and the owner decides. 12h clears the worst cron
+# throttling with margin.
+LATE_PUBLISH_GRACE_H = 12
+
+
+def _within_late_grace(when: str) -> bool:
+    floor = (datetime.datetime.now(datetime.timezone.utc)
+             - datetime.timedelta(hours=LATE_PUBLISH_GRACE_H)
+             ).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return when >= floor
+
 
 def _slot_long_past(e: dict) -> bool:
     sched = (e.get("distribution") or {}).get("scheduledFor")
@@ -313,7 +330,7 @@ def plan_actions(ledger: list, assets: list) -> list[tuple[str, str, dict]]:
             when = scheduled_at_utc(e, asset)
             if when and when > now_z():
                 actions.append((vid, "schedule", {"asset": asset, "when": when}))
-            elif when:
+            elif when and _within_late_grace(when):
                 # The slot passed while the entry was still held (media
                 # mirror not ready, queue full, or the engine simply did
                 # not run in time). Late beats lost: publish it now.
