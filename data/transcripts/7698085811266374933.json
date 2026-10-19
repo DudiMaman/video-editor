@@ -1,0 +1,26 @@
+{
+ "source": "https://www.tiktok.com/@gods__love_ministries/video/7698085811266374933",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 0.0,
+   "end": 0.5,
+   "text": "is love child goes hungry"
+  },
+  {
+   "start": 5.0,
+   "end": 5.5,
+   "text": "child goes hungry"
+  },
+  {
+   "start": 10.0,
+   "end": 10.5,
+   "text": "there is"
+  },
+  {
+   "start": 12.5,
+   "end": 13.0,
+   "text": "there love"
+  }
+ ]
+}
