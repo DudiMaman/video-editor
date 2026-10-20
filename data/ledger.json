@@ -15455,5 +15455,95 @@
   "found_at": "2026-10-19T00:10:00Z",
   "status": "rejected",
   "reject_reason": "תוכן אדבוקסי/יום מודעות — קשור ליום הבינלאומי למיגור העוני (Aginess, Malawi), תוכן מדיניות/מודעות ולא תיעוד שדה ישיר."
+ },
+ {
+  "video_id": "7698363208117062943",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7698363208117062943",
+  "found_at": "2026-10-20T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "ארוך מדי (223 שניות, מעל סף הטווח המותר 180 שניות לפי config)."
+ },
+ {
+  "video_id": "7698394007486991647",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7698394007486991647",
+  "found_at": "2026-10-20T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7698462997601094932",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7698462997601094932",
+  "found_at": "2026-10-20T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי/כפילות — אותה מערכת 'plate-laying mat' (מחצלת צלחות בשורה, אותו טקסט 'Where there is love', אותה מבנה לבנים וברזל מים) שכבר אושרה בריצה של 19.10 (7698085811266374933)."
+ },
+ {
+  "video_id": "7698430969224744212",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7698430969224744212",
+  "found_at": "2026-10-20T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — התקהלות תחת עץ עם ילדים בתנוחת תפילה/ידיים מורמות, קטגוריה שנדחה שוב ושוב בעבר."
+ },
+ {
+  "video_id": "7698405039009795348",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7698405039009795348",
+  "found_at": "2026-10-20T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי/כפילות — אותה מערכת 'plate-laying mat' שכבר אושרה בריצה של 19.10 (7698085811266374933)."
+ },
+ {
+  "video_id": "7698366950384143637",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7698366950384143637",
+  "found_at": "2026-10-20T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "פורטרט מקוטב בודד עם טקסט 'Thank you God' על קיר לבנים — ללא תיעוד שטח לפעילות האכלה/מים/חינוך, לא תיעוד שטח ישיר."
+ },
+ {
+  "video_id": "7698303941334797588",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7698303941334797588",
+  "found_at": "2026-10-20T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי/כפילות — אותה מערכת 'plate-laying mat' שכבר אושרה בריצה של 19.10 (7698085811266374933)."
+ },
+ {
+  "video_id": "7698231536428076309",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7698231536428076309",
+  "found_at": "2026-10-20T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי/כפילות — אותה מערכת 'plate-laying mat' שכבר אושרה בריצה של 19.10 (7698085811266374933)."
+ },
+ {
+  "video_id": "7698297015154887944",
+  "asset": "acf",
+  "source_page": "pg_040",
+  "source_url": "https://www.tiktok.com/@sos_cv_botswana/video/7698297015154887944",
+  "found_at": "2026-10-20T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן ארגוני/גיוס גיוס-גאלה — מודעת 'Countdown' לארוע 40 שנה של SOS Children's Villages Botswana עם מחירים/RSVP, לא תיעוד שדה."
+ },
+ {
+  "video_id": "7698386580326583584",
+  "asset": "acf",
+  "source_page": "pg_043",
+  "source_url": "https://www.tiktok.com/@plan.international/video/7698386580326583584",
+  "found_at": "2026-10-20T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "הקשר אחר ברור ותוכן אדבוקסי — מזוהה בבירור (Cusco, Peru, דרום אמריקה הדרומית), סדרת דוחות 'climate crisis' של plan.international לא תיעוד שדה של האכלה/מים."
  }
 ]
