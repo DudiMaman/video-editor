@@ -15545,5 +15545,131 @@
   "found_at": "2026-10-20T00:10:00Z",
   "status": "rejected",
   "reject_reason": "הקשר אחר ברור ותוכן אדבוקסי — מזוהה בבירור (Cusco, Peru, דרום אמריקה הדרומית), סדרת דוחות 'climate crisis' של plan.international לא תיעוד שדה של האכלה/מים."
+ },
+ {
+  "video_id": "7698766916705471775",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@bloomify.plantidentifier/video/7698766916705471775",
+  "found_at": "2026-10-21T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "ארוך מדי (198 שניות, מעל סף הטווח המותר 180 שניות לפי config)."
+ },
+ {
+  "video_id": "7698822575027440918",
+  "asset": "sample",
+  "source_page": "pg_004",
+  "source_url": "https://www.tiktok.com/@planta_app/video/7698822575027440918",
+  "found_at": "2026-10-21T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "פנים של אדם (אישה) בפוקוס לאורך כל הסרטון — פוסל לפי כלל sample."
+ },
+ {
+  "video_id": "7698735334699437343",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7698735334699437343",
+  "found_at": "2026-10-21T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7698863307721166110",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7698863307721166110",
+  "found_at": "2026-10-21T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון ירקות בחוץ (קציר בטטות) — לא רלוונטי לנושא טיפול בצמחי בית."
+ },
+ {
+  "video_id": "7698542109338438942",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7698542109338438942",
+  "found_at": "2026-10-21T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון ירקות בחוץ (תרד מלבר על קשתות) — לא רלוונטי לנושא טיפול בצמחי בית."
+ },
+ {
+  "video_id": "7698848875448257813",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7698848875448257813",
+  "found_at": "2026-10-21T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — הגשת אורז מסיר שחור גדול לקהל ילדים, מבנה לבנים אדום; קטגוריה שנדחה שוב ושוב בעבר כחוזרת."
+ },
+ {
+  "video_id": "7698831577270324500",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7698831577270324500",
+  "found_at": "2026-10-21T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — אותה סצנת הגשת אורז מסיר שחור/שולחן עם דלי, אותו רקע ואותה דמות; קטגוריה חוזרת."
+ },
+ {
+  "video_id": "7698793145907137812",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7698793145907137812",
+  "found_at": "2026-10-21T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "פורטרט בודד מבוים (ריקוד) עם טקסט 'Thank you God' על קיר לבנים — ללא תיעוד פעילות סיוע, אותו פורמט שנדחה אתמול."
+ },
+ {
+  "video_id": "7698777293543525652",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7698777293543525652",
+  "found_at": "2026-10-21T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — ילד בתנוחת תפילה/ידיים מורמות ליד שולחן עם צלחת אורז, קטגוריה שנדחה שוב ושוב בעבר."
+ },
+ {
+  "video_id": "7698680871074876673",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7698680871074876673",
+  "found_at": "2026-10-21T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — הגשת אורז מסיר שחור גדול לקהל ילדים, מבנה לבנים אדום; קטגוריה שנדחה שוב ושוב בעבר כחוזרת."
+ },
+ {
+  "video_id": "7698652285643033876",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7698652285643033876",
+  "found_at": "2026-10-21T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — הגשת אורז מסיר שחור לקהל ילדים, מבנה לבנים אדום; קטגוריה שנדחה שוב ושוב בעבר כחוזרת."
+ },
+ {
+  "video_id": "7698782963911167245",
+  "asset": "acf",
+  "source_page": "pg_026",
+  "source_url": "https://www.tiktok.com/@compassioninternational/video/7698782963911167245",
+  "found_at": "2026-10-21T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן פרסומי/UGC של משפיענית ('Get ready with me to sponsor a child') — לא תיעוד שדה, אלא תוכן גיוס-חסויות מבוים בבית הדובר."
+ },
+ {
+  "video_id": "7698821517383159058",
+  "asset": "acf",
+  "source_page": "pg_027",
+  "source_url": "https://www.tiktok.com/@holy_hope_ministr/video/7698821517383159058",
+  "found_at": "2026-10-21T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן לא קשור למיזם — סרטון התקנת חלונות/בנייה (#Atøm), ללא קשר לילדים/האכלה/מים/חינוך."
+ },
+ {
+  "video_id": "7698774869567098144",
+  "asset": "acf",
+  "source_page": "pg_037",
+  "source_url": "https://www.tiktok.com/@actionagainsthungeruk/video/7698774869567098144",
+  "found_at": "2026-10-21T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "הקשר אחר ברור ותוכן אדבוקסי — מוצג מפורשות בנגלדש (לא אפריקה), שאלה רטורית על הכנה לשיטפון ללא תיעוד שדה של ילדים."
  }
 ]
