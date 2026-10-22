@@ -15671,5 +15671,122 @@
   "found_at": "2026-10-21T00:10:00Z",
   "status": "rejected",
   "reject_reason": "הקשר אחר ברור ותוכן אדבוקסי — מוצג מפורשות בנגלדש (לא אפריקה), שאלה רטורית על הכנה לשיטפון ללא תיעוד שדה של ילדים."
+ },
+ {
+  "video_id": "7699136280088595726",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7699136280088595726",
+  "found_at": "2026-10-22T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "ארוך מדי (358 שניות, מעל סף הטווח המותר 180 שניות לפי config)."
+ },
+ {
+  "video_id": "7699180867415067918",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7699180867415067918",
+  "found_at": "2026-10-22T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "קצר מדי (6 שניות, מתחת לתקרת המינימום 10 שניות לפי config)."
+ },
+ {
+  "video_id": "7699137374109945119",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7699137374109945119",
+  "found_at": "2026-10-22T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7699106085680041247",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7699106085680041247",
+  "found_at": "2026-10-22T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7699174106675154196",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7699174106675154196",
+  "found_at": "2026-10-22T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — אותה מערכת 'plate-laying mat' (מחצלת צלחות בשורה, אותו מבנה לבנים) שכבר אושרה פעם בריצה ונדחתה שוב ושוב כחוזרת."
+ },
+ {
+  "video_id": "7699138176694177045",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7699138176694177045",
+  "found_at": "2026-10-22T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — אותה מערכת 'plate-laying mat' מבנה לבנים שכבר אושרה ונדחתה שוב ושוב כחוזרת."
+ },
+ {
+  "video_id": "7699052063841340692",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7699052063841340692",
+  "found_at": "2026-10-22T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — הגשת אורז מסיר שחור גדול לקהל ילדים, מבנה לבנים אדום; קטגוריה שנדחה שוב ושוב בעבר כחוזרת."
+ },
+ {
+  "video_id": "7699002949921426709",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7699002949921426709",
+  "found_at": "2026-10-22T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — הגשת אורז מסיר שחור לקהל ילדים, מבנה לבנים אדום; קטגוריה שנדחה שוב ושוב בעבר כחוזרת."
+ },
+ {
+  "video_id": "7698972667201801492",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7698972667201801492",
+  "found_at": "2026-10-22T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — ילדים בתנוחת תפילה/ידיים מורמות ליד שולחן עם צלחת אורז, קטגוריה שנדחה שוב ושוב בעבר."
+ },
+ {
+  "video_id": "7699125631140760846",
+  "asset": "acf",
+  "source_page": "pg_030",
+  "source_url": "https://www.tiktok.com/@childfundinternational/video/7699125631140760846",
+  "found_at": "2026-10-22T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן אדבוקסי/הסברתי — אישה מדברת למצלמה על 'economic pressure' ו-'climate system', ללא ילדים או תיעוד שדה."
+ },
+ {
+  "video_id": "7699190546060872982",
+  "asset": "acf",
+  "source_page": "pg_033",
+  "source_url": "https://www.tiktok.com/@savechildrenuk/video/7699190546060872982",
+  "found_at": "2026-10-22T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "פורמט engagement-bait — 'Social media is cool because you can post this video and everyone will clap along in the comments', לא תיעוד שדה של האכלה/מים/חינוך."
+ },
+ {
+  "video_id": "7699029178347228449",
+  "asset": "acf",
+  "source_page": "pg_036",
+  "source_url": "https://www.tiktok.com/@worldfoodprogramme/video/7699029178347228449",
+  "found_at": "2026-10-22T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "הקשר אחר ברור ותוכן מדיניות — מזוהה במפורש 'עזה' (לא אפריקה), טקסט על קיצוץ מימון מטעם מחסור מימון, ללא תיעוד שדה של ילדים."
+ },
+ {
+  "video_id": "7699008349618162952",
+  "asset": "acf",
+  "source_page": "pg_040",
+  "source_url": "https://www.tiktok.com/@sos_cv_botswana/video/7699008349618162952",
+  "found_at": "2026-10-22T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
  }
 ]
