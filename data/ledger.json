@@ -15788,5 +15788,104 @@
   "found_at": "2026-10-22T00:10:00Z",
   "status": "rejected",
   "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7699625584585968909",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7699625584585968909",
+  "found_at": "2026-10-23T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "קצר מדי (8 שניות, מתחת לתקרת המינימום 10 שניות לפי config)."
+ },
+ {
+  "video_id": "7699507323340950814",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7699507323340950814",
+  "found_at": "2026-10-23T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7699477365713423646",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7699477365713423646",
+  "found_at": "2026-10-23T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7699585690719227157",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7699585690719227157",
+  "found_at": "2026-10-23T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — ילד רוקד בודד על רקע קיר לבנים, ללא תיעוד פעילות סיוע; פורמט שנדחה שוב ושוב בעבר."
+ },
+ {
+  "video_id": "7699520023068495124",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7699520023068495124",
+  "found_at": "2026-10-23T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — הגשת אורז מסיר שחור לקהל ילדים, מבנה לבנים אדום; קטגוריה שנדחה שוב ושוב בעבר כחוזרת."
+ },
+ {
+  "video_id": "7699491063605644596",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7699491063605644596",
+  "found_at": "2026-10-23T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — הגשת אורז מסיר שחור לקהל ילדים, מבנה לבנים אדום; קטגוריה שנדחה שוב ושוב בעבר כחוזרת."
+ },
+ {
+  "video_id": "7699339887350222100",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7699339887350222100",
+  "found_at": "2026-10-23T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — ילדה רוקדת בודדת על רקע קיר לבנים, ללא תיעוד פעילות סיוע; פורמט שנדחה שוב ושוב בעבר."
+ },
+ {
+  "video_id": "7699601305664228622",
+  "asset": "acf",
+  "source_page": "pg_026",
+  "source_url": "https://www.tiktok.com/@compassioninternational/video/7699601305664228622",
+  "found_at": "2026-10-23T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן UGC/טסטימוניאל של משפיען מול למצלמה, ללא ילדים וללא תיעוד שדה — לא תוכן שדה ישיר."
+ },
+ {
+  "video_id": "7699485546065726734",
+  "asset": "acf",
+  "source_page": "pg_032",
+  "source_url": "https://www.tiktok.com/@savethechildrenus/video/7699485546065726734",
+  "found_at": "2026-10-23T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן מדיניות אמריקאי מקומי — פרוגרם 'Head Start' בארהב, דמות עם חולצה Juneteenth/מסר פוליטי — לא תיעוד שדה באפריקה."
+ },
+ {
+  "video_id": "7699530468298886432",
+  "asset": "acf",
+  "source_page": "pg_033",
+  "source_url": "https://www.tiktok.com/@savechildrenuk/video/7699530468298886432",
+  "found_at": "2026-10-23T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7699556830564994317",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7699556830564994317",
+  "found_at": "2026-10-23T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן אדבוקסי/הסברתי — אישה מדברת על 'ending childhood hunger... takes more than raising our voices', ללא ילדים או תיעוד שדה."
  }
 ]
