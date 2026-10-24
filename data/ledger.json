@@ -15887,5 +15887,95 @@
   "found_at": "2026-10-23T00:10:00Z",
   "status": "rejected",
   "reject_reason": "תוכן אדבוקסי/הסברתי — אישה מדברת על 'ending childhood hunger... takes more than raising our voices', ללא ילדים או תיעוד שדה."
+ },
+ {
+  "video_id": "7699880231389105439",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7699880231389105439",
+  "found_at": "2026-10-24T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "ארוך מדי (204 שניות, מעל סף הטווח המותר 180 שניות לפי config)."
+ },
+ {
+  "video_id": "7699899446431223061",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7699899446431223061",
+  "found_at": "2026-10-24T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "קצר מדי (8 שניות, מתחת לתקרת המינימום 10 שניות לפי config)."
+ },
+ {
+  "video_id": "7699708106774727950",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7699708106774727950",
+  "found_at": "2026-10-24T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "קצר מדי (8 שניות, מתחת לתקרת המינימום 10 שניות לפי config)."
+ },
+ {
+  "video_id": "7699786709969456417",
+  "asset": "acf",
+  "source_page": "pg_043",
+  "source_url": "https://www.tiktok.com/@plan.international/video/7699786709969456417",
+  "found_at": "2026-10-24T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "אין נתון משך זמן זמין (None) במטא-דאטה — גם כותרת מצביעה על 'State of the World's Girls report' של plan.international, תוכן דוח אדבוקסי מוכר ולא תיעוד שדה."
+ },
+ {
+  "video_id": "7699847478576696607",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7699847478576696607",
+  "found_at": "2026-10-24T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7699899149495455009",
+  "asset": "acf",
+  "source_page": "pg_033",
+  "source_url": "https://www.tiktok.com/@savechildrenuk/video/7699899149495455009",
+  "found_at": "2026-10-24T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7699815961066491156",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7699815961066491156",
+  "found_at": "2026-10-24T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — ילד בתנוחת תפילה/ידיים מורמות ליד צלחת אורז, קטגוריה שנדחה שוב ושוב בעבר."
+ },
+ {
+  "video_id": "7699698865653435668",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7699698865653435668",
+  "found_at": "2026-10-24T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — הגשת אורז מסיר שחור לקהל ילדים, מבנה לבנים אדום; קטגוריה שנדחה שוב ושוב בעבר כחוזרת."
+ },
+ {
+  "video_id": "7699967068979891486",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7699967068979891486",
+  "found_at": "2026-10-24T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון ירקות בחוץ (ילדים משקים חממת PVC חוץ-ביתית) — לא רלוונטי לנושא טיפול בצמחי בית."
+ },
+ {
+  "video_id": "7699931810192542997",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7699931810192542997",
+  "found_at": "2026-10-24T00:10:00Z",
+  "status": "pending_review",
+  "caption": "One bite at a time, this is what hope looks like 🍚\n\nThree hot meals a day and a full plate in front of her — simple, but life-changing for a child who used to go without.\n\nhttps://ac-fund.org/\n\n#AfricanChildrenFund #ACF #EndChildHunger #FeedAChild #CleanWater #HotMeals #ChildSponsorship #CharityTikTok #NonprofitTikTok #MakeADifference #GivingBack #Africa #DonateToday\n\n📌 תקריב חם על פעוט אוכלת אורז מצלחת ירוקה בשטח פתוח — רגע אותנטי ואישי, שונה מהקטגוריות החוזרות (הגשה/תפילה/ריקוד) שכבר מיוצגות ביומן."
  }
 ]
