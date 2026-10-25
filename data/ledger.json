@@ -15978,5 +15978,95 @@
   "status": "pending_review",
   "caption": "One bite at a time, this is what hope looks like 🍚\n\nThree hot meals a day and a full plate in front of her — simple, but life-changing for a child who used to go without.\n\nhttps://ac-fund.org/\n\n#AfricanChildrenFund #ACF #EndChildHunger #FeedAChild #CleanWater #HotMeals #ChildSponsorship #CharityTikTok #NonprofitTikTok #MakeADifference #GivingBack #Africa #DonateToday\n\n📌 תקריב חם על פעוט אוכלת אורז מצלחת ירוקה בשטח פתוח — רגע אותנטי ואישי, שונה מהקטגוריות החוזרות (הגשה/תפילה/ריקוד) שכבר מיוצגות ביומן.",
   "preview_asset": "batch-330/preview_7699931810192542997.mp4"
+ },
+ {
+  "video_id": "7700082413761842484",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7700082413761842484",
+  "found_at": "2026-10-25T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "קצר מדי (9 שניות, מתחת לתקרת המינימום 10 שניות לפי config)."
+ },
+ {
+  "video_id": "7700362568694516999",
+  "asset": "acf",
+  "source_page": "pg_027",
+  "source_url": "https://www.tiktok.com/@holy_hope_ministr/video/7700362568694516999",
+  "found_at": "2026-10-25T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "קצר מדי (6 שניות, מתחת לתקרת המינימום 10 שניות לפי config); גם כותרת מצביעה על בקשת תרומה אישית — עמוד מקור שכבר סומן כבעייתי."
+ },
+ {
+  "video_id": "7700289467986267412",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7700289467986267412",
+  "found_at": "2026-10-25T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — אותה מערכת 'plate-laying mat' שכבר אושרה פעם אחת ונדחתה שוב ושוב כחוזרת."
+ },
+ {
+  "video_id": "7700224614177377556",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7700224614177377556",
+  "found_at": "2026-10-25T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — אותה מערכת 'plate-laying mat' שכבר אושרה פעם אחת ונדחתה שוב ושוב כחוזרת."
+ },
+ {
+  "video_id": "7700186513539353877",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7700186513539353877",
+  "found_at": "2026-10-25T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — אותה מערכת 'plate-laying mat' שכבר אושרה פעם אחת ונדחתה שוב ושוב כחוזרת."
+ },
+ {
+  "video_id": "7700341778213276942",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7700341778213276942",
+  "found_at": "2026-10-25T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן מופק מותגי (\"A Day in the Life of a Sponsorship Facilitator\") + הקשר אחר ברור — מצולם בפרו (לא אפריקה), אותו דפוס שנדחה בעבר כפעם נוסף."
+ },
+ {
+  "video_id": "7700268297899625742",
+  "asset": "acf",
+  "source_page": "pg_032",
+  "source_url": "https://www.tiktok.com/@savethechildrenus/video/7700268297899625742",
+  "found_at": "2026-10-25T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "ראיון תקשורת (talking head) של נציג בכיר על פוליו — תוכן אדבוקסי/הסברתי לא תיעוד שדה, ללא ילדים."
+ },
+ {
+  "video_id": "7700079211389701389",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7700079211389701389",
+  "found_at": "2026-10-25T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן יום מודעות עם שגריר תאום — 'This #WorldPolioDay', ראיון תקשורת של Angélique Kidjo, לא תיעוד שדה ישיר."
+ },
+ {
+  "video_id": "7700326583730539806",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7700326583730539806",
+  "found_at": "2026-10-25T00:10:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן מוצר לא רלוונטי — פתיחת קופסת Kids Gardening Tool Set לגינון חוץ-ביתי, לא טיפול בצמחי בית."
+ },
+ {
+  "video_id": "7700154456171695381",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7700154456171695381",
+  "found_at": "2026-10-25T00:10:00Z",
+  "status": "pending_review",
+  "caption": "A basket of warmth, hand to hand, child to child 🍌\n\nOur local staff serve matoke and rice to every child in line — three hot meals a day, made possible by people who choose to care.\n\nhttps://ac-fund.org/\n\n#AfricanChildrenFund #ACF #EndChildHunger #FeedAChild #CleanWater #HotMeals #ChildSponsorship #CharityTikTok #NonprofitTikTok #MakeADifference #GivingBack #Africa #DonateToday\n\n📌 מתנדבת מגישה מטוקה (מאוכל עטוף בעלי בננה) ואורז לילדים בתור — זווית הגשה ומזון חדשים שלא נראו עד כה."
  }
 ]
