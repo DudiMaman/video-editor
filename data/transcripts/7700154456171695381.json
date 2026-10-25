@@ -1,0 +1,26 @@
+{
+ "source": "https://www.tiktok.com/@gods__love_ministries/video/7700154456171695381",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 0.5,
+   "end": 4.5,
+   "text": "Where there islove"
+  },
+  {
+   "start": 4.5,
+   "end": 11.0,
+   "text": "Where therejis child goes hungry"
+  },
+  {
+   "start": 11.0,
+   "end": 12.0,
+   "text": "Where there child goes hungry’"
+  },
+  {
+   "start": 15.5,
+   "end": 16.5,
+   "text": "Where there islove, child goes hungry"
+  }
+ ]
+}
