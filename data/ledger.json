@@ -16114,5 +16114,122 @@
   "found_at": "2026-10-26T00:12:00Z",
   "status": "rejected",
   "reject_reason": "תוכן חוזר מדי — אותה מערכת 'plate-laying mat' שכבר אושרה פעם אחת ונדחתה שוב ושוב כחוזרת."
+ },
+ {
+  "video_id": "7700903411616714005",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7700903411616714005",
+  "found_at": "2026-10-27T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "קצר מדי (9 שניות, מתחת לתקרת המינימום 10 שניות לפי config)."
+ },
+ {
+  "video_id": "7700908983657172257",
+  "asset": "acf",
+  "source_page": "pg_043",
+  "source_url": "https://www.tiktok.com/@plan.international/video/7700908983657172257",
+  "found_at": "2026-10-27T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "אין נתון משך זמן זמין (None) במטא-דאטה — גם כותרת על 'Artificial Intelligence' של plan.international, דוח מגמה אדבוקסי מוכר ולא תיעוד שדה."
+ },
+ {
+  "video_id": "7700976973358566687",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7700976973358566687",
+  "found_at": "2026-10-27T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7701009838351912223",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7701009838351912223",
+  "found_at": "2026-10-27T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7701075732260343062",
+  "asset": "sample",
+  "source_page": "pg_004",
+  "source_url": "https://www.tiktok.com/@planta_app/video/7701075732260343062",
+  "found_at": "2026-10-27T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "פנים של אדם (גבר) בפוקוס לאורך מרבית הסרטון בזמן השקייה והטיפול בצמחים — פוסל לפי כלל sample."
+ },
+ {
+  "video_id": "7701065858084293909",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7701065858084293909",
+  "found_at": "2026-10-27T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — הגשת אורז מסיר שחור לקהל ילדים, מבנה לבנים אדום; קטגוריה שנדחה שוב ושוב בעבר כחוזרת."
+ },
+ {
+  "video_id": "7700992530371874049",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7700992530371874049",
+  "found_at": "2026-10-27T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — הגשת אורז מסיר שחור לקהל ילדים, מבנה לבנים אדום; קטגוריה שנדחה שוב ושוב בעבר כחוזרת."
+ },
+ {
+  "video_id": "7700966684559035668",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7700966684559035668",
+  "found_at": "2026-10-27T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — הגשת אורז מסיר שחור לקהל ילדים, מבנה לבנים אדום; קטגוריה שנדחה שוב ושוב בעבר כחוזרת."
+ },
+ {
+  "video_id": "7700822211267054868",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7700822211267054868",
+  "found_at": "2026-10-27T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — ילד בתנוחת תפילה/ידיים מורמות ליד שולחן עם צלחת אורז, קטגוריה שנדחה שוב ושוב בעבר."
+ },
+ {
+  "video_id": "7701033448894450958",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7701033448894450958",
+  "found_at": "2026-10-27T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן מופק מותגי ('A Day in the Life of a Sponsorship Facilitator') + הקשר אחר ברור — מצולם בסירה ליאוני (לא אפריקה), דפוס שנדחה בעבר כפעם נוסף."
+ },
+ {
+  "video_id": "7701053440503319821",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7701053440503319821",
+  "found_at": "2026-10-27T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן אדבוקסי של שגרירת 'Youth Advocate' של UNICEF מדברת על מיגור פוליו למצלמה — לא תיעוד שדה."
+ },
+ {
+  "video_id": "7700929741557288205",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7700929741557288205",
+  "found_at": "2026-10-27T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "ראיון נרטיבי עם 'סהארה, 16' בנפאל — הקשר אחר ברור (לא אפריקה), תוכן אדבוקסי/ריאיוני על משבר אקלים ולא תיעוד שדה."
+ },
+ {
+  "video_id": "7700898520571596033",
+  "asset": "acf",
+  "source_page": "pg_040",
+  "source_url": "https://www.tiktok.com/@sos_cv_botswana/video/7700898520571596033",
+  "found_at": "2026-10-27T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן ארגוני/מודעת אירוע — פלייר ל-'Lo Ojwa Cultural Festival' עם פרטי כרטיסים/מחירים, לא תיעוד שדה."
  }
 ]
