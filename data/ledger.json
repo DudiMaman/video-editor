@@ -16231,5 +16231,113 @@
   "found_at": "2026-10-27T00:12:00Z",
   "status": "rejected",
   "reject_reason": "תוכן ארגוני/מודעת אירוע — פלייר ל-'Lo Ojwa Cultural Festival' עם פרטי כרטיסים/מחירים, לא תיעוד שדה."
+ },
+ {
+  "video_id": "7701461772158373150",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7701461772158373150",
+  "found_at": "2026-10-28T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "קצר מדי (8 שניות, מתחת לתקרת המינימום 10 שניות לפי config)."
+ },
+ {
+  "video_id": "7701379878926568735",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7701379878926568735",
+  "found_at": "2026-10-28T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7701347216702704926",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7701347216702704926",
+  "found_at": "2026-10-28T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7701373850583436565",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7701373850583436565",
+  "found_at": "2026-10-28T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — ילדים בתנוחת תפילה/ידיים מורמות ליד שולחן עם צלחת אורז, קטגוריה שנדחה שוב ושוב בעבר."
+ },
+ {
+  "video_id": "7701294397186673941",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7701294397186673941",
+  "found_at": "2026-10-28T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — הגשת אורז מסיר שחור לקהל ילדים, מבנה לבנים אדום; קטגוריה שנדחה שוב ושוב בעבר כחוזרת."
+ },
+ {
+  "video_id": "7701194788065922325",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7701194788065922325",
+  "found_at": "2026-10-28T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — ילד בודד רוקד עם טקסט 'Adrian is feeling good' על קיר לבנים — פורמט שנדחה שוב ושוב בעבר כחוזרת."
+ },
+ {
+  "video_id": "7701387154353556749",
+  "asset": "acf",
+  "source_page": "pg_026",
+  "source_url": "https://www.tiktok.com/@compassioninternational/video/7701387154353556749",
+  "found_at": "2026-10-28T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן פרסומי/UGC של משפיענית על כתיבת מכתבים לילדים — לא תיעוד שדה, ללא ילדים בפריים."
+ },
+ {
+  "video_id": "7701458354295557389",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7701458354295557389",
+  "found_at": "2026-10-28T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "הקשר אחר ברור — מוצג מפורשות באינדונזיה ('WELCOME TO INDONESIA'), גם פורמט ולוג נרטיבי ולא תיעוד שדה ישיר."
+ },
+ {
+  "video_id": "7701451646546545942",
+  "asset": "acf",
+  "source_page": "pg_037",
+  "source_url": "https://www.tiktok.com/@actionagainsthungeruk/video/7701451646546545942",
+  "found_at": "2026-10-28T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7701436524897783054",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7701436524897783054",
+  "found_at": "2026-10-28T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן לא קשור למיזם — דמות מות תפוח (מסקוט) מחפשת \"אודישן אופיציאלי\" ל-Dancing with the Stars, תוכן בידור פנאי/תקשורת לא קשור למשימה."
+ },
+ {
+  "video_id": "7701294928281734418",
+  "asset": "acf",
+  "source_page": "pg_040",
+  "source_url": "https://www.tiktok.com/@sos_cv_botswana/video/7701294928281734418",
+  "found_at": "2026-10-28T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן ארגוני/מודעת אירוע — פלייר ל-'Lo Ojwa Cultural Festival' עם פרטי כרטיסים/מחירים, לא תיעוד שדה — אותו מקור חוזר שכבר סומן."
+ },
+ {
+  "video_id": "7701432544452971797",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7701432544452971797",
+  "found_at": "2026-10-28T00:12:00Z",
+  "status": "pending_review",
+  "caption": "When playtime is just as important as mealtime 🪀😄\n\nLaughter, games, and a trusted adult who shows up — these small moments of joy matter just as much as the next meal.\n\nhttps://ac-fund.org/\n\n#AfricanChildrenFund #ACF #EndChildHunger #FeedAChild #CleanWater #HotMeals #ChildSponsorship #CharityTikTok #NonprofitTikTok #MakeADifference #GivingBack #Africa #DonateToday\n\n📌 מתנדב/צוות קופץ בחבל קפיצה מול קבוצת ילדים צוחקת ומוחאה — רגע משחק ושמחה, זווית חדשה שמדגישה את הקשר האנושי מעבר להאכלה בלבד."
  }
 ]
