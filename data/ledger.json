@@ -16629,5 +16629,104 @@
   "status": "pending_review",
   "caption": "Bread, milk, and a full belly — that's what today looked like for her 🥛🍞\n\nThree hot meals a day isn't just a promise, it's what your support turns into real food on a real plate, every single day.\n\nhttps://ac-fund.org/\n\n#AfricanChildrenFund #ACF #EndChildHunger #FeedAChild #CleanWater #HotMeals #ChildSponsorship #CharityTikTok #NonprofitTikTok #MakeADifference #GivingBack #Africa #DonateToday\n\n📌 תקריב על ילדה אוכלת לחם ושותה חלב מכוס ורודה — הסרטון מציג מערכת הגשת חלב+לחם שלא נראתה עד כה ביומן, בחרנו תקריב ילדה בוכלת כנציג.",
   "preview_asset": "batch-333/preview_7701746530004323605.mp4"
+ },
+ {
+  "video_id": "7702121196028005662",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7702121196028005662",
+  "found_at": "2026-10-30T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "ארוך מדי (198 שניות, מעל סף הטווח המותר 180 שניות לפי config)."
+ },
+ {
+  "video_id": "7702089701720689950",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7702089701720689950",
+  "found_at": "2026-10-30T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7702167414611479860",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7702167414611479860",
+  "found_at": "2026-10-30T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — ילד בתנוחת תפילה/ידיים מורמות ליד צלחת לחם+חלב, קטגוריה שנדחה שוב ושוב בעבר."
+ },
+ {
+  "video_id": "7702116559904427284",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7702116559904427284",
+  "found_at": "2026-10-30T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — ילדים בתנוחת תפילה/ידיים מורמות ליד כוס ורוד, קטגוריה שנדחה שוב ושוב בעבר."
+ },
+ {
+  "video_id": "7702027666957880577",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7702027666957880577",
+  "found_at": "2026-10-30T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות של אירוע הגשת חלב/לחם — אותו גבר, דלי, רקע כמו בריצה של 7701746530004323605 שאושרה ב-29.10 — מיוצג אותו האירוע."
+ },
+ {
+  "video_id": "7702004119128640788",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7702004119128640788",
+  "found_at": "2026-10-30T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — ילדים בתנוחת תפילה/ידיים מורמות ליד לחם וכוס ורוד, קטגוריה שנדחה שוב ושוב בעבר."
+ },
+ {
+  "video_id": "7701946074914688276",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7701946074914688276",
+  "found_at": "2026-10-30T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — תקריב ילדה אוכלת, זווית הגלולה שאושרה פעמיים קודמים (24.10, 29.10); גם טקסט engagement-bait 'Don't scroll, Watch twice'."
+ },
+ {
+  "video_id": "7702136431786953997",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7702136431786953997",
+  "found_at": "2026-10-30T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "הקשר אחר ברור — מוצג מפורשות באפגניסטן (לא אפריקה), תוכן קל על משקאות טעימה ולא תיעוד שדה."
+ },
+ {
+  "video_id": "7701996547172502798",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7701996547172502798",
+  "found_at": "2026-10-30T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "הקשר אחר ברור ומצוקה גרפית — סיפור על ילדה שנפגעה במתקפה בעזה ואיבדה הוריה, לא תואם לכלל הבריף 'כבוד לא רחמים' והקשר הגיאוגרפי."
+ },
+ {
+  "video_id": "7702129330331208974",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7702129330331208974",
+  "found_at": "2026-10-30T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן פוליטי אמריקאי — \"תהיי מוכנה ליום הבחירות\" (Election Day), לא קשור למשימה."
+ },
+ {
+  "video_id": "7701992635703102728",
+  "asset": "acf",
+  "source_page": "pg_040",
+  "source_url": "https://www.tiktok.com/@sos_cv_botswana/video/7701992635703102728",
+  "found_at": "2026-10-30T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן ארגוני/מודעת אירוע — פלייר ל-'Lo Ojwra Cultural Festival' (חוזר, כבר נדחה ב-25.10), לא תיעוד שדה."
  }
 ]
