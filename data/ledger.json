@@ -16728,5 +16728,122 @@
   "found_at": "2026-10-30T00:12:00Z",
   "status": "rejected",
   "reject_reason": "תוכן ארגוני/מודעת אירוע — פלייר ל-'Lo Ojwra Cultural Festival' (חוזר, כבר נדחה ב-25.10), לא תיעוד שדה."
+ },
+ {
+  "video_id": "7702494247794117919",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7702494247794117919",
+  "found_at": "2026-10-31T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "ארוך מדי (226 שניות, מעל סף הטווח המותר 180 שניות לפי config)."
+ },
+ {
+  "video_id": "7702496627877186839",
+  "asset": "acf",
+  "source_page": "pg_037",
+  "source_url": "https://www.tiktok.com/@actionagainsthungeruk/video/7702496627877186839",
+  "found_at": "2026-10-31T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "קצר מדי (9 שניות, מתחת לתקרת המינימום 10 שניות לפי config)."
+ },
+ {
+  "video_id": "7702460827009420575",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7702460827009420575",
+  "found_at": "2026-10-31T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7702471910952635670",
+  "asset": "acf",
+  "source_page": "pg_043",
+  "source_url": "https://www.tiktok.com/@plan.international/video/7702471910952635670",
+  "found_at": "2026-10-31T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7702525804357471518",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7702525804357471518",
+  "found_at": "2026-10-31T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן דלעת/הלווין חוץ-ביתי, גם פנים של ילדה בפוקוס — לא רלוונטי לנושא טיפול בצמחי בית."
+ },
+ {
+  "video_id": "7702255131475086623",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7702255131475086623",
+  "found_at": "2026-10-31T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חממת PVC חוץ-ביתית — לא רלוונטי לנושא טיפול בצמחי בית."
+ },
+ {
+  "video_id": "7702518358461287700",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7702518358461287700",
+  "found_at": "2026-10-31T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן דרשה/שירה ברחוב — גבר מביע פסוק מקרא (Colossians 4:2) ליד רמקול, ללא ילדים וללא תיעוד פעילות סיוע."
+ },
+ {
+  "video_id": "7702467583202610453",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7702467583202610453",
+  "found_at": "2026-10-31T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — הגשת אורז מסיר שחור לקהל ילדים; קטגוריה שנדחה שוב ושוב בעבר כחוזרת."
+ },
+ {
+  "video_id": "7702382588861664533",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7702382588861664533",
+  "found_at": "2026-10-31T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — הגשת אורז מסיר שחור לקהל ילדים; קטגוריה שנדחה שוב ושוב בעבר כחוזרת."
+ },
+ {
+  "video_id": "7702435003774323989",
+  "asset": "acf",
+  "source_page": "pg_025",
+  "source_url": "https://www.tiktok.com/@baptistnaturekitchen2/video/7702435003774323989",
+  "found_at": "2026-10-31T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תמונת סלפי צוות/צוות עם אחות באתר בנייה — ללא ילדים או תיעוד פעילות סיוע, תמונת צוות אישית/זיכרון ולא תיעוד שדה."
+ },
+ {
+  "video_id": "7702539621804133646",
+  "asset": "acf",
+  "source_page": "pg_026",
+  "source_url": "https://www.tiktok.com/@compassioninternational/video/7702539621804133646",
+  "found_at": "2026-10-31T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "פורמט מונחה על ידי צוות מערבי — עובדת Compassion מספרת/מסבירה על טבח מקומית, אינו תיעוד שדה ישיר אלא הסברה מובילה."
+ },
+ {
+  "video_id": "7702595216510946574",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7702595216510946574",
+  "found_at": "2026-10-31T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן מופק מותגי עם כתב ('Chris Montgomery, Roving Reporter') על שקיעת ערים — לא תיעוד שדה, ללא ילדים במקטע שנבדק."
+ },
+ {
+  "video_id": "7702510216444693792",
+  "asset": "acf",
+  "source_page": "pg_033",
+  "source_url": "https://www.tiktok.com/@savechildrenuk/video/7702510216444693792",
+  "found_at": "2026-10-31T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "קמפיין מותג אמנותי ('Money can't buy happiness') עם לוגו Save the Children — אסתטיקה מותגית ולא תיעוד שדה ישיר."
  }
 ]
