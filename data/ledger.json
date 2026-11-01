@@ -16845,5 +16845,59 @@
   "found_at": "2026-10-31T00:12:00Z",
   "status": "rejected",
   "reject_reason": "קמפיין מותג אמנותי ('Money can't buy happiness') עם לוגו Save the Children — אסתטיקה מותגית ולא תיעוד שדה ישיר."
+ },
+ {
+  "video_id": "7702908678386601229",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7702908678386601229",
+  "found_at": "2026-11-01T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "אין נתון משך זמן זמין (None) במטא-דאטה — לא ניתן לאמת את האורך האמיתי, טויפל בזהירות."
+ },
+ {
+  "video_id": "7702558352106081550",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7702558352106081550",
+  "found_at": "2026-11-01T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חווות משק בחווה בהלווין — לא קשור לטיפול בצמחי בית/זיהוי צמחים."
+ },
+ {
+  "video_id": "7702879047889669397",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7702879047889669397",
+  "found_at": "2026-11-01T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — הגשת אורז מסיר שחור לקהל ילדים; קטגוריה שנדחה שוב ושוב בעבר כחוזרת."
+ },
+ {
+  "video_id": "7702760053555744021",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7702760053555744021",
+  "found_at": "2026-11-01T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — ילדים בתנוחת תפילה/ידיים מורמות ליד לחם+חלב, קטגוריה שנדחה שוב ושוב בעבר."
+ },
+ {
+  "video_id": "7702680163204582708",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7702680163204582708",
+  "found_at": "2026-11-01T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות של אירוע הגשת חלב/לחם — אותה גבר, אותה עריכה, דומה לבריצה של 7701746530004323605 שאושרה ב-29.10."
+ },
+ {
+  "video_id": "7702970555783286030",
+  "asset": "acf",
+  "source_page": "pg_032",
+  "source_url": "https://www.tiktok.com/@savethechildrenus/video/7702970555783286030",
+  "found_at": "2026-11-01T00:12:00Z",
+  "status": "rejected",
+  "reject_reason": "גרפיקה מונפשת/מותגת עם משחק מילים על הלווין ('Things we're ghosting') — אין ילדים או תיעוד שדה, אסתטיקה מותגית בלבד."
  }
 ]
