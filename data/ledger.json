@@ -16899,5 +16899,50 @@
   "found_at": "2026-11-01T00:12:00Z",
   "status": "rejected",
   "reject_reason": "גרפיקה מונפשת/מותגת עם משחק מילים על הלווין ('Things we're ghosting') — אין ילדים או תיעוד שדה, אסתטיקה מותגית בלבד."
+ },
+ {
+  "video_id": "7702568295043468557",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7702568295043468557",
+  "found_at": "2026-11-02T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חממת PVC חוץ-ביתית — לא רלוונטי לנושא טיפול בצמחי בית."
+ },
+ {
+  "video_id": "7703267870624599316",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7703267870624599316",
+  "found_at": "2026-11-02T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות של אירוע הגשת חלב/לחם — אותו גבר, אותה עריכת לחם, קטגוריה שנדחה שוב ושוב בעבר."
+ },
+ {
+  "video_id": "7703216959151803669",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7703216959151803669",
+  "found_at": "2026-11-02T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות של אירוע הגשת חלב/לחם — אותו גבר, אותה עריכת לחם, קטגוריה שנדחה שוב ושוב בעבר."
+ },
+ {
+  "video_id": "7703133593689656596",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7703133593689656596",
+  "found_at": "2026-11-02T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — ילדה בתנוחת תפילה/ידיים מורמות ליד שולחן עם לחם+חלב, קטגוריה שנדחה שוב ושוב בעבר."
+ },
+ {
+  "video_id": "7703052282018991381",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7703052282018991381",
+  "found_at": "2026-11-02T00:14:00Z",
+  "status": "pending_review",
+  "caption": "Pencils, notebooks, a real shot at school 📚\n\nThree hot meals matter, but so does the chance to learn — your support puts school supplies directly in the hands of children who need them.\n\nhttps://ac-fund.org/\n\n#AfricanChildrenFund #ACF #EndChildHunger #FeedAChild #CleanWater #HotMeals #ChildSponsorship #CharityTikTok #NonprofitTikTok #MakeADifference #GivingBack #Africa #DonateToday\n\n📌 חלוקת ציוד לימודי (מחברות, עטים, נייר דבק) לילד יתום — זווית חדשה שלא נראתה עד כה ביומן, מציגה חינוך ולא רק האכלה."
  }
 ]
