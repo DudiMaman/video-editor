@@ -17072,5 +17072,104 @@
   "found_at": "2026-11-03T00:14:00Z",
   "status": "rejected",
   "reject_reason": "פורמט POV אדבוקסי על גישה לחינוך ('Your way to class') — אין ילדים במסגרת, לא תיעוד שדה ישיר."
+ },
+ {
+  "video_id": "7703772522143157511",
+  "asset": "acf",
+  "source_page": "pg_027",
+  "source_url": "https://www.tiktok.com/@holy_hope_ministr/video/7703772522143157511",
+  "found_at": "2026-11-04T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "קצר מדי (7 שניות, מתחת לתקרת המינימום 10 שניות לפי config)."
+ },
+ {
+  "video_id": "7703985864442924320",
+  "asset": "acf",
+  "source_page": "pg_043",
+  "source_url": "https://www.tiktok.com/@plan.international/video/7703985864442924320",
+  "found_at": "2026-11-04T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "אין נתון משך זמן זמין (None) במטא-דאטה — גם כותרת דוח אדבוקסי כללי על סכסוך/משבר אקלים ולא תיעוד שדה."
+ },
+ {
+  "video_id": "7703960753572826399",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7703960753572826399",
+  "found_at": "2026-11-04T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7703944911552335134",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7703944911552335134",
+  "found_at": "2026-11-04T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7703730795860610317",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7703730795860610317",
+  "found_at": "2026-11-04T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "מדריך גידול מיקרוגרינים לאכילה — תוכן גידול מזון/ירקות מאכל, לא טיפול בצמחי בית ולא הצלת/זיהוי צמחים."
+ },
+ {
+  "video_id": "7704018466038140181",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7704018466038140181",
+  "found_at": "2026-11-04T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — מתנדבת (אישה) מגישה חלב+לחם לקהל ילדים — אותה פורמט ויזואלי כמו הגשות חלב+לחם שכבר נדחו שוב ושוב כחוזרות."
+ },
+ {
+  "video_id": "7703967189505756437",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7703967189505756437",
+  "found_at": "2026-11-04T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — אותה סצנת הגשת חלב+לחם שכבר נדחה שוב ושוב כחוזרות."
+ },
+ {
+  "video_id": "7703883977341373717",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7703883977341373717",
+  "found_at": "2026-11-04T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — אותה סצנת הגשת חלב+לחם שכבר נדחה שוב ושוב כחוזרות."
+ },
+ {
+  "video_id": "7703876044066966805",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7703876044066966805",
+  "found_at": "2026-11-04T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — אותה סצנת הגשת חלב+לחם שכבר נדחה שוב ושוב כחוזרות."
+ },
+ {
+  "video_id": "7704040022957182215",
+  "asset": "acf",
+  "source_page": "pg_027",
+  "source_url": "https://www.tiktok.com/@holy_hope_ministr/video/7704040022957182215",
+  "found_at": "2026-11-04T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "פורמט engagement-bait ('can you plz leave a heart in your favorite color') — מקור חוזר מוכר לדפוסי רחמים/תגובות."
+ },
+ {
+  "video_id": "7704040975890468109",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7704040975890468109",
+  "found_at": "2026-11-04T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "פורמט הפרכת-מיתוס מופק ('Girls should not drink milk during menstruation... JUST KIDDING') על בריאות מחזור — לא תיעוד שדה ישיר, פורמט נרטיבי/הסברתי."
  }
 ]
