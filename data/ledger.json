@@ -17171,5 +17171,104 @@
   "found_at": "2026-11-04T00:14:00Z",
   "status": "rejected",
   "reject_reason": "פורמט הפרכת-מיתוס מופק ('Girls should not drink milk during menstruation... JUST KIDDING') על בריאות מחזור — לא תיעוד שדה ישיר, פורמט נרטיבי/הסברתי."
+ },
+ {
+  "video_id": "7704331741967699231",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7704331741967699231",
+  "found_at": "2026-11-05T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "ארוך מדי (197 שניות, מעל סף הטווח המותר 180 שניות לפי config)."
+ },
+ {
+  "video_id": "7704315896189308190",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7704315896189308190",
+  "found_at": "2026-11-05T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "ארוך מדי (194 שניות, מעל סף הטווח המותר 180 שניות לפי config)."
+ },
+ {
+  "video_id": "7704462277721754911",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7704462277721754911",
+  "found_at": "2026-11-05T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "קצר מדי (9 שניות, מתחת לתקרת המינימום 10 שניות לפי config)."
+ },
+ {
+  "video_id": "7704377037493931270",
+  "asset": "acf",
+  "source_page": "pg_027",
+  "source_url": "https://www.tiktok.com/@holy_hope_ministr/video/7704377037493931270",
+  "found_at": "2026-11-05T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "קצר מדי (7 שניות, מתחת לתקרת המינימום 10 שניות לפי config)."
+ },
+ {
+  "video_id": "7704109998955171086",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7704109998955171086",
+  "found_at": "2026-11-05T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "מדריך גידול מיקרוגרינים — תוכן גידול מזון, לא טיפול בצמחי בית."
+ },
+ {
+  "video_id": "7704340931566112021",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7704340931566112021",
+  "found_at": "2026-11-05T00:14:00Z",
+  "status": "pending_review",
+  "caption": "Watermelon, bananas, and a line of smiles 🍉🍌\n\nFresh fruit isn't a treat here — it's part of what three hot meals a day can look like when a community shows up for its children.\n\nhttps://ac-fund.org/\n\n#AfricanChildrenFund #ACF #EndChildHunger #FeedAChild #CleanWater #HotMeals #ChildSponsorship #CharityTikTok #NonprofitTikTok #MakeADifference #GivingBack #Africa #DonateToday\n\n📌 חלוקת פרי טרי (אבטיח ובננות) לקהל ילדים — מאכל חדש שלא נראה עד כה ביומן, מגוון מהגשות אורז/לחם/מטוקה."
+ },
+ {
+  "video_id": "7704249091064139009",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7704249091064139009",
+  "found_at": "2026-11-05T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן לא ברור — אישה שוזרת/קולעת עלי דקל, ללא הקשר משלים להאכלה/מים/חינוך וללא טקסט מבהיר את הפעילות."
+ },
+ {
+  "video_id": "7704170870415346964",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7704170870415346964",
+  "found_at": "2026-11-05T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות — אותה חלוקת צ'אפאטי שאושרה ב-03.11 (7703680330468822278) — אותו גבר, אותה ערימת לחם, אותה קערה אדומה, אותה רקע."
+ },
+ {
+  "video_id": "7704315233698909454",
+  "asset": "acf",
+  "source_page": "pg_026",
+  "source_url": "https://www.tiktok.com/@compassioninternational/video/7704315233698909454",
+  "found_at": "2026-11-05T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן נרטיבי/אדבוקסי מופק — \"Poverty often tells a child their future is an empty page\", מסגרת דרמטית ולא תיעוד שדה ישיר."
+ },
+ {
+  "video_id": "7704405900383096096",
+  "asset": "acf",
+  "source_page": "pg_036",
+  "source_url": "https://www.tiktok.com/@worldfoodprogramme/video/7704405900383096096",
+  "found_at": "2026-11-05T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7704331490636680462",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7704331490636680462",
+  "found_at": "2026-11-05T00:14:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן פוליטי אמריקאי — משפיענית מדברת על סיום הבחירות האמריקאיות, לא קשור למשימה."
  }
 ]
