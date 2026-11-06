@@ -17271,5 +17271,122 @@
   "found_at": "2026-11-05T00:14:00Z",
   "status": "rejected",
   "reject_reason": "תוכן פוליטי אמריקאי — משפיענית מדברת על סיום הבחירות האמריקאיות, לא קשור למשימה."
+ },
+ {
+  "video_id": "7704815760547335437",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7704815760547335437",
+  "found_at": "2026-11-06T00:15:00Z",
+  "status": "rejected",
+  "reject_reason": "אין נתון משך זמן זמין (None) במטא-דאטה — גם כותרת נוסטלגית אישית של ארוע הלווין מלפני עשור שנים, לא תיעוד שדה רלוונטי."
+ },
+ {
+  "video_id": "7704753401954929934",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7704753401954929934",
+  "found_at": "2026-11-06T00:15:00Z",
+  "status": "rejected",
+  "reject_reason": "אין נתון משך זמן זמין (None) במטא-דאטה — גם כותרת על שיטפון הרסני מצביעה — תוכן דוח/אזערת מדיניות ולא תיעוד שדה."
+ },
+ {
+  "video_id": "7704702920972897566",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7704702920972897566",
+  "found_at": "2026-11-06T00:15:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7704687325451668766",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7704687325451668766",
+  "found_at": "2026-11-06T00:15:00Z",
+  "status": "rejected",
+  "reject_reason": "קובץ ללא זרם וידאו (קול בלבד) — photo/slideshow post."
+ },
+ {
+  "video_id": "7704759340137205012",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7704759340137205012",
+  "found_at": "2026-11-06T00:15:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות — אותה חלוקת צ'אפאטי שאושרה ב-03.11 (7703680330468822278) — אותו גבר, אותה ערימת לחם, אותה רקע."
+ },
+ {
+  "video_id": "7704676755470175508",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7704676755470175508",
+  "found_at": "2026-11-06T00:15:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות — אותה חלוקת צ'אפאטי שאושרה ב-03.11 — אותו גבר, אותה ערימת לחם, אותה רקע."
+ },
+ {
+  "video_id": "7704638997733068053",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7704638997733068053",
+  "found_at": "2026-11-06T00:15:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות — אותה פרי (אבטיח+בננה) ואותה אירוע שאושר ב-05.11 (7704340931566112021)."
+ },
+ {
+  "video_id": "7704536159384243477",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7704536159384243477",
+  "found_at": "2026-11-06T00:15:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות — אותה אירוע הגשת פרי (אבטיח+בננה) שאושר ב-05.11 (7704340931566112021)."
+ },
+ {
+  "video_id": "7704802482932747538",
+  "asset": "acf",
+  "source_page": "pg_027",
+  "source_url": "https://www.tiktok.com/@holy_hope_ministr/video/7704802482932747538",
+  "found_at": "2026-11-06T00:15:00Z",
+  "status": "rejected",
+  "reject_reason": "פורמט engagement-bait ('would you stay 10 second to help our kinds find in life please') — מקור חוזר מוכר לדפוסי רחמים."
+ },
+ {
+  "video_id": "7704722316403526926",
+  "asset": "acf",
+  "source_page": "pg_030",
+  "source_url": "https://www.tiktok.com/@childfundinternational/video/7704722316403526926",
+  "found_at": "2026-11-06T00:15:00Z",
+  "status": "rejected",
+  "reject_reason": "מונטאז' טסטימוניאלי מופק על מכתבי חסות — מספר ילדים/סצנות שונות ערוכות יחד, לא תיעוד שדה ישיר."
+ },
+ {
+  "video_id": "7704687014788091150",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7704687014788091150",
+  "found_at": "2026-11-06T00:15:00Z",
+  "status": "rejected",
+  "reject_reason": "קולאז' כתבות חדשות על משבי מים בעולם עם ציוני דרום חד-משמעיים (עזה, מיאנמר, קייב) — תוכן אדבוקסי פרוש ללא תיעוד שדה, כמה הקשרי גיאוגרפיים סותרים."
+ },
+ {
+  "video_id": "7704715177538653472",
+  "asset": "acf",
+  "source_page": "pg_036",
+  "source_url": "https://www.tiktok.com/@worldfoodprogramme/video/7704715177538653472",
+  "found_at": "2026-11-06T00:15:00Z",
+  "status": "rejected",
+  "reject_reason": "ראיון טוקינג-הד משרדי/מדיניות על משבר בתימן — הקשר אחר ברור ותוכן מדיניות לא תיעוד שדה."
+ },
+ {
+  "video_id": "7704794890449800478",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7704794890449800478",
+  "found_at": "2026-11-06T00:15:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן לא קשור למיזם — סקצ' קומי עם מסקוט תפוח במשרד, לא קשור לילדים/האכלה/חינוך."
  }
 ]
