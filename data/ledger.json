@@ -17496,5 +17496,77 @@
   "found_at": "2026-11-07T00:13:00Z",
   "status": "rejected",
   "reject_reason": "פגישה עם מסקוט Thomas the Tank Engine בתחנת רכבת בלונדון — הקשר מקומי בברור במערב, תוכן שיווקי/מסקוט."
+ },
+ {
+  "video_id": "7705305091187690760",
+  "asset": "acf",
+  "source_page": "pg_027",
+  "source_url": "https://www.tiktok.com/@holy_hope_ministr/video/7705305091187690760",
+  "found_at": "2026-11-08T00:13:00Z",
+  "status": "rejected",
+  "reject_reason": "קצר מדי (8 שניות, מתחת לתקרת המינימום 10 שניות לפי config)."
+ },
+ {
+  "video_id": "7705139720518454542",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7705139720518454542",
+  "found_at": "2026-11-08T00:13:00Z",
+  "status": "pending_review",
+  "caption": "Those tiny gnats hovering over your soil? Here's the fix 🪰🌱\n\nFungus gnats love damp, overwatered soil — a simple DIY rinse can clear them out fast. Snap a photo in Planty any time you're not sure what's going on with a houseplant.\n\nhttps://planty-app.com/\n\n#PlantIdentification #PlantIdentifier #PlantID #PlantCare #PlantTips #PlantTikTok #Houseplants #PlantLovers #GardeningTips #PlantyApp #WhatPlantIsThis #PlantIdentification #PlantID #PlantIdentifier #IdentifyPlants #PlantApp #NatureTok #PlantTikTok #PlantyApp\n\n📌 טיפול בזבובי פטריות (fungus gnats) בעציץ בית — פתרון DIY ביתי, ללא פנים, תואם בדיוק לנושא טיפול בצמחי בית."
+ },
+ {
+  "video_id": "7705509439910022420",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7705509439910022420",
+  "found_at": "2026-11-08T00:13:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — הגשת אורז מסיר שחור לקהל ילדים; קטגוריה שנדחה שוב ושוב בעבר כחוזרת."
+ },
+ {
+  "video_id": "7705427035052723476",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7705427035052723476",
+  "found_at": "2026-11-08T00:13:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות — אותה אירוע הגשת פרי (אבטיח+בננה) שאושר ב-05.11 (7704340931566112021)."
+ },
+ {
+  "video_id": "7705360442226478357",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7705360442226478357",
+  "found_at": "2026-11-08T00:13:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חוזר מדי — ילד בתנוחת תפילה/ידיים מורמות ליד שולחן עם לחם+חלב, קטגוריה שנדחה שוב ושוב בעבר."
+ },
+ {
+  "video_id": "7705440737277594893",
+  "asset": "acf",
+  "source_page": "pg_032",
+  "source_url": "https://www.tiktok.com/@savethechildrenus/video/7705440737277594893",
+  "found_at": "2026-11-08T00:13:00Z",
+  "status": "rejected",
+  "reject_reason": "הקשר אחר ברור — ראיון עובדת צוות על המלחמה באוקראינה (לא אפריקה), לא תיעוד שדה."
+ },
+ {
+  "video_id": "7705428966672239885",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7705428966672239885",
+  "found_at": "2026-11-08T00:13:00Z",
+  "status": "rejected",
+  "reject_reason": "מצוקה גרפית של פיצוץ/הפצצה בעזה — לא תואם לכלל הבריף 'כבוד לא רחמים', הקשר אחר ברור."
+ },
+ {
+  "video_id": "7705382407112789261",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7705382407112789261",
+  "found_at": "2026-11-08T00:13:00Z",
+  "status": "rejected",
+  "reject_reason": "ראיון מצוקה עם נערה בשם 'Norhan' — הקשר אחר ברור (לא אפריקה, כנראה מזרח התיכון), מצוקה גרפית ולא תואם לכלל הבריף."
  }
 ]
