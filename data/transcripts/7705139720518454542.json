@@ -1,0 +1,26 @@
+{
+ "source": "https://www.tiktok.com/@seed2spoon/video/7705139720518454542",
+ "kind": "ocr",
+ "cues": [
+  {
+   "start": 2.0,
+   "end": 3.5,
+   "text": "Try this easy, DIY solution!"
+  },
+  {
+   "start": 3.5,
+   "end": 4.0,
+   "text": "DIY solution!"
+  },
+  {
+   "start": 6.5,
+   "end": 8.5,
+   "text": "parts water"
+  },
+  {
+   "start": 9.5,
+   "end": 10.0,
+   "text": "Wateras usual"
+  }
+ ]
+}
