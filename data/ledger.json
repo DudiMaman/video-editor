@@ -17569,5 +17569,86 @@
   "found_at": "2026-11-08T00:13:00Z",
   "status": "rejected",
   "reject_reason": "ראיון מצוקה עם נערה בשם 'Norhan' — הקשר אחר ברור (לא אפריקה, כנראה מזרח התיכון), מצוקה גרפית ולא תואם לכלל הבריף."
+ },
+ {
+  "video_id": "7705143623356108063",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7705143623356108063",
+  "found_at": "2026-11-09T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הדרכת גינון חיצוני — חיבור חישוקי PVC לערוגות מוגבהות לגידול ירקות; מחוץ לנושא (האפליקציה עוסקת בצמחי בית בלבד, לא גינון חוץ/ירקות)."
+ },
+ {
+  "video_id": "7705876607541546260",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7705876607541546260",
+  "found_at": "2026-11-09T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילדה בתנוחת תפילה מול צלחת פרי, חוזר על הפורמט (עץ/תנוחת תפילה) שכבר אושר פעם אחת ב-5/11; שומרים על גיוון בלדג'ר."
+ },
+ {
+  "video_id": "7705851735570500865",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7705851735570500865",
+  "found_at": "2026-11-09T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — אישה מגישה חלב ולחם מקערת כביסה לתור ילדים; תוכן חוזר מדי על אירוע חלוקת מזון דומה."
+ },
+ {
+  "video_id": "7705803614035512597",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7705803614035512597",
+  "found_at": "2026-11-09T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות — אותו צילום/אירוע בדיוק כמו 7705851735570500865 (אותה אישה, אותה קערת חלב, אותו רקע), ילד/ה שונה בלבד."
+ },
+ {
+  "video_id": "7705743668220546325",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7705743668220546325",
+  "found_at": "2026-11-09T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הכותרת 'Supporting widows' — מיקוד באלמנות/מבוגרות ולא בילדים; לא תואם למסר הממוקד-ילדים של ACF."
+ },
+ {
+  "video_id": "7705649094529715477",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7705649094529715477",
+  "found_at": "2026-11-09T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש אוכל (אורז/דייסה) לתור ילדים; חוזר על אותו פורמט 'מבוגר מגיש מזון לתור' שכבר מיוצג בבאטץ' הזה."
+ },
+ {
+  "video_id": "7705944797504146702",
+  "asset": "acf",
+  "source_page": "pg_030",
+  "source_url": "https://www.tiktok.com/@childfundinternational/video/7705944797504146702",
+  "found_at": "2026-11-09T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן מתוזמר/מותג — פרק פתיחה לסדרה ארגונית קבועה ('ChildFund's Recipe of the Week series for the holiday season'), לא תיעוד שטח ספונטני."
+ },
+ {
+  "video_id": "7705835039505861902",
+  "asset": "acf",
+  "source_page": "pg_032",
+  "source_url": "https://www.tiktok.com/@savethechildrenus/video/7705835039505861902",
+  "found_at": "2026-11-09T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן פרסומי/נושא זר — ראיון עם נהג NASCAR (Erik Jones) ממותג Dollar Tree/Legacy Motor Club, ללא קשר לילדי אפריקה או תיעוד שטח."
+ },
+ {
+  "video_id": "7705890339625684238",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7705890339625684238",
+  "found_at": "2026-11-09T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "ציטוט דתי/מוטיבציוני ('Sunday reminder from Jesus') ללא משך וידאו תקין (duration חסר) — לא תיעוד שטח, לא עומד בקריטריוני הסינון הטכני."
  }
 ]
