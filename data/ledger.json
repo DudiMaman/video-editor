@@ -17650,5 +17650,141 @@
   "found_at": "2026-11-09T00:30:00Z",
   "status": "rejected",
   "reject_reason": "ציטוט דתי/מוטיבציוני ('Sunday reminder from Jesus') ללא משך וידאו תקין (duration חסר) — לא תיעוד שטח, לא עומד בקריטריוני הסינון הטכני."
+ },
+ {
+  "video_id": "7706186886322097439",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7706186886322097439",
+  "found_at": "2026-11-10T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "פוסט תמונה/סליידשואו (הורדה החזירה קובץ אודיו בלבד, אין זרם וידאו) — לא כשיר לשיפוט ויזואלי."
+ },
+ {
+  "video_id": "7706171664110865695",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7706171664110865695",
+  "found_at": "2026-11-10T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "פוסט תמונה/סליידשואו (הורדה החזירה קובץ אודיו בלבד, אין זרם וידאו) — לא כשיר לשיפוט ויזואלי."
+ },
+ {
+  "video_id": "7706097020389362964",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7706097020389362964",
+  "found_at": "2026-11-10T00:30:00Z",
+  "status": "pending_review",
+  "output_asset": "",
+  "caption": "This is what joy looks like. 🙌\n\nOur team on the ground doesn't just deliver meals — they show up, they play, they build real trust with every child, one visit at a time.\n\nHelp us keep showing up for kids like these.\n\nhttps://ac-fund.org/\n\n#AfricanChildrenFund #ACF #EndChildHunger #FeedAChild #CleanWater #HotMeals #ChildSponsorship #CharityTikTok #NonprofitTikTok #MakeADifference #GivingBack #Africa #DonateToday\n\n📌 תיעוד שטח אותנטי — איש צוות משחק עם הילדים (קפיצה בחבל), לא חלוקת מזון; תוכן חיובי ורענן שלא נראה עד כה בלדג'ר, פנים גלויות וברורות, ללא מיקום מזוהה (לא סותר)."
+ },
+ {
+  "video_id": "7706263332453387526",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7706263332453387526",
+  "found_at": "2026-11-10T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילד עם קערה מול ערימת פרי (אבטיח/בננות), חוזר על אותו פורמט חלוקת פרי שאושר ונדחה חוזר בעבר (לאחרונה 5/11 ו-9/11)."
+ },
+ {
+  "video_id": "7706176250083167509",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7706176250083167509",
+  "found_at": "2026-11-10T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש חלב/לחם לילדים מול תור ארוך; חוזר על פורמט 'מבוגר מגיש מזון לתור' שמיוצג רבות בלדג'ר."
+ },
+ {
+  "video_id": "7706026366185000212",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7706026366185000212",
+  "found_at": "2026-11-10T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש דייסה/אורז לתור ילדים מול אותו בניין לבנים אדום; אותו סוג תוכן שנדחה כבר ב-9/11."
+ },
+ {
+  "video_id": "7706199492017655060",
+  "asset": "acf",
+  "source_page": "pg_023",
+  "source_url": "https://www.tiktok.com/@godsplan.orphanagecentre/video/7706199492017655060",
+  "found_at": "2026-11-10T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "בקשת תרומה אישית — צילום מסך של עמוד GoFundMe (gofund.me/benjamin-post-14aug) לילד ספציפי; לא תיעוד שטח, פוסל לפי כלל 'אין בקשות כסף אישיות'."
+ },
+ {
+  "video_id": "7706241882388598036",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7706241882388598036",
+  "found_at": "2026-11-10T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 9 שניות — מתחת לסף המינימלי (10 שניות) שהוגדר ב-config."
+ },
+ {
+  "video_id": "7706313424677899533",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7706313424677899533",
+  "found_at": "2026-11-10T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 256 שניות — מעל הסף המקסימלי (180 שניות) שהוגדר ב-config."
+ },
+ {
+  "video_id": "7706218241022086432",
+  "asset": "acf",
+  "source_page": "pg_043",
+  "source_url": "https://www.tiktok.com/@plan.international/video/7706218241022086432",
+  "found_at": "2026-11-10T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך וידאו חסר (duration=None) וגם הכותרת מזהה מפורשות את עזה ('#Gaza') — הקשר גיאוגרפי סותר במפורש."
+ },
+ {
+  "video_id": "7706229383471582467",
+  "asset": "acf",
+  "source_page": "pg_033",
+  "source_url": "https://www.tiktok.com/@savechildrenuk/video/7706229383471582467",
+  "found_at": "2026-11-10T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הכותרת מזהה מפורשות את עזה ('After winter storms hit Gaza...') — הקשר גיאוגרפי סותר במפורש, לא אפריקה."
+ },
+ {
+  "video_id": "7706264010315828494",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7706264010315828494",
+  "found_at": "2026-11-10T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הכותרת מזהה מפורשות את סודאן ('This year in #Sudan, armed drones...') — תיעוד קונפליקט/מצוקה גרפית, לא תואם לבריף."
+ },
+ {
+  "video_id": "7706124516170239246",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7706124516170239246",
+  "found_at": "2026-11-10T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן אדבוקסי/קריאה למדיניות ('Share and call on parties to conflict...') — אדבוקסיה על חשבון תיעוד שטח, פוסל לפי הבריף."
+ },
+ {
+  "video_id": "7706181042817797408",
+  "asset": "acf",
+  "source_page": "pg_036",
+  "source_url": "https://www.tiktok.com/@worldfoodprogramme/video/7706181042817797408",
+  "found_at": "2026-11-10T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן מדיניות/אדבוקסי ('What if we could act before a climate shock becomes a hunger crisis?') — לא תיעוד שטח של ילדים."
+ },
+ {
+  "video_id": "7706106749513780487",
+  "asset": "acf",
+  "source_page": "pg_040",
+  "source_url": "https://www.tiktok.com/@sos_cv_botswana/video/7706106749513780487",
+  "found_at": "2026-11-10T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "פרסום אירוע/כרטיסים ('Tickets are still available! Visit www.webtickets.co.bw...') — הודעה ארגונית/אירוע, לא תיעוד שטח; תבנית חוזרת מ-pg_040."
  }
 ]
