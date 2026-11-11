@@ -17787,5 +17787,168 @@
   "found_at": "2026-11-10T00:30:00Z",
   "status": "rejected",
   "reject_reason": "פרסום אירוע/כרטיסים ('Tickets are still available! Visit www.webtickets.co.bw...') — הודעה ארגונית/אירוע, לא תיעוד שטח; תבנית חוזרת מ-pg_040."
+ },
+ {
+  "video_id": "7706557925715692830",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7706557925715692830",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — הכותרת עוסקת בציפורים/גינה חיצונית בחורף ('Want birds in the garden...'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7706542411551362334",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7706542411551362334",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — הכותרת עוסקת בגינה קדמית חיצונית ('Front garden looking bare...'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7706330539682303246",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7706330539682303246",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — ריבוי רוזמרין במסגרת 'Holiday gifts from your garden', מוצג כגידול גינה חיצוני ולא כצמח בית."
+ },
+ {
+  "video_id": "7706686098558225695",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7706686098558225695",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "pending_review",
+  "output_asset": "",
+  "caption": "40 cuttings, one plant, endless possibilities. 🌱\n\nPropagating your favorites is one of the easiest ways to fill your home with greenery — snip, root, and watch new life take over. It's one of the most satisfying plant-parent wins there is.\n\nNot sure what you're growing? Snap a photo and let Planty identify it for you.\n\nhttps://planty-app.com/\n\n#PlantIdentification #PlantIdentifier #PlantID #PlantCare #PlantTips #PlantTikTok #Houseplants #PlantLovers #GardeningTips #PlantyApp #WhatPlantIsThis #PlantIdentification #PlantID #PlantIdentifier #IdentifyPlants #PlantApp #NatureTok #PlantTikTok #PlantyApp\n\n📌 תיעוד ריבוי/שגשוג (propagation) של צמח בית (סנסווריה/שרפיס) במגש שתילה ביתי עם קנקן השקיה — תוכן טרי וחיובי, בתוך הבית, ללא פנים של אנשים פרטיים בפריים."
+ },
+ {
+  "video_id": "7706384477097970996",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7706384477097970996",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — חלוקת פרי (אבטיח/בננות) לילדים מול אותו בניין לבנים אדום; פורמט שחוזר רבות בלדג'ר."
+ },
+ {
+  "video_id": "7706460844284038401",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7706460844284038401",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש אורז/דייסה לתור ילדים מול אותו בניין לבנים אדום; פורמט חוזר רבות."
+ },
+ {
+  "video_id": "7706513734599986453",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7706513734599986453",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות — אותו צילום/אירוע כמו 7706460844284038401 (אותו איש, אותו בניין, אותו תור), ילד/ה שונה בלבד."
+ },
+ {
+  "video_id": "7706591887699758357",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7706591887699758357",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש חלב/לחם לילד מול תור ארוך; פורמט 'מבוגר מגיש מזון' שמיוצג רבות בלדג'ר."
+ },
+ {
+  "video_id": "7706634636763450644",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7706634636763450644",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — קבוצת ילדים עם צלחת חלב/לחם (כוס ורודה, לחם), חוזר על פורמט חלב+לחם שאושר ונדחה חוזר בעבר."
+ },
+ {
+  "video_id": "7706626433094896916",
+  "asset": "acf",
+  "source_page": "pg_023",
+  "source_url": "https://www.tiktok.com/@godsplan.orphanagecentre/video/7706626433094896916",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילדים יושבים על קרקע ואוכלים מצלחות ירוקות, צילום סגור וקרוב שמדגיש תת-תזונה (צלעות נראות) — נוטה למצוקה כאובייקט רחמים, וגם סוגה חוזרת של סצנת האכלה."
+ },
+ {
+  "video_id": "7706596235788012814",
+  "asset": "acf",
+  "source_page": "pg_026",
+  "source_url": "https://www.tiktok.com/@compassioninternational/video/7706596235788012814",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "נרטיב ממוקד-מבוגר — ראש שבט מספר על אובדן ילדים בעבר בקהילה; לא תיעוד ישיר של ילדים (אוכלים/לומדים/מחייכים) כנדרש בבריף."
+ },
+ {
+  "video_id": "7706403038721871118",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7706403038721871118",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "ראיון מצוקה גרפית עם אישה מבוגרת בסומליה ('hunger and drought', 'lost all our livestock') — מצוקה כאובייקט רחמים, וגם לא ממוקד-ילדים כנדרש."
+ },
+ {
+  "video_id": "7706594457956650253",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7706594457956650253",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הקשר גיאוגרפי סותר במפורש — תג מיקום 'New York' וצילומי רחוב בניו יורק, לא אפריקה."
+ },
+ {
+  "video_id": "7706669089741229326",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7706669089741229326",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "פוסט קרוסלת תמונות ('read this carousel') ללא משך וידאו (duration=None) — אינו תוכן וידאו, לא כשיר לשיפוט ויזואלי."
+ },
+ {
+  "video_id": "7706596052266274070",
+  "asset": "acf",
+  "source_page": "pg_033",
+  "source_url": "https://www.tiktok.com/@savechildrenuk/video/7706596052266274070",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הודעת אירוע ארגוני — 'Christmas Jumper Day party' קמפיין גיוס כספים עונתי בבריטניה, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7706609451356130574",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7706609451356130574",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הכותרת מזהה מפורשות את סודאן ('Children in Sudan...drone attacks, drought') — תיעוד קונפליקט/מצוקה גרפית, לא תואם לבריף."
+ },
+ {
+  "video_id": "7706556261826923808",
+  "asset": "acf",
+  "source_page": "pg_043",
+  "source_url": "https://www.tiktok.com/@plan.international/video/7706556261826923808",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן אדבוקסי/כנס מדיניות — 'Why is Plan International at #COP31?' — כנס אקלים, לא תיעוד שטח של ילדים."
+ },
+ {
+  "video_id": "7706495122560666913",
+  "asset": "acf",
+  "source_page": "pg_043",
+  "source_url": "https://www.tiktok.com/@plan.international/video/7706495122560666913",
+  "found_at": "2026-11-11T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן אדבוקסי/כנס מדיניות — נציגת נוער ב-#COP31, לא תיעוד שטח של ילדים."
  }
 ]
