@@ -17951,5 +17951,95 @@
   "found_at": "2026-11-11T00:30:00Z",
   "status": "rejected",
   "reject_reason": "תוכן אדבוקסי/כנס מדיניות — נציגת נוער ב-#COP31, לא תיעוד שטח של ילדים."
+ },
+ {
+  "video_id": "7706929011716410654",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7706929011716410654",
+  "found_at": "2026-11-12T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — עציץ חורפי/bedding plants בגינה חיצונית ('A winter pot usually fades by Christmas...'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7706913397186579743",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7706913397186579743",
+  "found_at": "2026-11-12T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — השקיה בצינור גינה ('Tired of dragging the hose round all summer?'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7706949568058952981",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7706949568058952981",
+  "found_at": "2026-11-12T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש חלב מקערה עם בננות ולחם ברקע, מול תור ילדים ואותו בניין לבנים אדום; פורמט שחוזר רבות בלדג'ר."
+ },
+ {
+  "video_id": "7706907171161885973",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7706907171161885973",
+  "found_at": "2026-11-12T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית/כפילות צילום — אותה סצנת הגשת חלב+בננות+לחם כמו 7706949568058952981 (ככל הנראה אותו אירוע), חוזר על פורמט שכיח."
+ },
+ {
+  "video_id": "7706871492495068437",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7706871492495068437",
+  "found_at": "2026-11-12T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "בקשת תרומה אישית — 'Link in bio to donate' מופיע בכותרת במפורש; פוסל לפי כלל 'אין בקשות כסף אישיות'."
+ },
+ {
+  "video_id": "7706767296194186517",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7706767296194186517",
+  "found_at": "2026-11-12T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן תפילה דתית ('Dear Heavenly Father, we lift up to you the precious orphan children...') — לא תיעוד שטח, תבנית שנפסלה בעבר (Sunday reminder from Jesus)."
+ },
+ {
+  "video_id": "7706847848305888534",
+  "asset": "acf",
+  "source_page": "pg_033",
+  "source_url": "https://www.tiktok.com/@savechildrenuk/video/7706847848305888534",
+  "found_at": "2026-11-12T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "אזהרת תוכן מפורשת על פגיעה מינית בילדים ('Content warning: child sexual violence and abuse') — תוכן אדבוקסי/נתונים סטטיסטיים חמור ולא מתאים לחלוטין לפייפליין, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7706839131216792865",
+  "asset": "acf",
+  "source_page": "pg_036",
+  "source_url": "https://www.tiktok.com/@worldfoodprogramme/video/7706839131216792865",
+  "found_at": "2026-11-12T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 199 שניות — מעל הסף המקסימלי (180 שניות); גם תוכן מדיניות/מימון סיכוני אקלים, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7706963567882423574",
+  "asset": "acf",
+  "source_page": "pg_037",
+  "source_url": "https://www.tiktok.com/@actionagainsthungeruk/video/7706963567882423574",
+  "found_at": "2026-11-12T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן אדבוקסי — מיקוד באלימות מגדרית (GBV) כלפי נשים ונערות במשברים, לא ממוקד-ילדים ולא תיעוד שטח."
+ },
+ {
+  "video_id": "7706933328716303638",
+  "asset": "acf",
+  "source_page": "pg_043",
+  "source_url": "https://www.tiktok.com/@plan.international/video/7706933328716303638",
+  "found_at": "2026-11-12T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "פרסום דוח/אדבוקסיה ('Our new report...') על השפעת זעזועי אקלים על נערות — תוכן מדיניות, לא תיעוד שטח."
  }
 ]
