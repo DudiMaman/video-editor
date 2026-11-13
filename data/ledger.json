@@ -18041,5 +18041,104 @@
   "found_at": "2026-11-12T00:30:00Z",
   "status": "rejected",
   "reject_reason": "פרסום דוח/אדבוקסיה ('Our new report...') על השפעת זעזועי אקלים על נערות — תוכן מדיניות, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7707315839078305055",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7707315839078305055",
+  "found_at": "2026-11-13T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "פוסט תמונה/סליידשואו (הורדה החזירה קובץ אודיו בלבד, אין זרם וידאו) — לא כשיר לשיפוט ויזואלי."
+ },
+ {
+  "video_id": "7707300287068851486",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7707300287068851486",
+  "found_at": "2026-11-13T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "פוסט תמונה/סליידשואו (הורדה החזירה קובץ אודיו בלבד, אין זרם וידאו) — לא כשיר לשיפוט ויזואלי."
+ },
+ {
+  "video_id": "7707284833382223134",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7707284833382223134",
+  "found_at": "2026-11-13T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון ירקות חיצוני — הכותרת עוסקת מפורשות ב'veg' ו'plot' ('Love growing veg but not how the plot looks?'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7707430194621009183",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7707430194621009183",
+  "found_at": "2026-11-13T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — בניית ערוגות מוגבהות בטרקטור ('Three years ago this month, we built these raised beds!'), מחוץ לנושא צמחי הבית; תבנית חוזרת מ-pg_020."
+ },
+ {
+  "video_id": "7707364907209182484",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7707364907209182484",
+  "found_at": "2026-11-13T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "פורמט דלת-עיסוק מניפולטיבי — 'Every share = A meal, Every comment = A meal', מציג שיתוף/תגובה כתנאי להאכלת ילד; לא תיעוד שטח כן."
+ },
+ {
+  "video_id": "7707307507009522964",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7707307507009522964",
+  "found_at": "2026-11-13T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש אורז לילד מול אותו בניין לבנים אדום; פורמט שחוזר רבות בלדג'ר."
+ },
+ {
+  "video_id": "7707221580341857557",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7707221580341857557",
+  "found_at": "2026-11-13T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — חלוקת פרי (אבטיח/בננות) לילדים מול אותו בניין לבנים אדום; פורמט שחוזר רבות בלדג'ר."
+ },
+ {
+  "video_id": "7707127724539694342",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7707127724539694342",
+  "found_at": "2026-11-13T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש נוסף מגיש אורז לתור ילדים מול אותו בניין לבנים אדום; פורמט חוזר רבות."
+ },
+ {
+  "video_id": "7707324638157655310",
+  "asset": "acf",
+  "source_page": "pg_032",
+  "source_url": "https://www.tiktok.com/@savethechildrenus/video/7707324638157655310",
+  "found_at": "2026-11-13T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הכותרת מזהה מפורשות את עזה ('Another winter is approaching in Gaza') — הקשר גיאוגרפי סותר במפורש, לא אפריקה."
+ },
+ {
+  "video_id": "7707233576818904338",
+  "asset": "acf",
+  "source_page": "pg_040",
+  "source_url": "https://www.tiktok.com/@sos_cv_botswana/video/7707233576818904338",
+  "found_at": "2026-11-13T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 8 שניות — מתחת לסף המינימלי (10 שניות); גם הודעת אירוע/חגיגת בוגר, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7707324385698336032",
+  "asset": "acf",
+  "source_page": "pg_043",
+  "source_url": "https://www.tiktok.com/@plan.international/video/7707324385698336032",
+  "found_at": "2026-11-13T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הכותרת מזהה מפורשות את עזה ('GAZA IS FLOODING') — הקשר גיאוגרפי סותר במפורש, לא אפריקה."
  }
 ]
