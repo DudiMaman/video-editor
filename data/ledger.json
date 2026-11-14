@@ -18140,5 +18140,113 @@
   "found_at": "2026-11-13T00:30:00Z",
   "status": "rejected",
   "reject_reason": "הכותרת מזהה מפורשות את עזה ('GAZA IS FLOODING') — הקשר גיאוגרפי סותר במפורש, לא אפריקה."
+ },
+ {
+  "video_id": "7707672116992150814",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7707672116992150814",
+  "found_at": "2026-11-14T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — עץ פרי בגינה קטנה ('A small garden rarely has room for a fruit tree'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7707656119807659294",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7707656119807659294",
+  "found_at": "2026-11-14T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — גיזום גבול גינה ('Before you cut the whole border down') ופרנניאלים, מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7707801415489424654",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7707801415489424654",
+  "found_at": "2026-11-14T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — חממות חישוקי PVC ('DIY PVC hoop houses'), תבנית חוזרת מ-pg_020 שנדחתה בעבר, מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7707504752245951750",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7707504752245951750",
+  "found_at": "2026-11-14T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילד/ה בודד/ת אוכל/ת אורז מצלחת על הקרקע מול קהל; פורמט שחוזר רבות מאוד בלדג'ר."
+ },
+ {
+  "video_id": "7707591270792760596",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7707591270792760596",
+  "found_at": "2026-11-14T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש אורז לתור ילדים מול אותו בניין לבנים אדום; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7707744525866814740",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7707744525866814740",
+  "found_at": "2026-11-14T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — חלוקת פרי (אבטיח/בננות) מול אותו בניין לבנים אדום; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7707699563104111903",
+  "asset": "acf",
+  "source_page": "pg_026",
+  "source_url": "https://www.tiktok.com/@compassioninternational/video/7707699563104111903",
+  "found_at": "2026-11-14T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "ציטוט דתי/כתבי קודש ('Jesus said, Let the little children come to me...') — תוכן דתי ולא תיעוד שטח ניטרלי, תבנית שנדחתה בעבר."
+ },
+ {
+  "video_id": "7707727634779671822",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7707727634779671822",
+  "found_at": "2026-11-14T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "אין ילדים בפריים כלל — צילום קרוב של תרנגולת בלבד ('The hens came'); לא עומד בדרישת המיקוד-בילדים של ACF."
+ },
+ {
+  "video_id": "7707575884508613920",
+  "asset": "acf",
+  "source_page": "pg_036",
+  "source_url": "https://www.tiktok.com/@worldfoodprogramme/video/7707575884508613920",
+  "found_at": "2026-11-14T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הכותרת מזהה מפורשות את סודאן ('#Sudan: Conflict is driving families from their homes') — הקשר גיאוגרפי סותר במפורש."
+ },
+ {
+  "video_id": "7707732885159070990",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7707732885159070990",
+  "found_at": "2026-11-14T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הקשר גיאוגרפי סותר במפורש — SNAP הוא תוכנית סיוע מזון פדרלית אמריקאית, לא אפריקה."
+ },
+ {
+  "video_id": "7707583859906465032",
+  "asset": "acf",
+  "source_page": "pg_040",
+  "source_url": "https://www.tiktok.com/@sos_cv_botswana/video/7707583859906465032",
+  "found_at": "2026-11-14T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הודעת אירוע ארגוני — הצגת מנחה לערב השנתי (Annual Gala), תבנית חוזרת מ-pg_040, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7707659697389587745",
+  "asset": "acf",
+  "source_page": "pg_043",
+  "source_url": "https://www.tiktok.com/@plan.international/video/7707659697389587745",
+  "found_at": "2026-11-14T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן אדבוקסי/ציטוט מדיניות ('Climate justice is not a favour to young people...') — לא תיעוד שטח."
  }
 ]
