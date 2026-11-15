@@ -18248,5 +18248,50 @@
   "found_at": "2026-11-14T00:30:00Z",
   "status": "rejected",
   "reject_reason": "תוכן אדבוקסי/ציטוט מדיניות ('Climate justice is not a favour to young people...') — לא תיעוד שטח."
+ },
+ {
+  "video_id": "7707880950746713365",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7707880950746713365",
+  "found_at": "2026-11-15T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש אורז לתור ילדים מול אותו בניין לבנים אדום; פורמט שחוזר רבות בלדג'ר."
+ },
+ {
+  "video_id": "7707952614193024277",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7707952614193024277",
+  "found_at": "2026-11-15T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש חלב+לחם לילד/ה; פורמט שחוזר רבות בלדג'ר."
+ },
+ {
+  "video_id": "7708082351384857877",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7708082351384857877",
+  "found_at": "2026-11-15T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית + פורמט מניפולטיבי — חלוקת פרי (אבטיח/בננות) עם הכיתוב 'Your share won't be wasted, 200 unprivileged children will eat', מתנה שיתוף כתנאי להאכלה."
+ },
+ {
+  "video_id": "7708138666740223262",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7708138666740223262",
+  "found_at": "2026-11-15T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "אין ילדים בפריים — נרטיב קולי על נסיעת ג'יפ במדבר לקליניקה מרוחקת, רקע חזותי (דיונות, כיסוי ראש בסגנון כאפייה) מרמז על המזרח התיכון ולא אפריקה; גם פורמט נרטיבי/אדבוקסי על פני תיעוד שטח ישיר."
+ },
+ {
+  "video_id": "7707969231106690337",
+  "asset": "acf",
+  "source_page": "pg_043",
+  "source_url": "https://www.tiktok.com/@plan.international/video/7707969231106690337",
+  "found_at": "2026-11-15T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "נרטיב אדבוקסי ('The climate crisis robbed Gita of her childhood') — מיקוד בילדה בשם לא-אפריקאי (ככל הנראה דרום אסיה) במסגרת סיפור אקלים/קורבנות, לא תיעוד שטח ניטרלי."
  }
 ]
