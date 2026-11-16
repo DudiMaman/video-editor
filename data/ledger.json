@@ -18293,5 +18293,77 @@
   "found_at": "2026-11-15T00:30:00Z",
   "status": "rejected",
   "reject_reason": "נרטיב אדבוקסי ('The climate crisis robbed Gita of her childhood') — מיקוד בילדה בשם לא-אפריקאי (ככל הנראה דרום אסיה) במסגרת סיפור אקלים/קורבנות, לא תיעוד שטח ניטרלי."
+ },
+ {
+  "video_id": "7707806592959368462",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7707806592959368462",
+  "found_at": "2026-11-16T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — חממת כיפת PVC ('our DIY PVC dome'), תבנית חוזרת מ-pg_020, מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7708192524334091551",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7708192524334091551",
+  "found_at": "2026-11-16T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — הכנה לכפור ראשון בגינה חיצונית ('first freeze here in Oklahoma'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7708250393309875476",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7708250393309875476",
+  "found_at": "2026-11-16T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — חלוקת פרי (אבטיח/בננות) מול אותו בניין לבנים אדום; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7708323957568490772",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7708323957568490772",
+  "found_at": "2026-11-16T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש חלב+לחם לילד/ה; פורמט שחוזר רבות בלדג'ר."
+ },
+ {
+  "video_id": "7708422901485161748",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7708422901485161748",
+  "found_at": "2026-11-16T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש אורז+רוטב+אבטיח מול אותו בניין לבנים אדום; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7708498123148086541",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7708498123148086541",
+  "found_at": "2026-11-16T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך וידאו חסר (duration=None) וגם ניסוח דתי ('faith in action') — לא עומד בסינון הטכני וגם תבנית תוכן דתי שנדחתה בעבר."
+ },
+ {
+  "video_id": "7708445041072639245",
+  "asset": "acf",
+  "source_page": "pg_030",
+  "source_url": "https://www.tiktok.com/@childfundinternational/video/7708445041072639245",
+  "found_at": "2026-11-16T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הקשר גיאוגרפי סותר במפורש — הונדורס ('What's cooking in Honduras?'), אמריקה המרכזית ולא אפריקה."
+ },
+ {
+  "video_id": "7708348402379132193",
+  "asset": "acf",
+  "source_page": "pg_036",
+  "source_url": "https://www.tiktok.com/@worldfoodprogramme/video/7708348402379132193",
+  "found_at": "2026-11-16T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן נתונים/אדבוקסי — דיווח סטטיסטי על רמות משבר ברפובליקה הדמוקרטית של קונגו, לא תיעוד שטח ישיר של ילדים."
  }
 ]
