@@ -18365,5 +18365,140 @@
   "found_at": "2026-11-16T00:30:00Z",
   "status": "rejected",
   "reject_reason": "תוכן נתונים/אדבוקסי — דיווח סטטיסטי על רמות משבר ברפובליקה הדמוקרטית של קונגו, לא תיעוד שטח ישיר של ילדים."
+ },
+ {
+  "video_id": "7708784820163284255",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7708784820163284255",
+  "found_at": "2026-11-17T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — עץ פרי בגינה ('Short on space for a fruit tree?'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7708769337611488543",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7708769337611488543",
+  "found_at": "2026-11-17T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — גיזום שיחים שנתי ('Tired of cutting the same shrubs back every year?'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7708884673484573983",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7708884673484573983",
+  "found_at": "2026-11-17T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון ירקות חיצוני — גזר סגול ('Purple carrots'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7708623109795990836",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7708623109795990836",
+  "found_at": "2026-11-17T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילד בודד אוכל אורז/שעועית/אבטיח מול קהל; פורמט 'ילד אוכל' שמיוצג רבות מאוד בלדג'ר, על אף המצב הרוח החיובי."
+ },
+ {
+  "video_id": "7708706548146539828",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7708706548146539828",
+  "found_at": "2026-11-17T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן דתי + כפילות ז'אנרית — ילד בתנוחת תפילה ('We trust God...') מול צלחת פרי (בננה/אבטיח), חוזר על פורמט דתי+פרי שנדחה בעבר."
+ },
+ {
+  "video_id": "7708814636010802453",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7708814636010802453",
+  "found_at": "2026-11-17T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מחלק פרוסות אבטיח לתור ילדים מול אותו בניין לבנים אדום; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7708826769427598606",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7708826769427598606",
+  "found_at": "2026-11-17T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן סטוק/מופק אמריקאי — שתי ילדות רצות בשביל בית פרברי אמריקאי עם דלת סגולה וגינה, לא תיעוד שטח ולא אפריקה."
+ },
+ {
+  "video_id": "7708761927211683092",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7708761927211683092",
+  "found_at": "2026-11-17T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 8 שניות — מתחת לסף המינימלי (10 שניות) שהוגדר ב-config."
+ },
+ {
+  "video_id": "7708863855237106958",
+  "asset": "acf",
+  "source_page": "pg_030",
+  "source_url": "https://www.tiktok.com/@childfundinternational/video/7708863855237106958",
+  "found_at": "2026-11-17T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 2 שניות — מתחת לסף המינימלי (10 שניות) שהוגדר ב-config."
+ },
+ {
+  "video_id": "7708834400410176790",
+  "asset": "acf",
+  "source_page": "pg_033",
+  "source_url": "https://www.tiktok.com/@savechildrenuk/video/7708834400410176790",
+  "found_at": "2026-11-17T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "קמפיין עונתי/חג ('This Christmas...') — הודעה ארגונית/עונתית, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7708861722819448077",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7708861722819448077",
+  "found_at": "2026-11-17T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "נרטיב מצוקה/קונפליקט ('Lost loved ones. Missed school. Cut off from healthcare. 6 months into...') — ככל הנראה סיכום מצב קונפליקט, לא תיעוד שטח ניטרלי."
+ },
+ {
+  "video_id": "7708768988687371551",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7708768988687371551",
+  "found_at": "2026-11-17T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן מחוץ לנושא — שאלת מעורבות בנושא בינה מלאכותית ('keep, change or delete ONE thing about AI'), לא קשור לרעב/ילדים/אפריקה."
+ },
+ {
+  "video_id": "7708826503189974294",
+  "asset": "acf",
+  "source_page": "pg_037",
+  "source_url": "https://www.tiktok.com/@actionagainsthungeruk/video/7708826503189974294",
+  "found_at": "2026-11-17T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "מיקוד במבוגרות/אלימות מגדרית ('No woman should have to risk being abused...') — לא ממוקד-ילדים, תוכן אדבוקסי."
+ },
+ {
+  "video_id": "7708861911210773793",
+  "asset": "acf",
+  "source_page": "pg_043",
+  "source_url": "https://www.tiktok.com/@plan.international/video/7708861911210773793",
+  "found_at": "2026-11-17T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן אדבוקסי/נתונים — 'Did you know girls and young women are among the most vulnerable...', לא תיעוד שטח."
+ },
+ {
+  "video_id": "7708858225684188449",
+  "asset": "acf",
+  "source_page": "pg_043",
+  "source_url": "https://www.tiktok.com/@plan.international/video/7708858225684188449",
+  "found_at": "2026-11-17T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות — אותה פתיחה בדיוק כמו 7708861911210773793 ('Did you know girls and young women are among the most vulnerable...'), אותו קמפיין אדבוקסי."
  }
 ]
