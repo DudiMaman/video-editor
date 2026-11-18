@@ -18500,5 +18500,105 @@
   "found_at": "2026-11-17T00:30:00Z",
   "status": "rejected",
   "reject_reason": "כפילות — אותה פתיחה בדיוק כמו 7708861911210773793 ('Did you know girls and young women are among the most vulnerable...'), אותו קמפיין אדבוקסי."
+ },
+ {
+  "video_id": "7709170746878135583",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7709170746878135583",
+  "found_at": "2026-11-18T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — 'cottage garden', מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7709155418412502303",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7709155418412502303",
+  "found_at": "2026-11-18T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — זריעת פרחי קיץ בגינה לפני הקפאת הקרקע ('before the ground freezes'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7709140761983470879",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7709140761983470879",
+  "found_at": "2026-11-18T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 187 שניות — מעל הסף המקסימלי (180 שניות); גם תוכן גינון חוץ (מבט מהחלון לעבר מחסן הגינה)."
+ },
+ {
+  "video_id": "7709273477622025503",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7709273477622025503",
+  "found_at": "2026-11-18T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — כלי 'Seeding Square' למרווח שתילה בערוגות גינה, תבנית חוזרת מ-pg_020, מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7709073287392939284",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7709073287392939284",
+  "found_at": "2026-11-18T00:30:00Z",
+  "status": "pending_review",
+  "output_asset": "",
+  "caption": "This is what joy looks like. 💃\n\nEvery day, our team sees kids being kids — dancing, laughing, cheering each other on. These small moments of joy matter just as much as the meals we serve.\n\nHelp us keep showing up for moments like this.\n\nhttps://ac-fund.org/\n\n#AfricanChildrenFund #ACF #EndChildHunger #FeedAChild #CleanWater #HotMeals #ChildSponsorship #CharityTikTok #NonprofitTikTok #MakeADifference #GivingBack #Africa #DonateToday\n\n📌 תיעוד שטח אותנטי — ילד רוקד בשמחה מול קהל ילדים, לא קשור לחלוקת מזון; תוכן טרי ושונה מהסוגות החוזרות (אוכל/תפילה), פנים גלויות וברורות, ללא מיקום מזוהה (לא סותר)."
+ },
+ {
+  "video_id": "7708998905387633940",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7708998905387633940",
+  "found_at": "2026-11-18T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — חלוקת פרוסות אבטיח לתור ילדים מול אותו בניין לבנים אדום; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7709155592736132373",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7709155592736132373",
+  "found_at": "2026-11-18T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילד בתנוחת תפילה מול צלחת פרי (בננה/אבטיח); פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7709236014186843413",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7709236014186843413",
+  "found_at": "2026-11-18T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש אורז לתור ילדים מול אותו בניין לבנים אדום; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7709191289878727949",
+  "asset": "acf",
+  "source_page": "pg_026",
+  "source_url": "https://www.tiktok.com/@compassioninternational/video/7709191289878727949",
+  "found_at": "2026-11-18T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "קריאה ישירה לחסות/תרומה ('Sponsor a child today') — בקשת תרומה מפורשת, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7709280914542464269",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7709280914542464269",
+  "found_at": "2026-11-18T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן קטלוג מתנות עונתי ('Goat poop for Christmas?') — פרסום מתנת צדקה לחג, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7709182432183864598",
+  "asset": "acf",
+  "source_page": "pg_037",
+  "source_url": "https://www.tiktok.com/@actionagainsthungeruk/video/7709182432183864598",
+  "found_at": "2026-11-18T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הכותרת מזהה מפורשות את עזה ('Families in Gaza...') — הקשר גיאוגרפי סותר במפורש, לא אפריקה."
  }
 ]
