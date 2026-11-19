@@ -18601,5 +18601,131 @@
   "found_at": "2026-11-18T00:30:00Z",
   "status": "rejected",
   "reject_reason": "הכותרת מזהה מפורשות את עזה ('Families in Gaza...') — הקשר גיאוגרפי סותר במפורש, לא אפריקה."
+ },
+ {
+  "video_id": "7709542159644364062",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7709542159644364062",
+  "found_at": "2026-11-19T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 194 שניות — מעל הסף המקסימלי (180 שניות); גם תוכן גינון חוץ (צמחים מטפסים על קירות/גדרות)."
+ },
+ {
+  "video_id": "7709527372336205087",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7709527372336205087",
+  "found_at": "2026-11-19T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון ירקות חיצוני — גידול אנכי של יבולי קיץ ('summer crops sprawl'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7709511228753857805",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7709511228753857805",
+  "found_at": "2026-11-19T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — פרנניאלים בגינה ('Many perennials flower for a few weeks'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7709660710103551262",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7709660710103551262",
+  "found_at": "2026-11-19T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — גיזום גדר חיה ('heading cut' על גדר חיה), תבנית חוזרת מ-pg_020, מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7709354900139887892",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7709354900139887892",
+  "found_at": "2026-11-19T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש אורז+רוטב+אבטיח לתור ילדים מול אותו בניין לבנים אדום; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7709490044813184277",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7709490044813184277",
+  "found_at": "2026-11-19T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילד בודד אוכל אורז מצלחת על הקרקע מול קהל; פורמט שמיוצג רבות מאוד בלדג'ר."
+ },
+ {
+  "video_id": "7709591415138913588",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7709591415138913588",
+  "found_at": "2026-11-19T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן דתי — כותרת זהה לווידאו שנדחה ב-17/11 ('We trust God with what we cannot control...'), תבנית דתית חוזרת."
+ },
+ {
+  "video_id": "7709563203881078036",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7709563203881078036",
+  "found_at": "2026-11-19T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן דתי — אותה כותרת זהה ('We trust God with what we cannot control...'), כפילות/תבנית דתית חוזרת."
+ },
+ {
+  "video_id": "7709496508168686881",
+  "asset": "acf",
+  "source_page": "pg_033",
+  "source_url": "https://www.tiktok.com/@savechildrenuk/video/7709496508168686881",
+  "found_at": "2026-11-19T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "קמפיין מקומי מזוהה בבריטניה — The Truman Brewery בלונדון, הקשר גיאוגרפי סותר במפורש (מערב, לא אפריקה)."
+ },
+ {
+  "video_id": "7709636713500527885",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7709636713500527885",
+  "found_at": "2026-11-19T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הקשר גיאוגרפי סותר במפורש — 'bodega' אמריקאי, תבנית חוזרת מ-nokidhungry, ארה\"ב ולא אפריקה."
+ },
+ {
+  "video_id": "7709551462317133069",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7709551462317133069",
+  "found_at": "2026-11-19T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 6 שניות — מתחת לסף המינימלי (10 שניות); גם תוכן קולינרי/סלב אמריקאי, לא אפריקה."
+ },
+ {
+  "video_id": "7709533318378786079",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7709533318378786079",
+  "found_at": "2026-11-19T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "אירוע עם שף סלב אמריקאי (Top Chef) — הקשר גיאוגרפי סותר במפורש, ארה\"ב ולא אפריקה."
+ },
+ {
+  "video_id": "7709505611381181727",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7709505611381181727",
+  "found_at": "2026-11-19T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 5 שניות — מתחת לסף המינימלי (10 שניות); גם 'NYC' מפורש בכותרת, ארה\"ב ולא אפריקה."
+ },
+ {
+  "video_id": "7709558740365626642",
+  "asset": "acf",
+  "source_page": "pg_040",
+  "source_url": "https://www.tiktok.com/@sos_cv_botswana/video/7709558740365626642",
+  "found_at": "2026-11-19T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "פרסום אירוע/כרטיסים ('10 days to go and tickets are still available'), תבנית חוזרת מ-pg_040, לא תיעוד שטח."
  }
 ]
