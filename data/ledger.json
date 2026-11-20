@@ -18727,5 +18727,168 @@
   "found_at": "2026-11-19T00:30:00Z",
   "status": "rejected",
   "reject_reason": "פרסום אירוע/כרטיסים ('10 days to go and tickets are still available'), תבנית חוזרת מ-pg_040, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7709913490399530254",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7709913490399530254",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — נביטת שתילי עצים מבלוטים/ערמונים בטבע ('acorn and conker'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7709898639375748383",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7709898639375748383",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — דשא/כיסוח מדשאה ('mower'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7709882686457793822",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7709882686457793822",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 189 שניות — מעל הסף המקסימלי (180 שניות); גם תוכן גינון חוץ (מדרון/גבול גינה)."
+ },
+ {
+  "video_id": "7710003419301399838",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7710003419301399838",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — תוכן 'Throwback Thursday' נוסטלגי על פרויקט הגינה מ-2016, תבנית חוזרת מ-pg_020, מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7710014754718289172",
+  "asset": "acf",
+  "source_page": "pg_023",
+  "source_url": "https://www.tiktok.com/@godsplan.orphanagecentre/video/7710014754718289172",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "pending_review",
+  "output_asset": "",
+  "caption": "Food isn't the only thing these kids need. 🧼\n\nClean hands, warm meals, a chance to learn — it all works together. Today our team delivered more than food: soap, toothpaste, and cooking oil, plus a reminder that someone is looking out for them.\n\nHelp us keep showing up with what these kids actually need.\n\nhttps://ac-fund.org/\n\n#AfricanChildrenFund #ACF #EndChildHunger #FeedAChild #CleanWater #HotMeals #ChildSponsorship #CharityTikTok #NonprofitTikTok #MakeADifference #GivingBack #Africa #DonateToday\n\n📌 תיעוד שטח רענן — חלוקת מוצרי היגיינה (סבון/משחת שיניים) ושמן בישול לקהל ילדים, לא חלוקת מזון כרגילה; מיקום חדש (שדה תירס ברקע, לא בניין הלבנים האדום המוכר), פנים ילדים גלויות, ללא ניסוח דתי או בקשת תרומה מפורשת."
+ },
+ {
+  "video_id": "7709728023213329685",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7709728023213329685",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — חלוקת פרי (אבטיח/בננות) מול אותו בניין לבנים אדום; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7709863850023292181",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7709863850023292181",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילדה עומדת/זזה קלות מול המצלמה, דומה מדי לפורמט 'ילד מופיע מול המצלמה' שאושר כבר ב-18/11; אין פעילות מובחנת."
+ },
+ {
+  "video_id": "7709930462864559380",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7709930462864559380",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילדה בתנוחת תפילה/ברכה (עיניים עצומות, יד מורמת) מול צלחת אורז; פורמט דתי+אוכל שחוזר רבות."
+ },
+ {
+  "video_id": "7709957211753303317",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7709957211753303317",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש חלב+לחם+בננות לילד/ה; פורמט שחוזר רבות בלדג'ר."
+ },
+ {
+  "video_id": "7710012816681438477",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7710012816681438477",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "ניסוח דתי ('thanked God') + יום מודעות עולמי ('#WorldToiletDay') — תוכן אדבוקסי/יום מודעות, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7709681186993425678",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7709681186993425678",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן קטלוג מתנות עונתי ('Unexpected Christmas Gifts'), תבנית חוזרת (כמו 'Goat poop for Christmas'), לא תיעוד שטח."
+ },
+ {
+  "video_id": "7709929619180244246",
+  "asset": "acf",
+  "source_page": "pg_033",
+  "source_url": "https://www.tiktok.com/@savechildrenuk/video/7709929619180244246",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "קמפיין מקומי מזוהה בבריטניה — פתיחת משרד ב-Truman Brewery, הקשר גיאוגרפי סותר במפורש (מערב, לא אפריקה)."
+ },
+ {
+  "video_id": "7709887499337780502",
+  "asset": "acf",
+  "source_page": "pg_033",
+  "source_url": "https://www.tiktok.com/@savechildrenuk/video/7709887499337780502",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "המשך קמפיין Truman Brewery בבריטניה, הקשר גיאוגרפי סותר במפורש (מערב, לא אפריקה)."
+ },
+ {
+  "video_id": "7710021288361839903",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7710021288361839903",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן הסברתי/אדבוקסי על תופעת אל-ניניו ('El Niño... what does it mean'), לא תיעוד שטח ישיר של ילדים."
+ },
+ {
+  "video_id": "7709892117467794718",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7709892117467794718",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 9 שניות — מתחת לסף המינימלי (10 שניות); גם אירוע עם שף סלב אמריקאי, ארה\"ב ולא אפריקה."
+ },
+ {
+  "video_id": "7709853269656472845",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7709853269656472845",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הקשר גיאוגרפי סותר במפורש — 'NYC' בכותרת, ארה\"ב ולא אפריקה."
+ },
+ {
+  "video_id": "7709806473324317960",
+  "asset": "acf",
+  "source_page": "pg_040",
+  "source_url": "https://www.tiktok.com/@sos_cv_botswana/video/7709806473324317960",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הודעת ציון דרך ארגוני ('celebrate 40 years'), לא תיעוד שטח."
+ },
+ {
+  "video_id": "7709818965421198625",
+  "asset": "acf",
+  "source_page": "pg_043",
+  "source_url": "https://www.tiktok.com/@plan.international/video/7709818965421198625",
+  "found_at": "2026-11-20T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הכותרת מזהה מפורשות את קולומביה ('earthquake struck western Colombia') — דרום אמריקה, לא אפריקה."
  }
 ]
