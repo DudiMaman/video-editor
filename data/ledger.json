@@ -18891,5 +18891,167 @@
   "found_at": "2026-11-20T00:30:00Z",
   "status": "rejected",
   "reject_reason": "הכותרת מזהה מפורשות את קולומביה ('earthquake struck western Colombia') — דרום אמריקה, לא אפריקה."
+ },
+ {
+  "video_id": "7710284791869885727",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7710284791869885727",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "זיהוי עצים בטבע לפי גזע ('most trees give themselves away') — גינון/עצי חוץ, מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7710268654054559006",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7710268654054559006",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — גינה על ריצוף ('paving instead of soil'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7710253963391618317",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7710253963391618317",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 217 שניות — מעל הסף המקסימלי (180 שניות); גם תוכן גינון חוץ (גינת חג טרופית)."
+ },
+ {
+  "video_id": "7709965839067352351",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7709965839067352351",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון ירקות חיצוני — זריעת גזר עם ילד ('Tiny carrot seeds + little hands'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7710105608795524372",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7710105608795524372",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש חלב+לחם+בננות לילד/ה; פורמט שחוזר רבות בלדג'ר."
+ },
+ {
+  "video_id": "7710204904341572884",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7710204904341572884",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילד בתנוחת תפילה/ברכה (עיניים עצומות, יד מורמת) מול צלחת אורז; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7710314676453657876",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7710314676453657876",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש דייסה/משקה לילדה מול אותו בניין לבנים אדום; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7710321972147735829",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7710321972147735829",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש דייסה/משקה לתור ילדים מול אותו בניין לבנים אדום; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7710282260448087309",
+  "asset": "acf",
+  "source_page": "pg_026",
+  "source_url": "https://www.tiktok.com/@compassioninternational/video/7710282260448087309",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "עדות תורם/פרסום תוכנית חסות ('Three things I wish I knew before I sponsored a child'), לא תיעוד שטח."
+ },
+ {
+  "video_id": "7710331634666442015",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7710331634666442015",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן קטלוג מתנות עונתי ('favorite Christmas gift'), תבנית חוזרת, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7710370929133587726",
+  "asset": "acf",
+  "source_page": "pg_030",
+  "source_url": "https://www.tiktok.com/@childfundinternational/video/7710370929133587726",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "יום מודעות עולמי — 'World Children's Day', תוכן אדבוקסי/חגיגי, לא תיעוד שטח ישיר."
+ },
+ {
+  "video_id": "7710407790061292814",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7710407790061292814",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הודעת ציון דרך ארגוני ('Eighty years of progress'), לא תיעוד שטח."
+ },
+ {
+  "video_id": "7710222351757217037",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7710222351757217037",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הצהרת שליחות/אדבוקסיה כללית ('A future where every child can dream, speak and be heard'), לא תיעוד שטח."
+ },
+ {
+  "video_id": "7710197237170687265",
+  "asset": "acf",
+  "source_page": "pg_036",
+  "source_url": "https://www.tiktok.com/@worldfoodprogramme/video/7710197237170687265",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן מדיניות/תחזית ('What could shape global hunger in 2027?'), לא תיעוד שטח."
+ },
+ {
+  "video_id": "7710170827743841568",
+  "asset": "acf",
+  "source_page": "pg_036",
+  "source_url": "https://www.tiktok.com/@worldfoodprogramme/video/7710170827743841568",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הכותרת מזהה מפורשות את סודאן ('Samia fled Dilling, #Sudan...') — נרטיב בריחה/קונפליקט, הקשר גיאוגרפי סותר במפורש."
+ },
+ {
+  "video_id": "7710348991338122526",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7710348991338122526",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "אירוע עם שף סלב אמריקאי (Danny Garcia), תבנית חוזרת מ-nokidhungry, ארה\"ב ולא אפריקה."
+ },
+ {
+  "video_id": "7710247143193333023",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7710247143193333023",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 9 שניות — מתחת לסף המינימלי (10 שניות); גם תוכן bodega אמריקאי, ארה\"ב ולא אפריקה."
+ },
+ {
+  "video_id": "7710159284100812040",
+  "asset": "acf",
+  "source_page": "pg_040",
+  "source_url": "https://www.tiktok.com/@sos_cv_botswana/video/7710159284100812040",
+  "found_at": "2026-11-21T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "פרסום אירוע/כרטיסים ('8 days to go...Visit www.webtickets.co.bw'), תבנית חוזרת מ-pg_040, לא תיעוד שטח."
  }
 ]
