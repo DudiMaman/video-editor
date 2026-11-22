@@ -19053,5 +19053,59 @@
   "found_at": "2026-11-21T00:30:00Z",
   "status": "rejected",
   "reject_reason": "פרסום אירוע/כרטיסים ('8 days to go...Visit www.webtickets.co.bw'), תבנית חוזרת מ-pg_040, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7710356272972909854",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7710356272972909854",
+  "found_at": "2026-11-22T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — חממות חישוקי PVC ('People say our PVC hoops wouldn't last a week'), תבנית חוזרת מ-pg_020, מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7710483066296438036",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7710483066296438036",
+  "found_at": "2026-11-22T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילד רוקד מול קהל ילדים מוחא כפיים; דומה מדי לפורמט 'ילד רוקד' שאושר כבר ב-18/11."
+ },
+ {
+  "video_id": "7710660177753623829",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7710660177753623829",
+  "found_at": "2026-11-22T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — חלוקת פרוסות אבטיח מול אותו בניין לבנים אדום; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7710660448932203796",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7710660448932203796",
+  "found_at": "2026-11-22T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות — אותו אירוע חלוקת אבטיח כמו 7710660177753623829, ילד/ה שונה בלבד."
+ },
+ {
+  "video_id": "7710700874875587860",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7710700874875587860",
+  "found_at": "2026-11-22T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות — המשך אותו אירוע חלוקת אבטיח, פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7710517581303549192",
+  "asset": "acf",
+  "source_page": "pg_040",
+  "source_url": "https://www.tiktok.com/@sos_cv_botswana/video/7710517581303549192",
+  "found_at": "2026-11-22T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "פרסום אירוע/כרטיסים ('7 more days to go. Don't be left out'), תבנית חוזרת מ-pg_040, לא תיעוד שטח."
  }
 ]
