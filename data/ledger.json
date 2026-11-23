@@ -19107,5 +19107,68 @@
   "found_at": "2026-11-22T00:30:00Z",
   "status": "rejected",
   "reject_reason": "פרסום אירוע/כרטיסים ('7 more days to go. Don't be left out'), תבנית חוזרת מ-pg_040, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7710356265704213790",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7710356265704213790",
+  "found_at": "2026-11-23T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — מידות ערוגות מוגבהות ('For our 4x8 raised beds'), תבנית חוזרת מ-pg_020, מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7710850304509529364",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7710850304509529364",
+  "found_at": "2026-11-23T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילדה עומדת/זזה קלות מול המצלמה ללא פעילות מובחנת; דומה מדי לפורמט 'ילד מופיע מול המצלמה' שכבר נדחה/אושר בעבר."
+ },
+ {
+  "video_id": "7710929976513645845",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7710929976513645845",
+  "found_at": "2026-11-23T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש מאפה מטוגן (מנדזי) + חלב לתור ילדים מול אותו בניין לבנים אדום; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7711039774118726933",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7711039774118726933",
+  "found_at": "2026-11-23T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "ניסוח אדבוקסי בכותרת ('grooming our kids' ליצירת מקומות עבודה) ללא פעילות מתועדת ברורה — לא תיעוד שטח ניטרלי."
+ },
+ {
+  "video_id": "7711115835183566094",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7711115835183566094",
+  "found_at": "2026-11-23T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "ניסוח דתי ('Love your neighbor'), תבנית תוכן דתי שנדחתה בעבר, לא תיעוד שטח ניטרלי."
+ },
+ {
+  "video_id": "7711094440131169550",
+  "asset": "acf",
+  "source_page": "pg_030",
+  "source_url": "https://www.tiktok.com/@childfundinternational/video/7711094440131169550",
+  "found_at": "2026-11-23T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן הגותי/מופק על אוכל ותרבות ('Food is more than just what's on the table'), דומה לסדרת 'Recipe of the Week' המותגת שנדחתה בעבר."
+ },
+ {
+  "video_id": "7710902252768185613",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7710902252768185613",
+  "found_at": "2026-11-23T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הכותרת מזהה מפורשות את תימן ('Renewed hostilities across Yemen') — הקשר גיאוגרפי סותר במפורש, לא אפריקה."
  }
 ]
