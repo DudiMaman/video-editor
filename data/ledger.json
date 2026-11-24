@@ -19170,5 +19170,131 @@
   "found_at": "2026-11-23T00:30:00Z",
   "status": "rejected",
   "reject_reason": "הכותרת מזהה מפורשות את תימן ('Renewed hostilities across Yemen') — הקשר גיאוגרפי סותר במפורש, לא אפריקה."
+ },
+ {
+  "video_id": "7711397623034285343",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7711397623034285343",
+  "found_at": "2026-11-24T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — גיזום שיחים שחסמו שביל/חלון, מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7711382746832194846",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7711382746832194846",
+  "found_at": "2026-11-24T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "זיהוי עצי מחט/ירוקי-עד בטבע, גינון/עצי חוץ, מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7711366805847051551",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7711366805847051551",
+  "found_at": "2026-11-24T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 194 שניות — מעל הסף המקסימלי (180 שניות); גם תוכן פרנניאלים בגינה."
+ },
+ {
+  "video_id": "7710311975120604447",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7710311975120604447",
+  "found_at": "2026-11-24T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "מתכון בישול שעועית ירוקה ('favorite way to cook green beans') — מחוץ לנושא צמחי הבית לחלוטין."
+ },
+ {
+  "video_id": "7711294753937067270",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7711294753937067270",
+  "found_at": "2026-11-24T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילד בודד אוכל אורז מצלחת על הדשא מול קהל; פורמט שמיוצג רבות מאוד בלדג'ר."
+ },
+ {
+  "video_id": "7711317492102171910",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7711317492102171910",
+  "found_at": "2026-11-24T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש חלב+לחם+בננות לילד/ה; פורמט שחוזר רבות בלדג'ר."
+ },
+ {
+  "video_id": "7711365121724927253",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7711365121724927253",
+  "found_at": "2026-11-24T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילדה רוקדת מול קהל ילדים מוחא כפיים; פורמט 'ילד/ה רוקד/ת' שכבר אושר ב-18/11 וחוזר על עצמו."
+ },
+ {
+  "video_id": "7711403487237557525",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7711403487237557525",
+  "found_at": "2026-11-24T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — אישה מחלקת פרוסות אבטיח+בננות לתור ילדים מול אותו בניין לבנים אדום; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7711468069398367489",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7711468069398367489",
+  "found_at": "2026-11-24T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות — המשך אותו אירוע חלוקת פרי כמו 7711403487237557525, אותה אישה."
+ },
+ {
+  "video_id": "7711328662502542614",
+  "asset": "acf",
+  "source_page": "pg_033",
+  "source_url": "https://www.tiktok.com/@savechildrenuk/video/7711328662502542614",
+  "found_at": "2026-11-24T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן אדבוקסי/כנס מדיניות — 'COP31', לא תיעוד שטח."
+ },
+ {
+  "video_id": "7711295681381666080",
+  "asset": "acf",
+  "source_page": "pg_033",
+  "source_url": "https://www.tiktok.com/@savechildrenuk/video/7711295681381666080",
+  "found_at": "2026-11-24T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "נרטיב קונפליקט/בריחה ('Violence forced thousands of families to flee their homes'), מצוקה כאובייקט רחמים, לא תיעוד שטח ניטרלי."
+ },
+ {
+  "video_id": "7711435725035687190",
+  "asset": "acf",
+  "source_page": "pg_037",
+  "source_url": "https://www.tiktok.com/@actionagainsthungeruk/video/7711435725035687190",
+  "found_at": "2026-11-24T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הכותרת מזהה מפורשות את סודאן ('women and girls of Sudan') — הקשר גיאוגרפי סותר במפורש, גם לא ממוקד-ילדים."
+ },
+ {
+  "video_id": "7711271676750712116",
+  "asset": "acf",
+  "source_page": "pg_040",
+  "source_url": "https://www.tiktok.com/@sos_cv_botswana/video/7711271676750712116",
+  "found_at": "2026-11-24T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "פרסום אירוע/כרטיסים ('only 5 days left! Get your ticket now'), תבנית חוזרת מ-pg_040, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7711423619791932704",
+  "asset": "acf",
+  "source_page": "pg_043",
+  "source_url": "https://www.tiktok.com/@plan.international/video/7711423619791932704",
+  "found_at": "2026-11-24T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך וידאו חסר (duration=None) וגם תוכן אדבוקסי/כנס מדיניות ('#COP31 ended without an overarching climate agreement')."
  }
 ]
