@@ -19296,5 +19296,122 @@
   "found_at": "2026-11-24T00:30:00Z",
   "status": "rejected",
   "reject_reason": "משך וידאו חסר (duration=None) וגם תוכן אדבוקסי/כנס מדיניות ('#COP31 ended without an overarching climate agreement')."
+ },
+ {
+  "video_id": "7711768672402017566",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7711768672402017566",
+  "found_at": "2026-11-25T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — עיצוב גינה יוקרתי, מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7711754032976645407",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7711754032976645407",
+  "found_at": "2026-11-25T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — לבנדר/רודודנדרון בגינה חיצונית (צמחים חורפיים), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7711722182782618910",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7711722182782618910",
+  "found_at": "2026-11-25T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — ורדים הפורחים לאורך עונה ('roses'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7710312397986090270",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7710312397986090270",
+  "found_at": "2026-11-25T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "מתכון בישול (בטטה וגזר קלויים) — מחוץ לנושא צמחי הבית לחלוטין."
+ },
+ {
+  "video_id": "7711606731008150804",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7711606731008150804",
+  "found_at": "2026-11-25T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילד רוקד/מופיע מול קהל ילדים; פורמט שכבר אושר ב-18/11 וחוזר על עצמו שוב ושוב."
+ },
+ {
+  "video_id": "7711674593064258837",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7711674593064258837",
+  "found_at": "2026-11-25T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — אישה מחלקת פרי (אבטיח/בננות) לקהל; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7711778159825374484",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7711778159825374484",
+  "found_at": "2026-11-25T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — אישה מגישה חלב+לחם לתור ילדים; פורמט שחוזר רבות בלדג'ר."
+ },
+ {
+  "video_id": "7711737418541550878",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7711737418541550878",
+  "found_at": "2026-11-25T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תג מיקום מפורש 'Guatemala' — אמריקה המרכזית, לא אפריקה."
+ },
+ {
+  "video_id": "7711795757766020365",
+  "asset": "acf",
+  "source_page": "pg_035",
+  "source_url": "https://www.tiktok.com/@charitywater/video/7711795757766020365",
+  "found_at": "2026-11-25T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "עדויות תודה של תורמים מערביים (ארה\"ב/קנדה, רקעי שלג/דשא) — אין ילדים, אין אפריקה, תוכן תודה לתורמים ולא תיעוד שטח."
+ },
+ {
+  "video_id": "7711798952579845396",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7711798952579845396",
+  "found_at": "2026-11-25T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 7 שניות — מתחת לסף המינימלי (10 שניות) שהוגדר ב-config."
+ },
+ {
+  "video_id": "7711800968521714974",
+  "asset": "acf",
+  "source_page": "pg_030",
+  "source_url": "https://www.tiktok.com/@childfundinternational/video/7711800968521714974",
+  "found_at": "2026-11-25T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "קמפיין גיוס כספים ('Giving Tuesday'), בקשת תרומה עונתית, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7711813803515645206",
+  "asset": "acf",
+  "source_page": "pg_033",
+  "source_url": "https://www.tiktok.com/@savechildrenuk/video/7711813803515645206",
+  "found_at": "2026-11-25T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן קטלוג מתנות עונתי ('Christmas deliveries'), תבנית חוזרת, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7711659936849071374",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7711659936849071374",
+  "found_at": "2026-11-25T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הכותרת מזהה מפורשות את אוקראינה ('UNICEF Ukraine') — הקשר גיאוגרפי סותר במפורש, לא אפריקה."
  }
 ]
