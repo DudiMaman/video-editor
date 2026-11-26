@@ -19413,5 +19413,122 @@
   "found_at": "2026-11-25T00:30:00Z",
   "status": "rejected",
   "reject_reason": "הכותרת מזהה מפורשות את אוקראינה ('UNICEF Ukraine') — הקשר גיאוגרפי סותר במפורש, לא אפריקה."
+ },
+ {
+  "video_id": "7712140498592451871",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7712140498592451871",
+  "found_at": "2026-11-26T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 228 שניות — מעל הסף המקסימלי (180 שניות) שהוגדר ב-config."
+ },
+ {
+  "video_id": "7712125078372224286",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7712125078372224286",
+  "found_at": "2026-11-26T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — עשבי תיבול רב-שנתיים בגינה ('come back from year to year'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7712093899820420382",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7712093899820420382",
+  "found_at": "2026-11-26T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — גבולות גינה ריקים בחורף ('Most borders go bare from November to March'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7710312904104348959",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7710312904104348959",
+  "found_at": "2026-11-26T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 6 שניות — מתחת לסף המינימלי (10 שניות); גם תוכן בישול (עצמות הודו), מחוץ לנושא."
+ },
+ {
+  "video_id": "7712141477664623892",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7712141477664623892",
+  "found_at": "2026-11-26T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — אישה מגישה דייסה/אורז לילד/ה; פורמט שחוזר רבות בלדג'ר."
+ },
+ {
+  "video_id": "7712196622293208341",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7712196622293208341",
+  "found_at": "2026-11-26T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — המשך אותו אירוע הגשת דייסה/אורז, אותה אישה."
+ },
+ {
+  "video_id": "7712022659785166101",
+  "asset": "acf",
+  "source_page": "pg_025",
+  "source_url": "https://www.tiktok.com/@baptistnaturekitchen2/video/7712022659785166101",
+  "found_at": "2026-11-26T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "אין ילדים בפריים כלל — תיעוד תהליך בישול אורז קוקוס בלבד (ללא ילדים), וגם כותרת תודה אישית לתורם ספציפי ('Thank you Anty Idysweet for Sponsoring')."
+ },
+ {
+  "video_id": "7712261284045016334",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7712261284045016334",
+  "found_at": "2026-11-26T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן קטלוג מתנות עונתי ('Unexpected Christmas Gifts Pt. 2'), תבנית חוזרת, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7712132943434632470",
+  "asset": "acf",
+  "source_page": "pg_037",
+  "source_url": "https://www.tiktok.com/@actionagainsthungeruk/video/7712132943434632470",
+  "found_at": "2026-11-26T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן אדבוקסי על אלימות מגדרית ('#gbv'), לא ממוקד-ילדים ולא תיעוד שטח."
+ },
+ {
+  "video_id": "7712153595126222110",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7712153595126222110",
+  "found_at": "2026-11-26T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן חג אמריקאי עם שפים סלב ('Thanksgiving dishes'), ארה\"ב ולא אפריקה."
+ },
+ {
+  "video_id": "7712152014767148302",
+  "asset": "acf",
+  "source_page": "pg_039",
+  "source_url": "https://www.tiktok.com/@nokidhungry/video/7712152014767148302",
+  "found_at": "2026-11-26T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן סלב אמריקאי ('fangirling' על שפים), ארה\"ב ולא אפריקה."
+ },
+ {
+  "video_id": "7712019807582915848",
+  "asset": "acf",
+  "source_page": "pg_040",
+  "source_url": "https://www.tiktok.com/@sos_cv_botswana/video/7712019807582915848",
+  "found_at": "2026-11-26T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "פרסום תחרות/כרטיסים ('Competition Time! WIN! Buy 2 tickets'), לא תיעוד שטח."
+ },
+ {
+  "video_id": "7712007772736359698",
+  "asset": "acf",
+  "source_page": "pg_040",
+  "source_url": "https://www.tiktok.com/@sos_cv_botswana/video/7712007772736359698",
+  "found_at": "2026-11-26T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הודעת אירוע ארגוני ('3 more days to go...celebrate'), תבנית חוזרת מ-pg_040, לא תיעוד שטח."
  }
 ]
