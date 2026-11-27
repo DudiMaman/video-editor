@@ -19530,5 +19530,122 @@
   "found_at": "2026-11-26T00:30:00Z",
   "status": "rejected",
   "reject_reason": "הודעת אירוע ארגוני ('3 more days to go...celebrate'), תבנית חוזרת מ-pg_040, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7712518377968798990",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7712518377968798990",
+  "found_at": "2026-11-27T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 198 שניות — מעל הסף המקסימלי (180 שניות); גם תוכן סחלבים הגדלים בקרקע בחוץ, לא צמחי בית."
+ },
+ {
+  "video_id": "7712495468613340446",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7712495468613340446",
+  "found_at": "2026-11-27T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — עיצוב גינה קטנה, מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7712464121433689374",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7712464121433689374",
+  "found_at": "2026-11-27T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — לילך/פאוניות בגינה ('Lilac by the gate, peonies'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7709998244998155551",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7709998244998155551",
+  "found_at": "2026-11-27T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "סיכום שנתי של רגעי גינה חיצונית ('A few favorite garden moments from this year'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7712344020533464340",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7712344020533464340",
+  "found_at": "2026-11-27T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילד רוקד מול קהל ילדים; פורמט שכבר אושר ב-18/11 וחוזר על עצמו שוב ושוב."
+ },
+ {
+  "video_id": "7712427058365730069",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7712427058365730069",
+  "found_at": "2026-11-27T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מחלק פרוסות אבטיח לתור ילדים; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7712474174194814260",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7712474174194814260",
+  "found_at": "2026-11-27T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — אישה מגישה אורז+רוטב לילד/ה; פורמט שחוזר רבות בלדג'ר."
+ },
+ {
+  "video_id": "7712483919450344710",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7712483919450344710",
+  "found_at": "2026-11-27T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש אורז+רוטב לתור ילדים; פורמט שחוזר רבות בלדג'ר."
+ },
+ {
+  "video_id": "7712531655688211733",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7712531655688211733",
+  "found_at": "2026-11-27T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילד/ה בודד/ת אוכל/ת אורז+אבטיח מול קהל; פורמט שמיוצג רבות מאוד בלדג'ר."
+ },
+ {
+  "video_id": "7712534069736754454",
+  "asset": "acf",
+  "source_page": "pg_033",
+  "source_url": "https://www.tiktok.com/@savechildrenuk/video/7712534069736754454",
+  "found_at": "2026-11-27T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "דוח מחקר/אדבוקסיה לקראת Black Friday — תוכן נתונים/שיווקי מערבי, לא תיעוד שטח."
+ },
+ {
+  "video_id": "7712498064665218317",
+  "asset": "acf",
+  "source_page": "pg_034",
+  "source_url": "https://www.tiktok.com/@unicef/video/7712498064665218317",
+  "found_at": "2026-11-27T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הכותרת מזהה מפורשות את נפאל ('in Nepal') — הקשר גיאוגרפי סותר במפורש, לא אפריקה."
+ },
+ {
+  "video_id": "7712577549724929302",
+  "asset": "acf",
+  "source_page": "pg_037",
+  "source_url": "https://www.tiktok.com/@actionagainsthungeruk/video/7712577549724929302",
+  "found_at": "2026-11-27T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "הכותרת מזהה מפורשות את סודאן ('In Sudan, women and...') — הקשר גיאוגרפי סותר במפורש, גם לא ממוקד-ילדים, מצוקה כאובייקט רחמים."
+ },
+ {
+  "video_id": "7712463808354061576",
+  "asset": "acf",
+  "source_page": "pg_040",
+  "source_url": "https://www.tiktok.com/@sos_cv_botswana/video/7712463808354061576",
+  "found_at": "2026-11-27T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 8 שניות — מתחת לסף המינימלי (10 שניות); גם פרסום אירוע/כרטיסים, תבנית חוזרת מ-pg_040."
  }
 ]
