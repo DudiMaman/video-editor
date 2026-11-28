@@ -19647,5 +19647,122 @@
   "found_at": "2026-11-27T00:30:00Z",
   "status": "rejected",
   "reject_reason": "משך 8 שניות — מתחת לסף המינימלי (10 שניות); גם פרסום אירוע/כרטיסים, תבנית חוזרת מ-pg_040."
+ },
+ {
+  "video_id": "7712889391110180127",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7712889391110180127",
+  "found_at": "2026-11-28T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון ירקות חיצוני — נבטים/פרסניפ בחורף ('winter sprouts and parsnips'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7712867267884616991",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7712867267884616991",
+  "found_at": "2026-11-28T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון ירקות חיצוני — חסה בגינה ('resowing salad every spring'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7712835192800415007",
+  "asset": "sample",
+  "source_page": "pg_016",
+  "source_url": "https://www.tiktok.com/@plantsnap/video/7712835192800415007",
+  "found_at": "2026-11-28T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — עץ פרי משולב בגינה ('fruit tree... carries three'), מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7710301706302524702",
+  "asset": "sample",
+  "source_page": "pg_020",
+  "source_url": "https://www.tiktok.com/@seed2spoon/video/7710301706302524702",
+  "found_at": "2026-11-28T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "גינון חוץ — ערוגת גינה לילדים ('their own little garden bed'), תבנית חוזרת מ-pg_020, מחוץ לנושא צמחי הבית."
+ },
+ {
+  "video_id": "7712776260333636885",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7712776260333636885",
+  "found_at": "2026-11-28T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילד רוקד מול קהל ילדים; פורמט שכבר אושר ב-18/11 וחוזר על עצמו שוב ושוב."
+ },
+ {
+  "video_id": "7712848525670780166",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7712848525670780166",
+  "found_at": "2026-11-28T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית + פורמט מניפולטיבי — איש מגיש אורז+רוטב לתור ילדים עם הכיתוב 'Your share wasn't wasted, 200 children ate', מתנה שיתוף כתנאי להאכלה."
+ },
+ {
+  "video_id": "7712875869718465813",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7712875869718465813",
+  "found_at": "2026-11-28T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — איש מגיש אורז לתור ילדים מול אותו בניין לבנים אדום; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7712928476910718209",
+  "asset": "acf",
+  "source_page": "pg_021",
+  "source_url": "https://www.tiktok.com/@gods__love_ministries/video/7712928476910718209",
+  "found_at": "2026-11-28T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "כפילות ז'אנרית — ילד בתנוחת תפילה (עיניים עצומות, יד מורמת) מול צלחת אורז+שעועית; פורמט שחוזר רבות."
+ },
+ {
+  "video_id": "7712771475178097972",
+  "asset": "acf",
+  "source_page": "pg_025",
+  "source_url": "https://www.tiktok.com/@baptistnaturekitchen2/video/7712771475178097972",
+  "found_at": "2026-11-28T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "אין ילדים בפריים כלל — תיעוד עיבוד/בישול דגים על ידי שני גברים בלבד ('Let's Cook For Humanity'), לא עומד בדרישת המיקוד-בילדים של ACF."
+ },
+ {
+  "video_id": "7712918451181915406",
+  "asset": "acf",
+  "source_page": "pg_028",
+  "source_url": "https://www.tiktok.com/@worldvisionusa/video/7712918451181915406",
+  "found_at": "2026-11-28T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן אדבוקסי על נישואי ילדות ('Child marriage'), לא תיעוד שטח של אוכל/מים/חינוך."
+ },
+ {
+  "video_id": "7712885269141228839",
+  "asset": "acf",
+  "source_page": "pg_036",
+  "source_url": "https://www.tiktok.com/@worldfoodprogramme/video/7712885269141228839",
+  "found_at": "2026-11-28T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "דוח סטטיסטי/אדבוקסי על נקודות רעב חמות, מזהה מפורשות את סודאן ('16 hunger hotspots... Sudan'), לא תיעוד שטח."
+ },
+ {
+  "video_id": "7712892371733613846",
+  "asset": "acf",
+  "source_page": "pg_037",
+  "source_url": "https://www.tiktok.com/@actionagainsthungeruk/video/7712892371733613846",
+  "found_at": "2026-11-28T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "תוכן אדבוקסי/מדיניות על קיצוצי סיוע בריטיים ('UK aid cuts'), לא תיעוד שטח."
+ },
+ {
+  "video_id": "7712780415643307297",
+  "asset": "acf",
+  "source_page": "pg_043",
+  "source_url": "https://www.tiktok.com/@plan.international/video/7712780415643307297",
+  "found_at": "2026-11-28T00:30:00Z",
+  "status": "rejected",
+  "reject_reason": "משך 196 שניות — מעל הסף המקסימלי (180 שניות); גם תוכן אדבוקסי על נישואי ילדות."
  }
 ]
